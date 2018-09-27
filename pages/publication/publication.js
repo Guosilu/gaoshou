@@ -26,27 +26,48 @@ Page({
     files: [],
   },
   formSubmit: function(e) {
-    let files = this.data.files;
-    console.log(files);
-    for (let i = 0; i < files.length;i++) {
-      console.log(files[i]);
-      this.uploadFile(files[i],i);
-    }
-
+    
   },
-  uploadFile: function(path,index) {
+  uploadFile: function(path) {
+    wx.showLoading({
+      title: '上传中...'
+    });
+    let that = this;
     wx.uploadFile({
       url: config.uploadUrl,
       filePath: path,
       name: 'file',
       formData: {
-        openId: wx.getStorageSync('openId'),
-        index: index,
-        action: 'publication'
+        action: 'upload_file'
       },
       success(res) {
-        //const data = res.data
-        //do something
+        console.log(res);
+        that.setData({
+          files: that.data.files.concat(res.data)
+        });
+        wx.hideLoading();
+      }
+    })
+  },
+  deleteFile: function (path) {
+    wx.showLoading({
+      title: '正在删除...'
+    });
+    wx.request({
+      url: config.uploadUrl,
+      method: 'POST',
+      header: {
+        // 'content-type': 'application/json'
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        action: 'delete_file',
+        delete_path: path
+      },
+      success: function (res) {
+        if (res.data == 1) {
+          wx.hideLoading();
+        }
       }
     })
   },
@@ -66,26 +87,32 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        let addFiles = res.tempFilePaths;
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          //files: that.data.files.concat(addFiles)
         });
+        for (let i = 0; i < addFiles.length; i++) {
+          console.log(addFiles[i]);
+          that.uploadFile(addFiles[i]);
+        }
       }
     })
   },
   //删除图片
   delImg: function (e) {
-    var that = this;
-    var id = e.target.dataset.id;
-    var url = that.data.files;
-    var set = [];
-    for (var a = 0; a < url.length; a++) {
-      if (a != id) {
-        set.push(url[a]);
+    let that = this;
+    let id = e.target.dataset.id;
+    let files = that.data.files;
+    let files_new = [];
+    for (var i = 0; i < files.length; i++) {
+      if (i != id) {
+        files_new.push(files[i]);
+      }else {
+        that.deleteFile(files[i]);
       }
     }
     that.setData({
-      files: set
+      files: files_new
     })
   },
   previewImage: function (e) {
