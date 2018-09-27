@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    openId:"",
     img:config.img,
     //swiper
     imgUrls: [
@@ -23,6 +24,7 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
+    files_url: [],
     // 日期插件
     bdate: "2016-09-01",
     btime: "12:01",
@@ -30,7 +32,63 @@ Page({
     etime: "12:01",
   },
   formSubmit:function(e){
-    console.log(e)
+    var that = this;
+    wx.getStorage({
+      key: 'openId',
+      success: function(res) {
+        that.setData({
+          openId:res.data
+        })
+      },
+      fail:function(){
+        wx.showToast({
+          title: '请先登录',
+          icon:'none'
+        });
+      }
+    })
+    var result = e.detail.value;
+    if (result.type == '0' || result.rule.trim() == '' || result.title.trim() == ''){
+        wx.showToast({
+          title: '内容不可为空',
+          icon:'none'
+        })
+    }
+    let files = this.data.files;
+    wx.uploadFile({
+      url: config.uploadUrl,
+      filePath: files[0],
+      name: 'file',
+      formData: {
+        action: 'upload_file'
+      },
+      success:function(res){
+        console.log(res);
+        wx.request({
+          url: config.coreUrl + 'setExhibitApi.php',
+          method: "POST",
+          data: {
+            title: result['title'],
+            type: result['type'],
+            starttime: result['bdate'] + " " + result['btime'],
+            endtime: result['edate'] + " " + result['etime'],
+            rule: result['rule'],
+            thumb: res.data,
+            userid:that.data.openId
+          },
+          dataType: "JSON",
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' // 默认值
+          },
+          success: function(res) {
+            console.log(res)
+          },
+          fail: function(res){
+            console.log(res)
+          }
+        })
+      }
+    })
   },
   //删除图片
   delImg:function(e){
@@ -50,7 +108,11 @@ Page({
   bindAccountChange: function (e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
     if (e.detail.value<1){
-
+      wx.showToast({
+        title: '活动类别不可为空',
+        icon:'none',
+      })
+      return;
     }
     this.setData({
       activityTypeIndex: e.detail.value
