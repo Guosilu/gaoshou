@@ -69,11 +69,6 @@ App({
       }
     })
   },
-  onShow: function() {
-    if (wx.getStorageSync('isLogin')) {
-      this.login();
-    }
-  },
   globalData: {
     userInfo: null
   }

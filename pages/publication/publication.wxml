@@ -1,5 +1,5 @@
 <!--pages/publication/Publication.wxml-->
-<view wx:if="{{isLogin}}">
+{{isLogin}}
 <view>
   <!-- 轮播 -->
   <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -62,5 +62,3 @@
 <view class="weui-btn-area">
   <button class="weui-btn" type="warn" bindtap="showTopTips">提交</button>
 </view>
-</view>
-<view wx:else>您未登录!</view>
