@@ -10,7 +10,8 @@
     "pages/my/my",
     "pages/foot/foot",
     "pages/launch/launch",
-    "pages/exhibit/exhibit"
+    "pages/exhibit/exhibit",
+    "pages/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
