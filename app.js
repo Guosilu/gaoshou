@@ -2,7 +2,7 @@
 const config = require('config/config.js');
 App({
   onLaunch: function () {
-    // 展示本地存储能力11111
+    // 展示本地存储能力11111222222333333
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
