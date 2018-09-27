@@ -2,12 +2,10 @@
 const config = require('config/config.js');
 App({
   onLaunch: function () {
-    // 展示本地存储能力11111222222333333334444445555555555555555555
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
     // 获取用户信息
-    this.login();
+    if (wx.getStorageSync('isLogin')) {
+      this.login();
+    }
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -53,6 +51,7 @@ App({
                   //console.log(data);
                   if (data.data.openId) {
                     wx.setStorageSync('openId', data.data.openId);
+                    wx.setStorageSync('isLogin', true);
                     if (that.openIdReadyCallback) {
                       that.openIdReadyCallback(data.data.openId)
                     }

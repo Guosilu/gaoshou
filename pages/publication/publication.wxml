@@ -1,4 +1,5 @@
 <!--pages/publication/Publication.wxml-->
+{{isLogin}}
 <view>
   <!-- 轮播 -->
   <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">

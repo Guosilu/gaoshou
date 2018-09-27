@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLogin: wx.getStorageSync('openId') ? true : false,
     img: config.img,
     //swiper
     imgUrls: [
