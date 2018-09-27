@@ -26,7 +26,29 @@ Page({
     files: [],
   },
   formSubmit: function(e) {
+    let post = e.detail.value;
+    let that = this;
+    let files = this.data.files;
     
+    for (let i = 0; i < files.length; i++) {
+      let k = i; 
+      if (k == 0) k = '';
+      post['thumb' + k] = files[i];
+    }
+    console.log(post);
+    wx.request({
+      url: config.publicationUrl,
+      method: 'POST',
+      data: {
+        action: 'add',
+        post: post
+      },
+      success: function (res) {
+        if (res.data == 1) {
+          
+        }
+      }
+    })
   },
   uploadFile: function(path) {
     wx.showLoading({
@@ -50,9 +72,6 @@ Page({
     })
   },
   deleteFile: function (path) {
-    wx.showLoading({
-      title: '正在删除...'
-    });
     wx.request({
       url: config.uploadUrl,
       method: 'POST',
@@ -66,7 +85,7 @@ Page({
       },
       success: function (res) {
         if (res.data == 1) {
-          wx.hideLoading();
+          console.log('删除成功');
         }
       }
     })
@@ -100,6 +119,9 @@ Page({
   },
   //删除图片
   delImg: function (e) {
+    wx.showLoading({
+      title: '正在删除...'
+    });
     let that = this;
     let id = e.target.dataset.id;
     let files = that.data.files;
@@ -108,7 +130,8 @@ Page({
       if (i != id) {
         files_new.push(files[i]);
       }else {
-        that.deleteFile(files[i]);
+        console.log(that.deleteFile(files[i]));
+        wx.hideLoading();
       }
     }
     that.setData({
@@ -140,7 +163,8 @@ Page({
    */
   onShow: function () {
     this.setData({
-      isLogin: wx.getStorageSync('isLogin')
+      isLogin: wx.getStorageSync('isLogin'),
+      files: []
     })
   },
 
@@ -148,7 +172,13 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    let files = this.data.files;
+    console.log(files.length);
+    if(files.length > 0) {
+      for (var i = 0; i < files.length; i++) {
+        this.deleteFile(files[i]);
+      }
+    }
   },
 
   /**

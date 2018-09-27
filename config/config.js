@@ -1,8 +1,9 @@
 
 // 定义常量
 const baseUrl = 'https://aa.zdcom.net.cn/';
-const loginUrl = baseUrl + 'gaoshou/api/loginApi.php';
+const loginUrl = baseUrl + 'gaoshou/api/loginApi.php'; 
 const uploadUrl = baseUrl + 'gaoshou/api/uploadApi.php';
+const publicationUrl = baseUrl + 'gaoshou/api/publicationApi.php';
 const coreUrl = baseUrl + "gaoshou/core/";
 const img = baseUrl + "gaoshou/images/";
 
@@ -11,6 +12,7 @@ const img = baseUrl + "gaoshou/images/";
 module.exports = {
   loginUrl: loginUrl,
   uploadUrl: uploadUrl,
+  publicationUrl: publicationUrl,
   coreUrl: coreUrl,
   img: img
 }

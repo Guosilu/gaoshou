@@ -15,7 +15,7 @@
 <view class="page__modules">
   <input class="activityName" name="title" placeholder="请填写作品名称"></input>
   <view class="activityType">
-    <picker name="type" bindchange="bindAccountChange" value="{{activityTypeIndex}}" range="{{activityType}}">
+    <picker name="type" bindchange="bindAccountChange" value="{{activityType[activityTypeIndex]}}" range="{{activityType}}">
       <view class="weui-select" style="background-image: url({{img}}Triangle.png);background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;">{{activityType[activityTypeIndex]}}</view>
     </picker>
   </view>
