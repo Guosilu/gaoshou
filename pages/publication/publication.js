@@ -146,8 +146,7 @@ Page({
    */
   onShow: function () {
     this.setData({
-      isLogin: wx.getStorageSync('isLogin'),
-      files: []
+      isLogin: wx.getStorageSync('isLogin')
     })
   },
 
