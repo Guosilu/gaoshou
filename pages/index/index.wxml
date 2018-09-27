@@ -153,7 +153,7 @@
         <navigator url="{{item.url}}">
           <image src="{{item.thumb}}"></image>
           <view class="listInfo">{{item.title}}
-            <text class="fr">赞{{item.dianzan}} 阅读{{item.liulan}}</text>
+            <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
           </view>
         </navigator>
       </view>
