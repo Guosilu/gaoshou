@@ -30,7 +30,25 @@ Page({
     etime: "12:01",
   },
   formSubmit:function(e){
-    console.log(e)
+    var that = this;
+    var result = e.detail.value;
+    // if (result.type == '0' || result.rule.trim() == '' || result.title.trim() == ''){
+    //     wx.showToast({
+    //       title: '不可为空',
+    //       icon:'none'
+    //     })
+    // }
+    let url = that.data.files;
+    wx.uploadFile({
+      url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
+      filePath: url[0],
+      name: 'file',
+      success(res) {
+        console.log(res);
+
+      }
+    })
+    console.log(url)
   },
   //删除图片
   delImg:function(e){
@@ -50,7 +68,11 @@ Page({
   bindAccountChange: function (e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
     if (e.detail.value<1){
-
+      wx.showToast({
+        title: '活动类别不可为空',
+        icon:'none',
+      })
+      return;
     }
     this.setData({
       activityTypeIndex: e.detail.value
