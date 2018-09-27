@@ -25,6 +25,29 @@ Page({
     //图片上传
     files: [],
   },
+  formSubmit: function(e) {
+    let files = this.data.files;
+    console.log(files);
+    for (let i = 0; i < files.length;i++) {
+      console.log(files[i]);
+      this.uploadFile(files[i]);
+    }
+
+  },
+  uploadFile: function(path) {
+    wx.uploadFile({
+      url: config.uploadUrl, //仅为示例，非真实的接口地址
+      filePath: path,
+      name: 'file',
+      formData: {
+        action: publication
+      },
+      success(res) {
+        //const data = res.data
+        //do something
+      }
+    })
+  },
   bindAccountChange: function (e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
     if (e.detail.value < 1) {
