@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isLogin: wx.getStorageSync('openId') ? true : false,
+    isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
     imgUrls: [
@@ -72,7 +72,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isLogin: wx.getStorageSync('isLogin')
+    })
   },
 
   /**
