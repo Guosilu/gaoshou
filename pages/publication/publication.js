@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isLogin: wx.getStorageSync('openId') ? true : false,
+    isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
     imgUrls: [
@@ -24,6 +24,29 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
+  },
+  formSubmit: function(e) {
+    let files = this.data.files;
+    console.log(files);
+    for (let i = 0; i < files.length;i++) {
+      console.log(files[i]);
+      this.uploadFile(files[i]);
+    }
+
+  },
+  uploadFile: function(path) {
+    wx.uploadFile({
+      url: config.uploadUrl, //仅为示例，非真实的接口地址
+      filePath: path,
+      name: 'file',
+      formData: {
+        action: publication
+      },
+      success(res) {
+        //const data = res.data
+        //do something
+      }
+    })
   },
   bindAccountChange: function (e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
@@ -72,7 +95,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isLogin: wx.getStorageSync('isLogin')
+    })
   },
 
   /**

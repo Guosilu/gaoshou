@@ -1,5 +1,4 @@
 <!--pages/publication/Publication.wxml-->
-{{isLogin}}
 <view>
   <!-- 轮播 -->
   <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -10,6 +9,9 @@
     </block>
   </swiper>
 </view>
+
+<view wx:if="{{isLogin}}">
+<form bindsubmit="formSubmit" bindreset="formReset">
 <view class="page__modules">
   <input class="activityName" placeholder="请填写作品名称"></input>
   <view class="activityType">
@@ -62,3 +64,6 @@
 <view class="weui-btn-area">
   <button class="weui-btn" type="warn" bindtap="showTopTips">提交</button>
 </view>
+</form>
+</view>
+<view wx:else>未登录</view>
