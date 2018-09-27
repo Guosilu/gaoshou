@@ -2,7 +2,7 @@
 const config = require('config/config.js');
 App({
   onLaunch: function () {
-    // 获取用户信息
+    // 获取用户信息ghp 
     if (wx.getStorageSync('isLogin')) {
       this.login();
     }
