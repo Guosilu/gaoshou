@@ -13,9 +13,9 @@
 <view wx:if="{{isLogin}}">
 <form bindsubmit="formSubmit" bindreset="formReset">
 <view class="page__modules">
-  <input class="activityName" placeholder="请填写作品名称"></input>
+  <input class="activityName" name="title" placeholder="请填写作品名称"></input>
   <view class="activityType">
-    <picker bindchange="bindAccountChange" value="{{activityTypeIndex}}" range="{{activityType}}">
+    <picker name="type" bindchange="bindAccountChange" value="{{activityType[activityTypeIndex]}}" range="{{activityType}}">
       <view class="weui-select" style="background-image: url({{img}}Triangle.png);background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;">{{activityType[activityTypeIndex]}}</view>
     </picker>
   </view>
@@ -37,6 +37,7 @@
                   <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                   </view>
+                  <view data-id="{{index}}" bindtap="delImg">删除</view>
                 </block>
               </view>
               <view class="weui-uploader__input-box">
@@ -51,7 +52,7 @@
 </view>
 
 <view class="page__modules">
-  <textarea placeholder="作品说明">
+  <textarea name="introduce" placeholder="作品说明">
   </textarea>
 </view>
 <view class="page__modules">
@@ -62,7 +63,7 @@
   </navigator>
 </view>
 <view class="weui-btn-area">
-  <button class="weui-btn" type="warn" bindtap="showTopTips">提交</button>
+  <button class="weui-btn" type="warn" form-type='submit' bindtap="showTopTips">提交</button>
 </view>
 </form>
 </view>

@@ -1,0 +1,50 @@
+/* pages/detail/detail.wxss */
+.avatar{
+  margin: 10rpx 20rpx;background: #fff;box-sizing: border-box;padding: 15rpx 50rpx;border-radius: 15rpx;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;overflow: hidden;
+}
+.avatar image{
+  width: 120rpx; height:120rpx;float: left;
+}
+.avatar text{
+  display: inline-block;height: 80rpx;line-height: 80rpx;font-size: 28rpx;background: #2d2d2d;color: #fff;padding: 0 15rpx;border-radius: 15rpx;float: right;margin: 20rpx 0
+}
+.works,.unscramble,.fastener,.comment{
+  margin: 30rpx 20rpx;background: #fff;box-sizing: border-box;padding: 15rpx 30rpx;border-radius: 15rpx;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;overflow: hidden;
+}
+.works-cont{
+  padding: 20rpx 0;overflow: hidden;
+}
+.works-cont image{
+  width: 100%;margin: 5rpx 0;
+}
+.mble-cont{
+  padding: 20rpx;
+}
+.connotation{
+  font-size: 32rpx;line-height: 48rpx;border-bottom: 2rpx solid #e0e0e0;
+}
+.ex-btns,.ex-statistics{
+  margin: 20rpx 0;
+}
+.fastener view{
+  width: 189rpx;height: 80rpx;line-height: 80rpx;text-align: center;display: inline-block;
+  margin: 0 15rpx;border-radius: 15rpx;color: #fff;
+}
+.appreciate{
+  background: rgb(255, 114, 20);
+}
+.vote{
+  background: rgb(50, 133, 255);
+}
+.commant{
+  background: rgb(87, 128, 214);
+}
+.comment-detail{
+  overflow: hidden;
+}
+.comment-detail image{
+  width: 120rpx; height:120rpx;float: left;
+}
+.comment-detail text{
+  display: inline-block;line-height: 50rpx;font-size: 28rpx;background: #2d2d2d;color: #fff;padding: 0 15rpx;border-radius: 15rpx;float: left;margin: 20rpx 0;width: 70%;min-height: 80rpx;
+}

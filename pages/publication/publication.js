@@ -26,25 +26,67 @@ Page({
     files: [],
   },
   formSubmit: function(e) {
+    let post = e.detail.value;
+    let that = this;
     let files = this.data.files;
-    console.log(files);
-    for (let i = 0; i < files.length;i++) {
-      console.log(files[i]);
-      this.uploadFile(files[i]);
+    
+    for (let i = 0; i < files.length; i++) {
+      let k = i; 
+      if (k == 0) k = '';
+      post['thumb' + k] = files[i];
     }
-
+    console.log(post);
+    wx.request({
+      url: config.publicationUrl,
+      method: 'POST',
+      data: {
+        action: 'add',
+        post: post
+      },
+      success: function (res) {
+        if (res.data == 1) {
+          
+        }
+      }
+    })
   },
   uploadFile: function(path) {
+    wx.showLoading({
+      title: '上传中...'
+    });
+    let that = this;
     wx.uploadFile({
-      url: config.uploadUrl, //仅为示例，非真实的接口地址
+      url: config.uploadUrl,
       filePath: path,
       name: 'file',
       formData: {
-        action: publication
+        action: 'upload_file'
       },
       success(res) {
-        //const data = res.data
-        //do something
+        console.log(res);
+        that.setData({
+          files: that.data.files.concat(res.data)
+        });
+        wx.hideLoading();
+      }
+    })
+  },
+  deleteFile: function (path) {
+    wx.request({
+      url: config.uploadUrl,
+      method: 'POST',
+      header: {
+        // 'content-type': 'application/json'
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        action: 'delete_file',
+        delete_path: path
+      },
+      success: function (res) {
+        if (res.data == 1) {
+          console.log('删除成功');
+        }
       }
     })
   },
@@ -64,11 +106,36 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        let addFiles = res.tempFilePaths;
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          //files: that.data.files.concat(addFiles)
         });
+        for (let i = 0; i < addFiles.length; i++) {
+          console.log(addFiles[i]);
+          that.uploadFile(addFiles[i]);
+        }
       }
+    })
+  },
+  //删除图片
+  delImg: function (e) {
+    wx.showLoading({
+      title: '正在删除...'
+    });
+    let that = this;
+    let id = e.target.dataset.id;
+    let files = that.data.files;
+    let files_new = [];
+    for (var i = 0; i < files.length; i++) {
+      if (i != id) {
+        files_new.push(files[i]);
+      }else {
+        console.log(that.deleteFile(files[i]));
+        wx.hideLoading();
+      }
+    }
+    that.setData({
+      files: files_new
     })
   },
   previewImage: function (e) {
@@ -96,7 +163,8 @@ Page({
    */
   onShow: function () {
     this.setData({
-      isLogin: wx.getStorageSync('isLogin')
+      isLogin: wx.getStorageSync('isLogin'),
+      files: []
     })
   },
 
@@ -104,7 +172,13 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    let files = this.data.files;
+    console.log(files.length);
+    if(files.length > 0) {
+      for (var i = 0; i < files.length; i++) {
+        this.deleteFile(files[i]);
+      }
+    }
   },
 
   /**
