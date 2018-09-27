@@ -24,18 +24,21 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
+    files_url: []
   },
   formSubmit: function(e) {
+    wx.showLoading({
+      title: '提交中...',
+    });
     let post = e.detail.value;
     let that = this;
     let files = this.data.files;
     
     for (let i = 0; i < files.length; i++) {
-      let k = i; 
-      if (k == 0) k = '';
-      post['thumb' + k] = files[i];
+      this.uploadFile(files[i], post);
     }
-    console.log(post);
+  },
+  formSubmitDo: function(post) {
     wx.request({
       url: config.publicationUrl,
       method: 'POST',
@@ -44,16 +47,16 @@ Page({
         post: post
       },
       success: function (res) {
+        wx.hideLoading();
+        wx.showToast({
+          title: '提交成功！',
+        })
         if (res.data == 1) {
-          
         }
       }
     })
   },
-  uploadFile: function(path) {
-    wx.showLoading({
-      title: '上传中...'
-    });
+  uploadFile: function (path, post) {
     let that = this;
     wx.uploadFile({
       url: config.uploadUrl,
@@ -65,27 +68,17 @@ Page({
       success(res) {
         console.log(res);
         that.setData({
-          files: that.data.files.concat(res.data)
+          files_url: that.data.files_url.concat(res.data)
         });
-        wx.hideLoading();
-      }
-    })
-  },
-  deleteFile: function (path) {
-    wx.request({
-      url: config.uploadUrl,
-      method: 'POST',
-      header: {
-        // 'content-type': 'application/json'
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        action: 'delete_file',
-        delete_path: path
-      },
-      success: function (res) {
-        if (res.data == 1) {
-          console.log('删除成功');
+        let files_url = that.data.files_url
+        let files = that.data.files
+        if (files_url.length==files.length){
+          for (let i = 0; i < files_url.length; i++) {
+            let k = i;
+            if (k == 0) k = '';
+            post['thumb' + k] = files_url[i];
+          }
+          that.formSubmitDo(post);
         }
       }
     })
@@ -108,20 +101,13 @@ Page({
       success: function (res) {
         let addFiles = res.tempFilePaths;
         that.setData({
-          //files: that.data.files.concat(addFiles)
+          files: that.data.files.concat(addFiles)
         });
-        for (let i = 0; i < addFiles.length; i++) {
-          console.log(addFiles[i]);
-          that.uploadFile(addFiles[i]);
-        }
       }
     })
   },
   //删除图片
   delImg: function (e) {
-    wx.showLoading({
-      title: '正在删除...'
-    });
     let that = this;
     let id = e.target.dataset.id;
     let files = that.data.files;
@@ -129,9 +115,6 @@ Page({
     for (var i = 0; i < files.length; i++) {
       if (i != id) {
         files_new.push(files[i]);
-      }else {
-        console.log(that.deleteFile(files[i]));
-        wx.hideLoading();
       }
     }
     that.setData({
@@ -172,13 +155,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    let files = this.data.files;
-    console.log(files.length);
-    if(files.length > 0) {
-      for (var i = 0; i < files.length; i++) {
-        this.deleteFile(files[i]);
-      }
-    }
+
   },
 
   /**
