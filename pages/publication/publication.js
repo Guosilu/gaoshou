@@ -30,16 +30,18 @@ Page({
     console.log(files);
     for (let i = 0; i < files.length;i++) {
       console.log(files[i]);
-      this.uploadFile(files[i]);
+      this.uploadFile(files[i],i);
     }
 
   },
-  uploadFile: function(path) {
+  uploadFile: function(path,index) {
     wx.uploadFile({
       url: config.uploadUrl,
       filePath: path,
       name: 'file',
       formData: {
+        openId: wx.getStorageSync('openId'),
+        index: index,
         action: 'publication'
       },
       success(res) {
@@ -69,6 +71,21 @@ Page({
           files: that.data.files.concat(res.tempFilePaths)
         });
       }
+    })
+  },
+  //删除图片
+  delImg: function (e) {
+    var that = this;
+    var id = e.target.dataset.id;
+    var url = that.data.files;
+    var set = [];
+    for (var a = 0; a < url.length; a++) {
+      if (a != id) {
+        set.push(url[a]);
+      }
+    }
+    that.setData({
+      files: set
     })
   },
   previewImage: function (e) {

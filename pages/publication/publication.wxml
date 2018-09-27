@@ -37,6 +37,7 @@
                   <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                   </view>
+                  <view data-id="{{index}}" bindtap="delImg">删除</view>
                 </block>
               </view>
               <view class="weui-uploader__input-box">
