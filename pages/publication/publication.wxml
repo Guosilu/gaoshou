@@ -62,7 +62,7 @@
   </navigator>
 </view>
 <view class="weui-btn-area">
-  <button class="weui-btn" type="warn" bindtap="showTopTips">提交</button>
+  <button class="weui-btn" type="warn" form-type='submit' bindtap="showTopTips">提交</button>
 </view>
 </form>
 </view>

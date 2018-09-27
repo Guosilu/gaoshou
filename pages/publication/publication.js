@@ -36,11 +36,11 @@ Page({
   },
   uploadFile: function(path) {
     wx.uploadFile({
-      url: config.uploadUrl, //仅为示例，非真实的接口地址
+      url: config.uploadUrl,
       filePath: path,
       name: 'file',
       formData: {
-        action: publication
+        action: 'publication'
       },
       success(res) {
         //const data = res.data
