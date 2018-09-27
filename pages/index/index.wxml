@@ -149,11 +149,11 @@
       <view class="cate_tit">
         推荐活动
       </view>
-      <view class="eventsItem" wx:for="{{eventsList}}" wx:key="*this">
+      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
         <navigator url="{{item.url}}">
-          <image src="{{item.image}}"></image>
+          <image src="{{item.thumb}}"></image>
           <view class="listInfo">{{item.title}}
-            <text class="fr">赞{{item.like}} 评{{item.comment}} 阅读{{item.look}}</text>
+            <text class="fr">赞{{item.dianzan}} 阅读{{item.liulan}}</text>
           </view>
         </navigator>
       </view>

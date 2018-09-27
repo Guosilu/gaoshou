@@ -149,7 +149,25 @@ Page({
           })
         }
       })
-    }
+    };
+    var that = this;
+    wx.request({
+      url: 'http://aa.zdcom.net.cn/gaoshou/api/getlistApi.php',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        wxlist: "1"
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          taglist: res.data
+        });
+
+      }
+    })
   },
   getUserInfo: function(e) {
     console.log(e)
