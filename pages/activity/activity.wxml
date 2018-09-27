@@ -1,0 +1,97 @@
+<!--pages/activity/activity.wxml-->
+<!--index.wxml-->
+<view>
+  <view class="page__bd">
+  <!-- 搜索 -->
+      <view class="weui-search-bar">
+          <view class="weui-search-bar__form">
+              <view class="weui-search-bar__box">
+                  <icon class="weui-icon-search_in-box" type="search" size="16"></icon>
+                  <input type="text" class="weui-search-bar__input" placeholder="" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                  <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                      <icon type="clear" size="16"></icon>
+                  </view>
+              </view>
+              <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                  <icon class="weui-icon-search" type="search" size="16"></icon>
+                  <view class="weui-search-bar__text">请输入您需要的内容</view>
+              </label>
+          </view>
+          <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+      </view>
+      <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+      </view>
+  </view>
+  <view class="page__bd">
+  	<view class="page__modules__activity">
+  		<view class="page__cate__activity">
+  			<image class="" src="{{img}}activity_icon1.png" mode="scaleToFill"></image>
+  			<view class="page__cate__text">
+  				<view class="page_hot">HOT</view>
+  				<view class="page_text_tit">今日活动</view>
+  				<view class="page_text_info">进行中...</view>
+  			</view>
+  		</view>
+  		<view class="page__cate__activity">
+  			<image class="" src="{{img}}activity_icon2.png" mode="scaleToFill"></image>
+  			<view class="page__cate__text">
+  				<view class="page_hot">HOT</view>
+  				<view class="page_text_tit">文字类</view>
+  				<view class="page_text_info">进行中...</view>
+  			</view>
+  		</view>
+  		<view class="page__cate__activity">
+  			<image class="" src="{{img}}activity_icon3.png" mode="scaleToFill"></image>
+  			<view class="page__cate__text">
+  				<view class="page_hot">HOT</view>
+  				<view class="page_text_tit">视频类</view>
+  				<view class="page_text_info">进行中...</view>
+  			</view>
+  		</view>
+  		<view class="page__cate__activity">
+  			<image class="" src="{{img}}activity_icon4.png" mode="scaleToFill"></image>
+  			<view class="page__cate__text">
+  				<view class="page_hot">HOT</view>
+  				<view class="page_text_tit">语音类</view>
+  				<view class="page_text_info">进行中...</view>
+  			</view>
+  		</view>
+  		<view class="page__cate__activity">
+  			<image class="" src="{{img}}activity_icon5.png" mode="scaleToFill"></image>
+  			<view class="page__cate__text">
+  				<view class="page_hot">HOT</view>
+  				<view class="page_text_tit">图片类</view>
+  				<view class="page_text_info">进行中...</view>
+  			</view>
+  		</view>
+  		<view class="page__cate__activity">
+  			<image class="" src="{{img}}activity_icon6.png" mode="scaleToFill"></image>
+  			<view class="page__cate__text">
+  				<view class="page_hot">HOT</view>
+  				<view class="page_text_tit">综合类</view>
+  				<view class="page_text_info">进行中...</view>
+  			</view>
+  		</view>
+  	</view>
+  </view>
+</view>

@@ -1,0 +1,73 @@
+<view class='informat'>
+  <view class='ex-tit'>
+    <image src=''></image>活动名称
+  </view>
+  <view class='ex-cover'>
+    <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg'></image>
+    <view class='ex-int'>活动简介活动简介活动简介活动简介活动简介活动简介活动简介</view>
+  </view>
+</view>
+<view class='ex-btns'>
+  <view class='ex-sponsor'>
+    <view>赞助商1</view>
+    <view>赞助商2</view>
+  </view>
+  <view class='ex-patron'>活动赞助</view>
+</view>
+<view class='ex-statistics'>
+  <view>总人1000  总赞105  总票136654  总评6548  总阅99999</view>
+</view>
+<view class='informat'>
+  <view class='ex-tit'>
+    <image src=''></image>参赛列表
+  </view>
+  <view class='ex-list'>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>1号，赞0票0评0阅0</view>
+    </view>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>2号，赞0票0评0阅0</view>
+    </view>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>3号，赞0票0评0阅0</view>
+    </view>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>4号，赞0票0评0阅0</view>
+    </view>
+  </view>
+</view>
+<view class='ex-btns'>
+  <view class='ex-btn'>参与活动</view>
+  <view class='ex-btn'>发起活动</view>
+</view>
+
+<view class='informat'>
+  <view class='ex-tit'>
+    <image src=''></image>推荐活动
+  </view>
+  <view class='ex-list'>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>活动1，赞0票0评0阅0</view>
+    </view>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>活动2，赞0票0评0阅0</view>
+    </view>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>活动3，赞0票0评0阅0</view>
+    </view>
+    <view class='ex-cipate'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <view>活动4，赞0票0评0阅0</view>
+    </view>
+  </view>
+</view>
+
+<import src='../foot/foot.wxml'/>
+<template is='foot'></template>

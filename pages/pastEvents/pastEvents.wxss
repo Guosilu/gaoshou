@@ -1,0 +1,43 @@
+/* pages/pastEvents/pastEvents.wxss */
+.tabList-item{
+	margin: 20rpx;
+	text-align:center;
+}
+.bar_box{
+	position: relative;
+}
+.bar_tit{
+	display: block;
+	width: 650rpx;
+	margin: 20rpx auto;
+}
+.bar_txt{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	color: #FFF;
+	font-size: 10px;
+	line-height: 20px;
+	margin-top: 30rpx;
+}
+.tabList-item image {
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.tabList-item .user-logo{
+	width: 130rpx;
+	height: 130rpx;
+	border-radius: 50%;
+}
+.tabList-item .ranking-ide{
+	width: 70rpx;
+	margin-bottom: -30rpx;
+	z-index: 999;
+}
+.user-ranking{
+	color: orange;
+	font-size: 14px;
+}

@@ -1,0 +1,56 @@
+
+.headlogo{
+  overflow: hidden;text-align: center;
+}
+.headlogo .noview,.headlogo .yeview{
+  margin: 10rpx 15rpx;background: #fff;height:220rpx;padding: 10rpx 0;box-sizing: border-box;
+}
+.headlogo .noview image,.headlogo .yeview image{
+  width: 200rpx;height: 200rpx;border-radius:50%;top: 50px;
+}
+.headlogo .nologin{
+  margin: 30rpx 15rpx 20rpx;background: #fff;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;height: 80rpx;line-height: 80rpx;
+}
+
+.headlogo .logbtn{
+  background: none;border: none;
+}
+.headlogo .logbtn::after{ border: none; }
+.headlogo .userinfo-nickname{
+  display: block;width: 100%;text-align: center;
+}
+.mymsg{
+  margin: 10rpx 15rpx;background: #fff;padding: 15px 10px;box-sizing: border-box;box-shadow:2rpx 2rpx 2rpx 2rpx #ddd; 
+}
+.mymsg text{
+  display: inline-block;width: 196rpx;text-align: center;margin: 0 15rpx;color: #fff;height: 80rpx;line-height: 80rpx;border-radius: 10rpx;
+}
+.btnlist{
+  margin: 30rpx 15rpx;background: #fff;padding: 0 20rpx;box-sizing: border-box;overflow: hidden;
+}
+.btnlist view{
+  background: #2d2d2d;width: 48%;float: left;margin: 15rpx 6rpx;color: #fff;height: 80rpx;line-height: 80rpx;border-radius: 10rpx;
+}
+.btnlist view:nth-child(even){
+  float: right;
+}
+.my-data{
+  background: orange;
+}
+.my-notice{
+  background: red;
+}
+.my-signout{
+  background: rgb(252, 198, 1);
+}
+.explain{
+  overflow: hidden;box-sizing: border-box;margin: 15rpx;background: #fff;
+}
+.ex-con{
+  padding: 20rpx 30rpx;box-sizing: border-box;line-height: 50rpx;font-size: 32rpx
+}
+
+
+
+
+

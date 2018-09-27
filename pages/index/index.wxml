@@ -1,0 +1,229 @@
+<!--index.wxml-->
+<view>
+  <view class="page__bd">
+    <!-- 搜索 -->
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="16"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="16"></icon>
+          </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="16"></icon>
+          <view class="weui-search-bar__text">请输入您需要的内容</view>
+        </label>
+      </view>
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+    <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+    </view>
+    <!-- 轮播 -->
+    <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="page__hd">
+    <view class="page__modules">
+      <view class="cate_tab isRed">比赛类</view>
+      <view class="cate_tab isOrange">排名类</view>
+      <view class="cate_tab isYellow">互助类</view>
+    </view>
+    <view class="page__modules">
+      <view class="cate_icon">
+        <image src="{{img}}help.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">新手帮助</view>
+          <view>{{siteName}}使用帮助</view>
+        </view>
+      </view>
+      <view class="cate_icon">
+        <image src="{{img}}comm.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">经验分享</view>
+          <view>Exchange</view>
+        </view>
+      </view>
+      <view class="cate_icon">
+        <image src="{{img}}italk.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">即时交流</view>
+          <view>发起咨询</view>
+        </view>
+      </view>
+      <view class="cate_icon">
+        <image src="{{img}}more.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">简赛发布</view>
+          <view>More</view>
+        </view>
+      </view>
+    </view>
+    <view class="page__modules">
+      <view class="cate_icon4">
+        <navigator url="/pages/activity_Initiate/activity_Initiate">
+          <image src="{{img}}cate4_3.png" mode="scaleToFill"></image>
+          <view class="cate_text">
+            <view class="cate_text_tit">发起活动</view>
+          </view>
+        </navigator>
+      </view>
+      <view class="cate_icon4">
+        <navigator url="/pages/participate/participate">
+          <image src="{{img}}cate4_4.png" mode="scaleToFill"></image>
+          <view class="cate_text">
+            <view class="cate_text_tit">参与活动</view>
+          </view>
+        </navigator>
+      </view>
+      <view class="cate_icon4">
+        <navigator url="/pages/publication/Publication">
+          <image src="{{img}}cate4_1.png" mode="scaleToFill"></image>
+          <view class="cate_text">
+            <view class="cate_text_tit">发布作品</view>
+          </view>
+        </navigator>
+      </view>
+      <view class="cate_icon4">
+        <navigator url="pages/activity_Initiate/activity_Initiate" hover-class="navigator-hover">
+          <image src="{{img}}cate4_2.png" mode="scaleToFill"></image>
+          <view class="cate_text">
+            <view class="cate_text_tit">往日活动</view>
+          </view>
+        </navigator>
+      </view>
+      <view class="cate_icon4">
+        <image src="{{img}}cate4_5.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">活动列表</view>
+        </view>
+      </view>
+      <view class="cate_icon4">
+        <image src="{{img}}cate4_6.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">平台栏目</view>
+        </view>
+      </view>
+      <view class="cate_icon4">
+        <image src="{{img}}cate4_7.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">活动赞助</view>
+        </view>
+      </view>
+      <view class="cate_icon4">
+        <navigator url="/pages/pastEvents/pastEvents">
+          <image src="{{img}}cate4_8.png" mode="scaleToFill"></image>
+          <view class="cate_text">
+            <view class="cate_text_tit">冠军列表</view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    <view class="page__modules eventsList">
+      <view class="cate_tit">
+        推荐活动
+      </view>
+      <view class="eventsItem" wx:for="{{eventsList}}" wx:key="*this">
+        <navigator url="{{item.url}}">
+          <image src="{{item.image}}"></image>
+          <view class="listInfo">{{item.title}}
+            <text class="fr">赞{{item.like}} 评{{item.comment}} 阅读{{item.look}}</text>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    <view class="page__modules eventsList">
+      <view class="cate_tit">
+        推荐作品
+      </view>
+      <view class="worksItem" wx:for="{{worksList}}" wx:key="*this">
+        <navigator url="{{item.url}}">
+          <image src="{{item.image}}"></image>
+          <view class="listInfo">{{item.title}}
+            <text class="fr">赞{{item.like}} 评{{item.comment}} 阅读{{item.look}}</text>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    <view class="page__modules modules_icon5 isHidden">
+      <view class="cate_tit">
+        分类赛事
+      </view>
+      <view class="cate_icon5 full">
+        <image src="{{img}}cate5_1.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">文章类</view>
+        </view>
+      </view>
+      <view class="cate_icon5">
+        <image src="{{img}}cate5_3.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">文字类</view>
+          <view class="cate_text_tit">100字以内</view>
+        </view>
+      </view>
+      <view class="cate_icon5">
+        <image src="{{img}}cate5_1.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">视频类</view>
+          <view class="cate_text_tit">20s以内</view>
+        </view>
+      </view>
+      <view class="cate_icon5">
+        <image src="{{img}}cate5_2.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">语音类</view>
+          <view class="cate_text_tit">30s内</view>
+        </view>
+      </view>
+      <view class="cate_icon5">
+        <image src="{{img}}cate5_3.png" mode="scaleToFill"></image>
+        <view class="cate_text">
+          <view class="cate_text_tit">图片类</view>
+          <view class="cate_text_tit">1-4张图片以内</view>
+        </view>
+      </view>
+    </view>
+    <view class="page__modules">
+      <view class="top_icon">
+        <image src="{{img}}camera.png" mode="scaleToFill"></image>
+        <view>图片处理软件</view>
+      </view>
+      <view class="top_icon">
+        <image src="{{img}}voice.png" mode="scaleToFill"></image>
+        <view>语音编辑软件</view>
+      </view>
+      <view class="top_icon">
+        <image src="{{img}}video.png" mode="scaleToFill"></image>
+        <view>视频剪辑软件</view>
+      </view>
+    </view>
+  </view>
+
+</view>

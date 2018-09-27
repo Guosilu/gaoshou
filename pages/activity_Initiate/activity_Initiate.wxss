@@ -1,0 +1,33 @@
+/* pages/activity_Initiate/activity_Initiate.wxss */
+.page__modules{
+  padding: 20rpx 10rpx;
+}
+.weui-cells{
+  margin: 0;
+}
+.activityName{
+  text-align: center;
+}
+.activityType{
+  color: #b0b0b0;
+  border-left: 1px solid #ddd;
+  padding-right: 20rpx;
+}
+
+.activityType .weui-select{
+  font-size: 18px;
+}
+textarea{
+  padding: 20rpx;
+}
+.uploadRuler{
+  float:right;
+  color: #da4e3f;
+  font-size: 14px;
+  margin-top: 20rpx;
+  margin-right: 30rpx;
+}
+.selectTime picker{
+  float: left;
+  margin-right: 10rpx;
+}

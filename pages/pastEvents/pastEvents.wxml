@@ -1,0 +1,29 @@
+<!--pages/pastEvents/pastEvents.wxml-->
+<view>
+    <!-- <scroll-view scroll-x scroll-with-animation="true">
+        <view class='topTab'>
+            <view class='topTab-item {{tabActive==index?"active":""}}' wx:for='{{topTab}}' bindtap="tabClick"
+                  data-current="{{index}}" wx:key="{{index}}">
+                {{item}}
+            </view>
+        </view>
+    </scroll-view> -->
+
+    <!-- <view wx:for="{{topTabList}}" class='tabActive {{tabActive==index?"show":"hidden"}}' wx:key="{{*this}}"> -->
+    <view class="bar_box">
+    <image class="bar_tit" src="{{img}}bar_tit.png" mode="widthFix"></image>
+    <view class="bar_txt">
+    <view>2018.7.5-2018.7.12</view>
+    <view>比赛周期：一周</view>
+    </view>
+    </view>
+    <view class='tabList-item' wx:for="{{topTabList}}" wx:key="*this">
+        <view class='user-info' wx:for="{{item}}" wx:for-item="items" wx:key="*this">
+            <view class='user-name'>第{{items.ranking}}名：{{items.name}}</view>
+            <image wx:if="{{items.ranking<4}}" class='ranking-ide' src="{{rankingIde[items.ranking-1]}}" mode="widthFix"></image>
+            <image class='user-logo' src="{{items.logo}}"></image>
+            <view class='user-ranking'>{{items.reward}}{{items.rewardType}}</view>
+        </view>
+    </view>
+    <!-- </view> -->
+</view>

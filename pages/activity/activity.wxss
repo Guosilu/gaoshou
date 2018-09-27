@@ -1,0 +1,38 @@
+/* pages/activity/activity.wxss */
+.page__modules__activity{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 20rpx;
+	border: 1px dashed #ececec;
+}
+.page__cate__activity{
+	box-sizing: border-box;
+	padding: 45rpx 0;
+	width: 50%;
+	border: 1px dashed #ececec;
+	position: relative;
+}
+.page__cate__activity image{
+	width: 66rpx;
+	height: 66rpx;
+	margin-left: 35rpx;
+}
+.page__cate__text{
+	display: inline-block;
+	margin-left: 20rpx;
+}
+.page_hot{
+	background: #da4e3d;
+	color: #FFF;
+	font-size: 10px;
+	border-radius: 5rpx;
+	padding: 0 2rpx;
+	position: absolute;
+	top: 40rpx;
+	right: 50rpx;
+}
+.page_text_info{
+	font-size: 14px;
+	color: #da4e3d;
+}

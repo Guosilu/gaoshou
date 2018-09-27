@@ -1,0 +1,6 @@
+/* pages/participate/participate.wxss */
+@import "/pages/activity_Initiate/activity_Initiate.wxss";
+.activityName{
+  width: 100%;
+  text-align: left;
+}

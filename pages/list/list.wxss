@@ -1,0 +1,13 @@
+/* pages/list/list.wxss */
+.activity_list{
+
+}
+.list_Avatar{
+    width: 115rpx;
+    height: 115rpx;
+    line-height: 115rpx;
+    float: left;
+}
+.user_info{
+    float: left;
+}

@@ -1,0 +1,36 @@
+<view class='headlogo'>
+  <block wx:if="{{!hasUserInfo && canIUse}}">
+    <view class='noview'><image src='{{img}}nologin.png'></image></view>
+    <view class='nologin'><button open-type="getUserInfo" bindgetuserinfo="login" class='logbtn'> 点击登录 </button></view>
+  </block>
+  <block wx:else>
+    <view class='yeview'>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    </view>
+    <view class='nologin'><text class="userinfo-nickname">{{userInfo.nickName}}</text></view>
+    <view class='mymsg'>
+        <text class='my-data'>我的资料</text>
+        <text class='my-notice'>站内公告</text>
+        <text class='my-signout' bindtap='logout'>退出登录</text>
+    </view>
+    <view class='btnlist'>
+      <view>我的作品</view>
+      <view>谁参与了我的活动</view>
+      <view>我参与的活动</view>
+      <view>我发起的活动</view>
+    </view>
+  </block>
+</view>
+
+<view class='explain'>
+  <view class='ex-tit'><image src=''></image>说明</view>
+  <view class='ex-con'>
+    <view>1、我的发起的活动，我发布的作品，我发起的众筹等，所有参与者的赞、票、评、阅，都有统计列表；</view>  
+    <view>2、广告也有赞、票、评、阅统计；</view>  
+    <view>3、活动排名是所有广告赞助+广告评价指标+参与者评价指标的综合统计【按照实际支付的资金额进行排名】；</view> 
+    <view>4、冠军列表分为：日冠军、周冠军、月冠军、季冠军，年冠军</view>  
+    <view>5、广告赞助费用，30%直接进入平台账户【其中20%用于奖励】，70%进入个人账户</view>  
+  </view>
+</view>
+<import src='../foot/foot.wxml'/>
+<template is='foot'></template>
