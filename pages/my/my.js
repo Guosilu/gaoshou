@@ -58,8 +58,7 @@ Page({
       content: '您确定退出吗?',
       success: function (res) {
         if (res.confirm) {
-          wx.removeStorageSync('openId');
-          wx.removeStorageSync('isLogin');
+          wx.removeStorageSync('openId', '')
           that.setData({
             userInfo: {},
             hasUserInfo: false
