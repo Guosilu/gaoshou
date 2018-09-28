@@ -33,7 +33,7 @@
                   <view data-id="{{index}}" bindtap="delImg">删除</view>
                 </block>
               </view>
-              <view class="weui-uploader__input-box">
+              <view wx:if="{{files.length < 4}}" class="weui-uploader__input-box">
                 <view class="weui-uploader__input" bindtap="chooseImage"></view>
               </view>
             </view>
