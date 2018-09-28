@@ -10,8 +10,14 @@ Page({
     rule:"",
     starttime:"",
     endtime:"",
+    detail:{}
   },
-
+  joinActivity: function() {
+    let id = this.data.detail.id;
+    wx.navigateTo({
+      url: '../participate/participate?id=' + id
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -30,11 +36,13 @@ Page({
       },
       success: function (res) {
         let result = JSON.parse(res.data);
+        console.log(result);
         that.setData({
           title: result['title'],
           rule: result['rule'],
           starttime: result['starttime'],
           endtime: result['endtime'],
+          detail: result
         })
         console.log(result)
       },
