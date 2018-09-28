@@ -23,7 +23,8 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
-    files_url: []
+    files_url: [],
+    form_reset: ''
   },
   formSubmit: function (e) {
     wx.showLoading({
@@ -32,12 +33,18 @@ Page({
     let post = e.detail.value;
     let that = this;
     let files = this.data.files;
-
-    for (let i = 0; i < files.length; i++) {
-      this.uploadFile(files[i], post);
+    post['activity_id'] = 1;
+    if (files.length>0) {
+      for (let i = 0; i < files.length; i++) {
+        this.uploadFile(files[i], post);
+      }
+    } else {
+      this.formSubmitDo(post);
     }
   },
   formSubmitDo: function (post) {
+    let that = this;
+    post['openId'] = wx.getStorageSync('openId');
     wx.request({
       url: config.activity_orderUrl,
       method: 'POST',
@@ -47,10 +54,21 @@ Page({
       },
       success: function (res) {
         wx.hideLoading();
-        wx.showToast({
-          title: '提交成功！',
-        })
-        if (res.data == 1) {
+        console.log(res);
+        if (res.data > 0) {
+          wx.showToast({
+            title: '提交成功！',
+          });
+          that.setData({
+            form_reset: '',
+            files: [],
+            files_url: []
+          });
+        }else{
+          wx.showToast({
+            title: '提交失败！',
+            icon: 'none'
+          });
         }
       }
     })

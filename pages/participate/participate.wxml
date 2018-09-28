@@ -11,7 +11,7 @@
 <view wx:if="{{isLogin}}"> 
 <form bindsubmit="formSubmit" bindreset="formReset">
 <view class="page__modules">
-  <input class="activityName" placeholder="请填写您的姓名"></input>
+  <input name="truename" value="{{form_reset}}" class="activityName" placeholder="请填写您的姓名"></input>
 </view>
 
 <view class="page__modules">
@@ -30,6 +30,7 @@
                   <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                   </view>
+                  <view data-id="{{index}}" bindtap="delImg">删除</view>
                 </block>
               </view>
               <view class="weui-uploader__input-box">
@@ -44,8 +45,7 @@
 </view>
 
 <view class="page__modules">
-  <textarea placeholder="作品说明">
-  </textarea>
+  <textarea name="note" value="{{form_reset}}" placeholder="作品说明"></textarea>
 </view>
 <view class="page__modules">
 说明：发布作品是与自娱自乐类，不属于参与者，不在活动中统计。但是，也有赞、票、评、阅四项评价。其中赞助费用同样按照平台10%、奖励20%、个人70%进行分配，也就是30%直接进入平台账户，70%进入个人账户</view>
