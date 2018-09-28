@@ -20,7 +20,7 @@ Page({
     interval: 5000,
     duration: 1000,
     //活动分类
-    activityType: ["作品类别", "人物", "风景", "实物", "书画", "文化", "技艺", "其他"],
+    activityType: ["类别", "人物", "风景", "实物", "书画", "文化", "技艺", "其他"],
     activityTypeIndex: 0,
     //图片上传
     files: [],

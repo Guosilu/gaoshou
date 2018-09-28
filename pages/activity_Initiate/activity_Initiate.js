@@ -21,7 +21,7 @@ Page({
     interval: 5000,
     duration: 1000,
     //活动分类
-    activityType: ["活动类别", "比赛", "排名", "互助"],
+    activityType: ["类别", "比赛", "排名", "互助"],
     activityTypeIndex: 0,
     // 日期插件
     bdate: "2018-09-01",
