@@ -6,13 +6,13 @@
       <swiper-item>
         <image src="{{item}}" class="slide-image" />
       </swiper-item>
-    </block>
+    </block> 
   </swiper>
 </view>
 
 <form bindsubmit="formSubmit">
   <view class="page__modules">
-    <input class="activityName" name='title' placeholder="请输入活动名称"></input>
+    <input class="activityName" name='title' value='{{form_reset}}' placeholder="请输入活动名称"></input>
     <view class="activityType">
       <picker bindchange="bindAccountChange" name='type' value="{{activityTypeIndex}}" range="{{activityType}}">
         <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[activityTypeIndex]}}</view>
@@ -28,18 +28,16 @@
             <view class="weui-uploader">
               <view class="weui-uploader__hd">
                 <view class="weui-uploader__title">活动封面</view>
-                <view class="weui-uploader__info">{{files.length}}/1</view>
+                <view class="weui-uploader__info">{{file ? 1 : 0}}/1</view>
               </view>
               <view class="weui-uploader__bd">
-                <view class="weui-uploader__files" id="uploaderFiles">
-                  <block wx:for="{{files}}" wx:key="*this">
+                <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{file != ''}}">
                     <view class="weui-uploader__file">
-                      <image class="weui-uploader__img" bindtap="previewImage" id="{{item}}" src="{{item}}" mode="aspectFill" />
-                      <view data-id="{{index}}" bindtap="delImg">删除</view>
+                      <image class="weui-uploader__img" bindtap="previewImage" src="{{file}}" mode="aspectFill" />
+                      <view bindtap="delImg">删除</view>
                     </view>
-                  </block>
                 </view>
-                <view class="weui-uploader__input-box">
+                <view wx:if="{{file==''}}" class="weui-uploader__input-box">
                   <view class="weui-uploader__input" bindtap="chooseImage"></view>
                 </view>
               </view>
@@ -51,7 +49,7 @@
   </view>
 
   <view class="page__modules">
-    <textarea placeholder="请输入活动规则" name='rule'></textarea>
+    <textarea placeholder="请输入活动规则" name='rule' value='{{form_reset}}'></textarea>
   </view>
   <view class="page__modules">
     <view class="weui-cell weui-cell_input">
@@ -86,10 +84,8 @@
       了解上传协议？
     </navigator>
   </view>
-
   <view class="weui-btn-area">
     <button class="weui-btn" formType="submit">提交</button>
   </view>
-
 </form>
 
