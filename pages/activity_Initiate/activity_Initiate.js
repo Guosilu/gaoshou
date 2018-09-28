@@ -85,7 +85,7 @@ Page({
         post['thumb'] = res.data;
         that.formSubmitDo(post);
       }
-    })
+    });
   },
   formSubmitDo: function (post) {
     let that = this;
@@ -102,7 +102,7 @@ Page({
           wx.showToast({
             title: '提交成功！',
           });
-          //that.form_reset();
+          that.form_reset();
         } else {
           wx.showToast({
             title: '提交失败！',

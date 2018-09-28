@@ -1,16 +1,10 @@
 
 const config = require('../../config/config.js');
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    title:"",
-    rule:"",
-    starttime:"",
-    endtime:"",
-    detail:{}
+    detail:{
+
+    }
   },
   joinActivity: function() {
     let id = this.data.detail.id;
@@ -22,34 +16,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
     var that = this;
-    let itemid = options.itemid;
+    let id = options.id;
     wx.request({
-      url: config.coreUrl + 'getLaunch.php',
+      url: config.activityUrl,
       method: "POST",
       data: {
-        id: itemid
-      },
-      dataType: "JSON",
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
+        action: 'detail',
+        id: id
       },
       success: function (res) {
-        let result = JSON.parse(res.data);
-        console.log(result);
-        that.setData({
-          title: result['title'],
-          rule: result['rule'],
-          starttime: result['starttime'],
-          endtime: result['endtime'],
-          detail: result
-        })
-      },
-      fail: function (res) {
-        console.log(res)
+        if (res.data) {
+          console.log(res.data);
+          that.setData({
+            detail: res.data
+          })
+          wx.hideLoading();
+        }
       }
-    })
-    
+    });
   },
   go_Activity_Initiate:function(res){
     console.log(res);
