@@ -3,6 +3,7 @@ const config = require('../../config/config.js');
 Page({
   data: {
     detail:{
+
     }
   },
   joinActivity: function () {
