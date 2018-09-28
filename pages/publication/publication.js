@@ -28,6 +28,7 @@ Page({
   },
   formSubmit: function (e) {
     wx.showLoading({
+      mask: true,
       title: '提交中...',
     });
     let post = e.detail.value;
