@@ -10,6 +10,7 @@
   </swiper>
 </view>
 
+<view wx:if="{{isLogin}}"> 
 <form bindsubmit="formSubmit">
   <view class="page__modules">
     <input class="activityName" name='title' value='{{form_reset}}' placeholder="请输入活动名称"></input>
@@ -88,4 +89,5 @@
     <button class="weui-btn" formType="submit">提交</button>
   </view>
 </form>
-
+</view>
+<view wx:else>未登录</view>
