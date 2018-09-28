@@ -95,7 +95,7 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator url="/pages/participate/participate">
+        <navigator url="/pages/list/list">
           <image src="{{img}}cate4_4.png" mode="scaleToFill"></image>
           <view class="cate_text">
             <view class="cate_text_tit">参与活动</view>
