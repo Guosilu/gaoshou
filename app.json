@@ -12,7 +12,8 @@
     "pages/my/my",
     "pages/foot/foot",
     "pages/exhibit/exhibit",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",

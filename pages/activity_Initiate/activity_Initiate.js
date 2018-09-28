@@ -90,7 +90,7 @@ Page({
   },
   formSubmitDo: function (post) {
     let that = this;
-    post['openId'] = wx.getStorageSync('openId');
+    post['openId'] = app.globalData.openId;
     wx.request({
       url: config.activityUrl,
       method: "POST",

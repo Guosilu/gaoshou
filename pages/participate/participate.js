@@ -1,4 +1,5 @@
 const config = require('../../config/config.js');
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -58,7 +59,7 @@ Page({
   formSubmitDo: function (post) {
     let that = this;
     post['activity_id'] = this.data.activity_id;
-    post['openId'] = wx.getStorageSync('openId');
+    post['openId'] = app.globalData.openId;
     wx.request({
       url: config.activity_orderUrl,
       method: 'POST',

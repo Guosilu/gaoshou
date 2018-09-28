@@ -1,37 +1,27 @@
 <view class='headlogo'>
-  <block wx:if="{{!hasUserInfo && canIUse}}">
-    <view class='noview'>
-      <image src='{{img}}nologin.png'></image>
+  <view class='yeview'>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+  </view>
+  <view class='nologin'>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view class='mymsg'>
+    <text class='my-data'>我的资料</text>
+    <text class='my-notice'>站内公告</text>
+    <!-- <text class='my-signout' bindtap='logout'>退出登录</text> -->
+  </view>
+  <view class='btnlist'>
+    <view>我的作品</view>
+    <view>
+      <navigator url="/pages/record/record">谁参与了我的活动</navigator>
     </view>
-    <view class='nologin'>
-      <button open-type="getUserInfo" bindgetuserinfo="login" class='logbtn'> 点击登录 </button>
+    <view>
+      <navigator url="/pages/record/record">我参与的活动</navigator>
     </view>
-  </block>
-  <block wx:else>
-    <view class='yeview'>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <view>
+      <navigator url="/pages/record/record">我发起的活动</navigator>
     </view>
-    <view class='nologin'>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </view>
-    <view class='mymsg'>
-      <text class='my-data'>我的资料</text>
-      <text class='my-notice'>站内公告</text>
-      <text class='my-signout' bindtap='logout'>退出登录</text>
-    </view>
-    <view class='btnlist'>
-      <view>我的作品</view>
-      <view>
-        <navigator url="/pages/record/record">谁参与了我的活动</navigator>
-      </view>
-      <view>
-        <navigator url="/pages/record/record">我参与的活动</navigator>
-      </view>
-      <view>
-        <navigator url="/pages/record/record">我发起的活动</navigator>
-      </view>
-    </view>
-  </block>
+  </view>
 </view>
 
 <view class='explain'>
