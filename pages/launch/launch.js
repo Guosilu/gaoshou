@@ -1,18 +1,48 @@
-// pages/launch/launch.js
+
+const config = require('../../config/config.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    title:"",
+    rule:"",
+    starttime:"",
+    endtime:"",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    let itemid = options.itemid;
+    wx.request({
+      url: config.coreUrl + 'getLaunch.php',
+      method: "POST",
+      data: {
+        id: itemid
+      },
+      dataType: "JSON",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        let result = JSON.parse(res.data);
+        that.setData({
+          title: result['title'],
+          rule: result['rule'],
+          starttime: result['starttime'],
+          endtime: result['endtime'],
+        })
+        console.log(result)
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    })
+    
   },
 
   /**
