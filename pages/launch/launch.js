@@ -10,7 +10,8 @@ Page({
     rule:"",
     starttime:"",
     endtime:"",
-    detail:{}
+    detail:{},
+    image:"",
   },
   joinActivity: function() {
     let id = this.data.detail.id;
@@ -42,7 +43,8 @@ Page({
           rule: result['rule'],
           starttime: result['starttime'],
           endtime: result['endtime'],
-          detail: result
+          detail: result,
+          image:result['thumb']
         })
       },
       fail: function (res) {
