@@ -1,0 +1,11 @@
+<!--pages/record/record.wxml-->
+<view class="page__modules">
+<view>
+<view>活动标题</view>
+<block wx:for="">
+  <image src="{{item.image}}"></image>
+</block>
+<image src="''"></image>
+<view><text>作者</text>赞  评 阅读</view>
+</view>
+</view>

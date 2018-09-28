@@ -29,9 +29,17 @@ Page({
   },
   formSubmit: function (e) {
     wx.showLoading({
+      mask: true,
       title: '提交中...',
     });
     let post = e.detail.value;
+    if (post.truename == '' || post.note == '') {
+      wx.showToast({
+        title: '信息填写不完整！',
+        icon: 'none'
+      })
+      return false;
+    }
     let that = this;
     let files = this.data.files;
     if (files.length>0) {
@@ -39,7 +47,12 @@ Page({
         this.uploadFile(files[i], post);
       }
     } else {
-      this.formSubmitDo(post);
+      wx.showToast({
+        title: '至少上传一张作品！',
+        icon: 'none'
+      })
+      return false;
+      //this.formSubmitDo(post);
     }
   },
   formSubmitDo: function (post) {
@@ -49,6 +62,9 @@ Page({
     wx.request({
       url: config.activity_orderUrl,
       method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
       data: {
         action: 'add',
         post: post

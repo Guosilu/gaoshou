@@ -123,16 +123,13 @@ Page({
       url: '../logs/logs'
     })
   },
-  getActivityList: function() {
+  getActivityList: function () {
     var that = this;
     wx.request({
-      url: 'http://aa.zdcom.net.cn/gaoshou/api/getlistApi.php',
+      url: config.activityUrl,
       method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
       data: {
-        wxlist: "1"
+        action: 'lists'
       },
       success: function (res) {
         console.log(res.data);

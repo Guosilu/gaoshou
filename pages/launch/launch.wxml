@@ -1,20 +1,21 @@
 <!--pages/launch/launch.wxml-->
+<block wx:if="{{detail.id}}">
 <view class='informat'>
   <view class='ex-tit'>
     <image src=''></image>活动名称
   </view>
   <view class='ex-cover'>
-  
-    <image src="{{image}}" mode='widthFix'></image>
-    <view class='ex-int'>{{title}}</view>
+  {{detail.title}}
+    <!-- <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
+    <view class='ex-int'>活动简介活动简介活动简介活动简介活动简介活动简介活动简介</view> -->
   </view>
 </view>
 <view class='rule'>
   <view class='ex-tit'>
-    <image src=''></image>活动规则
+    <image src='{{detail.thumb}}'></image>活动规则
   </view>
   <view class='rule-cont'>
-    {{rule}}
+    {{detail.rule}}
     <!-- <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
     奥班农购入啊啊发放阿芬阿飞哦阿佛额奥法AV四女是AV慧鹏v是傲娇四个热狗发将诶 -->
   </view>
@@ -24,7 +25,7 @@
     <image src=''></image>活动时间
   </view>
   <view class='rule-cont'>
-    {{starttime}}---{{endtime}}
+    {{detail.starttime}}---{{detail.endtime}}
   </view>
 </view>
 
@@ -33,6 +34,6 @@
   <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
 
 </view>
-
 <import src='../foot/foot.wxml'/>
 <template is='foot'></template>
+</block>
