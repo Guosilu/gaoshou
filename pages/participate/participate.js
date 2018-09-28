@@ -1,6 +1,5 @@
 const config = require('../../config/config.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -40,7 +39,7 @@ Page({
   },
   formSubmitDo: function (post) {
     wx.request({
-      url: config.publicationUrl,
+      url: config.activity_orderUrl,
       method: 'POST',
       data: {
         action: 'add',
