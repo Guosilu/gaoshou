@@ -26,19 +26,25 @@ Page({
     files: [],
     files_url: []
   },
-  formSubmit: function(e) {
+  formSubmit: function (e) {
     wx.showLoading({
       title: '提交中...',
     });
     let post = e.detail.value;
     let that = this;
     let files = this.data.files;
-    
-    for (let i = 0; i < files.length; i++) {
-      this.uploadFile(files[i], post);
+    post['activity_id'] = 1;
+    if (files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        this.uploadFile(files[i], post);
+      }
+    } else {
+      this.formSubmitDo(post);
     }
   },
-  formSubmitDo: function(post) {
+  formSubmitDo: function (post) {
+    let that = this;
+    post['openId'] = wx.getStorageSync('openId');
     wx.request({
       url: config.publicationUrl,
       method: 'POST',
@@ -48,10 +54,21 @@ Page({
       },
       success: function (res) {
         wx.hideLoading();
-        wx.showToast({
-          title: '提交成功！',
-        })
-        if (res.data == 1) {
+        console.log(res);
+        if (res.data > 0) {
+          wx.showToast({
+            title: '提交成功！',
+          });
+          that.setData({
+            form_reset: '',
+            files: [],
+            files_url: []
+          });
+        } else {
+          wx.showToast({
+            title: '提交失败！',
+            icon: 'none'
+          });
         }
       }
     })
@@ -72,7 +89,7 @@ Page({
         });
         let files_url = that.data.files_url
         let files = that.data.files
-        if (files_url.length==files.length){
+        if (files_url.length == files.length) {
           for (let i = 0; i < files_url.length; i++) {
             let k = i;
             if (k == 0) k = '';
