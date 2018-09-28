@@ -19,14 +19,14 @@ Page({
     interval: 5000,
     duration: 1000,
     //活动分类
-    activityType: ["活动类别","比赛", "排名", "互助"],
+    activityType: ["类别","比赛", "排名", "互助"],
     activityTypeIndex: 0,
     //图片上传
     files: [],
     // 日期插件
-    bdate: "2016-09-01",
+    bdate: "2018-09-01",
     btime: "12:01",
-    edate: "2016-09-01",
+    edate: "2018-09-01",
     etime: "12:01",
   },
   formSubmit:function(e){
