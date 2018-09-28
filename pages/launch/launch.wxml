@@ -5,9 +5,9 @@
     <image src=''></image>活动名称
   </view>
   <view class='ex-cover'>
-  {{detail.title}}
-    <!-- <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
-    <view class='ex-int'>活动简介活动简介活动简介活动简介活动简介活动简介活动简介</view> -->
+  
+    <image src='{{detail.thumb}}' mode='widthFix'></image>
+    <view class='ex-int'>{{detail.title}}</view>
   </view>
 </view>
 <view class='rule'>
