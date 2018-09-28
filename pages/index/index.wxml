@@ -95,7 +95,7 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator url="/pages/participate/participate">
+        <navigator url="/pages/list/list">
           <image src="{{img}}cate4_4.png" mode="scaleToFill"></image>
           <view class="cate_text">
             <view class="cate_text_tit">参与活动</view>
@@ -150,10 +150,10 @@
         推荐活动
       </view>
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
-        <navigator url="{{item.url}}">
+        <navigator url="../launch/launch?id={{item.id}}">
           <image src="{{item.thumb}}"></image>
           <view class="listInfo">{{item.title}}
-            <text class="fr">赞{{item.dianzan}} 阅读{{item.liulan}}</text>
+            <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
           </view>
         </navigator>
       </view>

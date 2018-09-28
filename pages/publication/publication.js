@@ -24,27 +24,80 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
+    files_url: []
   },
-  formSubmit: function(e) {
+  formSubmit: function (e) {
+    wx.showLoading({
+      mask: true,
+      title: '提交中...',
+    });
+    let post = e.detail.value;
+    let that = this;
     let files = this.data.files;
-    console.log(files);
-    for (let i = 0; i < files.length;i++) {
-      console.log(files[i]);
-      this.uploadFile(files[i]);
+    post['activity_id'] = 1;
+    if (files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        this.uploadFile(files[i], post);
+      }
+    } else {
+      this.formSubmitDo(post);
     }
-
   },
-  uploadFile: function(path) {
+  formSubmitDo: function (post) {
+    let that = this;
+    post['openId'] = wx.getStorageSync('openId');
+    wx.request({
+      url: config.publicationUrl,
+      method: 'POST',
+      data: {
+        action: 'add',
+        post: post
+      },
+      success: function (res) {
+        wx.hideLoading();
+        console.log(res);
+        if (res.data > 0) {
+          wx.showToast({
+            title: '提交成功！',
+          });
+          that.setData({
+            form_reset: '',
+            files: [],
+            files_url: []
+          });
+        } else {
+          wx.showToast({
+            title: '提交失败！',
+            icon: 'none'
+          });
+        }
+      }
+    })
+  },
+  uploadFile: function (path, post) {
+    let that = this;
     wx.uploadFile({
-      url: config.uploadUrl, //仅为示例，非真实的接口地址
+      url: config.uploadUrl,
       filePath: path,
       name: 'file',
       formData: {
-        action: publication
+        action: 'upload_file'
       },
       success(res) {
-        //const data = res.data
-        //do something
+        console.log(res);
+        that.setData({
+          files_url: that.data.files_url.concat(res.data)
+        });
+        let files_url = that.data.files_url
+        let files = that.data.files
+        if (files_url.length == files.length) {
+          for (let i = 0; i < files_url.length; i++) {
+            let k = i;
+            if (k == 0) k = '';
+            post['thumb' + k] = files_url[i];
+          }
+          that.formSubmitDo(post);
+        }
       }
     })
   },
@@ -64,11 +117,26 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        let addFiles = res.tempFilePaths;
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          files: that.data.files.concat(addFiles)
         });
       }
+    })
+  },
+  //删除图片
+  delImg: function (e) {
+    let that = this;
+    let id = e.target.dataset.id;
+    let files = that.data.files;
+    let files_new = [];
+    for (var i = 0; i < files.length; i++) {
+      if (i != id) {
+        files_new.push(files[i]);
+      }
+    }
+    that.setData({
+      files: files_new
     })
   },
   previewImage: function (e) {

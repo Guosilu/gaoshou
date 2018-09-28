@@ -11,7 +11,9 @@
 .headlogo .nologin{
   margin: 30rpx 15rpx 20rpx;background: #fff;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;height: 80rpx;line-height: 80rpx;
 }
-
+.nologin button{
+  line-height: 80rpx;
+}
 .headlogo .logbtn{
   background: none;border: none;
 }

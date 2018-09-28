@@ -1,0 +1,75 @@
+<!--pages/detail/detail.wxml-->
+<view class='avatar'>
+  <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+  <text>赞00 票00 评00 阅00</text>
+</view>
+<view class='works'>
+  <view class='ex-tit'>
+    <image src=''></image>作品名称
+  </view>
+  <view class='works-cont'>
+    <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
+    <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
+    <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
+    <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
+  </view>
+</view>
+<view class='unscramble'>
+  <view class='ex-tit'>
+    <image src=''></image>图片内涵解读
+  </view>
+  <view class='mble-cont'>
+    <view class='connotation'>
+      1、对参与活动的作品图片进行说明，在编辑框中可上传补充图片和视频等，帮助读者了解图片含义
+      2、详情页面顶部需要加上该活动的缩略页，包括活动的名称，参与人数，总赞数、总票数、总评论量，总阅读量，赞助商广告等，实际上就是共享活动主页。如下：
+    </view>
+    <view class='ex-tit'>
+      <image src=''></image>活动名称
+    </view>
+    <view class='ex-cover'>
+      <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
+      <view class='ex-int'>活动简介活动简介活动简介活动简介活动简介活动简介活动简介</view>
+    </view>
+    <view class='ex-btns'>
+      <view class='ex-sponsor'>
+        <view>赞助商1</view>
+        <view>赞助商2</view>
+      </view>
+      <view class='ex-patron'>活动赞助</view>
+    </view>
+    <view class='ex-statistics'>
+      <view>总人1000  总赞105  总票136654  总评6548  总阅99999</view>
+    </view>
+  </view>
+</view>
+<view class='fastener'>
+  <view class='appreciate'>赞赏</view>
+  <view class='vote'>投票</view>
+  <view class='commant'>评论</view>
+</view>
+<view class='comment'>
+  <view class='ex-tit'>
+    <image src=''></image>评论
+  </view>
+  <view class='comment-list'>
+    <view class='comment-detail'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <text>赞00 票00 评00 阅00赞00 票00 评赞00 票00 评00 阅00赞00 票00 评00 阅00赞00 票00 评00 阅00赞00 票00 评00 阅00阅00赞00 票00 评赞00 票00 评00 阅00赞00 票00 评00 阅00赞00 票00 评00 阅00赞00 票00 评00 阅00阅00赞00 票00 评赞00 票00 评00 阅00赞00 票00 评00 阅00赞00 票00 评00 阅00赞00 票00 评00 阅00阅00</text>
+    </view>
+    <view class='comment-detail'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <text>赞00 票00 评00 阅00</text>
+    </view>
+    <view class='comment-detail'>
+      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
+      <text>赞00 票00 评00 阅00</text>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+<import src='../foot/foot.wxml'/>
+<template is='foot'></template>

@@ -1,10 +1,10 @@
 const config = require('../../config/config.js');
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
+    isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
     imgUrls: [
@@ -23,6 +23,99 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
+    files_url: [],
+    form_reset: '',
+    activity_id: ''
+  },
+  formSubmit: function (e) {
+    wx.showLoading({
+      mask: true,
+      title: '提交中...',
+    });
+    let post = e.detail.value;
+    if (post.truename == '' || post.note == '') {
+      wx.showToast({
+        title: '信息填写不完整！',
+        icon: 'none'
+      })
+      return false;
+    }
+    let that = this;
+    let files = this.data.files;
+    if (files.length>0) {
+      for (let i = 0; i < files.length; i++) {
+        this.uploadFile(files[i], post);
+      }
+    } else {
+      wx.showToast({
+        title: '至少上传一张作品！',
+        icon: 'none'
+      })
+      return false;
+      //this.formSubmitDo(post);
+    }
+  },
+  formSubmitDo: function (post) {
+    let that = this;
+    post['activity_id'] = this.data.activity_id;
+    post['openId'] = wx.getStorageSync('openId');
+    wx.request({
+      url: config.activity_orderUrl,
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        action: 'add',
+        post: post
+      },
+      success: function (res) {
+        wx.hideLoading();
+        console.log(res);
+        if (res.data > 0) {
+          wx.showToast({
+            title: '提交成功！',
+          });
+          that.setData({
+            form_reset: '',
+            files: [],
+            files_url: []
+          });
+        }else{
+          wx.showToast({
+            title: '提交失败！',
+            icon: 'none'
+          });
+        }
+      }
+    })
+  },
+  uploadFile: function (path, post) {
+    let that = this;
+    wx.uploadFile({
+      url: config.uploadUrl,
+      filePath: path,
+      name: 'file',
+      formData: {
+        action: 'upload_file'
+      },
+      success(res) {
+        console.log(res);
+        that.setData({
+          files_url: that.data.files_url.concat(res.data)
+        });
+        let files_url = that.data.files_url
+        let files = that.data.files
+        if (files_url.length == files.length) {
+          for (let i = 0; i < files_url.length; i++) {
+            let k = i;
+            if (k == 0) k = '';
+            post['thumb' + k] = files_url[i];
+          }
+          that.formSubmitDo(post);
+        }
+      }
+    })
   },
   bindAccountChange: function (e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
@@ -31,6 +124,30 @@ Page({
     }
     this.setData({
       activityTypeIndex: e.detail.value
+    })
+  },
+  bindAccountChange: function (e) {
+    console.log('picker account 发生选择改变，携带值为', e.detail.value);
+    if (e.detail.value < 1) {
+ 
+    }
+    this.setData({
+      activityTypeIndex: e.detail.value
+    })
+  },
+  //删除图片
+  delImg: function (e) {
+    let that = this;
+    let id = e.target.dataset.id;
+    let files = that.data.files;
+    let files_new = [];
+    for (var i = 0; i < files.length; i++) {
+      if (i != id) {
+        files_new.push(files[i]);
+      }
+    }
+    that.setData({
+      files: files_new
     })
   },
   // 图片上传
@@ -56,8 +173,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function (options) { 
+    console.log(options);
+    this.setData({
+      activity_id: options.id
+    });
   },
 
   /**
@@ -71,7 +191,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isLogin: wx.getStorageSync('isLogin')
+    })
   },
 
   /**

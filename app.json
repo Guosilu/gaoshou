@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/activity_Initiate/activity_Initiate",
     "pages/index/index",
+    "pages/launch/launch",
+    "pages/activity_Initiate/activity_Initiate",
     "pages/list/list",
     "pages/pastEvents/pastEvents",
     "pages/activity/activity",
@@ -9,8 +10,8 @@
     "pages/participate/participate",
     "pages/my/my",
     "pages/foot/foot",
-    "pages/launch/launch",
-    "pages/exhibit/exhibit"
+    "pages/exhibit/exhibit",
+    "pages/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
