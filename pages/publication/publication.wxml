@@ -10,7 +10,7 @@
   </swiper>
 </view>
 
-<view wx:if="{{isLogin}}">
+<view wx:if="{{isLogin}}"> 
 <form bindsubmit="formSubmit" bindreset="formReset">
 <view class="page__modules">
   <input class="activityName" name="title" placeholder="请填写作品名称"></input>

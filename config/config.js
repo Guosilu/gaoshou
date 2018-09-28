@@ -3,8 +3,9 @@
 const baseUrl = 'https://aa.zdcom.net.cn/';
 const loginUrl = baseUrl + 'gaoshou/api/loginApi.php'; 
 const uploadUrl = baseUrl + 'gaoshou/api/uploadApi.php';
-const publicationUrl = baseUrl + 'gaoshou/api/publicationApi.php';
-const activityUrl = baseUrl + 'gaoshou/api/activityApi.php';
+const publicationUrl = baseUrl + 'gaoshou/api/publicationApi.php'; 
+const publicationUrl = baseUrl + 'gaoshou/api/activityApi.php';
+const activity_orderUrl = baseUrl + 'gaoshou/api/activity_orderApi.php';
 const coreUrl = baseUrl + "gaoshou/core/";
 const img = baseUrl + "gaoshou/images/";
 
@@ -15,6 +16,7 @@ module.exports = {
   uploadUrl: uploadUrl,
   publicationUrl: publicationUrl,
   activityUrl: activityUrl,
+  activity_orderUrl: activity_orderUrl,
   coreUrl: coreUrl,
   img: img
 }

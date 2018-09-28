@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
     imgUrls: [
@@ -23,6 +24,64 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
+    files_url: []
+  },
+  formSubmit: function (e) {
+    wx.showLoading({
+      title: '提交中...',
+    });
+    let post = e.detail.value;
+    let that = this;
+    let files = this.data.files;
+
+    for (let i = 0; i < files.length; i++) {
+      this.uploadFile(files[i], post);
+    }
+  },
+  formSubmitDo: function (post) {
+    wx.request({
+      url: config.publicationUrl,
+      method: 'POST',
+      data: {
+        action: 'add',
+        post: post
+      },
+      success: function (res) {
+        wx.hideLoading();
+        wx.showToast({
+          title: '提交成功！',
+        })
+        if (res.data == 1) {
+        }
+      }
+    })
+  },
+  uploadFile: function (path, post) {
+    let that = this;
+    wx.uploadFile({
+      url: config.uploadUrl,
+      filePath: path,
+      name: 'file',
+      formData: {
+        action: 'upload_file'
+      },
+      success(res) {
+        console.log(res);
+        that.setData({
+          files_url: that.data.files_url.concat(res.data)
+        });
+        let files_url = that.data.files_url
+        let files = that.data.files
+        if (files_url.length == files.length) {
+          for (let i = 0; i < files_url.length; i++) {
+            let k = i;
+            if (k == 0) k = '';
+            post['thumb' + k] = files_url[i];
+          }
+          that.formSubmitDo(post);
+        }
+      }
+    })
   },
   bindAccountChange: function (e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
@@ -31,6 +90,30 @@ Page({
     }
     this.setData({
       activityTypeIndex: e.detail.value
+    })
+  },
+  bindAccountChange: function (e) {
+    console.log('picker account 发生选择改变，携带值为', e.detail.value);
+    if (e.detail.value < 1) {
+ 
+    }
+    this.setData({
+      activityTypeIndex: e.detail.value
+    })
+  },
+  //删除图片
+  delImg: function (e) {
+    let that = this;
+    let id = e.target.dataset.id;
+    let files = that.data.files;
+    let files_new = [];
+    for (var i = 0; i < files.length; i++) {
+      if (i != id) {
+        files_new.push(files[i]);
+      }
+    }
+    that.setData({
+      files: files_new
     })
   },
   // 图片上传
@@ -71,7 +154,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isLogin: wx.getStorageSync('isLogin')
+    })
   },
 
   /**
