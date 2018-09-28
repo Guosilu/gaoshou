@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/record/record",
     "pages/index/index",
     "pages/launch/launch",
     "pages/activity_Initiate/activity_Initiate",
@@ -20,6 +21,8 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#dc4e40",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -28,8 +31,8 @@
         "selectedIconPath": "images/tabBar_1h.png"
       },
       {
-        "pagePath": "pages/publication/publication",
-        "text": "发布作品",
+        "pagePath": "pages/pastEvents/pastEvents",
+        "text": "冠军列表",
         "iconPath": "images/tabBar_2.png",
         "selectedIconPath": "images/tabBar_2h.png"
       },
@@ -38,12 +41,6 @@
         "text": "我的",
         "iconPath": "images/tabBar_4.png",
         "selectedIconPath": "images/tabBar_4h.png"
-      },
-      {
-        "pagePath": "pages/activity_Initiate/activity_Initiate",
-        "text": "发布活动",
-        "iconPath": "images/tabBar_3.png",
-        "selectedIconPath": "images/tabBar_3h.png"
       }
     ]
   }
