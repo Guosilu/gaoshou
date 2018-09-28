@@ -1,11 +1,12 @@
 <!--pages/record/record.wxml-->
-<view class="page__modules">
-<view>
-<view>活动标题</view>
-<block wx:for="">
-  <image src="{{item.image}}"></image>
-</block>
-<image src="''"></image>
-<view><text>作者</text>赞  评 阅读</view>
-</view>
+<view wx:for="{{recordList}}" wx:key="*this" class="page__modules">
+  <navigator url="{{item.url}}">
+    <image class="recordListImg" src="{{item.image}}"></image>
+    <view class="recordListInfo">
+      <view class="recordListTitle">{{item.title}}</view>
+      <view class="recordListOther">
+        <text class="recordListAuthor">{{item.author}}</text> 赞{{item.like}} 评{{item.comment}} 阅读{{item.look}}
+      </view>
+    </view>
+  </navigator>
 </view>

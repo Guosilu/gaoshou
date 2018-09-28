@@ -1,1 +1,24 @@
 /* pages/record/record.wxss */
+.page__modules{
+  padding: 20rpx;
+}
+navigator {
+  width: 100%;
+}
+.recordListImg{
+  width: 100rpx;
+  height: 100rpx;
+}
+.recordListInfo{
+  float: right;
+  width: 540rpx;
+}
+.recordListTitle{
+  font-size: 18px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap; 
+}
+.recordListOther{
+  font-size: 14px;
+}

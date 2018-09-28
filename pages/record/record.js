@@ -5,62 +5,79 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    recordList: [{
+      url: "",
+      image: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg",
+      title: "活动1活动1活动1活动1活动1活动1",
+      author: "张三",
+      comment: 0,
+      like: 0,
+      look: 0,
+    },
+    {
+      url: "",
+      image: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg",
+      title: "活动2活动2活动2活动2活动2",
+      author: "李四",
+      comment: 0,
+      like: 0,
+      look: 0,
+    },
+    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function() {
+    
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
+  onUnload: function() {
+    
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
