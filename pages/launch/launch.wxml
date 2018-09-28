@@ -30,7 +30,8 @@
 
 <view class='ex-btns'>
   <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
-  <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
+  
+  <view class='ex-btn'>发起活动</view>
 
 </view>
 
