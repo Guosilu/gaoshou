@@ -50,7 +50,7 @@
     </swiper>
   </view>
   <view class="page__hd">
-    <view class="page__modules">
+    <view class="page__modules" style='display:none;'>
       <view class="cate_tab isRed">比赛类</view>
       <view class="cate_tab isOrange">排名类</view>
       <view class="cate_tab isYellow">互助类</view>
