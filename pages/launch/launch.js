@@ -36,7 +36,6 @@ Page({
           starttime: result['starttime'],
           endtime: result['endtime'],
         })
-        console.log(result)
       },
       fail: function (res) {
         console.log(res)
@@ -44,7 +43,12 @@ Page({
     })
     
   },
-
+  go_Activity_Initiate:function(res){
+    console.log(res);
+    wx.switchTab({
+      url: '../activity_Initiate/activity_Initiate',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
