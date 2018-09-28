@@ -24,7 +24,8 @@ Page({
     //图片上传
     files: [],
     files_url: [],
-    form_reset: ''
+    form_reset: '',
+    activity_id: ''
   },
   formSubmit: function (e) {
     wx.showLoading({
@@ -33,7 +34,6 @@ Page({
     let post = e.detail.value;
     let that = this;
     let files = this.data.files;
-    post['activity_id'] = 1;
     if (files.length>0) {
       for (let i = 0; i < files.length; i++) {
         this.uploadFile(files[i], post);
@@ -44,6 +44,7 @@ Page({
   },
   formSubmitDo: function (post) {
     let that = this;
+    post['activity_id'] = this.data.activity_id;
     post['openId'] = wx.getStorageSync('openId');
     wx.request({
       url: config.activity_orderUrl,
@@ -156,8 +157,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function (options) { 
+    this.setData({
+      activity_id: 1
+    });
   },
 
   /**
