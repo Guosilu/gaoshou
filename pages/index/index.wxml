@@ -50,7 +50,7 @@
     </swiper>
   </view>
   <view class="page__hd">
-    <view class="page__modules">
+    <view class="page__modules" style='display:none;'>
       <view class="cate_tab isRed">比赛类</view>
       <view class="cate_tab isOrange">排名类</view>
       <view class="cate_tab isYellow">互助类</view>
@@ -103,7 +103,7 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator url="/pages/publication/Publication">
+        <navigator url="/pages/publication/publication">
           <image src="{{img}}cate4_1.png" mode="scaleToFill"></image>
           <view class="cate_text">
             <view class="cate_text_tit">发布作品</view>
@@ -111,7 +111,7 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator url="pages/activity_Initiate/activity_Initiate" hover-class="navigator-hover">
+        <navigator url="/pages/activity_Initiate/activity_Initiate" hover-class="navigator-hover">
           <image src="{{img}}cate4_2.png" mode="scaleToFill"></image>
           <view class="cate_text">
             <view class="cate_text_tit">往日活动</view>
@@ -137,7 +137,7 @@
         </view>
       </view>
       <view class="cate_icon4">
-        <navigator url="/pages/pastEvents/pastEvents">
+        <navigator url="/">
           <image src="{{img}}cate4_8.png" mode="scaleToFill"></image>
           <view class="cate_text">
             <view class="cate_text_tit">冠军列表</view>
