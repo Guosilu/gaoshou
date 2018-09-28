@@ -2,8 +2,7 @@
 const config = require('../../config/config.js');
 Page({
   data: {
-    detail: {
-
+    detail:{
     }
   },
   joinActivity: function () {
