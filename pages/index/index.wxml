@@ -1,4 +1,3 @@
-<!--index.wxml-->
 <view>
   <view class="page__bd">
     <!-- 搜索 -->

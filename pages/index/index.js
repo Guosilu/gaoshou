@@ -140,7 +140,7 @@ Page({
     })
   },
   onLoad: function() {
-    this.getActivityList();
+    //this.getActivityList();
   },
   onShow: function() {
     this.getActivityList();

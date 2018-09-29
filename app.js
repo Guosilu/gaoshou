@@ -1,51 +1,22 @@
 //app.js
 const config = require('config/config.js');
 App({
-  getUserInfo: function () {
-    let that = this;
-    wx.getUserInfo({
-      success: res => {
-        that.globalData.userInfo = res.userInfo;
-        that.reLogin(res.userInfo);
-        if (that.userInfoReadyCallback) {
-          that.userInfoReadyCallback(res)
-        }
-      }
-    })
-  },
-  reLogin: function (post) {
-    let that = this;
-    post['openId'] = this.globalData.openId;
-    wx.request({
-      url: config.loginUrl,
-      method: 'POST',
-      header: {
-        'content-type': 'application/json'
-        //'content-type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        action: 'userInfo',
-        post: post
-      },
-      success: res => {
-        console.log(res.data);
-        wx.setStorageSync('isLogin', true);
-      }
-    });
-  },
-  onLaunch: function () {
+  redirectTo: function () {
     wx.getSetting({
       success: res => {
         console.log(!res.authSetting['scope.userInfo'])
         if (res.authSetting['scope.userInfo']) {
           wx.setStorageSync('isLogin', true)
         } else {
+          wx.removeStorageSync('isLogin');
           wx.redirectTo({
             url: '../login/login',
           })
         }
       }
     });
+  },
+  login: function () {
     var that = this;
     wx.login({
       success: res => {
@@ -74,29 +45,48 @@ App({
       }
     })
   },
-  onShow: function () {
+  getUserInfo: function () {
     let that = this;
-    wx.checkSession({
-      success: function(e) {
-        console.log(e.errMsg);
-        if(!e.errMsg) {
-          console.log('checkSession0');
-          that.getUserInfo();
-          wx.getSetting({
-            success: res => {
-              console.log(!res.authSetting['scope.userInfo'])
-              if (res.authSetting['scope.userInfo']) {
-                wx.setStorageSync('isLogin', true)
-              } else {
-                wx.redirectTo({
-                  url: '../login/login',
-                })
-              }
-            }
-          });
+    wx.getUserInfo({
+      success: res => {
+        that.globalData.userInfo = res.userInfo;
+        that.dataLogin(res.userInfo);
+        if (that.userInfoReadyCallback) {
+          that.userInfoReadyCallback(res)
         }
+      },
+      fail: res => {
+        console.log('未授权');
+      }
+    })
+  },
+  dataLogin: function (post) {
+    let that = this;
+    post['openId'] = this.globalData.openId;
+    wx.request({
+      url: config.loginUrl,
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+        //'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        action: 'userInfo',
+        post: post
+      },
+      success: res => {
+        console.log(res.data);
+        wx.setStorageSync('isLogin', true);
       }
     });
+  },
+  onLaunch: function () {
+    let that = this;
+    this.redirectTo();
+    this.login();
+  },
+  onShow: function () {
+
   },
   globalData: {
     userInfo: null,
