@@ -37,14 +37,9 @@ Page({
     }
   },
   onLoad: function () {
-    this.getUserInfo();
+    
   },
   onShow: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    }
+    this.getUserInfo();
   },
 })
