@@ -2,14 +2,36 @@
 const config = require('config/config.js');
 App({
   getUserInfo: function () {
+    let that = this;
     wx.getUserInfo({
       success: res => {
-        this.globalData.userInfo = res.userInfo
-        if (this.userInfoReadyCallback) {
-          this.userInfoReadyCallback(res)
+        that.globalData.userInfo = res.userInfo;
+        that.reLogin(res.userInfo);
+        if (that.userInfoReadyCallback) {
+          that.userInfoReadyCallback(res)
         }
       }
     })
+  },
+  reLogin: function (post) {
+    let that = this;
+    post['openId'] = this.globalData.openId;
+    wx.request({
+      url: config.loginUrl,
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+        //'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        action: 'userInfo',
+        post: post
+      },
+      success: res => {
+        console.log(res.data);
+        wx.setStorageSync('isLogin', true);
+      }
+    });
   },
   onLaunch: function () {
     wx.getSetting({
@@ -25,7 +47,6 @@ App({
       }
     });
     var that = this;
-    this.getUserInfo();
     wx.login({
       success: res => {
         console.log(res);
@@ -43,6 +64,7 @@ App({
             },
             success: res => {
               that.globalData.openId = res.data;
+              that.getUserInfo();
               console.log(res);
             }
           })
@@ -58,7 +80,20 @@ App({
       success: function(e) {
         console.log(e.errMsg);
         if(!e.errMsg) {
+          console.log('checkSession0');
           that.getUserInfo();
+          wx.getSetting({
+            success: res => {
+              console.log(!res.authSetting['scope.userInfo'])
+              if (res.authSetting['scope.userInfo']) {
+                wx.setStorageSync('isLogin', true)
+              } else {
+                wx.redirectTo({
+                  url: '../login/login',
+                })
+              }
+            }
+          });
         }
       }
     });

@@ -35,7 +35,7 @@ Page({
             console.log(res.data);
             wx.setStorageSync('isLogin', true);
             wx.switchTab({
-              url: '../my/my'
+              url: '../index/index'
             })
           }
         })
