@@ -1,11 +1,11 @@
 <!--pages/record/record.wxml-->
-<view wx:for="{{recordList}}" wx:key="*this" class="page__modules">
-  <navigator url="{{item.url}}">
-    <image class="recordListImg" src="{{item.image}}"></image>
+<view wx:for="{{list}}" wx:key="*this" class="page__modules">
+  <navigator  url="../launch/launch?id={{item.id}}">
+    <image class="recordListImg" src="{{item.thumb}}"></image>
     <view class="recordListInfo">
       <view class="recordListTitle">{{item.title}}</view>
       <view class="recordListOther">
-        <text class="recordListAuthor">{{item.author}}</text> 赞{{item.like}} 评{{item.comment}} 阅读{{item.look}}
+        <text class="recordListAuthor">{{item.nickName}}</text> 赞{{item.toupiao}} 评{{item.comment}} 阅读{{item.liulan}}
       </view>
     </view>
   </navigator>

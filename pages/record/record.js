@@ -1,11 +1,14 @@
-// pages/record/record.js
+const app = getApp()
+const config = require('../../config/config.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    recordList: [{
+    list:[],
+    recordList: [
+    {
       url: "",
       image: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg",
       title: "活动1活动1活动1活动1活动1活动1",
@@ -22,15 +25,36 @@ Page({
       comment: 0,
       like: 0,
       look: 0,
-    },
-    ],
+    }],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
+    let where = {}
+    where['openId'] = app.globalData.openId;
+    wx.request({
+      url: config.activityUrl,
+      method:"POST",
+      dataType:"JSON",
+      data:{
+        action:"lists",
+        where: where
+      },
+      success:function(res){
+        console.clear();
+        let data = JSON.parse(res.data);
+        console.log(data);
+        that.setData({
+          list: data
+        })
+      },
+      fail:function(){
 
+      }
+    })
   },
 
   /**
