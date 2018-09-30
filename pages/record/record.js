@@ -44,9 +44,7 @@ Page({
         where: where
       },
       success:function(res){
-        console.clear();
         let data = JSON.parse(res.data);
-        console.log(data);
         that.setData({
           list: data
         })

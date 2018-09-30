@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.3.0",
-	"appid": "wx308e825818a72afe",
+	"appid": "wx06bf2ac711485258",
 	"projectname": "gaoshou",
 	"debugOptions": {
 		"hidedInDevtools": []

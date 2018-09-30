@@ -4,7 +4,6 @@ App({
   redirectTo: function () {
     wx.getSetting({
       success: res => {
-        console.log(!res.authSetting['scope.userInfo'])
         if (res.authSetting['scope.userInfo']) {
           wx.setStorageSync('isLogin', true)
         } else {
@@ -20,7 +19,6 @@ App({
     var that = this;
     wx.login({
       success: res => {
-        console.log(res);
         if (res.code) {
           wx.request({
             url: config.loginUrl,
@@ -36,11 +34,13 @@ App({
             success: res => {
               that.globalData.openId = res.data;
               that.getUserInfo();
-              console.log(res);
             }
           })
         } else {
-          console.log('登录失败！' + login.errMsg)
+          wx.showToast({
+            title: '登录失败！' + login.errMsg,
+            icon:"none"
+          })
         }
       }
     })
@@ -75,7 +75,6 @@ App({
         post: post
       },
       success: res => {
-        console.log(res.data);
         wx.setStorageSync('isLogin', true);
       }
     });
@@ -90,6 +89,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    openId: null
+    openId: null,
   }
 })
