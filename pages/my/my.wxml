@@ -6,8 +6,8 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
   <view class='mymsg'>
-    <text class='my-data'>我的资料</text>
-    <text class='my-notice'>站内公告</text>
+    <navigator url=""><text class='my-data'>我的资料</text></navigator>
+    <navigator url="/pages/notice/notice"><text class='my-notice'>站内公告</text></navigator>
     <!-- <text class='my-signout' bindtap='logout'>退出登录</text> -->
   </view>
   <view class='btnlist'>

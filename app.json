@@ -4,7 +4,6 @@
     "pages/record/record",
     "pages/launch/launch",
     "pages/activity_Initiate/activity_Initiate",
-    "pages/list/list",
     "pages/pastEvents/pastEvents",
     "pages/activity/activity",
     "pages/publication/publication",
@@ -13,7 +12,8 @@
     "pages/foot/foot",
     "pages/exhibit/exhibit",
     "pages/detail/detail",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/notice/notice"
   ],
   "window": {
     "backgroundTextStyle": "light",
