@@ -14,7 +14,9 @@
     "pages/detail/detail",
     "pages/login/login",
     "pages/notice/notice",
-    "pages/article/article"
+    "pages/article/article",
+    "pages/list/list"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
