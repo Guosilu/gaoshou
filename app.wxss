@@ -142,7 +142,13 @@ swiper{
   font-size: 14px;
   color: gray;
 }
-
+.listInfoTit{
+  display: inline-block;
+  width: 50%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .eventsItem image,.worksItem image{
   width: 100%;
 }
@@ -197,4 +203,12 @@ swiper{
 }
 .ex-statistics view{
   background: rgb(252, 198, 1);font-size: 26rpx;text-align: center;color: #fff;height: 80rpx;line-height: 80rpx;
+}
+
+.ex-tit{
+  line-height: 50rpx;
+}
+.ex-tit image{
+  height: 50rpx;
+  vertical-align: middle;
 }
