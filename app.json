@@ -13,7 +13,8 @@
     "pages/exhibit/exhibit",
     "pages/detail/detail",
     "pages/login/login",
-    "pages/notice/notice"
+    "pages/notice/notice",
+    "pages/article/article"
   ],
   "window": {
     "backgroundTextStyle": "light",
