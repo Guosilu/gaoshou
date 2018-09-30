@@ -3,6 +3,7 @@
 <view wx:if="{{like_status == 0}}" bindtap='like'>点赞</view>
 <view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
 <view>浏览量：{{detail.liulan}}</view>
+<view>发布人昵称：{{detail.nickName}}</view>
 <view class='informat'>
   <view class='ex-tit'>
     <image src=''></image>活动名称

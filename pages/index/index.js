@@ -140,7 +140,7 @@ Page({
     })
   },
   onLoad: function() {
-    
+    app.redirectTo();
   },
   onShow: function() {
     this.getActivityList();

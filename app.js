@@ -82,7 +82,7 @@ App({
   },
   onLaunch: function () {
     let that = this;
-    this.redirectTo();
+    //this.redirectTo();
     this.login();
   },
   onShow: function () {
