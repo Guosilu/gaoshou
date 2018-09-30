@@ -118,16 +118,20 @@
         </navigator>
       </view>
       <view class="cate_icon4">
+      <navigator url="/pages/exhibit/exhibit" hover-class="navigator-hover">
         <image src="{{img}}cate4_5.png" mode="scaleToFill"></image>
         <view class="cate_text">
           <view class="cate_text_tit">活动列表</view>
         </view>
+        </navigator>
       </view>
       <view class="cate_icon4">
+      <navigator url="/pages/exhibit/exhibit" hover-class="navigator-hover">
         <image src="{{img}}cate4_6.png" mode="scaleToFill"></image>
         <view class="cate_text">
           <view class="cate_text_tit">平台栏目</view>
         </view>
+        </navigator>
       </view>
       <view class="cate_icon4">
         <image src="{{img}}cate4_7.png" mode="scaleToFill"></image>

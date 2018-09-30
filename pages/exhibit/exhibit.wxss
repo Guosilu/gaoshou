@@ -22,7 +22,13 @@
 .ex-btn view{
   float: left;width: 48%;background: #2d2d2d;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
 }
-
+.ex-tit{
+  line-height: 50rpx;
+}
+.ex-tit image{
+  height: 50rpx;
+  vertical-align: middle;
+}
 
 
 

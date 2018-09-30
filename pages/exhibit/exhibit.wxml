@@ -1,6 +1,6 @@
 <view class='informat'>
   <view class='ex-tit'>
-    <image src=''></image>活动名称
+    <image src="/images/biaoqian.png"></image>活动名称
   </view>
   <view class='ex-cover'>
     <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg'></image>
@@ -47,7 +47,7 @@
 
 <view class='informat'>
   <view class='ex-tit'>
-    <image src=''></image>推荐活动
+    <image src="/images/biaoqian.png"></image>推荐活动
   </view>
   <view class='ex-list'>
     <view class='ex-cipate'>
