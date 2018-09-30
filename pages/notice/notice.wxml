@@ -1,0 +1,7 @@
+<!--pages/notice/notice.wxml-->
+<view wx:for="{{noticesList}}" class="page__modules">
+  <navigator url="{{item.url}}">
+    <view class="noticeTitle">{{item.title}}</view>
+    <view class="noticeIntro">{{item.intro}}</view>
+  </navigator>
+</view>
