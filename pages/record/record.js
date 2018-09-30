@@ -6,26 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[],
-    recordList: [
-    {
-      url: "",
-      image: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg",
-      title: "活动1活动1活动1活动1活动1活动1",
-      author: "张三",
-      comment: 0,
-      like: 0,
-      look: 0,
-    },
-    {
-      url: "",
-      image: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg",
-      title: "活动2活动2活动2活动2活动2",
-      author: "李四",
-      comment: 0,
-      like: 0,
-      look: 0,
-    }],
+    list:[]
   },
 
   /**
@@ -33,23 +14,69 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    console.log(options)
+    if (options.type =="WeLaunch"){
+      that.WeLaunch();
+    } else if (options.type == "WeJob"){
+      that.WeJob();
+    }else{
+
+    }
+    
+  },
+  /**
+   * 我参与的活动
+   */
+  WeJob:function(){
+    var that = this;
+    let where = {}
+    where['openId'] = app.globalData.openId;
+    wx.request({
+      url: config.activity_orderUrl,
+      method: "POST",
+      dataType: "JSON",
+      data: {
+        action: "lists",
+        where: where
+      },
+      success: function (res) {
+        let data = JSON.parse(res.data);
+        console.clear();
+        console.log(data);
+        that.setData({
+          list: data
+        })
+      },
+      fail: function () {
+        wx.showToast({
+          title: '查询失败',
+          icon:"none"
+        })
+      }
+    })
+  },
+  /**
+   * 我发起的活动
+   */
+  WeLaunch:function(){
+    var that = this;
     let where = {}
     where['openId'] = app.globalData.openId;
     wx.request({
       url: config.activityUrl,
-      method:"POST",
-      dataType:"JSON",
-      data:{
-        action:"lists",
+      method: "POST",
+      dataType: "JSON",
+      data: {
+        action: "lists",
         where: where
       },
-      success:function(res){
+      success: function (res) {
         let data = JSON.parse(res.data);
         that.setData({
           list: data
         })
       },
-      fail:function(){
+      fail: function () {
 
       }
     })

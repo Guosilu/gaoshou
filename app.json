@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/my/my",
     "pages/index/index",
     "pages/record/record",
     "pages/launch/launch",
@@ -8,7 +9,6 @@
     "pages/activity/activity",
     "pages/publication/publication",
     "pages/participate/participate",
-    "pages/my/my",
     "pages/foot/foot",
     "pages/exhibit/exhibit",
     "pages/detail/detail",
