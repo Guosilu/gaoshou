@@ -1,50 +1,18 @@
-// pages/notice/notice.js
-
-const config = require('../../config/config.js');
-//获取应用实例
+// pages/noticeshow/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    noticesList: [
-      {
-        url: "/pages/article/article",
-        title: "通知1",
-        intro: "tz",
-        info: "tztztztztztz"
 
-      },
-      {
-        url: "",
-        title: "通知1",
-        intro: "tz",
-        info: "tztztztztztz"
-
-      },
-    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    wx.request({
-      url: config.publicationUrl,
-      //url:"https://aa.zdcom.net.cn/gaoshou/api/getlistapi.php",
-      method: 'GET',
-      data: {
-        action: 'notice'
-      },
-      success: function (res) {
-        console.log(res.data);
-        that.setData({
-          taglist: res.data
-        });
-      }
-    })
+
   },
 
   /**
