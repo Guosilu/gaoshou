@@ -5,7 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
+    noticesList: [
+      {
+        url: "/pages/article/article",
+        title: "通知1",
+        intro: "tz",
+        info: "tztztztztztz"
 
+      },
+      {
+        url: "",
+        title: "通知1",
+        intro: "tz",
+        info: "tztztztztztz"
+
+      },
+    ],
   },
 
   /**

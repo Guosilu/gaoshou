@@ -1,1 +1,23 @@
 /* pages/notice/notice.wxss */
+
+.page__modules {
+  display: block;
+  padding: 15rpx 20rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.noticeTitle {
+  font-size: 18px;
+}
+
+.noticeIntro {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+}
