@@ -1,0 +1,8 @@
+/* pages/xieyi/index.wxss */
+.title{
+  text-align: center;
+  font-weight:800;
+}
+.textcontent{
+  line-height: 20rpx;
+}

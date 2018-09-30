@@ -81,7 +81,7 @@
     </view>
   </view>
   <view style="overflow:hidden;">
-    <navigator url="" class="uploadRuler">
+    <navigator url="/pages/xieyi/index" class="uploadRuler">
       了解上传协议？
     </navigator>
   </view>
