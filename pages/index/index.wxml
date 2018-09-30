@@ -155,7 +155,8 @@
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image src="{{item.thumb}}"></image>
-          <view class="listInfo">{{item.title}}
+          <view class="listInfo">
+          <text class="listInfoTit">{{item.title}}</text>
             <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
           </view>
         </navigator>
@@ -168,8 +169,9 @@
       <view class="worksItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="{{item.url}}">
           <image src="{{item.image}}"></image>
-          <view class="listInfo">{{item.title}}
-            <text class="fr">赞{{item.like}} 评{{item.comment}} 阅读{{item.look}}</text>
+          <view class="listInfo">
+          <text class="listInfoTit">{{item.title}}</text>
+            <text class="fr">赞{{item.like}} 阅读{{item.look}}</text>
           </view>
         </navigator>
       </view>

@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/my/my",
     "pages/index/index",
     "pages/record/record",
     "pages/launch/launch",
@@ -14,11 +13,12 @@
     "pages/orderDetail/orderDetail",
     "pages/detail/detail",
     "pages/login/login",
-    "pages/notice/notice",
     "pages/article/article",
     "pages/xieyi/index",
-    "pages/list/list"
-
+    "pages/my/my",
+    "pages/list/list",
+    "pages/notice/notice",
+    "pages/noticeshow/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
