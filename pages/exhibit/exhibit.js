@@ -141,12 +141,17 @@ Page({
     })
   },
   getOrderList: function () {
-    var that = this;
+    let that = this;
+    let where = {};
+    where['activity_id'] = this.data.detail
+    console.log(this.data.detail)
     wx.request({
       url: config.activity_orderUrl,
       method: 'POST',
       data: {
-        action: 'lists'
+        action: 'lists',
+        pagesize: 2,
+        where: where
       },
       success: function (res) {
         console.log(res.data);
