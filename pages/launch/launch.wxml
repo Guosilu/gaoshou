@@ -1,22 +1,22 @@
 <!--pages/launch/launch.wxml-->
-<block wx:if="{{detail.id && like_status !== null}}">
-<view wx:if="{{like_status == 0}}" bindtap='like'>点赞</view>
-<view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
-<view>浏览量：{{detail.liulan}}</view>
-<view>发布人昵称：{{detail.nickName}}</view>
 <view class='informat'>
   <view class='ex-tit'>
-    <image src=''></image>活动名称
+    <image src="/images/biaoqian.png"></image>活动名称
   </view>
   <view class='ex-cover'>
-  
     <image src='{{detail.thumb}}' mode='widthFix'></image>
     <view class='ex-int'>{{detail.title}}</view>
   </view>
+  <block wx:if="{{detail.id && like_status !== null}}">
+    <view wx:if="{{like_status == 0}}" bindtap='like'>点赞</view>
+    <view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
+    <view>浏览量：{{detail.liulan}}</view>
+    <view>发布人：{{detail.nickName}}</view>
+  </block>
 </view>
 <view class='rule'>
   <view class='ex-tit'>
-    <image src='{{detail.thumb}}'></image>活动规则
+    <image src="/images/biaoqian.png"></image>活动规则
   </view>
   <view class='rule-cont'>
     {{detail.rule}}
@@ -26,7 +26,7 @@
 </view>
 <view class='time'>
   <view class='ex-tit'>
-    <image src=''></image>活动时间
+    <image src="/images/biaoqian.png"></image>活动时间
   </view>
   <view class='rule-cont'>
     {{detail.starttime}}---{{detail.endtime}}
@@ -38,6 +38,5 @@
   <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
 
 </view>
-<import src='../foot/foot.wxml'/>
+<import src='../foot/foot.wxml' />
 <template is='foot'></template>
-</block>
