@@ -11,6 +11,7 @@
     "pages/participate/participate",
     "pages/foot/foot",
     "pages/exhibit/exhibit",
+    "pages/orderDetail/orderDetail",
     "pages/detail/detail",
     "pages/login/login",
     "pages/notice/notice",

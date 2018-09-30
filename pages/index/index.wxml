@@ -153,7 +153,7 @@
         推荐活动
       </view>
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
-        <navigator url="../launch/launch?id={{item.id}}">
+        <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image src="{{item.thumb}}"></image>
           <view class="listInfo">{{item.title}}
             <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
