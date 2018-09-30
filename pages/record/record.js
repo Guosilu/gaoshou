@@ -16,32 +16,31 @@ Page({
     var that = this;
     console.log(options)
     if (options.type =="WeLaunch"){
-      that.WeLaunch();
+      that.query("lists", config.activityUrl)
     } else if (options.type == "WeJob"){
-      that.WeJob();
+      that.query("WeJob", config.activity_orderUrl)
     }else{
-
-    }
-    
+      that.query("WeJob")
+    }    
   },
   /**
-   * 我参与的活动
+   * 查询
    */
-  WeJob:function(){
+  query:function(action,url){
     var that = this;
     let where = {}
     where['openId'] = app.globalData.openId;
     wx.request({
-      url: config.activity_orderUrl,
+      url: url,
       method: "POST",
       dataType: "JSON",
       data: {
-        action: "lists",
+        action: action,
         where: where
       },
       success: function (res) {
+        
         let data = JSON.parse(res.data);
-        console.clear();
         console.log(data);
         that.setData({
           list: data
@@ -50,34 +49,8 @@ Page({
       fail: function () {
         wx.showToast({
           title: '查询失败',
-          icon:"none"
+          icon: "none"
         })
-      }
-    })
-  },
-  /**
-   * 我发起的活动
-   */
-  WeLaunch:function(){
-    var that = this;
-    let where = {}
-    where['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      dataType: "JSON",
-      data: {
-        action: "lists",
-        where: where
-      },
-      success: function (res) {
-        let data = JSON.parse(res.data);
-        that.setData({
-          list: data
-        })
-      },
-      fail: function () {
-
       }
     })
   },
@@ -92,7 +65,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+
   },
 
   /**
