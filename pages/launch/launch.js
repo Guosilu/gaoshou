@@ -121,6 +121,11 @@ Page({
             icon: 'none',
             title: '您已经参加！'
           });
+        } else if (res.data == 4) {
+          wx.showToast({
+            icon: 'none',
+            title: '活动已经开始！'
+          });
         }
       }
     });
