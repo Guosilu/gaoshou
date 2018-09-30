@@ -1,0 +1,12 @@
+<!--pages/xieyi/index.wxml-->
+<view class='title'>平台协议</view>
+<view>
+  <text class='textcontent'>　　1、用户使用本平台，被视为完全遵守本平台规定，所有行为必须符合国家关于互联网安全的法律法规规定，并为自己的行为负完全责任。</text>
+  <text class='textcontent'>　　\n\n2、用户所有行为，本平台具有完全处置权，包括但不限于修改、删除、转发、分享。</text>
+  <text class='textcontent'>　　\n\n3、用户所有作品必须体现正能量，不得出现于有悖于和谐社会的元素。</text>
+  <text class='textcontent'>　　\n\n4、用户上传作品必须为本人拥有著作权的原创作品，不得有抄袭、拷贝、仿冒等不正当、不合法行为。</text>
+  <text class='textcontent'>　　\n\n5、用户参与平台活动必须同意平台及其关联公司有权将所有作品免费用于公开展示、刊登、制作、广告、宣传及刊印等。</text>
+  <text class='textcontent'>　　\n\n6、若用户作品涉及肖像权、名誉权、著作权等纠纷，相关法律责任由用户本人承担，由此给平台和相关方带来的不良影响及利益损害，用户应予以赔偿。</text>
+  <text class='textcontent'>　　\n\n7、若发现用户有不合规、不合法的行为，用户账户将被永久关闭，并曝光用户行为，记录失信档案。</text>
+  <text class='textcontent'>　　\n\n8、平台征信同时，主办方、承办方有权取消违规作品的参赛资格。</text>
+</view>

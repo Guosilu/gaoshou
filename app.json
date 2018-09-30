@@ -15,6 +15,7 @@
     "pages/login/login",
     "pages/notice/notice",
     "pages/article/article",
+    "pages/xieyi/index",
     "pages/list/list"
 
   ],
