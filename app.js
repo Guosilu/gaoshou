@@ -56,7 +56,10 @@ App({
         }
       },
       fail: res => {
-        console.log('未授权');
+        wx.showToast({
+          title: '未授权',
+          icon:"none"
+        })
       }
     })
   },
