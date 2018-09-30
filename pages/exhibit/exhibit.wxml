@@ -1,33 +1,44 @@
 <block wx:if="{{detail.id && like_status !== null && order_lists && exhibit_lists}}">
 <view class='informat'>
-  <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>标题：{{detail.title}}
-  </view>
-  <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>类型：{{detail.type}}
+ <view class='ex-tit'>
+    <image src="/images/biaoqian.png"></image>活动名称
   </view>
   <view class='ex-cover'>
-    <image src='{{detail.thumb}}'></image>
-    <view class='ex-int'>{{detail.rule}}</view>
+    <image src='{{detail.thumb}}' mode='widthFix'></image>
+    <view class='ex-int'>{{detail.title}}</view>
   </view>
-</view>
-<view class='ex-btns'>
-  <view class='ex-sponsor'>
+  <block wx:if="{{detail.id && like_status !== null}}">
     <view wx:if="{{like_status == 0}}" bindtap='like'>点赞</view>
-<view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
-    <view>赞助商2</view>
+    <view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
+    <view>浏览量：{{detail.liulan}}</view>
+    <view>发布人：{{detail.nickName}}</view>
+  </block>
+</view>
+
+<view class='rule'>
+  <view class='ex-tit'>
+    <image src="/images/biaoqian.png"></image>活动规则
   </view>
-  <view class='ex-patron'>活动赞助</view>
+  <view class='rule-cont'>
+    {{detail.rule}}
+  </view>
 </view>
-<view class='ex-statistics'>
-  <view>总人{{detail.order_count}}  总赞{{detail.dianzan}}  总票{{detail.toupiao}}  总评{{detail.pinglun}}  浏览{{detail.liulan}}</view>
+
+<view class='time'>
+  <view class='ex-tit'>
+    <image src="/images/biaoqian.png"></image>活动时间
+  </view>
+  <view class='rule-cont'>
+    {{detail.starttime}}---{{detail.endtime}}
+  </view>
 </view>
+
 <view class='informat'>
   <view class='ex-tit'>
-    <image src=''></image>参赛列表
+    <image src="/images/biaoqian.png"></image>参赛列表
   </view>
   <view class='ex-list'>
-    <view class='ex-cipate' wx:for="{{order_lists}}"  wx:key="*this">
+    <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
     <navigator url="../orderDetail/orderDetail?id={{item.id}}">
       <image src='{{item.thumb}}'></image>
       <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
@@ -35,31 +46,17 @@
     </view>
   </view>
 </view>
-<view class='ex-btns'>
-  <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
-  <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
-</view>
 
 <view class='informat'>
   <view class='ex-tit'>
     <image src="/images/biaoqian.png"></image>推荐活动
   </view>
   <view class='ex-list'>
-    <view class='ex-cipate'>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
-      <view>活动1，赞0票0评0阅0</view>
-    </view>
-    <view class='ex-cipate'>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
-      <view>活动2，赞0票0评0阅0</view>
-    </view>
-    <view class='ex-cipate'>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
-      <view>活动3，赞0票0评0阅0</view>
-    </view>
-    <view class='ex-cipate'>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087'></image>
-      <view>活动4，赞0票0评0阅0</view>
+    <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">
+    <navigator url="../exhibit/exhibit?id={{item.id}}">
+      <image src='{{item.thumb}}'></image>
+      <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
+    </navigator>
     </view>
   </view>
 </view>

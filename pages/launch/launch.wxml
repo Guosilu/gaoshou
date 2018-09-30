@@ -20,8 +20,6 @@
   </view>
   <view class='rule-cont'>
     {{detail.rule}}
-    <!-- <image src='http://www.ficc.org.cn/template/mobile/img/banner001.jpg' mode='widthFix'></image>
-    奥班农购入啊啊发放阿芬阿飞哦阿佛额奥法AV四女是AV慧鹏v是傲娇四个热狗发将诶 -->
   </view>
 </view>
 <view class='time'>
@@ -36,7 +34,6 @@
 <view class='ex-btns'>
   <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
   <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
-
 </view>
 <import src='../foot/foot.wxml' />
 <template is='foot'></template>

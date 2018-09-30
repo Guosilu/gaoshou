@@ -22,6 +22,12 @@
 .ex-btn view{
   float: left;width: 48%;background: #2d2d2d;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
 }
+.rule,.time{
+  margin: 30rpx 20rpx;background: #fff;border-radius: 15rpx;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;overflow: hidden;
+}
+.rule-cont{
+  line-height: 50rpx;font-size: 32rpx;padding: 20rpx 15rpx;overflow: hidden;
+}
 
 
 

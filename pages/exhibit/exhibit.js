@@ -134,24 +134,22 @@ Page({
     });
 
   },
-  go_Activity_Initiate: function (res) {
-    console.log(res);
+  go_Activity_Initiate: function () {
     wx.redirectTo({
       url: '../activity_Initiate/activity_Initiate',
     })
   },
-  getOrderList: function () {
+  getOrderList: function (id) {
     let that = this;
-    let where = {};
-    where['activity_id'] = this.data.detail
-    console.log(this.data.detail)
     wx.request({
       url: config.activity_orderUrl,
       method: 'POST',
       data: {
         action: 'lists',
-        pagesize: 2,
-        where: where
+        pagesize: 4,
+        where: {
+          activity_id: id
+        }
       },
       success: function (res) {
         console.log(res.data);
@@ -161,13 +159,16 @@ Page({
       }
     })
   },
-  getExhibitList: function () {
+  getExhibitList: function (id) {
     var that = this;
     wx.request({
       url: config.activityUrl,
       method: 'POST',
       data: {
-        action: 'lists'
+        action: 'lists',
+        where_except: {
+          id: id
+        }
       },
       success: function (res) {
         console.log(res.data);
@@ -202,9 +203,13 @@ Page({
         }
       }
     });
+    this.getOrderList(id);
+    this.getExhibitList(id);
   },
   onShow: function () {
-    this.getOrderList();
-    this.getExhibitList();
+    if (this.data.detail.id) {
+      this.getOrderList(this.data.detail.id);
+      this.getExhibitList(this.data.detail.id);
+    }
   }
 })
