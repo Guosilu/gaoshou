@@ -13,13 +13,13 @@
   <view class='btnlist'>
     <view>我的作品</view>
     <view>
-      <navigator url="/pages/record/record">谁参与了我的活动</navigator>
+      <navigator url="/pages/record/record?type=WhoLaunch">谁参与了我的活动</navigator>
     </view>
     <view>
-      <navigator url="/pages/record/record">我参与的活动</navigator>
+      <navigator url="/pages/record/record?type=WeJob">我参与的活动</navigator>
     </view>
     <view>
-      <navigator url="/pages/record/record">我发起的活动</navigator>
+      <navigator url="/pages/record/record?type=WeLaunch">我发起的活动</navigator>
     </view>
   </view>
 </view>

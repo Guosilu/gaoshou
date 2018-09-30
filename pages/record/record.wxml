@@ -5,7 +5,7 @@
     <view class="recordListInfo">
       <view class="recordListTitle">{{item.title}}</view>
       <view class="recordListOther">
-        <text class="recordListAuthor">{{item.nickName}}</text> 赞{{item.toupiao}} 评{{item.comment}} 阅读{{item.liulan}}
+        <text class="recordListAuthor">发起人:{{item.nickName}}</text> 赞{{item.toupiao}} 评{{item.comment}} 阅读{{item.liulan}}
       </view>
     </view>
   </navigator>
