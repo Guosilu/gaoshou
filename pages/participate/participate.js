@@ -58,7 +58,7 @@ Page({
   },
   formSubmitDo: function (post) {
     let that = this;
-    post['activity_id'] = this.data.activity_id;
+    post['activity_id'] = that.data.activity_id;
     post['openId'] = app.globalData.openId;
     wx.request({
       url: config.activity_orderUrl,
@@ -175,10 +175,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) { 
+    var that = this;
     console.log(options);
-    this.setData({
-      activity_id: options.id
-    });
+    if (Object.keys(options).length==0){
+      wx.showToast({
+        title: '跳转异常!正在返回!',
+        icon:"none",
+        success:function(){
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
+        }
+      })
+    }else{
+      that.setData({
+        activity_id: options.id
+      });
+    }
+    
   },
 
   /**
