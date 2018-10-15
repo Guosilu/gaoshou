@@ -12,10 +12,6 @@
 .headlogo .userinfo-nickname{
   opacity: 0.8;
 }
-.headlogo .my_msg{
-  float: right;
-  margin: 20rpx;
-}
 .headlogo .my_msg image{
   width: 45rpx;
 }
