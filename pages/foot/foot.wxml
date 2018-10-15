@@ -1,7 +1,4 @@
 <template name='foot'>
-  <view class='gotop'>
-    Top ▲
-  </view>
   <view class='foot'>
     ©2018 赛脉 版权所有
   </view>

@@ -1,38 +1,37 @@
 <view class='headlogo'>
   <view class='yeview'>
     <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-  </view>
-  <view class='nologin'>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <view class='mymsg'>
-    <navigator url="/pages/profile/profile"><text class='my-data'>我的资料</text></navigator>
-    <navigator url="/pages/notice/notice"><text class='my-notice'>站内公告</text></navigator>
-    <!-- <text class='my-signout' bindtap='logout'>退出登录</text> -->
-  </view>
-  <view class='btnlist'>
-    <view>我的作品</view>
-    <view>
-      <navigator url="/pages/record/record?type=WhoLaunch">谁参与了我的活动</navigator>
-    </view>
-    <view>
-      <navigator url="/pages/record/record?type=WeJob">我参与的活动</navigator>
-    </view>
-    <view>
-      <navigator url="/pages/record/record?type=WeLaunch">我发起的活动</navigator>
-    </view>
+    <navigator url="/pages/notice/notice" class="my_msg">
+      <image src="/images/my_msg.png" mode="widthFix"></image>
+    </navigator>
   </view>
 </view>
 
 <view class='explain'>
-  <view class='ex-tit'>
-    <image src=''></image>说明</view>
-  <view class='ex-con'>
-    <view>1、我的发起的活动，我发布的作品，我发起的众筹等，所有参与者的赞、票、评、阅，都有统计列表；</view>
-    <view>2、广告也有赞、票、评、阅统计；</view>
-    <view>3、活动排名是所有广告赞助+广告评价指标+参与者评价指标的综合统计【按照实际支付的资金额进行排名】；</view>
-    <view>4、冠军列表分为：日冠军、周冠军、月冠军、季冠军，年冠军</view>
-    <view>5、广告赞助费用，30%直接进入平台账户【其中20%用于奖励】，70%进入个人账户</view>
+  <view class='btnlist'>
+    <navigator hover-class="none" url="/pages/profile/profile">
+      <image src="/images/my_zl.png" mode="widthFix" />我的资料</navigator>
+    <navigator hover-class="none" url="/pages/profile/profile">
+      <image src="/images/my_zp.png" mode="widthFix" />我的作品</navigator>
+    <navigator hover-class="none" url="/pages/record/record?type=WeLaunch">
+      <image src="/images/my_wfq.png" mode="widthFix" />我发起的活动</navigator>
+    <navigator hover-class="none" url="/pages/record/record?type=WeJob">
+      <image src="/images/my_wcy.png" mode="widthFix" />我参与的活动</navigator>
+    <navigator hover-class="none" url="/pages/record/record?type=WhoLaunch">
+      <image src="/images/my_scy.png" mode="widthFix" />谁参与了我的活动</navigator>
+  </view>
+
+  <view class='btnlist'>
+    <view class='ex-tit'>
+      <image src="/images/my_sm.png"></image>说明</view>
+    <view class='ex-con'>
+      <view>1、我的发起的活动，我发布的作品，我发起的众筹等，所有参与者的赞、票、评、阅，都有统计列表；</view>
+      <view>2、广告也有赞、票、评、阅统计；</view>
+      <view>3、活动排名是所有广告赞助+广告评价指标+参与者评价指标的综合统计【按照实际支付的资金额进行排名】；</view>
+      <view>4、冠军列表分为：日冠军、周冠军、月冠军、季冠军，年冠军</view>
+      <view>5、广告赞助费用，30%直接进入平台账户【其中20%用于奖励】，70%进入个人账户</view>
+    </view>
   </view>
 </view>
 <import src='../foot/foot.wxml' />
