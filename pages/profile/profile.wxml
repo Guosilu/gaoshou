@@ -1,0 +1,72 @@
+<!--pages/profile/profile.wxml-->
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">用户名</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入qq" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <view class="weui-cell__hd">
+      <view class="weui-label">手机号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入手机号" />
+    </view>
+    <view class="weui-cell__ft">
+      <view class="weui-vcode-btn">获取验证码</view>
+    </view>
+  </view>
+  
+  <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <view class="weui-cell__hd">
+      <view class="weui-label">验证码</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入验证码" />
+    </view>
+    <view class="weui-cell__ft">
+      <image class="weui-vcode-img" src="../images/vcode.jpg" style="width: 108px"></image>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">出生日期</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="weui-input">{{date}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="weui-cells__title">如需修改密码请填写，如不需要请留空。</view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">原密码</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" type='password' placeholder="请输入原密码" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">新密码</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" type='password' placeholder="请输入新密码" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">重复密码</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" type='password' placeholder="请重复输入新密码" />
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>
+  </view>
+</view>
