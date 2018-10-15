@@ -41,31 +41,7 @@
       </picker>
     </view>
   </view>
-  <view class="weui-cells__title">如需修改密码请填写，如不需要请留空。</view>
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__hd">
-      <view class="weui-label">原密码</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input" type='password' placeholder="请输入原密码" />
-    </view>
-  </view>
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__hd">
-      <view class="weui-label">新密码</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input" type='password' placeholder="请输入新密码" />
-    </view>
-  </view>
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__hd">
-      <view class="weui-label">重复密码</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input" type='password' placeholder="请重复输入新密码" />
-    </view>
-  </view>
+  
   <view class="weui-btn-area">
     <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>
   </view>
