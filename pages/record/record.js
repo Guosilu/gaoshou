@@ -6,7 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[]
+    list:[],
+    page:1,
+    types:""
   },
 
   /**
@@ -14,14 +16,23 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    console.log(options)
-    if (options.type =="WeLaunch"){
+    that.setData({
+      types:options.type,
+    })
+    that.beforQuery(that.data.types);  
+  },
+  //查询之前
+  beforQuery: function (types){
+    var that = this;
+    if (types == "WeLaunch") {
       that.query("lists", config.activityUrl)
-    } else if (options.type == "WeJob"){
+    } else if (types == "WeJob") {
       that.query("WeJob", config.activity_orderUrl)
-    }else{
+    } else if (types == "all") {
+      that.query("all", config.activityUrl)
+    } else {
       that.query("WeJob")
-    }    
+    }
   },
   /**
    * 查询
@@ -29,21 +40,24 @@ Page({
   query:function(action,url){
     var that = this;
     let where = {}
-    where['openId'] = app.globalData.openId;
+    if(action!='all'){
+      where['openId'] = app.globalData.openId;
+    }
+    console.log(url);
     wx.request({
       url: url,
       method: "POST",
       dataType: "JSON",
       data: {
+        page:that.data.page,
         action: action,
         where: where
       },
       success: function (res) {
-        
         let data = JSON.parse(res.data);
-        console.log(data);
+        console.log(res);
         that.setData({
-          list: data
+          list: that.data.list.concat(data)
         })
       },
       fail: function () {
@@ -54,6 +68,21 @@ Page({
       }
     })
   },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    console.clear();
+    console.log("触底事件")
+    var that = this;
+    let page = that.data.page;
+    that.setData({
+      page:page+1
+    })
+    that.beforQuery(that.data.types); 
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -89,12 +118,6 @@ Page({
 
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
 
   /**
    * 用户点击右上角分享
