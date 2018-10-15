@@ -165,10 +165,10 @@ swiper{
   width: 100%;background: #2d2d2d;text-align: right;padding: 10rpx;color: #fff;box-sizing: border-box;
 }
 .foot{
-  width: 100%;text-align: center;line-height:100rpx; 
+  width: 100%;text-align: center;line-height:100rpx;color: #ddd;
 }
 .ex-tit{
-  padding:20rpx 15rpx;border-bottom: 2rpx solid #ddd;
+  padding:20rpx 15rpx;border-bottom: 2rpx solid #aaa;
 }
 .ex-tit image{
   width: 50rpx;height: 50rpx;font-size: 32rpx;margin-right: 20rpx;

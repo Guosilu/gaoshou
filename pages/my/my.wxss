@@ -33,13 +33,21 @@
   margin-right: 20rpx;
 }
 .ex-tit{
+  margin-top: 30rpx;
   font-size: 18px;
+  text-align: center;
+  color: #999;
+}
+.ex-tit image{
+  width: 48rpx;
+  vertical-align: text-bottom;
+  margin-right: 10rpx;
 }
 .explain{
-  overflow: hidden;box-sizing: border-box;margin: 15rpx;background: #fff;
+  overflow: hidden;box-sizing: border-box;margin: 15rpx;
 }
 .ex-con{
-  padding: 20rpx 30rpx;box-sizing: border-box;line-height: 50rpx;font-size: 32rpx
+  padding: 20rpx;box-sizing: border-box;line-height: 50rpx;color: #999;
 }
 
 
