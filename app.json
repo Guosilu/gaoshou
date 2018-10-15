@@ -18,7 +18,8 @@
     "pages/my/my",
     "pages/list/list",
     "pages/notice/notice",
-    "pages/noticeshow/index"
+    "pages/noticeshow/index",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
