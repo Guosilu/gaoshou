@@ -185,6 +185,20 @@ Page({
     })
     var that = this;
     let id = options.id;
+    if (Object.keys(options).length == 0) {
+      wx.showToast({
+        title: '跳转异常!正在返回!',
+        icon: "none",
+        success: function () {
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
+        }
+      })
+      return;
+    }
     wx.request({
       url: config.activityUrl,
       method: "POST",

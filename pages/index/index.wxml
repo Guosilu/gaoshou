@@ -140,7 +140,7 @@
         </view>
       </view>
       <view class="cate_icon4">
-        <navigator url="/">
+        <navigator open-type='switchTab' url="../pastEvents/pastEvents">
           <image src="{{img}}cate4_8.png" mode="scaleToFill"></image>
           <view class="cate_text">
             <view class="cate_text_tit">冠军列表</view>
