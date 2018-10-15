@@ -5,6 +5,14 @@
 navigator {
   width: 100%;
 }
+.canyu {
+  display: block;
+}
+.canyu navigator {
+  display: inline;
+  margin-right: 5rpx;
+  color: #dc4e40;
+}
 .recordListImg{
   width: 100rpx;
   height: 100rpx;
