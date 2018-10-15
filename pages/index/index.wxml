@@ -162,6 +162,24 @@
         </navigator>
       </view>
     </view>
+
+
+    <view class="page__modules eventsList">
+      <view class="cate_tit">
+        赛脉广场
+      </view>
+      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
+        <navigator url="../exhibit/exhibit?id={{item.id}}">
+          <image src="{{item.thumb}}"></image>
+          <view class="listInfo">
+          <text class="listInfoTit">{{item.title}}</text>
+            <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
+          </view>
+        </navigator>
+      </view>
+    </view>
+
+
     <view class="page__modules eventsList">
       <view class="cate_tit">
         推荐作品
