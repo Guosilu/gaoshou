@@ -39,6 +39,7 @@
         </view>
       </navigator>
     </view>
+    
     <!-- 轮播 -->
     <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="*this">
@@ -47,13 +48,16 @@
         </swiper-item>
       </block>
     </swiper>
+
   </view>
+
   <view class="page__hd">
     <view class="page__modules" style='display:none;'>
       <view class="cate_tab isRed">比赛类</view>
       <view class="cate_tab isOrange">排名类</view>
       <view class="cate_tab isYellow">互助类</view>
     </view>
+
     <view class="page__modules">
       <view class="cate_icon">
         <image src="{{img}}help.png" mode="scaleToFill"></image>
@@ -62,6 +66,7 @@
           <view>{{siteName}}使用帮助</view>
         </view>
       </view>
+
       <view class="cate_icon">
         <image src="{{img}}comm.png" mode="scaleToFill"></image>
         <view class="cate_text">
@@ -69,6 +74,7 @@
           <view>Exchange</view>
         </view>
       </view>
+
       <view class="cate_icon">
         <image src="{{img}}italk.png" mode="scaleToFill"></image>
         <view class="cate_text">
@@ -129,7 +135,7 @@
       <navigator url="/pages/exhibit/exhibit" hover-class="navigator-hover">
         <image src="{{img}}cate4_6.png" mode="scaleToFill"></image>
         <view class="cate_text">
-          <view class="cate_text_tit">平台栏目</view>
+          <view class="cate_text_tit">赛脉广场</view>
         </view>
         </navigator>
       </view>
@@ -148,6 +154,8 @@
         </navigator>
       </view>
     </view>
+
+
     <view class="page__modules eventsList">
       <view class="cate_tit">
         推荐活动
@@ -194,6 +202,7 @@
         </navigator>
       </view>
     </view>
+
     <view class="page__modules modules_icon5 isHidden">
       <view class="cate_tit">
         分类赛事
