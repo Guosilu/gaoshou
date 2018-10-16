@@ -29,6 +29,20 @@
   line-height: 50rpx;font-size: 32rpx;padding: 20rpx 15rpx;overflow: hidden;
 }
 
+.yh_hudong {
+  overflow: hidden;
+}
 
+.yh_hudong view{
+  float: left;
+  margin-right: 10rpx;
+}
 
+.yh_hudong image{
+  width: 30rpx;
+  vertical-align: middle;
+}
 
+.yh_hudong .like_on{
+  color: #dc4e40;
+}
