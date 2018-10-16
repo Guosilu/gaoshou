@@ -77,7 +77,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    console.clear();
     console.log("触底事件")
     var that = this;
     let page = that.data.page;
