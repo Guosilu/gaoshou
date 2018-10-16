@@ -8,7 +8,8 @@ Page({
   data: {
     list:[],
     page:1,
-    types:""
+    types:"",
+    judge:true,
   },
 
   /**
@@ -31,7 +32,10 @@ Page({
     } else if (types == "all") {
       that.query("all", config.activityUrl)
     } else {
-      that.query("WeJob")
+      that.setData({
+        judge:false,
+      })
+      that.query("WhoLaunch", config.activity_orderUrl)
     }
   },
   /**
