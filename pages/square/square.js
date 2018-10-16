@@ -7,7 +7,16 @@ Page({
   data: {
 
   },
-
+  addVideo: function () {
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success(res) {
+        console.log(res.tempFilePath)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
