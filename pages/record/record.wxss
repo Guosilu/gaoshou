@@ -30,3 +30,6 @@ navigator {
 .recordListOther{
   font-size: 14px;
 }
+.my_canyu{
+  color: #888;
+}
