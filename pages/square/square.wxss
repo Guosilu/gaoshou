@@ -1,1 +1,51 @@
 /* pages/square/square.wxss */
+.add-icon{
+  width: 100rpx;
+  height: 100rpx;
+  background: #FFF;
+  border-radius: 50%;
+  padding: 6rpx;
+  position: fixed;
+  bottom: 20rpx;
+  left: 20rpx;
+}
+.list{
+  margin: 20rpx;
+  padding: 20rpx;
+}
+.list-item{
+  box-sizing: border-box;box-shadow: 2rpx 1rpx 10rpx 1rpx #ddd;margin-bottom: 30rpx;padding: 20rpx 28rpx;border-radius: 10rpx;
+}
+.user_info{
+    float: left;margin-left: 30rpx;
+}
+.portrait{
+  overflow: hidden;
+}
+.portrait .list_Avatar{
+    width: 115rpx;
+    height: 115rpx;
+    line-height: 115rpx;
+    float: left;
+}
+.user_date{
+  font-size: 20rpx;
+}
+.user_name{
+  margin: 10rpx 0;
+}
+.del-cont{
+  overflow: hidden;box-sizing: border-box;
+}
+.del-cont image{
+  width: 33%;padding:0 10rpx;box-sizing: border-box;
+}
+.partic{
+  overflow: hidden;font-size: 24rpx;border-radius: 6rpx;
+}
+.partic text{
+  line-height: 60rpx;
+}
+.partic .join{
+  float: right;height:60rpx;line-height:60rpx;width:160rpx; background: #dc4e40;color: #fff;text-align: center;border-radius: 10rpx;
+}
