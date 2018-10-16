@@ -19,7 +19,8 @@
     "pages/list/list",
     "pages/notice/notice",
     "pages/noticeshow/index",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/square/square"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -38,8 +39,8 @@
         "selectedIconPath": "images/tabBar_1h.png"
       },
       {
-        "pagePath": "pages/pastEvents/pastEvents",
-        "text": "冠军列表",
+        "pagePath": "pages/square/square",
+        "text": "赛脉广场",
         "iconPath": "images/tabBar_2.png",
         "selectedIconPath": "images/tabBar_2h.png"
       },
