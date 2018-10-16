@@ -11,7 +11,9 @@ navigator {
 .canyu navigator {
   display: inline;
   margin-right: 5rpx;
-  color: #dc4e40;
+}
+.canyu .my_canyu,.canyu .my_biaoti{
+  color: #888;
 }
 .recordListImg{
   width: 100rpx;
@@ -29,7 +31,4 @@ navigator {
 }
 .recordListOther{
   font-size: 14px;
-}
-.my_canyu{
-  color: #888;
 }
