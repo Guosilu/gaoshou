@@ -8,12 +8,13 @@ Page({
 
   },
   addVideo: function () {
-    wx.chooseVideo({
-      sourceType: ['album', 'camera'],
-      maxDuration: 60,
-      camera: 'back',
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['camera', 'album'],
       success(res) {
-        console.log(res.tempFilePath)
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths
       }
     })
   },
