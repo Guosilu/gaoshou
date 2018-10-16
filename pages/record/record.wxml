@@ -19,7 +19,11 @@
   <!-- 谁看了我 -->
   <block wx:for="{{list}}" wx:key="*this">
     <view class="page__modules canyu">
-      <navigator url="../orderDetail/orderDetail?id={{item.id}}"><text class="my_canyu">{{item.nickName}}</text>参与了你发表的活动</navigator>
+
+      <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+        <image style='width:15px;height:15px' src='{{item.avatarUrl}}'></image>
+        <text class="my_canyu">{{item.nickName}}</text>参与了你发表的活动
+      </navigator>
       <navigator url="../exhibit/exhibit?id={{item.aid}}"><text class="my_biaoti">{{item.title}}</text></navigator>
     </view>
   </block>
