@@ -21,7 +21,9 @@
     "pages/noticeshow/index",
     "pages/profile/profile",
     "pages/square/square",
-    "pages/publication/detail/detail"
+    "pages/publication/detail/detail",
+    "pages/square/add/index",
+    "pages/square/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
