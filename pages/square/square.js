@@ -1,17 +1,20 @@
-// pages/square/square.js
+
+const config = require('../../config/config.js');
+//获取应用实例
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    img: config.img,
   },
   addVideo: function () {
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
-      sourceType: ['camera'],
+      sourceType: ['camera','album'],
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths

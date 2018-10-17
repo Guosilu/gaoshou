@@ -104,7 +104,6 @@ Page({
     })
     var that = this;
     let id = options.id;
-    id = 1;
     wx.request({
       url: config.publicationUrl,
       method: "POST",
@@ -114,8 +113,6 @@ Page({
       },
       success: function (res) {
         if (res.data) {
-          console.clear();
-          console.log(res.data);
           that.setData({
             detail: res.data
           })
@@ -157,14 +154,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log("下拉事件.")
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    
   },
 
   /**

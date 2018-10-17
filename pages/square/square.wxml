@@ -1,4 +1,4 @@
-<image src="/images/add.png" class="add-icon" bindtap="addVideo"></image>
+<image src="{{img}}add.png" class="add-icon" bindtap="addVideo"></image>
 <view class="list">
   <view class='list-item'>
     <view class='portrait'>

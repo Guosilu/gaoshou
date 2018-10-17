@@ -81,7 +81,7 @@ Page({
             success:function(){
               setTimeout(function(){
                 wx.redirectTo({
-                  url: '../orderDetail/orderDetail?type=publication&id=' + res.data,
+                  url: '../detail/detail?id=' + res.data,
                 })
               },1500)
             }
