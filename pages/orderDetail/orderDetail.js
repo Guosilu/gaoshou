@@ -3,7 +3,7 @@ const config = require('../../config/config.js');
 Page({
   data: {
     like_status: null,
-    detail: {}
+    detail: {},
   },
   is_like: function (id) {
     let that = this;

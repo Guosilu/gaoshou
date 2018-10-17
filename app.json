@@ -1,9 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-        "pages/publication/publication",
-        
-    
+    "pages/publication/publication",
     "pages/record/record",
     "pages/launch/launch",
     "pages/activity_Initiate/activity_Initiate",
@@ -22,7 +20,8 @@
     "pages/notice/notice",
     "pages/noticeshow/index",
     "pages/profile/profile",
-    "pages/square/square"
+    "pages/square/square",
+    "pages/publicationDetail/publicationDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

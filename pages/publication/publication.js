@@ -1,3 +1,4 @@
+const app = getApp();
 const config = require('../../config/config.js');
 Page({
 
@@ -60,10 +61,13 @@ Page({
 
   formSubmitDo: function (post) {
     let that = this;
-    post['openId'] = wx.getStorageSync('openId');
+    post['openId'] = app.globalData.openId;
     wx.request({
       url: config.publicationUrl,
       method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
       data: {
         action: 'add',
         post: post
@@ -73,13 +77,21 @@ Page({
         console.log(res);
         if (res.data > 0) {
           wx.showToast({
-            title: '提交成功！',
+            title: '提交成功！正在跳转',
+            success:function(){
+              setTimeout(function(){
+                wx.redirectTo({
+                  url: '../orderDetail/orderDetail?type=publication&id=' + res.data,
+                })
+              },1500)
+            }
           });
           that.setData({
             form_reset: '',
             files: [],
             files_url: []
           });
+        
         } else {
           wx.showToast({
             title: '提交失败！',

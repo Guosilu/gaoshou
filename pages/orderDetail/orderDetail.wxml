@@ -5,10 +5,11 @@
     <image src="/images/biaoqian.png"></image>作品展示
   </view>
   <view class='ex-cover'>
-    <image src="{{detail.thumb}}" mode='widthFix'></image>
-    <image src="{{detail.thumb1}}" mode='widthFix'></image>
-    <image src="{{detail.thumb2}}" mode='widthFix'></image>
-    <image src="{{detail.thumb3}}" mode='widthFix'></image>
+    <image wx:if="{{detail.thumb}}" src="{{detail.thumb}}" mode='widthFix'></image>
+    <image wx:if="{{detail.thumb1}}" src="{{detail.thumb1}}" mode='widthFix'></image>
+    <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
+    
+    <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
   </view>
   <view wx:if="{{like_status == 0}}" bindtap='like'>点赞</view>
   <view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
