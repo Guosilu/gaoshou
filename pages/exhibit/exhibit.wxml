@@ -1,69 +1,71 @@
 <block wx:if="{{detail.id && like_status !== null && order_lists && exhibit_lists}}">
-<view class='informat'>
- <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>活动名称
-  </view>
-  <view class='ex-cover'>
-    <image src='{{detail.thumb}}' mode='widthFix'></image>
-    <view class='ex-int'>{{detail.title}}</view>
-  </view>
-  <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
-    <view wx:if="{{like_status == 0}}" bindtap='like'><image src="/images/zan.png" mode="widthFix"/>11</view>
-    <view class="like_on" wx:else if="{{like_status == 1}}" bindtap='like_cancel'><image src="/images/zan_on.png" mode="widthFix"/>12</view>
-    <view>浏览量：{{detail.liulan}}</view>
-    <view>发布人：{{detail.nickName}}</view>
-  </view>
-</view>
-
-<view class='rule'>
-  <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>活动规则
-  </view>
-  <view class='rule-cont'>
-    {{detail.rule}}
-  </view>
-</view>
-
-<view class='time'>
-  <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>活动时间
-  </view>
-  <view class='rule-cont'>
-    {{detail.starttime}}---{{detail.endtime}}
-  </view>
-</view>
-<view class='ex-btns'>
-  <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
-  <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
-</view>
-<view class='informat'>
-  <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>参赛列表
-  </view>
-  <view class='ex-list'>
-    <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
-    <navigator url="../orderDetail/orderDetail?id={{item.id}}">
-      <image src='{{item.thumb}}'></image>
-      <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
-    </navigator>
+  <view class='ex-title'>
+    {{detail.title}}
+    <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
+      <view>发布人: {{detail.nickName}}</view>
+      <view>发布时间: </view>
+      <view>浏览量: {{detail.liulan}}</view>
+      <view wx:if="{{like_status == 0}}" bindtap='like'>
+        <image src="/images/zan.png" mode="widthFix" />11</view>
+      <view class="like_on" wx:else if="{{like_status == 1}}" bindtap='like_cancel'>
+        <image src="/images/zan_on.png" mode="widthFix" />12</view>
     </view>
   </view>
-</view>
-
-<view class='informat'>
-  <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>推荐活动
-  </view>
-  <view class='ex-list'>
-    <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">
-    <navigator url="../exhibit/exhibit?id={{item.id}}">
-      <image src='{{item.thumb}}'></image>
-      <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
-    </navigator>
+  <view class='informat'>
+    <view class='ex-cover'>
+      <image src='{{detail.thumb}}' mode='widthFix'></image>
     </view>
   </view>
-</view>
 
-<import src='../foot/foot.wxml'/>
-<template is='foot'></template>
+  <view class='rule'>
+    <view class='ex-tit'>
+      <image src="/images/biaoqian.png"></image>活动规则
+    </view>
+    <view class='rule-cont'>
+      {{detail.rule}}
+    </view>
+  </view>
+
+  <view class='time'>
+    <view class='ex-tit'>
+      <image src="/images/biaoqian.png"></image>活动时间
+    </view>
+    <view class='rule-cont'>
+      {{detail.starttime}}——{{detail.endtime}}
+    </view>
+  </view>
+  <view class='ex-btns'>
+    <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
+    <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
+  </view>
+  <view class='informat'>
+    <view class='ex-tit'>
+      <image src="/images/biaoqian.png"></image>参赛列表
+    </view>
+    <view class='ex-list'>
+      <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
+        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+          <image src='{{item.thumb}}'></image>
+          <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <view class='informat'>
+    <view class='ex-tit'>
+      <image src="/images/biaoqian.png"></image>推荐活动
+    </view>
+    <view class='ex-list'>
+      <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">
+        <navigator url="../exhibit/exhibit?id={{item.id}}">
+          <image src='{{item.thumb}}'></image>
+          <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <import src='../foot/foot.wxml' />
+  <template is='foot'></template>
 </block>
