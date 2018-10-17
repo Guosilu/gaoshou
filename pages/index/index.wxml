@@ -193,11 +193,11 @@
         推荐作品
       </view>
       <view class="worksItem" wx:for="{{worksList}}" wx:key="*this">
-        <navigator url="{{item.url}}">
-          <image src="{{item.image}}"></image>
+        <navigator url="../publication/detail/detail?id={{item.id}}">
+          <image src="{{item.thumb}}"></image>
           <view class="listInfo">
           <text class="listInfoTit">{{item.title}}</text>
-            <text class="fr">赞{{item.like}} 阅读{{item.look}}</text>
+            <text class="fr">赞{{item.dianzan}} 阅读{{item.liulan}}</text>
           </view>
         </navigator>
       </view>

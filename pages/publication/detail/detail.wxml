@@ -11,7 +11,7 @@
     
     <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
   </view>
-  <view>发布者{{detail.truename}}</view>
+  <view>发布者{{detail.nickName}}</view>
   <view wx:if="{{like_status == 0}}" bindtap='like'>点赞</view>
   <view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
   <view>浏览量：{{detail.liulan}}</view>
@@ -22,9 +22,9 @@
     <image src="/images/biaoqian.png"></image>作品说明
   </view>
   <view class='rule-cont'>
-    {{detail.note}}
+    {{detail.introduce}}
   </view>
 </view>
-<import src='../foot/foot.wxml'/>
+<import src='../../foot/foot.wxml'/>
 <template is='foot'></template>
 </block>

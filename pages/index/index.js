@@ -76,7 +76,7 @@ Page({
     })
     //获取作品
     wx.request({
-      url: config.activityUrl,
+      url: config.publicationUrl,
       method: 'POST',
       data: {
         action: 'lists'

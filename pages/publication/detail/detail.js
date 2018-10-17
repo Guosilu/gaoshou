@@ -8,7 +8,7 @@ Page({
   is_like: function (id) {
     let that = this;
     wx.request({
-      url: config.activity_orderUrl,
+      url: config.publicationUrl,
       method: "POST",
       data: {
         action: 'is_like',
@@ -37,7 +37,7 @@ Page({
     post['activity_order_id'] = id;
     post['openId'] = app.globalData.openId;
     wx.request({
-      url: config.activity_orderUrl,
+      url: config.publicationUrl,
       method: "POST",
       data: {
         action: 'like',
@@ -69,7 +69,7 @@ Page({
           where['activity_order_id'] = id;
           where['openId'] = app.globalData.openId;
           wx.request({
-            url: config.activity_orderUrl,
+            url: config.publicationUrl,
             method: "POST",
             data: {
               action: 'like_cancel',
@@ -104,8 +104,9 @@ Page({
     })
     var that = this;
     let id = options.id;
+    id = 1;
     wx.request({
-      url: config.activity_orderUrl,
+      url: config.publicationUrl,
       method: "POST",
       data: {
         action: 'detail',
@@ -113,6 +114,7 @@ Page({
       },
       success: function (res) {
         if (res.data) {
+          console.clear();
           console.log(res.data);
           that.setData({
             detail: res.data
