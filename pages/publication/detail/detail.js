@@ -1,5 +1,5 @@
 const app = getApp();
-const config = require('../../config/config.js');
+const config = require('../../../config/config.js');
 Page({
   data: {
     like_status: null,

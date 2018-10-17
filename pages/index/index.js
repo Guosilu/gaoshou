@@ -28,73 +28,8 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
-    // 活动列表
-    eventsList: [{
-        url: "",
-        image: config.img+"list_img.png",
-        title: "活动1",
-        comment: 0,
-        like: 0,
-        look: 0,
-      },
-      {
-        url: "",
-        image: config.img+"list_img.png",
-        title: "活动1",
-        comment: 0,
-        like: 0,
-        look: 0,
-      },
-      {
-        url: "",
-        image: config.img+"list_img.png",
-        title: "活动1",
-        comment: 0,
-        like: 0,
-        look: 0,
-      },
-      {
-        url: "",
-        image: config.img+"list_img.png",
-        title: "活动1",
-        comment: 0,
-        like: 0,
-        look: 0,
-      },
-    ],
-    worksList: [{
-      url: "",
-      image: config.img+"list_img.png",
-      title: "活动1",
-      comment: 0,
-      like: 0,
-      look: 0,
-    },
-    {
-      url: "",
-      image: config.img+"list_img.png",
-      title: "活动1",
-      comment: 0,
-      like: 0,
-      look: 0,
-    },
-    {
-      url: "",
-      image: config.img+"list_img.png",
-      title: "活动1",
-      comment: 0,
-      like: 0,
-      look: 0,
-    },
-    {
-      url: "",
-      image: config.img+"list_img.png",
-      title: "活动1",
-      comment: 0,
-      like: 0,
-      look: 0,
-    },
-    ]
+    //作品
+    worksList: []
   },
   showInput: function() {
     this.setData({
@@ -125,6 +60,7 @@ Page({
   },
   getActivityList: function () {
     var that = this;
+    //获取活动
     wx.request({
       url: config.activityUrl,
       method: 'POST',
@@ -135,6 +71,20 @@ Page({
         console.log(res.data);
         that.setData({
           taglist: res.data
+        });
+      }
+    })
+    //获取作品
+    wx.request({
+      url: config.activityUrl,
+      method: 'POST',
+      data: {
+        action: 'lists'
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          worksList: res.data
         });
       }
     })
