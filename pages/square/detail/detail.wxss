@@ -21,23 +21,27 @@
   background: #dc4e40;
 }
 .yh_hudong {
-  margin: 20rpx 0 30rpx;
+  margin: 20rpx 30rpx 0;
   font-weight: normal;
   font-size: 12px;
   overflow: hidden;
   color: #888;
-  border-bottom: 1rpx solid #ccc;
 }
 
 .yh_hudong view{
   float: left;
   margin-right: 20rpx;
+  line-height: 100rpx;
 }
 
 .yh_hudong image{
   width: 30rpx;
 }
 
+.yh_hudong .yh_Avatar{
+  width: 120rpx;
+  vertical-align: text-bottom;
+}
 .yh_hudong .like_on{
   color: #dc4e40;
 }
