@@ -1,8 +1,55 @@
 .informat{
   margin: 10rpx 20rpx;background: #fff;
 }
+.ex-title{
+  position: relative;
+  font-size: 18px;
+  line-height: 60rpx;
+  font-weight: bold;
+  padding: 0 20rpx;
+  margin: 20rpx 0;
+}
+
+.ex-title::after{
+  position: absolute;
+  content: "";
+  top: 8rpx;
+  left: 0;
+  display: inline-block;
+  width: 10rpx;
+  height: 46rpx;
+  background: #dc4e40;
+}
+.yh_hudong {
+  margin: 20rpx 0 30rpx;
+  font-weight: normal;
+  font-size: 12px;
+  overflow: hidden;
+  color: #888;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.yh_hudong view{
+  float: left;
+  margin-right: 20rpx;
+}
+
+.yh_hudong image{
+  width: 30rpx;
+}
+
+.yh_hudong .like_on{
+  color: #dc4e40;
+}
+.ex-cover image{
+  margin: 20rpx 0;
+}
 .ex-tit{
   margin-bottom: 20rpx;
+  padding-left: 0;
+}
+.ex-tit image{
+  margin-right: 0;
 }
 .ex-list{
   overflow: hidden;margin-bottom: 30rpx;
@@ -20,13 +67,13 @@
   font-size: 26rpx;text-align: center;
 }
 .ex-btn{
-  float: left;width: 48%;background: #2d2d2d;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
+  float: left;width: 48%;background: #dc4e40;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
 }
 .ex-btn:nth-child(even){
   float: right;
 }
 .ex-btn view{
-  float: left;width: 48%;background: #2d2d2d;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
+  float: left;width: 48%;background: #dc4e40;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
 }
 .rule,.time{
   margin: 30rpx 20rpx;background: #fff;border-radius: 15rpx;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;overflow: hidden;
@@ -35,20 +82,3 @@
   line-height: 50rpx;font-size: 32rpx;padding: 20rpx 15rpx;overflow: hidden;
 }
 
-.yh_hudong {
-  overflow: hidden;
-}
-
-.yh_hudong view{
-  float: left;
-  margin-right: 10rpx;
-}
-
-.yh_hudong image{
-  width: 30rpx;
-  vertical-align: middle;
-}
-
-.yh_hudong .like_on{
-  color: #dc4e40;
-}
