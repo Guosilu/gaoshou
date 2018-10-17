@@ -1,12 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+        "pages/publication/publication",
+        
+    
     "pages/record/record",
     "pages/launch/launch",
     "pages/activity_Initiate/activity_Initiate",
     "pages/pastEvents/pastEvents",
     "pages/activity/activity",
-    "pages/publication/publication",
     "pages/participate/participate",
     "pages/foot/foot",
     "pages/exhibit/exhibit",

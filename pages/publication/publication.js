@@ -27,22 +27,37 @@ Page({
     files_url: []
   },
   formSubmit: function (e) {
+    let post = e.detail.value;
+    if (post.introduce == '' || post.title == '' || post.type == '类别') {
+      wx.showToast({
+        title: '不可为空',
+        icon: "none"
+      })
+      return;
+    }
+
+
+    let that = this;
+    let files = this.data.files;
     wx.showLoading({
       mask: true,
       title: '提交中...',
     });
-    let post = e.detail.value;
-    let that = this;
-    let files = this.data.files;
-    post['activity_id'] = 1;
+
     if (files.length > 0) {
       for (let i = 0; i < files.length; i++) {
         this.uploadFile(files[i], post);
       }
     } else {
-      this.formSubmitDo(post);
+      // this.formSubmitDo(post);
+      wx.showToast({
+        title: '图片不可为空',
+        icon: "none"
+      })
+      return;
     }
   },
+
   formSubmitDo: function (post) {
     let that = this;
     post['openId'] = wx.getStorageSync('openId');
