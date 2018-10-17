@@ -1,46 +1,26 @@
 <image src="{{img}}add.png" class="add-icon" bindtap="addVideo"></image>
 <view class="list">
   <view class='list-item'>
-    <view class='portrait'>
-      <image class="list_Avatar" src="{{img}}list_Avatar1.png"></image>
-      <view class="user_info">
-        <view class="user_name">Marry</view>
-        <view class="user_date">今天 15:30</view>
+    <navigator url='/pages/square/detail/detail'>
+      <view class='portrait'>
+        <image class="list_Avatar" src="{{img}}list_Avatar1.png"></image>
+        <view class="user_info">
+          <view class="user_name">Marry</view>
+          <view class="user_date">今天 15:30</view>
+        </view>
       </view>
-    </view>
-    <view class='del-text'>
-      活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍
-    </view>
-    <view class='del-cont'>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-    </view>
-    <view class='partic'>
-      <text>浏览100次</text>
-      <view class='join'>参与活动</view>
-    </view>
-  </view>
-
-  <view class='list-item'>
-    <view class='portrait'>
-      <image class="list_Avatar" src="{{img}}list_Avatar1.png"></image>
-      <view class="user_info">
-        <view class="user_name">Marry</view>
-        <view class="user_date">今天 15:30</view>
+      <view class='del-text'>
+        活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍
       </view>
-    </view>
-    <view class='del-text'>
-      活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍
-    </view>
-    <view class='del-cont'>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-      <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-    </view>
-    <view class='partic'>
-      <text>浏览100次</text>
-      <view class='join'>参与活动</view>
-    </view>
+      <view class='del-cont'>
+        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
+        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
+        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
+      </view>
+      <view class='partic'>
+        <text>浏览100次</text>
+        <view class='join'>参与活动</view>
+      </view>
+    </navigator>
   </view>
 </view>

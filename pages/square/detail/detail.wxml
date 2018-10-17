@@ -1,2 +1,36 @@
-<!--pages/square/detail/detail.wxml-->
-<text>pages/square/detail/detail.wxml</text>
+<!--pages/launch/launch.wxml-->
+<!-- <block wx:if="{{detail.id && like_status !== null}}"> -->
+<block>
+  <view class='ex-title'>
+    {{detail.title}}
+    <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
+      <view>发布人: {{detail.nickName}}</view>
+      <view>发布时间: </view>
+      <view>浏览量: {{detail.liulan}}</view>
+      <view wx:if="{{like_status == 0}}" bindtap='like'>
+        <image src="/images/zan.png" mode="widthFix" />11</view>
+      <view class="like_on" wx:else if="{{like_status == 1}}" bindtap='like_cancel'>
+        <image src="/images/zan_on.png" mode="widthFix" />12</view>
+    </view>
+  </view>
+  <view class='informat'>
+    <view class='ex-cover'>
+      <image wx:if="{{detail.thumb}}" src="{{detail.thumb}}" mode='widthFix'></image>
+      <image wx:if="{{detail.thumb1}}" src="{{detail.thumb1}}" mode='widthFix'></image>
+      <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
+
+      <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
+    </view>
+  </view>
+
+  <view class='rule'>
+    <view class='ex-tit'>
+      <image src="/images/biaoqian.png"></image>作品说明
+    </view>
+    <view class='rule-cont'>
+      {{detail.introduce}}
+    </view>
+  </view>
+  <import src='../../foot/foot.wxml' />
+  <template is='foot'></template>
+</block>
