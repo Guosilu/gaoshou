@@ -19,7 +19,7 @@
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                       </view>
-                      <text bindtap="delImg">删除</text>
+                      <view bindtap="delImg">删除</view>
                     </block>
                   </view>
                   <view wx:if="{{files.length<3}}" class="weui-uploader__input-box">
