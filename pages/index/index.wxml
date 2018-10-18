@@ -44,7 +44,7 @@
     <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="*this">
         <swiper-item>
-          <image src="{{item}}" class="slide-image" />
+          <image mode='aspectFill' src="{{item}}" class="slide-image" />
         </swiper-item>
       </block>
     </swiper>
@@ -60,7 +60,7 @@
 
     <view class="page__modules">
       <view class="cate_icon">
-        <image src="{{img}}help.png" mode="scaleToFill"></image>
+        <image mode='aspectFill' src="{{img}}help.png" mode="scaleToFill"></image>
         <view class="cate_text">
           <view class="cate_text_tit">新手帮助</view>
           <view>{{siteName}}使用帮助</view>
@@ -68,7 +68,7 @@
       </view>
 
       <view class="cate_icon">
-        <image src="{{img}}comm.png" mode="scaleToFill"></image>
+        <image src="{{img}}comm.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">经验分享</view>
           <view>Exchange</view>
@@ -83,7 +83,7 @@
         </view>
       </view>
       <view class="cate_icon">
-        <image src="{{img}}more.png" mode="scaleToFill"></image>
+        <image src="{{img}}more.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">简赛发布</view>
           <view>More</view>
@@ -93,7 +93,7 @@
     <view class="page__modules">
       <view class="cate_icon4">
         <navigator url="/pages/activity_Initiate/activity_Initiate">
-          <image src="{{img}}cate4_3.png" mode="scaleToFill"></image>
+          <image src="{{img}}cate4_3.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">发起活动</view>
           </view>
@@ -101,7 +101,7 @@
       </view>
       <view class="cate_icon4">
         <navigator url="/pages/participate/participate">
-          <image src="{{img}}cate4_4.png" mode="scaleToFill"></image>
+          <image src="{{img}}cate4_4.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">参与活动</view>
           </view>
@@ -109,15 +109,15 @@
       </view>
       <view class="cate_icon4">
         <navigator url="/pages/publication/add/publication">
-          <image src="{{img}}cate4_1.png" mode="scaleToFill"></image>
+          <image src="{{img}}cate4_1.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">发布作品</view>
           </view>
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator url="/pages/activity_Initiate/activity_Initiate" hover-class="navigator-hover">
-          <image src="{{img}}cate4_2.png" mode="scaleToFill"></image>
+        <navigator url="/pages/record/record" hover-class="navigator-hover">
+          <image src="{{img}}cate4_2.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">往日活动</view>
           </view>
@@ -125,7 +125,7 @@
       </view>
       <view class="cate_icon4">
       <navigator url="/pages/record/record?type=all" hover-class="navigator-hover">
-        <image src="{{img}}cate4_5.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate4_5.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">活动列表</view>
         </view>
@@ -133,21 +133,21 @@
       </view>
       <view class="cate_icon4">
       <navigator url="/pages/square/square" hover-class="navigator-hover">
-        <image src="{{img}}cate4_6.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate4_6.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">赛脉广场</view>
         </view>
         </navigator>
       </view>
       <view class="cate_icon4">
-        <image src="{{img}}cate4_7.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate4_7.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">活动赞助</view>
         </view>
       </view>
       <view class="cate_icon4">
         <navigator open-type='switchTab' url="../pastEvents/pastEvents">
-          <image src="{{img}}cate4_8.png" mode="scaleToFill"></image>
+          <image src="{{img}}cate4_8.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">冠军列表</view>
           </view>
@@ -162,7 +162,7 @@
       </view>
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
-          <image src="{{item.thumb}}"></image>
+          <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
           <text class="listInfoTit">{{item.title}}</text>
             <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
@@ -178,7 +178,7 @@
       </view>
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
-          <image src="{{item.thumb}}"></image>
+          <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
           <text class="listInfoTit">{{item.title}}</text>
             <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
@@ -194,7 +194,7 @@
       </view>
       <view class="worksItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}">
-          <image src="{{item.thumb}}"></image>
+          <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
           <text class="listInfoTit">{{item.title}}</text>
             <text class="fr">赞{{item.dianzan}} 阅读{{item.liulan}}</text>
@@ -208,34 +208,34 @@
         分类赛事
       </view>
       <view class="cate_icon5 full">
-        <image src="{{img}}cate5_1.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate5_1.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">文章类</view>
         </view>
       </view>
       <view class="cate_icon5">
-        <image src="{{img}}cate5_3.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate5_3.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">文字类</view>
           <view class="cate_text_tit">100字以内</view>
         </view>
       </view>
       <view class="cate_icon5">
-        <image src="{{img}}cate5_1.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate5_1.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">视频类</view>
           <view class="cate_text_tit">20s以内</view>
         </view>
       </view>
       <view class="cate_icon5">
-        <image src="{{img}}cate5_2.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate5_2.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">语音类</view>
           <view class="cate_text_tit">30s内</view>
         </view>
       </view>
       <view class="cate_icon5">
-        <image src="{{img}}cate5_3.png" mode="scaleToFill"></image>
+        <image src="{{img}}cate5_3.png" mode='aspectFill'></image>
         <view class="cate_text">
           <view class="cate_text_tit">图片类</view>
           <view class="cate_text_tit">1-4张图片以内</view>
@@ -244,15 +244,15 @@
     </view>
     <!-- <view class="page__modules">
       <view class="top_icon">
-        <image src="{{img}}camera.png" mode="scaleToFill"></image>
+        <image src="{{img}}camera.png" mode='aspectFill'></image>
         <view>图片处理软件</view>
       </view>
       <view class="top_icon">
-        <image src="{{img}}voice.png" mode="scaleToFill"></image>
+        <image src="{{img}}voice.png" mode='aspectFill'></image>
         <view>语音编辑软件</view>
       </view>
       <view class="top_icon">
-        <image src="{{img}}video.png" mode="scaleToFill"></image>
+        <image src="{{img}}video.png" mode='aspectFill'></image>
         <view>视频剪辑软件</view>
       </view>
     </view> -->
