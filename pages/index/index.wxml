@@ -39,7 +39,7 @@
         </view>
       </navigator>
     </view>
-    
+
     <!-- 轮播 -->
     <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="*this">
@@ -124,19 +124,19 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-      <navigator url="/pages/list/list?type=all" hover-class="navigator-hover">
-        <image src="{{img}}cate4_5.png" mode='aspectFill'></image>
-        <view class="cate_text">
-          <view class="cate_text_tit">活动列表</view>
-        </view>
+        <navigator url="/pages/list/list?type=all" hover-class="navigator-hover">
+          <image src="{{img}}cate4_5.png" mode='aspectFill'></image>
+          <view class="cate_text">
+            <view class="cate_text_tit">活动列表</view>
+          </view>
         </navigator>
       </view>
       <view class="cate_icon4">
-      <navigator url="/pages/square/square" hover-class="navigator-hover">
-        <image src="{{img}}cate4_6.png" mode='aspectFill'></image>
-        <view class="cate_text">
-          <view class="cate_text_tit">赛脉广场</view>
-        </view>
+        <navigator url="/pages/square/square" hover-class="navigator-hover">
+          <image src="{{img}}cate4_6.png" mode='aspectFill'></image>
+          <view class="cate_text">
+            <view class="cate_text_tit">赛脉广场</view>
+          </view>
         </navigator>
       </view>
       <view class="cate_icon4">
@@ -164,8 +164,13 @@
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
-          <text class="listInfoTit">{{item.title}}</text>
-            <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
+            <text class="listInfoTit">{{item.title}}</text>
+            <view class="fr">
+              <image class="item-icon" src='/images/zan.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+              <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+            </view>
           </view>
         </navigator>
       </view>
@@ -180,8 +185,13 @@
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
-          <text class="listInfoTit">{{item.title}}</text>
-            <text class="fr">赞{{item.dianzan?item.dianzan:0}} 阅读{{item.liulan?item.liulan:0}}</text>
+            <text class="listInfoTit">{{item.title}}</text>
+            <view class="fr">
+              <image class="item-icon" src='/images/zan.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+              <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+            </view>
           </view>
         </navigator>
       </view>
@@ -192,12 +202,17 @@
       <view class="cate_tit">
         推荐作品
       </view>
-      <view class="worksItem" wx:for="{{worksList}}" wx:key="*this">
+      <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
-          <text class="listInfoTit">{{item.title}}</text>
-            <text class="fr">赞{{item.dianzan}} 阅读{{item.liulan}}</text>
+            <text class="listInfoTit">{{item.title}}</text>
+            <view class="fr">
+              <image class="item-icon" src='/images/zan.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.dianzan}}</text>
+              <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.liulan}}</text>
+            </view>
           </view>
         </navigator>
       </view>
