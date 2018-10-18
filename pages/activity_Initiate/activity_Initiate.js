@@ -104,6 +104,9 @@ Page({
             title: '提交成功！',
           });
           that.form_reset();
+          wx.redirectTo({
+            url: '../exhibit/exhibit?id='+res.data,
+          })
         } else {
           wx.showToast({
             title: '提交失败！',

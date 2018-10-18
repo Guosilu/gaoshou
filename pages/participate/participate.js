@@ -82,6 +82,9 @@ Page({
             files: [],
             files_url: []
           });
+          wx.redirectTo({
+            url: '../orderDetail/orderDetail?id='+res.data,
+          })
         }else{
           wx.showToast({
             title: '提交失败！',
