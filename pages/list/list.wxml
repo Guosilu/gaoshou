@@ -1,24 +1,28 @@
 <!--pages/list/list.wxml-->
-
-<view class='lists'>
+<view class='lists' wx:for='{{list}}' wx:key="*this">
+  
   <view class='portrait'>
-    <image class="list_Avatar" src="{{img}}list_Avatar1.png"></image>
+    <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
     <view class="user_info">
-      <view class="user_name">Marry</view>
+      <view class="user_name">{{item.nickName}}</view>
       <view class="user_date">今天 15:30</view>
     </view>
   </view>
-  <view class='del-text'>
-    活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍
+  <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
+    {{item.rule}}
   </view>
-  <view class='del-cont'>
-    <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-    <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-    <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
+  <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
+    <image src='{{item.thumb}}' mode='widthFix'></image>
+    <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='widthFix'></image>
+    <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='widthFix'></image>
   </view>
+
+
   <view class='partic'>
-    <text>浏览100次</text>
-    <view class='join'>参与活动</view>
+    <text>浏览{{item.liulan}}次</text>
+    <!-- ' -->
+    <navigator class='join' url='../participate/participate?id={{item.id}}'>参与活动</navigator>
+    
   </view>
 </view>
 
