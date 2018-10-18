@@ -1,2 +1,30 @@
-<!--pages/square/detail/detail.wxml-->
-<text>pages/square/detail/detail.wxml</text>
+<view class="yh_hudong">
+  <view><image class='yh_Avatar' src='/images/add.png' mode='widthFix'></image></view>
+  <view>发布时间: </view>
+  <view>浏览量: {{detail.liulan}}</view>
+  <view bindtap='like'>
+    <image src="/images/zan.png" mode="widthFix" />11</view>
+</view>
+<view class='ex-title'>
+  活动标题
+</view>
+<view class='informat'>
+  <view class='ex-cover'>
+    <image wx:if="{{detail.thumb}}" src="{{detail.thumb}}" mode='widthFix'></image>
+    <image wx:if="{{detail.thumb1}}" src="{{detail.thumb1}}" mode='widthFix'></image>
+    <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
+
+    <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
+  </view>
+</view>
+
+<view class='rule'>
+  <view class='ex-tit'>
+    <image src="/images/biaoqian.png"></image>作品说明
+  </view>
+  <view class='rule-cont'>
+    {{detail.introduce}}
+  </view>
+</view>
+<import src='../../foot/foot.wxml' />
+<template is='foot'></template>
