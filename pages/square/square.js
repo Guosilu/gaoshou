@@ -19,7 +19,7 @@ Page({
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths;
         wx.navigateTo({
-          url: '/pages/square/add/index'
+          url: '/pages/square/add/index?url=' + tempFilePaths
         })
       }
     })

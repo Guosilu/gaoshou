@@ -9,7 +9,9 @@ Page({
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //图片上传
-    file: ''
+    file: 'http://tmp/wxe44bd41006bd0fca.o6zAJs96_CHrZR8aqAQ4o18gcRIs.aAZILES0H18i15de4d5d875ef5d0fdb2198fa3dbe1de.jpg',
+    //广告
+    advert:"",
   },
   form_reset: function () {
     this.setData({
@@ -159,7 +161,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (options.url){
+      this.setData({
+        file: options.url
+      })
+    }
+    console.log(options)
   },
 
   /**

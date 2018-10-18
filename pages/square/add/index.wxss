@@ -1,7 +1,9 @@
 .weui-select{
 background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;
 }
-
+#advert{
+  height: 100px
+}
 .page__modules{
   padding: 20rpx 10rpx;
 }

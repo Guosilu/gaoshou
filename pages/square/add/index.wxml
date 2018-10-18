@@ -33,7 +33,7 @@
   
   <view class="page__modules">
   <view>广告位</view>
-  <image src=""></image>
+  <image id='advert' src=""></image>
   </view>
   <view style="overflow:hidden;">
     <navigator url="/pages/xieyi/index" class="uploadRuler">
