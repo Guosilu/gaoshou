@@ -9,6 +9,7 @@ Page({
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //图片上传
+    file: [],
     file: 'http://tmp/wxe44bd41006bd0fca.o6zAJs96_CHrZR8aqAQ4o18gcRIs.aAZILES0H18i15de4d5d875ef5d0fdb2198fa3dbe1de.jpg',
     //广告
     advert:"",
@@ -116,7 +117,7 @@ Page({
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
-      count: 1,
+      count: 3,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
