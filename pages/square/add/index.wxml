@@ -1,27 +1,30 @@
-<view wx:if="{{isLogin}}"> 
-<form bindsubmit="formSubmit">
-  <view class="page__modules">
-    <input class="activityName" name='title' value='{{form_reset}}' placeholder="起个好玩的的名字吧~"></input>
-  </view>
-  <view class="page__modules">
-    <view class="page__bd">
-      <view class="weui-cells">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <view class="weui-uploader">
-              <view class="weui-uploader__hd">
-                <view class="weui-uploader__title">作品上传</view>
-                <view class="weui-uploader__info">{{file.length}}/3</view>
-              </view>
-              <view class="weui-uploader__bd">
-                <view class="weui-uploader__files" id="uploaderFiles">
-                    <view wx:for="{{file}}" wx:key="*this" class="weui-uploader__file">
-                      <image class="weui-uploader__img" bindtap="previewImage" src="{{file}}" mode="aspectFill" />
-                      <view bindtap="delImg">删除</view>
-                    </view>
+<view wx:if="{{isLogin}}">
+  <form bindsubmit="formSubmit">
+    <view class="page__modules">
+      <input class="activityName" name='title' value='{{form_reset}}' placeholder="起个好玩的的名字吧~"></input>
+    </view>
+    <view class="page__modules">
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">作品上传</view>
+                  <view class="weui-uploader__info">{{files.length}}/3</view>
                 </view>
-                <view class="weui-uploader__input-box">
-                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles">
+                    <block wx:for="{{files}}" wx:key="*this">
+                      <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                      </view>
+                      <text bindtap="delImg">删除</text>
+                    </block>
+                  </view>
+                  <view wx:if="{{files.length<3}}" class="weui-uploader__input-box">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
                 </view>
               </view>
             </view>
@@ -29,21 +32,20 @@
         </view>
       </view>
     </view>
-  </view>
-  
-  <view class="page__modules">
-  <view>广告位</view>
-  <image id='advert' src=""></image>
-  </view>
-  <view style="overflow:hidden;">
-    <navigator url="/pages/xieyi/index" class="uploadRuler">
-      了解上传协议？
-    </navigator>
-  </view>
-  <view class="weui-btn-area">
-    <button class="weui-btn" formType="submit">发起比赛</button>
-    <button class="weui-btn" formType="submit">参与比赛</button>
-  </view>
-</form>
+
+    <view class="page__modules">
+      <view>广告位</view>
+      <image id='advert' src=""></image>
+    </view>
+    <view style="overflow:hidden;">
+      <navigator url="/pages/xieyi/index" class="uploadRuler">
+        了解上传协议？
+      </navigator>
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn" formType="submit">发起比赛</button>
+      <button class="weui-btn" formType="submit">参与比赛</button>
+    </view>
+  </form>
 </view>
 <view wx:else>未登录</view>
