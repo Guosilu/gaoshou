@@ -53,9 +53,13 @@ swiper {
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 20rpx;
-  /* padding: 20px 24rpx; *//* border: 1px solid #f2f2f2; *//* border-radius: 25rpx; *//* box-shadow: 1px 1px 20px 1px #f2f2f2; */
 }
-
+.modules__shadow{
+  padding: 10px 24rpx;
+  border: 1px solid #f2f2f2;
+  border-radius: 25rpx;
+  box-shadow: 1px 1px 20px 1px #f2f2f2;
+}
 .cate_tab {
   padding: 3% 7%;
   border-radius: 10rpx;
@@ -333,8 +337,4 @@ swiper {
 .ex-tit image {
   height: 50rpx;
   vertical-align: middle;
-}
-
-.eventsListH{
-  
 }

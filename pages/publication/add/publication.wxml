@@ -12,7 +12,7 @@
 
 <view wx:if="{{isLogin}}"> 
 <form bindsubmit="formSubmit" bindreset="formReset">
-<view class="page__modules">
+<view class="page__modules modules__shadow">
   <input class="activityName" name="title" placeholder="请填写作品名称"></input>
   <view class="activityType">
     <picker name="type" bindchange="bindAccountChange" value="{{activityType[activityTypeIndex]}}" range="{{activityType}}">
@@ -21,7 +21,7 @@
   </view>
 </view>
 
-<view class="page__modules">
+<view class="page__modules modules__shadow">
   <view class="page__bd">
     <view class="weui-cells">
       <view class="weui-cell">
@@ -51,7 +51,7 @@
   </view>
 </view>
 
-<view class="page__modules">
+<view class="page__modules modules__shadow">
   <textarea name="introduce" placeholder="作品说明">
   </textarea>
 </view>

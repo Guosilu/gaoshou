@@ -1,9 +1,9 @@
 <view wx:if="{{isLogin}}">
   <form bindsubmit="formSubmit">
-    <view class="page__modules">
+    <view class="page__modules modules__shadow">
       <input class="activityName" name='title' placeholder="起个好玩的的名字吧~"></input>
     </view>
-    <view class="page__modules">
+    <view class="page__modules modules__shadow">
       <view class="page__bd">
         <view class="weui-cells">
           <view class="weui-cell">
@@ -33,7 +33,7 @@
       </view>
     </view>
 
-    <view class="page__modules">
+    <view class="page__modules modules__shadow">
       <view>广告位</view>
       <image id='advert' src=""></image>
     </view>

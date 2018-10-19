@@ -63,8 +63,6 @@
               <text class='item-icnum'>{{item.toupiao}}</text>
               <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
               <text class='item-icnum'>{{item.liulan}}</text>
-              <image src='/images/contact.png' class='ex_icon' mode='widthFix' />
-              <text class='item-icnum'>{{item.pinglun}}</text>
             </view>
           </view>
         </navigator>
@@ -93,8 +91,6 @@
               <text class='item-icnum'>{{item.toupiao}}</text>
               <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
               <text class='item-icnum'>{{item.liulan}}</text>
-              <image src='/images/contact.png' class='ex_icon' mode='widthFix' />
-              <text class='item-icnum'>{{item.pinglun}}</text>
             </view>
           </view>
         </navigator>

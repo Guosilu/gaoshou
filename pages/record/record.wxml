@@ -1,5 +1,5 @@
 <block wx:if="{{judge}}"> 
-  <view wx:for="{{list}}" wx:key="*this" class="page__modules"> 
+  <view wx:for="{{list}}" wx:key="*this" class="page__modules modules__shadow"> 
     <navigator url="../exhibit/exhibit?id={{item.id}}"> 
       <image class="recordListImg" src="{{item.thumb}}"></image> 
       <view class="recordListInfo"> 
@@ -16,7 +16,7 @@
  
   <!-- 谁看了我 --> 
   <block wx:for="{{list}}" wx:key="*this"> 
-    <view class="page__modules canyu"> 
+    <view class="page__modules canyu modules__shadow"> 
  
       <navigator url="../orderDetail/orderDetail?id={{item.id}}"> 
         <image style='width:15px;height:15px' src='{{item.avatarUrl}}'></image> 
