@@ -6,19 +6,22 @@
         <image class="list_Avatar" src="{{img}}list_Avatar1.png"></image>
         <view class="user_info">
           <view class="user_name">Marry</view>
-          <view class="user_date">今天 15:30</view>
+          <view class="user_date">今天 15:30
+          <text class='end-time'>截止时间: 2018-10-20 18:00</text>
+          </view>
         </view>
       </view>
       <view class='del-text'>
         活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍
       </view>
       <view class='del-cont'>
-        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
-        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='widthFix'></image>
+        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='aspectFill'></image>
+        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='aspectFill'></image>
+        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='aspectFill'></image>
       </view>
       <view class='partic'>
-        <text>浏览100次</text>
+        <image src='/images/like.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>100</text>
+        <image src='/images/looks.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>80</text>
         <view class='join'>参与活动</view>
       </view>
     </navigator>

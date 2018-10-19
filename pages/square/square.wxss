@@ -1,51 +1,107 @@
 /* pages/square/square.wxss */
-.add-icon{
+
+.add-icon {
   width: 100rpx;
   height: 100rpx;
-  background: #FFF;
+  background: #fff;
   border-radius: 50%;
   padding: 2rpx;
   position: fixed;
   bottom: 20rpx;
   right: 20rpx;
 }
-.list{
+
+.list {
   margin: 20rpx;
   padding: 20rpx;
 }
-.list-item{
-  box-sizing: border-box;box-shadow: 2rpx 1rpx 10rpx 1rpx #ddd;margin-bottom: 30rpx;padding: 20rpx 28rpx;border-radius: 10rpx;
+
+.list-item {
+  box-sizing: border-box;
+  box-shadow: 2rpx 1rpx 10rpx 1rpx #ddd;
+  margin-bottom: 30rpx;
+  padding: 20rpx 28rpx;
+  border-radius: 10rpx;
 }
-.user_info{
-    float: left;margin-left: 30rpx;
+
+.user_info {
+  float: left;
+  margin-left: 30rpx;
 }
-.portrait{
+
+.portrait {
   overflow: hidden;
 }
-.portrait .list_Avatar{
-    width: 115rpx;
-    height: 115rpx;
-    line-height: 115rpx;
-    float: left;
+
+.portrait .list_Avatar {
+  width: 115rpx;
+  height: 115rpx;
+  line-height: 115rpx;
+  float: left;
 }
-.user_date{
+
+cate_tit .cate_tit {
+  overflow: hidden;
+  line-height: 50rpx;
+  max-height: 100rpx;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+}
+
+.user_date {
   font-size: 20rpx;
 }
-.user_name{
+.end-time{
+  color: #dc4e40;
+  margin-left: 10rpx;
+}
+
+.user_name {
   margin: 10rpx 0;
 }
-.del-cont{
-  overflow: hidden;box-sizing: border-box;
+
+.del-cont {
+  overflow: hidden;
+  box-sizing: border-box;
 }
-.del-cont image{
-  width: 33%;padding:0 10rpx;box-sizing: border-box;
+
+.del-cont image {
+  width: 33%;
+  height: 160rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
 }
-.partic{
-  overflow: hidden;font-size: 24rpx;border-radius: 6rpx;
+
+.partic {
+  overflow: hidden;
+  font-size: 24rpx;
+  border-radius: 6rpx;
 }
-.partic text{
+
+.partic .ex_text {
   line-height: 60rpx;
+  margin-right: 20rpx;
+  color: gray;
 }
-.partic .join{
-  float: right;height:60rpx;line-height:60rpx;width:160rpx; background: #dc4e40;color: #fff;text-align: center;border-radius: 10rpx;
+.partic .ex_icon{
+  width: 36rpx;
+  line-height: 60rpx;
+  margin-right: 2rpx;
+  margin-top: -1rpx;
+  vertical-align: middle;
+  opacity: 0.8;
+}
+
+.partic .join {
+  float: right;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 160rpx;
+  background: #dc4e40;
+  color: #fff;
+  text-align: center;
+  border-radius: 10rpx;
 }
