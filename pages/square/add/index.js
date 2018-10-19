@@ -46,6 +46,8 @@ Page({
       }
       console.log(that.data.filePath)
       post['img'] = that.data.filePath
+
+      that.formSubmitDo(post);
     }
   },
   fileUpload: function(path, post) {
@@ -79,7 +81,7 @@ Page({
     let that = this;
     post['openId'] = app.globalData.openId;
     wx.request({
-      url: config.activityUrl,
+      url: config.squareUrl,
       method: "POST",
       data: {
         action: 'add',
@@ -114,19 +116,6 @@ Page({
       files: NewFilesArr
     })
   },
-  bindAccountChange: function(e) {
-    console.log('picker account 发生选择改变，携带值为', e.detail.value);
-    if (e.detail.value < 1) {
-      wx.showToast({
-        title: '活动类别不可为空',
-        icon: 'none',
-      })
-      return;
-    }
-    this.setData({
-      activityTypeIndex: e.detail.value
-    })
-  },
   // 图片上传
   chooseImage: function(e) {
     var that = this;
@@ -145,28 +134,6 @@ Page({
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表
-    })
-  },
-  // 改变时间
-  bindDateChange: function(e) {
-    this.setData({
-      bdate: e.detail.value
-    })
-  },
-  bindTimeChange: function(e) {
-    this.setData({
-      btime: e.detail.value
-    })
-  },
-  bindeDateChange: function(e) {
-    console.log(e);
-    this.setData({
-      edate: e.detail.value
-    })
-  },
-  bindeTimeChange: function(e) {
-    this.setData({
-      etime: e.detail.value
     })
   },
   /**

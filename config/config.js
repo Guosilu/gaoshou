@@ -6,6 +6,7 @@ const uploadUrl = baseUrl + 'gaoshou/api/uploadApi.php';
 const publicationUrl = baseUrl + 'gaoshou/api/publicationApi.php'; 
 const activityUrl = baseUrl + 'gaoshou/api/activityApi.php';
 const activity_orderUrl = baseUrl + 'gaoshou/api/activity_orderApi.php';
+const squareUrl = baseUrl + 'gaoshou/api/squareApi.php';
 const coreUrl = baseUrl + "gaoshou/core/";
 const img = baseUrl + "gaoshou/images/";
 
