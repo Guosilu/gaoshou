@@ -25,17 +25,23 @@
   font-weight: normal;
   font-size: 12px;
   overflow: hidden;
+  line-height: 60rpx;
   color: #888;
-  border-bottom: 1rpx solid #ccc;
+  border-bottom: 1rpx solid #f2f2f2;
 }
 
-.yh_hudong view{
+.yh_hudong .ex_info{
   float: left;
-  margin-right: 20rpx;
+  margin-right: 30rpx;
 }
 
-.yh_hudong image{
-  width: 30rpx;
+.yh_hudong .ex_icon,.ex-cipate .ex_icon{
+  width: 40rpx;
+  line-height: 60rpx;
+  margin-right: 2rpx;
+  margin-top: -1rpx;
+  vertical-align: middle;
+  opacity: 0.8;
 }
 
 .yh_hudong .like_on{

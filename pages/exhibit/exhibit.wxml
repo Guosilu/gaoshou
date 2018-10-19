@@ -2,13 +2,17 @@
   <view class='ex-title'>
     {{detail.title}}
     <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
-      <view>发布人: {{detail.nickName}}</view>
-      <view>发布时间: </view>
-      <view>浏览量: {{detail.liulan}}</view>
+      <view class='ex_info'>
+        <image src='/images/Avatar.png' class='ex_icon' mode='widthFix' />{{detail.nickName}}</view>
+      <view class='ex_info'>
+        <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+      </view>
+      <view class='ex_info'>
+        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
       <view wx:if="{{like_status == 0}}" bindtap='like'>
-        <image src="/images/zan.png" mode="widthFix" />11</view>
+        <image class='ex_icon' src="/images/like.png" mode="widthFix" />11</view>
       <view class="like_on" wx:else if="{{like_status == 1}}" bindtap='like_cancel'>
-        <image src="/images/zan_on.png" mode="widthFix" />12</view>
+        <image class='ex_icon' src="/images/like_on.png" mode="widthFix" />12</view>
     </view>
   </view>
   <view class='informat'>
@@ -46,7 +50,15 @@
       <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
         <navigator url="../orderDetail/orderDetail?id={{item.id}}">
           <image src='{{item.thumb}}'></image>
-          <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
+          <view>
+            {{item.truename}}，
+          </view>
+          <view>
+            <image src='/images/like.png' class='ex_icon' mode='widthFix' />{{item.dianzan}}
+            <image src='/images/toupiao.png' class='ex_icon' mode='widthFix' />{{item.toupiao}}
+            <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{item.liulan}}
+            <image src='/images/contact.png' class='ex_icon' mode='widthFix' />{{item.pinglun}}
+          </view>
         </navigator>
       </view>
     </view>
@@ -60,7 +72,15 @@
       <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image src='{{item.thumb}}'></image>
-          <view>{{item.truename}}，赞{{item.dianzan}}票{{item.toupiao}}评{{item.pinglun}}阅{{item.liulan}}</view>
+          <view>
+            {{item.truename}}
+          </view>
+          <view>
+            <image src='/images/like.png' class='ex_icon' mode='widthFix' />{{item.dianzan}}
+            <image src='/images/toupiao.png' class='ex_icon' mode='widthFix' />{{item.toupiao}}
+            <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{item.liulan}}
+            <image src='/images/contact.png' class='ex_icon' mode='widthFix' />{{item.pinglun}}
+          </view>
         </navigator>
       </view>
     </view>
