@@ -159,10 +159,12 @@ swiper {
 
 .eventsItem, .worksItem {
   width: 48%;
-  padding-top: 10rpx;
+  margin-top: 20rpx;
+  border: 1px solid #f2f2f2;
 }
 
 .eventsItem .listInfo, .worksItem .listInfo {
+  padding: 10rpx 20rpx;
   font-size: 14px;
   color: gray;
 }
