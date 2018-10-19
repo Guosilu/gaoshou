@@ -1,7 +1,7 @@
 <view wx:if="{{isLogin}}">
   <form bindsubmit="formSubmit">
     <view class="page__modules">
-      <input class="activityName" name='title' value='{{form_reset}}' placeholder="起个好玩的的名字吧~"></input>
+      <input class="activityName" name='title' placeholder="起个好玩的的名字吧~"></input>
     </view>
     <view class="page__modules">
       <view class="page__bd">
@@ -19,7 +19,7 @@
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                       </view>
-                      <view bindtap="delImg">删除</view>
+                      <view data-num='{{index}}' bindtap="delImg">删除</view>
                     </block>
                   </view>
                   <view wx:if="{{files.length<3}}" class="weui-uploader__input-box">
@@ -38,13 +38,14 @@
       <image id='advert' src=""></image>
     </view>
     <view style="overflow:hidden;">
+    <button class="weui-btn" formType="submit">提交</button>
       <navigator url="/pages/xieyi/index" class="uploadRuler">
         了解上传协议？
       </navigator>
     </view>
     <view class="weui-btn-area">
-      <button class="weui-btn" formType="submit">发起比赛</button>
-      <button class="weui-btn" formType="submit">参与比赛</button>
+      <button class="weui-btn" formType="">发起比赛</button>
+      <button class="weui-btn" formType="">参与比赛</button>
     </view>
   </form>
 </view>

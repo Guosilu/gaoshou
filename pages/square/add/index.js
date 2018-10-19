@@ -12,44 +12,40 @@ Page({
     files: [],
     //广告
     advert: "",
+    filePath:''
   },
   form_reset: function() {
     this.setData({
-      activityTypeIndex: 0,
-      bdate: "2016-09-01",
-      btime: "12:01",
-      edate: "2016-09-01",
-      etime: "12:01",
-      form_reset: '',
-      file: ''
+      files: ''
     });
   },
   formSubmit: function(e) {
-    wx.showLoading({
-      mask: true,
-      title: '提交中...',
-    });
+    var that = this;
     let post = e.detail.value;
-    post['starttime'] = post.bdate + ' ' + post.btime;
-    post['endtime'] = post.edate + ' ' + post.etime;
-    post['nickName'] = app.globalData.userInfo.nickName;
-    if (post.type == '0' || post.rule.trim() == '' || post.title.trim() == '') {
+    if (post.title==''){
       wx.showToast({
-        title: '填写不完整！',
+        title: '名称不可为空',
         icon: 'none'
       })
-      return false;
+      return;
     }
-    let file = this.data.file;
-    if (file == '') {
+    let files = that.data.files;
+    if (files.length == 0) {
       wx.showToast({
-        title: '请上传活动封面！',
+        title: '请上传图片！',
         icon: 'none'
       });
       return false;
     } else {
-      console.log(file);
-      this.fileUpload(file, post);
+      wx.showLoading({
+        mask: true,
+        title: '提交中...',
+      });
+      for(let a=0;a<files.length;a++){
+        that.fileUpload(files[a], post);
+      }
+      console.log(that.data.filePath)
+      post['img'] = that.data.filePath
     }
   },
   fileUpload: function(path, post) {
@@ -62,9 +58,20 @@ Page({
         action: 'upload_file'
       },
       success: function(res) {
-        console.log(res.data);
-        post['thumb'] = res.data;
-        that.formSubmitDo(post);
+        if (that.data.filePath==''){
+          that.setData({
+            filePath: that.data.filePath.concat(res.data)
+          })
+        }else{
+          that.setData({
+            filePath: that.data.filePath.concat(','+res.data)
+          })
+        }  
+      
+        // return;
+        // post['thumb'] = res.data;
+
+        // that.formSubmitDo(post);
       }
     });
   },
@@ -95,8 +102,16 @@ Page({
   },
   //删除图片
   delImg: function(e) {
+    var num = e.currentTarget.dataset.num;
+    var files = this.data.files;
+    var NewFilesArr = [];
+    for(let a = 0;a<files.length;a++){
+      if(a!=num){
+        NewFilesArr.push(files[a]);
+      }  
+    }
     this.setData({
-      file: ''
+      files: NewFilesArr
     })
   },
   bindAccountChange: function(e) {
@@ -160,7 +175,7 @@ Page({
   onLoad: function(options) {
     if (options.url) {
       this.setData({
-        file: options.url
+        files: [options.url]
       })
     }
     console.log(options)
