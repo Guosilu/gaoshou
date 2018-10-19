@@ -12,7 +12,7 @@
 
 <view wx:if="{{isLogin}}"> 
 <form bindsubmit="formSubmit">
-  <view class="page__modules">
+  <view class="page__modules modules__shadow">
     <input class="activityName" name='title' value='{{form_reset}}' placeholder="请输入活动名称"></input>
     <view class="activityType">
       <picker bindchange="bindAccountChange" name='type' value="{{activityTypeIndex}}" range="{{activityType}}">
@@ -21,7 +21,7 @@
     </view>
   </view>
 
-  <view class="page__modules">
+  <view class="page__modules modules__shadow">
     <view class="page__bd">
       <view class="weui-cells">
         <view class="weui-cell">
@@ -49,10 +49,10 @@
     </view>
   </view>
 
-  <view class="page__modules">
+  <view class="page__modules modules__shadow">
     <textarea placeholder="请输入活动规则" name='rule' value='{{form_reset}}'></textarea>
   </view>
-  <view class="page__modules">
+  <view class="page__modules modules__shadow">
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">开始日期</view>

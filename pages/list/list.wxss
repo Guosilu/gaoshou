@@ -1,43 +1,93 @@
 /* pages/list/list.wxss */
-.user_info{
-    float: left;margin-left: 30rpx;
+
+.list {
+  margin: 20rpx;
+  padding: 20rpx;
 }
-.lists{
-  overflow: hidden;margin: 10rpx 20rpx; box-sizing: border-box;box-shadow: 2rpx 2rpx 20rpx 2rpx #ddd;padding: 10rpx 15rpx;
+
+.list-item {
+  box-sizing: border-box;
+  box-shadow: 2rpx 1rpx 10rpx 1rpx #ddd;
+  margin-bottom: 30rpx;
+  padding: 20rpx 28rpx;
+  border-radius: 10rpx;
 }
-.portrait{
+
+.portrait {
   overflow: hidden;
 }
-.portrait .list_Avatar{
-    width: 115rpx;
-    height: 115rpx;
-    line-height: 115rpx;
-    float: left;
+.portrait .exh_title{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20rpx;
 }
-.user_date{
-  font-size: 20rpx;
+.portrait .list_Avatar {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 50rpx;
+  margin-right: 16rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  float: left;
+  vertical-align: middle;
 }
-.user_name{
-  margin: 10rpx 0;
+
+.user_date {
+  font-size: 12px;
+  float: right;
+  color: #dc4e40;
 }
-.del-cont{
-  overflow: hidden;box-sizing: border-box;
+
+.del-cont {
+  overflow: hidden;
+  box-sizing: border-box;
 }
-.del-text{
-  font-size: 32rpx;
+
+.del-text {
+  font-size: 14px;
+  margin-top: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
 }
-.del-cont image{
-  width: 33%;padding:0 10rpx;box-sizing: border-box;
+
+.del-cont image {
+  width: 33%;
+  height: 160rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
 }
-.partic{
-  overflow: hidden;border-bottom: 2rpx solid #ddd;padding: 10rpx 0;font-size: 24rpx;
+
+.partic {
+  overflow: hidden;
+  padding: 10rpx 0;
+  font-size: 24rpx;
 }
-.partic text{
+
+.partic text {
   line-height: 60rpx;
+  margin-right: 20rpx;
+  color: gray;
 }
-.partic .join{
-  float: right;width:160rpx; background: #dc4e40;color: #fff;text-align: center;border-radius: 10rpx;
+
+.partic .ex_icon{
+  width: 36rpx;
+  line-height: 60rpx;
+  margin-right: 2rpx;
+  margin-top: -1rpx;
+  vertical-align: middle;
+  opacity: 0.8;
 }
-
-
-
+.partic .join {
+  float: right;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 160rpx;
+  background: #dc4e40;
+  color: #fff;
+  text-align: center;
+  border-radius: 10rpx;
+}
