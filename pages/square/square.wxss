@@ -1,5 +1,4 @@
 /* pages/square/square.wxss */
-
 .add-icon {
   width: 100rpx;
   height: 100rpx;
@@ -37,6 +36,8 @@
   width: 115rpx;
   height: 115rpx;
   line-height: 115rpx;
+  border-radius: 50%;
+  overflow: hidden;
   float: left;
 }
 
