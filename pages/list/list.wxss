@@ -45,7 +45,7 @@
 
 .del-text {
   font-size: 14px;
-  margin-top: 10rpx;
+  margin: 10rpx 0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
