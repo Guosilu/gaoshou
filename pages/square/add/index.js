@@ -12,7 +12,8 @@ Page({
     files: [],
     //广告
     advert: "",
-    filePath:''
+    filePath:'',
+    post:[],
   },
   form_reset: function() {
     this.setData({
@@ -28,6 +29,10 @@ Page({
         icon: 'none'
       })
       return;
+    }else{
+      that.setData({
+        post:post,
+      })
     }
     let files = that.data.files;
     if (files.length == 0) {
@@ -41,25 +46,23 @@ Page({
         mask: true,
         title: '提交中...',
       });
-      for(let a=0;a<files.length;a++){
-        that.fileUpload(files[a], post);
-      }
-      console.log(that.data.filePath)
-      post['img'] = that.data.filePath
-
-      that.formSubmitDo(post);
+      let i = 0;
+      that.fileUpload(i,files);
     }
   },
-  fileUpload: function(path, post) {
-    let that = this;
+  //文件上传
+  fileUpload: function (i, files) {
+    i = i ? i: 0;
+    var that = this;
     wx.uploadFile({
       url: config.uploadUrl,
-      filePath: path,
+      filePath: files[i],
       name: 'file',
       formData: {
         action: 'upload_file'
       },
       success: function(res) {
+        i++;
         if (that.data.filePath==''){
           that.setData({
             filePath: that.data.filePath.concat(res.data)
@@ -68,12 +71,21 @@ Page({
           that.setData({
             filePath: that.data.filePath.concat(','+res.data)
           })
-        }  
-      
-        // return;
-        // post['thumb'] = res.data;
-
-        // that.formSubmitDo(post);
+        }
+        if(i==files.length){
+          let post = that.data.post;
+          post['image'] = that.data.filePath;
+          that.formSubmitDo(post);
+        } else {
+          that.fileUpload(i, files);
+        }
+      },
+      fail:function(){
+        wx.showToast({
+          title: '上传异常!请稍后再试',
+          icon:'none'
+        })
+        return;
       }
     });
   },
@@ -93,6 +105,9 @@ Page({
             title: '提交成功！',
           });
           that.form_reset();
+          wx.redirectTo({
+            url: '../detail/detail?id='+res.data,
+          })
         } else {
           wx.showToast({
             title: '提交失败！',

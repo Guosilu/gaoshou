@@ -19,5 +19,6 @@ module.exports = {
   activityUrl: activityUrl,
   activity_orderUrl: activity_orderUrl,
   coreUrl: coreUrl,
-  img: img
+  img: img,
+  squareUrl: squareUrl
 }
