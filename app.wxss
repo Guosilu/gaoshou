@@ -166,7 +166,6 @@ swiper {
 
 .eventsItem .listInfo, .worksItem .listInfo {
   padding: 10rpx 20rpx;
-  font-size: 14px;
   color: gray;
 }
 
