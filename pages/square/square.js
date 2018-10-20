@@ -9,6 +9,8 @@ Page({
    */
   data: {
     img: config.img,
+    list :[],
+    page: 1,
   },
   addVideo: function () {
     wx.chooseImage({
@@ -28,7 +30,65 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    that.query('list', config.squareUrl);
+  },
+  /**
+   * 查询
+   */
+  query: function (action, url) {
+    // console.log(action);return
+    var that = this;
+    wx.request({
+      url: url,
+      method: "POST",
+      dataType: "JSON",
+      data: {
+        action: action,
+        page: that.data.page
+      },
+      success: function (res) {
+        let data = JSON.parse(res.data);
+        for(let a=0;a<data.length;a++){
+          data[a].image = data[a].image.split(',')
+        }
+        console.log(data);
 
+        if (res.data != '[]') {
+          that.setData({
+            list: that.data.list.concat(data)
+          })
+        } else {
+          // wx.showToast({
+          //   title: '暂无更多信息',
+          //   icon: "none"
+          // })
+        }
+      },
+      fail: function () {
+        wx.showToast({
+          title: '查询失败',
+          icon: "none"
+        })
+      }
+    })
+  },
+
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    wx.showToast({
+      title: '正在加载更多....',
+      icon: "loading"
+    })
+    var that = this;
+    let page = that.data.page;
+    that.setData({
+      page: page + 1
+    })
+    that.query('list', config.squareUrl);
   },
 
   /**
@@ -63,13 +123,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

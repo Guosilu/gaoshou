@@ -1,29 +1,30 @@
 <image src="{{img}}add.png" class="add-icon" bindtap="addVideo"></image>
-<view class="list">
+<view class="list"  wx:for="{{list}}" wx:key="*this">
+
   <view class='list-item'>
     <navigator url='/pages/square/detail/detail'>
       <view class='portrait'>
-        <image class="list_Avatar" src="{{img}}list_Avatar1.png"></image>
+        <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
         <view class="user_info">
-          <view class="user_name">Marry</view>
-          <view class="user_date">今天 15:30
-          <text class='end-time'>截止时间: 2018-10-20 18:00</text>
+          <view class="user_name">{{item.nickName}}</view>
+          <view class="user_date">{{item.addtime}}
+          <!-- <text class='end-time'>截止时间: 2018-10-20 18:00</text> -->
           </view>
         </view>
       </view>
       <view class='del-text'>
-        活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍
+        {{item.title}}
       </view>
-      <view class='del-cont'>
-        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='aspectFill'></image>
-        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='aspectFill'></image>
-        <image src='http://www.ficc.org.cn/api/avatar/show.php?username=18615076090&size=large&time=1537869087' mode='aspectFill'></image>
+      <view class='del-cont' wx:for="{{item.image}}" wx:for-item="image" wx:key="*this">
+        <image src='{{image}}' mode='aspectFill'></image>
       </view>
       <view class='partic'>
         <image src='/images/like.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>100</text>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>80</text>
-        <view class='join'>参与活动</view>
+        <!-- <view class='join'>参与活动</view> -->
       </view>
     </navigator>
   </view>
+
+
 </view>

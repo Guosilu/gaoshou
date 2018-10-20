@@ -18,7 +18,6 @@ Page({
   onLoad: function (options) {
     var id= options.id;
     var that = this;
-    id = 5;
     wx.request({
       url: config.squareUrl,
       method: "POST",
