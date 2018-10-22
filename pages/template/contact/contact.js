@@ -5,8 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    contShow : false,
-    sendShow : true,
+    contShow: false,
+    sendShow: true,
     inputVal: "",
   },
   inputTyping: function (e) {
