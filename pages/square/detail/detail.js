@@ -3,30 +3,111 @@ const app = getApp();
 Page({
 
   /** 
-   * 页面的初始数据
+   * 页面的初始数据1
    */
   data: {
+    like_status : null,
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     image:[],
     data:[],
     options:'',
   },
-  like :function(){
-    var that = this;
-    var id = that.data.options.id
+  is_like: function (id) {
+    let that = this;
+    wx.request({
+      url: config.squareUrl,
+      method: "POST",
+      data: {
+        action: 'is_like',
+        where: {
+          square_id: id,
+          openId: app.globalData.openId
+        }
+      },
+      success: function (res) {
+        let like_status;
+        if (res.data == 1) {
+          like_status = 1;
+        } else {
+          like_status = 0;
+        }
+        that.setData({
+          like_status: like_status
+        })
+      }
+    });
+  },
+  like: function () {
+    let that = this;
+    let post = {};
+    let id = that.data.data.id;
+    post['square_id'] = id;
+    post['openId'] = app.globalData.openId;
     wx.request({
       url: config.squareUrl,
       method: "POST",
       data: {
         action: 'like',
-        id: id
+        id: id,
+        post: post
       },
       success: function (res) {
-        that.query(that.data.options.id);
+        let data = res.data;
+        console.log(res.data);
+        if (data.success == 1) {
+          that.setData({
+            like_status: 1,
+            'data.like': data.like
+          })
+          wx.showToast({
+            icon: 'none',
+            title: '点赞成功！'
+          });
+        }
       }
-    })
+    });
   },
+  like_cancel: function () {
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定取消点赞吗？',
+      success: function (res) {
+        if (res.confirm) {
+          let where = {};
+          let id = that.data.data.id;
+          where['square_id'] = id;
+          where['openId'] = app.globalData.openId;
+          wx.request({
+            url: config.squareUrl,
+            method: "POST",
+            data: {
+              action: 'like_cancel',
+              id: id,
+              where: where
+            },
+            success: function (res) {
+              let data = res.data;
+              if (data.success == 1) {
+                that.setData({
+                  like_status: 0,
+                  'data.like': data.like
+                })
+                wx.showToast({
+                  icon: 'none',
+                  title: '已取消点赞！'
+                });
+              }
+            }
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    });
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -37,6 +118,7 @@ Page({
       options: options
     })
     that.query(id);
+    this.is_like(id);
   },
 
   /**

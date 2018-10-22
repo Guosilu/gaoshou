@@ -71,5 +71,5 @@
 
 
 
-<import src='../foot/foot.wxml'/>
+<import src='../template/foot/foot.wxml' />
 <template is='foot'></template>
