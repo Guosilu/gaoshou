@@ -54,7 +54,6 @@ Page({
       },
       success: function (res) {
         let data = res.data;
-        console.log(res.data);
         if (data.success == 1) {
           that.setData({
             like_status: 1,

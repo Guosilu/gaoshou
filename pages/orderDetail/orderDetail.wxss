@@ -1,3 +1,11 @@
+.ex_icon{
+  width: 40rpx;
+  line-height: 60rpx;
+  margin-right: 2rpx;
+  margin-top: -1rpx;
+  vertical-align: middle;
+  opacity: 0.8;
+}
 .informat{
   margin: 10rpx 20rpx;background: #fff;
 }

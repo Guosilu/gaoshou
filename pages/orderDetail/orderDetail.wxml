@@ -11,8 +11,9 @@
     
     <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
   </view>
-  <view wx:if="{{like_status == 0}}" bindtap='like'>点赞</view>
-  <view wx:else if="{{like_status == 1}}" bindtap='like_cancel'>取消点赞</view>
+  <view class='{{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
+    <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}       
+  </view>
   <view>浏览量：{{detail.liulan}}</view>
   <view>参与者姓名：{{detail.truename}}</view>
 </view>

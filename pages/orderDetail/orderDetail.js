@@ -45,9 +45,11 @@ Page({
         post: post
       },
       success: function (res) {
-        if (res.data == 1) {
+        let data = res.data;
+        if (data.success == 1) {
           that.setData({
-            like_status: 1
+            like_status: 1,
+            'detail.dianzan': data.dianzan
           })
           wx.showToast({
             icon: 'none',
@@ -77,9 +79,11 @@ Page({
               where: where
             },
             success: function (res) {
-              if (res.data == 1) {
+              let data = res.data;
+              if (data.success == 1) {
                 that.setData({
-                  like_status: 0
+                  like_status: 0,
+                  'detail.dianzan': data.dianzan
                 })
                 wx.showToast({
                   icon: 'none',
