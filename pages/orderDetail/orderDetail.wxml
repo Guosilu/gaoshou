@@ -25,6 +25,8 @@
     {{detail.note}}
   </view>
 </view>
-<import src='../foot/foot.wxml'/>
+<import src='../template/contact/contact.wxml' />
+<template is='contact'></template>
+<import src='../template/foot/foot.wxml' />
 <template is='foot'></template>
 </block>

@@ -2,7 +2,6 @@
   "pages": [
     "pages/index/index",
     "pages/square/add/index",
-    
     "pages/publication/add/publication",
     "pages/record/record",
     "pages/launch/launch",
@@ -23,8 +22,8 @@
     "pages/profile/profile",
     "pages/square/square",
     "pages/publication/detail/detail",
-    
-    "pages/square/detail/detail"
+    "pages/square/detail/detail",
+    "pages/template/contact/contact"
   ],
   "window": {
     "backgroundTextStyle": "light",
