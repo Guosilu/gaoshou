@@ -10,7 +10,7 @@
     "pages/pastEvents/pastEvents",
     "pages/activity/activity",
     "pages/participate/participate",
-    "pages/foot/foot",
+    "pages/template/foot/foot",
     "pages/exhibit/exhibit",
     "pages/orderDetail/orderDetail",
     "pages/detail/detail",
