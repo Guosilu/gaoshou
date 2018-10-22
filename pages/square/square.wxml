@@ -2,7 +2,7 @@
 <view class="list"  wx:for="{{list}}" wx:key="*this">
 
   <view class='list-item'>
-    <navigator url='/pages/square/detail/detail'>
+    <navigator url='/pages/square/detail/detail?id={{item.id}}'>
       <view class='portrait'>
         <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
         <view class="user_info">
