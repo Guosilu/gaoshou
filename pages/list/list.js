@@ -13,10 +13,17 @@ Page({
   },
 
   show:function(option){
+    let that = this;
     let id = option.currentTarget.dataset.ids
-    wx.navigateTo({
-      url: '../exhibit/exhibit?id='+id,
-    })
+    if(that.data.types=='all'){
+      wx.navigateTo({
+        url: '../exhibit/exhibit?id=' + id,
+      })
+    }else{
+      wx.navigateTo({
+        url: '../publication/detail/detail?id=' + id,
+      })
+    }
   },
   /**
   * 生命周期函数--监听页面加载
@@ -33,6 +40,8 @@ Page({
     var that = this;
     if (types == "all") {
       that.query("all", config.activityUrl)
+    } else if (types == "zuopin"){
+      that.query("lists", config.publicationUrl)
     }
   },
   /**
@@ -56,6 +65,7 @@ Page({
       },
       success: function (res) {
         let data = JSON.parse(res.data);
+        console.log(data)
         if (res.data!='[]'){
           console.log(res);
           that.setData({

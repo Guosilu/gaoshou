@@ -108,7 +108,7 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator url="/pages/square/square" hover-class="navigator-hover">
+        <navigator open-type='switchTab' url="../square/square" hover-class="navigator-hover">
           <image src="{{img}}cate4_6.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">赛脉广场</view>
@@ -124,7 +124,7 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator url="/pages/list/list?type=all" hover-class="navigator-hover">
+        <navigator url="/pages/list/list?type=zuopin" hover-class="navigator-hover">
           <image src="{{img}}cate4_7.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">作品列表</view>
@@ -173,9 +173,9 @@
       <view class="cate_tit">
         赛脉广场
       </view>
-      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
-        <navigator url="../exhibit/exhibit?id={{item.id}}">
-          <image mode='aspectFill' src="{{item.thumb}}"></image>
+      <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
+        <navigator url="../square/detail/detail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.image[0]}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
             <view>
@@ -183,7 +183,7 @@
               <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
                 <image class="item-icon" src='/images/like.png' mode='widthFix' />
-                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+                <text class='item-icnum'>{{item.like?item.like:0}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
                 <image class="item-icon" src='/images/contact.png' mode='widthFix' />
@@ -207,7 +207,7 @@
             <view class="listInfoTit">{{item.title}}</view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
-              <text class='item-icnum'>{{item.nickName}}00000000000</text>
+              <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
                 <image class="item-icon" src='/images/like.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.dianzan}}</text>

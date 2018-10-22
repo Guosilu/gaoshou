@@ -29,7 +29,8 @@ Page({
     interval: 5000,
     duration: 1000,
     //作品
-    worksList: []
+    worksList: [],
+    square: []
   },
   showInput: function() {
     this.setData({
@@ -74,6 +75,28 @@ Page({
         });
       }
     })
+
+
+    //获取赛脉广场
+    wx.request({
+      url: config.squareUrl,
+      method: 'POST',
+      data: {
+        action: 'list'
+      },
+      success: function (res) {
+        console.log(res.data);
+        let data = res.data;
+        for (let a = 0; a < data.length;a++){
+          data[a].image = data[a].image.split(','); 
+        } 
+        that.setData({
+          square: res.data,
+        });
+      }
+    })
+
+
     //获取作品
     wx.request({
       url: config.publicationUrl,
@@ -88,6 +111,7 @@ Page({
         });
       }
     })
+
   },
   onLoad: function() {
     app.redirectTo();
