@@ -86,7 +86,7 @@
     </navigator>
   </view>
   <view class="weui-btn-area">
-    <button class="weui-btn" formType="submit">提交</button>
+    <button class="weui-btn" type="warn" formType="submit">提交</button>
   </view>
 </form>
 </view>
