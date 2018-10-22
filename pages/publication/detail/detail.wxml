@@ -37,6 +37,6 @@
       {{detail.introduce}}
     </view>
   </view>
-  <import src='../../foot/foot.wxml' />
-  <template is='foot'></template>
+  <import src='/pages/template/contact/contact.wxml' />
+  <template is='contact'></template>
 </block>
