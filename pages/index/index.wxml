@@ -153,12 +153,12 @@
             <view class="listInfoTit">{{item.title}}</view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
-              <text class='item-icnum'>发布者</text>
+              <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
                 <image class="item-icon" src='/images/like.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
-                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
-                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
                 <image class="item-icon" src='/images/contact.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
               </view>
@@ -180,12 +180,12 @@
             <view class="listInfoTit">{{item.title}}</view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
-              <text class='item-icnum'>发布者</text>
+              <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
                 <image class="item-icon" src='/images/like.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
-                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
-                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
                 <image class="item-icon" src='/images/contact.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
               </view>
@@ -207,12 +207,12 @@
             <view class="listInfoTit">{{item.title}}</view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
-              <text class='item-icnum'>发布者</text>
+              <text class='item-icnum'>{{item.nickName}}00000000000</text>
               <view class='fr'>
                 <image class="item-icon" src='/images/like.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.dianzan}}</text>
-                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
-                <text class='item-icnum'>{{item.liulan}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan}}</text> -->
                 <image class="item-icon" src='/images/contact.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
               </view>
