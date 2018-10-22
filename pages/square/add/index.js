@@ -96,7 +96,11 @@ Page({
           that.setData({
             filePath: that.data.filePath.concat(res.data)
           })
-        }
+        } else {
+          that.setData({
+            filePath: that.data.filePath.concat(',' + res.data)
+          })
+        } 
         if (i == files.length) {
           let post = that.data.post;
           post['image'] = that.data.filePath;
