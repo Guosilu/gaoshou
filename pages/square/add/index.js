@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    advertImage: [],
+    advertPath: '',
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //图片上传
@@ -51,8 +53,35 @@ Page({
     }
   },
   //文件上传
+  fileUploadFun: function (post, files) {
+    var that = this;
+    wx.uploadFile({
+      url: config.uploadUrl,
+      filePath: files[0],
+      name: 'file',
+      formData: {
+        action: 'upload_file'
+      },
+      success: function(res) {
+        if (res.data){
+          that.setData({
+            advertPath: res.data
+          })
+          post['advert'] = res.data;
+          that.formSubmitDo(post);
+        }
+      },
+      fail:function(){
+        wx.showToast({
+          title: '上传异常!请稍后再试',
+          icon:'none'
+        })
+        return;
+      }
+    });
+  },
   fileUpload: function (i, files) {
-    i = i ? i: 0;
+    i = i ? i : 0;
     var that = this;
     wx.uploadFile({
       url: config.uploadUrl,
@@ -61,29 +90,29 @@ Page({
       formData: {
         action: 'upload_file'
       },
-      success: function(res) {
+      success: function (res) {
         i++;
-        if (that.data.filePath==''){
+        if (that.data.filePath == '') {
           that.setData({
             filePath: that.data.filePath.concat(res.data)
           })
-        }else{
-          that.setData({
-            filePath: that.data.filePath.concat(','+res.data)
-          })
         }
-        if(i==files.length){
+        if (i == files.length) {
           let post = that.data.post;
           post['image'] = that.data.filePath;
-          that.formSubmitDo(post);
+          if (that.data.advertImage.length >= 1) {
+            that.fileUploadFun(post, that.data.advertImage);
+          } else {
+            that.formSubmitDo(post);
+          }
         } else {
           that.fileUpload(i, files);
         }
       },
-      fail:function(){
+      fail: function () {
         wx.showToast({
           title: '上传异常!请稍后再试',
-          icon:'none'
+          icon: 'none'
         })
         return;
       }
@@ -135,6 +164,7 @@ Page({
   chooseImage: function(e) {
     var that = this;
     wx.chooseImage({
+      count: 1,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function(res) {
@@ -145,10 +175,30 @@ Page({
       }
     })
   },
+  chooseAdvertImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        that.setData({
+          advertImage: that.data.advertImage.concat(res.tempFilePaths)
+        });
+      }
+    })
+  },
   previewImage: function(e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表
+    })
+  },
+  previewAdvertImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: this.data.advertImage // 需要预览的图片http链接列表
     })
   },
   /**

@@ -20,6 +20,9 @@
   <view class='rule-cont'>
     广告条
   </view>
+  <view wx:if="{{data.advert}}" class='ex-cover'>
+    <image src="{{data.advert}}" mode='widthFix' />
+  </view>
 </view>
 <import src='../../foot/foot.wxml' />
 <template is='foot'></template>
