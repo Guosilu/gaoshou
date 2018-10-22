@@ -4,12 +4,12 @@
     {{data.nickName}}
   </view>
   <view>发布时间: </view>
-  <view>浏览量: {{detail.liulan}}</view>
-  <view bindtap='like'>
-    <image src="/images/zan.png" mode="widthFix" />11</view>
+  <view>浏览量: {{data.liulan?data.liulan:0}}</view>
+  <view bindtap='{{data.islike==0?"like":""}}'>
+    <image src='/images/{{data.islike==0?"zan.png":"zan_on.png"}}' mode="widthFix" />{{data.like?data.like:0}}</view>
 </view>
 <view class='ex-title'>
-  标题
+  标题:{{data.title}}
 </view>
 <view class='informat'>
   <view wx:for="{{image}}"  wx:key='*this'  class='ex-cover'>

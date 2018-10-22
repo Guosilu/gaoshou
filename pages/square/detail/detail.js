@@ -10,14 +10,39 @@ Page({
     img: config.img,
     image:[],
     data:[],
-
+    options:'',
+  },
+  like :function(){
+    var that = this;
+    var id = that.data.options.id
+    wx.request({
+      url: config.squareUrl,
+      method: "POST",
+      data: {
+        action: 'like',
+        id: id
+      },
+      success: function (res) {
+        that.query(that.data.options.id);
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     var id= options.id;
-    console.log(options)
+    that.setData({
+      options: options
+    })
+    that.query(id);
+  },
+
+  /**
+   * 查询
+   */
+  query : function(id){
     var that = this;
     wx.request({
       url: config.squareUrl,
@@ -27,10 +52,9 @@ Page({
         id: id
       },
       success: function (res) {
-        console.log(res);
         that.setData({
           image: res.data.image.split(','),
-          data:res.data
+          data: res.data
         })
       }
     })
@@ -63,9 +87,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    if (wx.getStorageSync('isLogin')) {
-      this.form_reset();
-    }
+
   },
 
   /**

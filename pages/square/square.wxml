@@ -19,8 +19,10 @@
         <image src='{{image}}' mode='aspectFill'></image>
       </view>
       <view class='partic'>
-        <image src='/images/like.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>100</text>
-        <image src='/images/looks.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>80</text>
+        <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.like?item.like:0}}</text>
+        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.liulan?item.liulan:0}}</text>
         <!-- <view class='join'>参与活动</view> -->
       </view>
     </navigator>

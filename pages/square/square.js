@@ -59,10 +59,10 @@ Page({
             list: that.data.list.concat(data)
           })
         } else {
-          // wx.showToast({
-          //   title: '暂无更多信息',
-          //   icon: "none"
-          // })
+          wx.showToast({
+            title: '暂无更多信息',
+            icon: "none"
+          })
         }
       },
       fail: function () {
