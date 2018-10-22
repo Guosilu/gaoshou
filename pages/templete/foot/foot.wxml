@@ -1,5 +1,0 @@
-<template name='foot'>
-  <view class='foot'>
-    ©2018 赛脉 版权所有
-  </view>
-</template>
