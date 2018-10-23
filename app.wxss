@@ -24,6 +24,9 @@
   float: right;
 }
 
+.no-border{
+  border: none !important;
+}
 
 view {
   font-size: 14px;
