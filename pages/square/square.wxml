@@ -1,7 +1,6 @@
 <image src="{{img}}add.png" class="add-icon" bindtap="addVideo"></image>
-<view class="list"  wx:for="{{list}}" wx:key="*this">
-
-  <view class='list-item'>
+<view class="list">
+  <view class='list-item' wx:for="{{list}}" wx:key="*this">
     <navigator url='/pages/square/detail/detail?id={{item.id}}'>
       <view class='portrait'>
         <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
@@ -15,8 +14,8 @@
       <view class='del-text'>
         {{item.title}}
       </view>
-      <view class='del-cont' wx:for="{{item.image}}" wx:for-item="image" wx:key="*this">
-        <image src='{{image}}' mode='aspectFill'></image>
+      <view class='del-cont'>
+        <image src='{{image}}' mode='aspectFill' wx:for="{{item.image}}" wx:for-item="image" wx:key="*this"></image>
       </view>
       <view class='partic'>
         <image src='/images/like.png' class='ex_icon' mode='widthFix' />

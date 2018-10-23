@@ -33,9 +33,9 @@
 }
 
 .portrait .list_Avatar {
-  width: 115rpx;
-  height: 115rpx;
-  line-height: 115rpx;
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   border-radius: 50%;
   overflow: hidden;
   float: left;
@@ -70,10 +70,11 @@ cate_tit .cate_tit {
 }
 
 .del-cont image {
-  width: 33%;
-  height: 160rpx;
-  padding: 0 10rpx;
+  width: 30%;
+  height: 150rpx;
+  margin: 0 10rpx;
   box-sizing: border-box;
+  border: 2rpx solid #f2f2f2;
 }
 
 .partic {
@@ -81,7 +82,9 @@ cate_tit .cate_tit {
   font-size: 24rpx;
   border-radius: 6rpx;
 }
-
+.del-text{
+  margin: 20rpx;
+}
 .partic .ex_text {
   line-height: 60rpx;
   margin-right: 20rpx;

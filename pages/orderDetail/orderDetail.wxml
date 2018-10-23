@@ -1,33 +1,39 @@
 <!--pages/launch/launch.wxml-->
 <block wx:if="{{detail.id && like_status !== null}}">
-<view class='informat'>
- <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>作品展示
+  <view class='ex-title'>
+    {{detail.title}}biaoti
+    <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
+      <view class='ex_info'>
+        <image src='/images/Avatar.png' class='ex_icon' mode='widthFix' />{{detail.nickName}}</view>
+      <view class='ex_info'>
+        <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+      </view>
+      <view class='ex_info'>
+        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
+      <view class='{{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
+        <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
+      </view>
+    </view>
   </view>
-  <view class='ex-cover'>
-    <image wx:if="{{detail.thumb}}" src="{{detail.thumb}}" mode='widthFix'></image>
-    <image wx:if="{{detail.thumb1}}" src="{{detail.thumb1}}" mode='widthFix'></image>
-    <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
-    
-    <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
+  <view class='informat'>
+    <view class='ex-cover'>
+      <image wx:if="{{detail.thumb}}" src="{{detail.thumb}}" mode='widthFix'></image>
+      <image wx:if="{{detail.thumb1}}" src="{{detail.thumb1}}" mode='widthFix'></image>
+      <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
+      <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
+    </view>
   </view>
-  <view class='{{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
-    <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}       
-  </view>
-  <view>浏览量：{{detail.liulan}}</view>
-  <view>参与者姓名：{{detail.truename}}</view>
-</view>
 
-<view class='rule'>
-  <view class='ex-tit'>
-    <image src="/images/biaoqian.png"></image>作品说明
+  <view class='rule'>
+    <view class='ex-tit'>
+      作品说明
+    </view>
+    <view class='rule-cont'>
+      {{detail.note}}
+    </view>
   </view>
-  <view class='rule-cont'>
-    {{detail.note}}
-  </view>
-</view>
-<import src='../template/contact/contact.wxml' />
-<template is='contact'></template>
-<import src='../template/foot/foot.wxml' />
-<template is='foot'></template>
+  <import src='../template/contact/contact.wxml' />
+  <template is='contact'></template>
+  <import src='../template/foot/foot.wxml' />
+  <template is='foot'></template>
 </block>

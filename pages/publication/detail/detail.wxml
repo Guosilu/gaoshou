@@ -27,7 +27,7 @@
   </view>
   <view class='rule'>
     <view class='ex-tit'>
-      <image src="/images/biaoqian.png"></image>作品说明
+      作品说明
     </view>
     <view class='rule-cont'>
       {{detail.introduce}}

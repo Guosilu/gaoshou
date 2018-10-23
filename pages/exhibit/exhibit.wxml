@@ -10,7 +10,7 @@
       <view class='ex_info'>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
       <view class='{{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
-        <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}       
+        <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
       </view>
     </view>
   </view>
@@ -21,15 +21,18 @@
   </view>
 
   <view class='rule page__modules modules__shadow'>
-    <view class='rule-cont'>
+    <view class='rule-cont no-borderTop'>
+      <view class='cont-title'>
+        活动规则
+      </view>
       {{detail.rule}}
     </view>
     <view class='rule-cont'>
-    <view>发布时间：{{detail.starttime}}</view>
-    <view>发布时间：截止时间：{{detail.endtime}}</view>
+      <view>发布时间：{{detail.starttime}}</view>
+      <view>截止时间：{{detail.endtime}}</view>
     </view>
-      <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
-      <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
+    <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
+    <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
   </view>
   <view class='informat'>
     <view class='ex-tit'>
@@ -44,12 +47,10 @@
               {{item.truename}}，
             </view>
             <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
-            <text class='item-icnum'>发布者</text>
+            <text class='item-icnum'>{{item.nickName}}</text>
             <view class='fr'>
               <image src='/images/like.png' class='ex_icon ex_icon1' mode='widthFix' />
               <text class='item-icnum'>{{item.dianzan}}</text>
-              <image src='/images/toupiao.png' class='ex_icon' mode='widthFix' />
-              <text class='item-icnum'>{{item.toupiao}}</text>
               <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
               <text class='item-icnum'>{{item.liulan}}</text>
             </view>
@@ -72,12 +73,10 @@
               {{item.truename}}
             </view>
             <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
-            <text class='item-icnum'>发布者</text>
+            <text class='item-icnum'>{{item.nickName}}</text>
             <view class='fr'>
               <image src='/images/like.png' class='ex_icon' mode='widthFix' />
               <text class='item-icnum'>{{item.dianzan}}</text>
-              <image src='/images/toupiao.png' class='ex_icon' mode='widthFix' />
-              <text class='item-icnum'>{{item.toupiao}}</text>
               <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
               <text class='item-icnum'>{{item.liulan}}</text>
             </view>
@@ -87,6 +86,6 @@
     </view>
   </view>
 
-  <import src='../foot/foot.wxml' />
+  <import src='../template/foot/foot.wxml' />
   <template is='foot'></template>
 </block>

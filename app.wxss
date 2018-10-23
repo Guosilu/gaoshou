@@ -240,15 +240,9 @@ swiper {
 }
 
 .ex-tit {
-  padding: 20rpx 15rpx;
-  border-bottom: 2rpx solid #aaa;
-}
-
-.ex-tit image {
-  width: 50rpx;
-  height: 50rpx;
-  font-size: 32rpx;
-  margin-right: 20rpx;
+  padding-left: 10rpx;
+  margin-bottom: 20rpx;
+  border-left: 10rpx solid #dc4e40;
 }
 
 .ex-cover {

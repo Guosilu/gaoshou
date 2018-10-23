@@ -50,13 +50,6 @@
 .ex-cover image{
   margin: 20rpx 0;
 }
-.ex-tit{
-  margin-bottom: 20rpx;
-  padding-left: 0;
-}
-.ex-tit image{
-  margin-right: 0;
-}
 .ex-list{
   overflow: hidden;margin-bottom: 30rpx;
   display: flex;
@@ -107,6 +100,12 @@
   margin: 30rpx 20rpx;padding: 30rpx 20rpx;background: #fff;border-radius: 15rpx;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;overflow: hidden;
 }
 .rule-cont{
-  line-height: 50rpx;font-size: 32rpx;padding: 20rpx 15rpx;overflow: hidden;
+  width:100%;line-height: 50rpx;padding: 20rpx 15rpx;overflow: hidden;
 }
-
+.no-borderTop{
+  padding: 0 15rpx;
+}
+.cont-title{
+  font-size: 16px;
+  font-weight: bold;
+}

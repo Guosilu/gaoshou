@@ -1,3 +1,48 @@
+.ex-title{
+  position: relative;
+  font-size: 18px;
+  line-height: 60rpx;
+  font-weight: bold;
+  padding: 0 20rpx;
+  margin: 20rpx 0;
+}
+
+.ex-title::after{
+  position: absolute;
+  content: "";
+  top: 8rpx;
+  left: 0;
+  display: inline-block;
+  width: 10rpx;
+  height: 46rpx;
+  background: #dc4e40;
+}
+.yh_hudong {
+  margin: 20rpx 0 30rpx;
+  font-weight: normal;
+  font-size: 12px;
+  overflow: hidden;
+  color: #888;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+
+.yh_hudong .ex_info{
+  float: left;
+  margin-right: 30rpx;
+}
+
+.yh_hudong .ex_icon{
+  width: 40rpx;
+  line-height: 60rpx;
+  margin-right: 2rpx;
+  margin-top: -1rpx;
+  vertical-align: middle;
+  opacity: 0.8;
+}
+
+.yh_hudong .like_on{
+  color: #dc4e40;
+}
 .ex_icon{
   width: 40rpx;
   line-height: 60rpx;
@@ -30,13 +75,15 @@
 .ex-btn view{
   float: left;width: 48%;background: #2d2d2d;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
 }
-.rule,.time{
-  margin: 30rpx 20rpx;background: #fff;border-radius: 15rpx;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;overflow: hidden;
+.rule{
+  margin: 30rpx 20rpx;background: #fff;box-shadow: 1rpx 1rpx 3rpx 1rpx #ddd;overflow: hidden;
 }
 .rule-cont{
-  line-height: 50rpx;font-size: 32rpx;padding: 20rpx 15rpx;overflow: hidden;
+  line-height: 50rpx;padding: 20rpx 15rpx;overflow: hidden;
 }
-
+.ex-tit{
+  margin: 0;
+}
 
 
 
