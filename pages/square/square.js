@@ -28,13 +28,6 @@ Page({
     })
   },
   /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    /*var that = this;
-    that.query('list', config.squareUrl);*/
-  },
-  /**
    * 查询
    */
   query: function (action, url, onShow) {
@@ -69,7 +62,7 @@ Page({
             that.setData({
               list: data
             })
-            wx.hideLoading();
+            
           } else {
             that.setData({
               list: that.data.list.concat(data)
@@ -87,11 +80,19 @@ Page({
           title: '查询失败',
           icon: "none"
         })
+      },
+      complete: function() {
+        wx.hideLoading();
       }
     })
   },
-
-
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    var that = this;
+    that.query('list', config.squareUrl);
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -119,11 +120,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.showToast({
-      title: '正在加载....',
-      icon: "loading"
-    })
-    this.query('list', config.squareUrl, 1);
+    
   },
 
   /**
@@ -144,7 +141,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.showLoading({
+      title: '正在加载....',
+      icon: "loading"
+    })
+    this.query('list', config.squareUrl, 1);
   },
 
   /**
