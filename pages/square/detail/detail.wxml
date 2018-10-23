@@ -1,18 +1,24 @@
-<view class="yh_hudong">
-  <view>
-    <image class='yh_Avatar' src='{{data.avatarUrl}}' mode='widthFix'></image>
-    {{data.nickName}}
-  </view>
-  <view>发布时间: </view>
-  <view>浏览量: {{data.liulan?data.liulan:0}}</view>
-  <view bindtap='{{like_status ? "like_cancel" : "like"}}'>
-    <image src='/images/{{like_status ? "zan_on.png"  :"zan.png"}}' mode="widthFix" />{{data.like?data.like:0}}   </view>
-</view>
 <view class='ex-title'>
-  标题:{{data.title}}
+  {{data.title}}
+  <view class="yh_hudong">
+    <view class='ex_info'>
+      <image src='{{data.avatarUrl}}' class='ex_icon u-avatar' mode='widthFix' /> {{data.nickName}}</view>
+    <view class='ex_info'>
+      <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+    </view>
+    <view class='ex_info'>
+      <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{data.liulan}}</view>
+    <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
+      <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{data.like?data.like:0}}
+    </view>
+    <view class='ex_info ex_num'>
+      编号：123564
+    </view>
+  </view>
 </view>
+
 <view class='informat'>
-  <view wx:for="{{image}}"  wx:key='*this'  class='ex-cover'>
+  <view wx:for="{{image}}" wx:key='*this' class='ex-cover'>
     <image src="{{item}}" mode='widthFix'></image>
   </view>
 </view>
@@ -24,5 +30,5 @@
     <image src="{{data.advert}}" mode='widthFix' />
   </view>
 </view>
-<import src='../../foot/foot.wxml' />
+<import src='../template/foot/foot.wxml' />
 <template is='foot'></template>

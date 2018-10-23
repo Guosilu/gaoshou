@@ -38,13 +38,15 @@
       <view wx:if="{{advertImage.length<1}}" class="weui-uploader__input-box">
         <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
       </view>
-      <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" src="{{advertImage[0]}}"  mode="aspectFill"></image>
+      <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" src="{{advertImage[0]}}" mode="aspectFill"></image>
     </view>
     <view style="overflow:hidden;">
-    <button class="weui-btn" formType="submit">提交</button>
       <navigator url="/pages/xieyi/index" class="uploadRuler">
         了解上传协议？
       </navigator>
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type='warn' formType="submit">提交</button>
     </view>
     <!-- <view class="weui-btn-area">
       <button class="weui-btn" formType="">发起比赛</button>

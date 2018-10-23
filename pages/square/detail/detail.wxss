@@ -1,6 +1,63 @@
 .informat{
   margin: 10rpx 20rpx;background: #fff;
+}.ex-title{
+  position: relative;
+  font-size: 18px;
+  line-height: 60rpx;
+  font-weight: bold;
+  padding: 0 20rpx;
+  margin: 20rpx 0;
 }
+
+.ex-title::after{
+  position: absolute;
+  content: "";
+  top: 8rpx;
+  left: 0;
+  display: inline-block;
+  width: 10rpx;
+  height: 46rpx;
+  background: #dc4e40;
+}
+.yh_hudong {
+  margin: 20rpx 0 30rpx;
+  font-weight: normal;
+  font-size: 12px;
+  overflow: hidden;
+  line-height: 60rpx;
+  color: #888;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+
+.yh_hudong .ex_info{
+  float: left;
+  margin-right: 30rpx;
+}
+.yh_hudong .ex_num{
+  float: right;
+  font-size: 12px;
+  margin: 0;
+}
+
+.yh_hudong .ex_icon{
+  width: 30rpx;
+  line-height: 60rpx;
+  margin-right: 2rpx;
+  margin-top: -1rpx;
+  vertical-align: middle;
+  opacity: 0.8;
+  font-size: 13px;
+}
+.yh_hudong .u-avatar{
+  border-radius: 50%;
+  width: 45rpx;
+  margin-top: -3rpx;
+}
+
+.yh_hudong .like_on{
+  color: #dc4e40;
+}
+
 .ex-title{
   position: relative;
   font-size: 18px;
@@ -21,27 +78,12 @@
   background: #dc4e40;
 }
 .yh_hudong {
-  margin: 20rpx 30rpx 0;
   font-weight: normal;
   font-size: 12px;
   overflow: hidden;
   color: #888;
 }
 
-.yh_hudong view{
-  float: left;
-  margin-right: 20rpx;
-  line-height: 100rpx;
-}
-
-.yh_hudong image{
-  width: 30rpx;
-}
-
-.yh_hudong .yh_Avatar{
-  width: 120rpx;
-  vertical-align: text-bottom;
-}
 .yh_hudong .like_on{
   color: #dc4e40;
 }

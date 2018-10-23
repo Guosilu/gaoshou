@@ -12,7 +12,7 @@
 
 .list {
   margin: 20rpx;
-  padding: 20rpx;
+  /* padding: 20rpx; */
 }
 
 .list-item {
@@ -25,11 +25,12 @@
 
 .user_info {
   float: left;
-  margin-left: 30rpx;
+  margin-left: 20rpx;
 }
 
 .portrait {
   overflow: hidden;
+  padding: 10rpx;
 }
 
 .portrait .list_Avatar {
@@ -39,6 +40,7 @@
   border-radius: 50%;
   overflow: hidden;
   float: left;
+  box-shadow: 1px 1px 5px 1px #8a8a8a;
 }
 
 cate_tit .cate_tit {
@@ -83,7 +85,7 @@ cate_tit .cate_tit {
   border-radius: 6rpx;
 }
 .del-text{
-  margin: 20rpx;
+  margin: 15rpx;
 }
 .partic .ex_text {
   line-height: 60rpx;

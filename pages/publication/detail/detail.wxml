@@ -4,7 +4,7 @@
     {{detail.title}}
     <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
       <view class='ex_info'>
-        <image src='/images/Avatar.png' class='ex_icon' mode='widthFix' />{{detail.nickName}}</view>
+        <image src='{{detail.avatarUrl}}' class='ex_icon u-avatar' mode='widthFix' />{{detail.nickName}}</view>
       <view class='ex_info'>
         <image src='/images/time.png' class='ex_icon' mode='widthFix' />
       </view>

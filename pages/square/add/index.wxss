@@ -37,9 +37,7 @@ textarea{
   float: left;
   margin-right: 10rpx;
 }
-.weui-btn-area{
-  display: flex;
-}
+
 .weui-btn-area .weui-btn {
   margin-top: 15px;
   padding: 0 30px;
