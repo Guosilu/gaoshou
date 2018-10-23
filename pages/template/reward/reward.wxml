@@ -1,3 +1,4 @@
 <!--pages/reward/reward.wxml-->
-<view class=''>
+<view class='reward-btn'>
+赏
 </view>

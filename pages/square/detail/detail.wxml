@@ -21,6 +21,9 @@
   <view wx:for="{{image}}" wx:key='*this' class='ex-cover'>
     <image src="{{item}}" mode='widthFix'></image>
   </view>
+  <view class='reward-btn'>
+    赏
+  </view>
 </view>
 <view class='rule'>
   <view class='rule-cont'>

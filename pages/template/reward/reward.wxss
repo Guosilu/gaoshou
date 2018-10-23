@@ -1,1 +1,12 @@
 /* pages/reward/reward.wxss */
+.reward-btn{
+  margin: 10rpx auto;
+  width: 200rpx;
+  height: 55rpx;
+  line-height: 55rpx;
+  text-align: center;
+  font-size: 16px;
+  color: #dc4e40;
+  border: 2rpx solid #dc4e40;
+  border-radius: 30rpx;
+}

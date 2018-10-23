@@ -26,6 +26,9 @@
       <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
       <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
     </view>
+    <view class='reward-btn'>
+      赏
+    </view>
   </view>
 
   <view class='rule'>

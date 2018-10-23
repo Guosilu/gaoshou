@@ -18,6 +18,9 @@
     <view class='ex-cover'>
       <image src='{{detail.thumb}}' mode='widthFix'></image>
     </view>
+    <view class='reward-btn'>
+      赏
+    </view>
   </view>
 
   <view class='rule page__modules modules__shadow'>
