@@ -35,6 +35,12 @@
   margin-right: 30rpx;
 }
 
+.yh_hudong .ex_num{
+  float: right;
+  font-size: 12px;
+  margin: 0;
+}
+
 .yh_hudong .ex_icon{
   width: 30rpx;
   line-height: 60rpx;

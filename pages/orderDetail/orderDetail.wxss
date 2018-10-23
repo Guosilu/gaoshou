@@ -31,13 +31,25 @@
   margin-right: 30rpx;
 }
 
+.yh_hudong .ex_num{
+  float: right;
+  font-size: 12px;
+  margin: 0;
+}
+
 .yh_hudong .ex_icon{
-  width: 40rpx;
+  width: 30rpx;
   line-height: 60rpx;
   margin-right: 2rpx;
   margin-top: -1rpx;
   vertical-align: middle;
   opacity: 0.8;
+  font-size: 13px;
+}
+.yh_hudong .u-avatar{
+  border-radius: 50%;
+  width: 45rpx;
+  margin-top: -3rpx;
 }
 
 .yh_hudong .like_on{
