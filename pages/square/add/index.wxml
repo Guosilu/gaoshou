@@ -46,10 +46,10 @@
         了解上传协议？
       </navigator>
     </view>
-    <view class="weui-btn-area">
+    <!-- <view class="weui-btn-area">
       <button class="weui-btn" formType="">发起比赛</button>
       <button class="weui-btn" formType="">参与比赛</button>
-    </view>
+    </view> -->
   </form>
 </view>
 <view wx:else>未登录</view>

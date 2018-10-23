@@ -214,7 +214,6 @@ Page({
         files: [options.url]
       })
     }
-    console.log(options)
   },
 
   /**
