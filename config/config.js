@@ -8,7 +8,7 @@ const activity_orderUrl = baseUrl + 'gaoshou/api/activity_orderApi.php';
 const squareUrl = baseUrl + 'gaoshou/api/squareApi.php';
 const coreUrl = baseUrl + "gaoshou/core/";
 const img = baseUrl + "gaoshou/images/";
-
+const comment = baseUrl +'gaoshou/api/commentApi.php';
 
 // 对外接口
 module.exports = {
@@ -19,5 +19,6 @@ module.exports = {
   activity_orderUrl: activity_orderUrl,
   coreUrl: coreUrl,
   img: img,
-  squareUrl: squareUrl
+  squareUrl: squareUrl,
+  comment: comment
 }

@@ -1,5 +1,9 @@
-const app = getApp();
-const config = require('../../../config/config.js');
+const util = require('../../../config/comment.js');
+const config = util.config;
+const comment = util.comment;
+const app = util.app;
+
+
 Page({
   data: {
     like_status: null,
@@ -7,7 +11,14 @@ Page({
     // 评论
     contShow: false,
     sendShow: true,
+    types:'comment',
     inputVal: "",
+  },
+  input:function(e){
+    var that = this;
+    that.setData({
+      value: e.detail.value
+    })
   },
   // 评论
   inputTyping: function (e) {
@@ -17,20 +28,63 @@ Page({
     })
   },
   sendBtn: function (e) {
-    this.setData({
+    var that = this;
+    that.setData({
       contShow: false,
       sendShow: true,
       inputVal: "",
     })
+    var param = {};
+    param['content'] = that.data.value;
+    param['types'] = that.data.types;
+    param['compose_type'] = 'publication';
+    
+    comment.add('add', param);
+    
   },
   contReply: function (e) {
     this.setData({
       contShow: true,
       sendShow: false,
       inputVal: "回复",
+      types:'reply'
     })
   },
   // 评论End
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    var that = this;
+    let id = options.id;
+    id ='3';
+    wx.request({
+      url: config.publicationUrl,
+      method: "POST",
+      data: {
+        action: 'detail',
+        id: id
+      },
+      success: function (res) {
+        if (res.data) {
+          that.setData({
+            detail: res.data
+          })
+          that.is_like(res.data.id);
+          wx.hideLoading();
+        }
+      },
+      complete:function(){
+      }
+    });
+    // console.log(comment.getlist(id,'publication'));
+
+  },
   is_like: function (id) {
     let that = this;
     wx.request({
@@ -116,36 +170,6 @@ Page({
           });
         } else if (res.cancel) {
           console.log('用户点击取消')
-        }
-      }
-    });
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    wx.showLoading({
-      mask: true,
-      title: '加载中...',
-    })
-    var that = this;
-    let id = options.id;
-    wx.request({
-      url: config.publicationUrl,
-      method: "POST",
-      data: {
-        action: 'detail',
-        id: id
-      },
-      success: function (res) {
-        
-        console.log(res.data);
-        if (res.data) {
-          that.setData({
-            detail: res.data
-          })
-          that.is_like(res.data.id);
-          wx.hideLoading();
         }
       }
     });
