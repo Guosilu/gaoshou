@@ -74,8 +74,8 @@
   overflow: hidden;
   left: 0;
   bottom: 0;
-  height: 80rpx;
-  line-height: 60rpx;
+  height: 85rpx;
+  line-height: 70rpx;
   border-top: 2rpx solid #f2f2f2;
   background: #FFF;
 }
@@ -90,8 +90,9 @@
   border-radius: 6rpx;
   padding-left: 10rpx;
   box-sizing: border-box;
-  font-size: 12px;
-  height: 50rpx;
+  font-size: 13px;
+  height: 60rpx;
+  margin-bottom: 10rpx;
 }
 
 .send-box .fr {
@@ -100,12 +101,12 @@
 
 .back-icon, .cont-icon {
   width: 50rpx;
-  padding: 0 10rpx;
+  padding: 5rpx 10rpx;
 }
 .send-btn{
   height: 50rpx;
   line-height: 50rpx;
-  padding: 0 20rpx;
+  padding: 5rpx 20rpx;
   border-radius: 6rpx;
   background: #3c76ff;
   color: #FFF;

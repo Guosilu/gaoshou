@@ -23,7 +23,8 @@
     "pages/square/square",
     "pages/publication/detail/detail",
     "pages/square/detail/detail",
-    "pages/template/contact/contact"
+    "pages/template/contact/contact",
+    "pages/template/contact/details/details"
   ],
   "window": {
     "backgroundTextStyle": "light",
