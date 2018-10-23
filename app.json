@@ -24,7 +24,8 @@
     "pages/publication/detail/detail",
     "pages/square/detail/detail",
     "pages/template/contact/contact",
-    "pages/template/contact/details/details"
+    "pages/template/contact/details/details",
+    "pages/forum/forum"
   ],
   "window": {
     "backgroundTextStyle": "light",
