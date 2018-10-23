@@ -20,30 +20,20 @@
     </view>
   </view>
 
-  <view class='rule'>
-    <view class='ex-tit'>
-      <image src="/images/biaoqian.png"></image>活动规则
-    </view>
+  <view class='rule page__modules modules__shadow'>
     <view class='rule-cont'>
       {{detail.rule}}
     </view>
-  </view>
-
-  <view class='time'>
-    <view class='ex-tit'>
-      <image src="/images/biaoqian.png"></image>活动时间
-    </view>
     <view class='rule-cont'>
-      {{detail.starttime}}——{{detail.endtime}}
+    <view>发布时间：{{detail.starttime}}</view>
+    <view>发布时间：截止时间：{{detail.endtime}}</view>
     </view>
-  </view>
-  <view class='ex-btns'>
-    <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
-    <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
+      <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
+      <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
   </view>
   <view class='informat'>
     <view class='ex-tit'>
-      <image src="/images/biaoqian.png"></image>参赛列表
+      参赛列表
     </view>
     <view class='ex-list'>
       <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
@@ -71,7 +61,7 @@
 
   <view class='informat'>
     <view class='ex-tit'>
-      <image src="/images/biaoqian.png"></image>推荐活动
+      推荐活动
     </view>
     <view class='ex-list'>
       <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">

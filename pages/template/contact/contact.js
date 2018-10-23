@@ -22,6 +22,13 @@ Page({
       inputVal: "",
     })
   },
+  contReply: function (e) {
+    this.setData({
+      contShow: true,
+      sendShow: false,
+      inputVal: "回复",
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

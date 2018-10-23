@@ -4,7 +4,33 @@ Page({
   data: {
     like_status: null,
     detail: {},
+    // 评论
+    contShow: false,
+    sendShow: true,
+    inputVal: "",
   },
+  // 评论
+  inputTyping: function (e) {
+    this.setData({
+      sendShow: false,
+      contShow: true
+    })
+  },
+  sendBtn: function (e) {
+    this.setData({
+      contShow: false,
+      sendShow: true,
+      inputVal: "",
+    })
+  },
+  contReply: function (e) {
+    this.setData({
+      contShow: true,
+      sendShow: false,
+      inputVal: "回复",
+    })
+  },
+  // 评论End
   is_like: function (id) {
     let that = this;
     wx.request({

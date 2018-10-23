@@ -1,46 +1,44 @@
 <!--pages/template/contact/contact.wxml-->
-<template name='contact'>
-  <view class='contact-box'>
-    <view>全部评论</view>
-    <view class='contact-item'>
-      <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
-      <navigator url="" class='u-name'>等等，我先提上裤子</navigator>
-      <view class='cont-fav'>
-        <image src='/images/zan.png' mode='widthFix' />666</view>
-      <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
-      <view class='cont-bar'>
-        <text class='cont-time'>54分钟前</text> ·
-        <text class='cont-reply' bindtap='contReply'>回复Ta</text>
-      </view>
-      <view class='cont-sublist-box'>
-        <view class='cont-sublist-item'>
-          <navigator url="" class='re-name'>等等，我先提上裤子</navigator>
-          <text class='re-self'>[作者]</text>：emmmmmmm
-        </view>
-        <view class='cont-sublist-item'>
-          <navigator url="" class='re-name'>等等，我先提上裤子</navigator>
-          <text class='re-self'>[作者]</text>回复
-          <navigator url="" class='re-name'>你老大</navigator>
-          ：哈哈哈哈
-        </view>
-        <view class='cont-sublist-item'>
-          <navigator url="" class='re-name'>我不胖</navigator>：skr
-        </view>
-      </view>
+<view class='contact-box'>
+  <view>全部评论</view>
+  <view class='contact-item'>
+    <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
+    <navigator url="" class='u-name'>等等，我先提上裤子</navigator>
+    <view class='cont-fav'>
+      <image src='/images/zan.png' mode='widthFix' />666</view>
+    <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
+    <view class='cont-bar'>
+      <text class='cont-time'>54分钟前</text> ·
+      <text class='cont-reply' bindtap='contReply'>回复Ta</text>
     </view>
-    <view class='send-box'>
-      <view>
-        <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
+    <view class='cont-sublist-box'>
+      <view class='cont-sublist-item'>
+        <navigator url="" class='re-name'>等等，我先提上裤子</navigator>
+        <text class='re-self'>[作者]</text>：emmmmmmm
       </view>
-      <view>
-        <input type='rext' focus='{{contShow}}' bindtap='inputTyping' placeholder='发表评论领积分' value="{{inputVal}}"></input>
+      <view class='cont-sublist-item'>
+        <navigator url="" class='re-name'>等等，我先提上裤子</navigator>
+        <text class='re-self'>[作者]</text>回复
+        <navigator url="" class='re-name'>你老大</navigator>
+        ：哈哈哈哈
       </view>
-      <view class='fr' hidden='{{contShow}}'>
-        <image class='cont-icon' src='/images/contact.png' mode='widthFix'></image>
-      </view>
-      <view class='fr' hidden='{{sendShow}}'>
-        <view class='send-btn' bindtap='sendBtn'>发送</view>
+      <view class='cont-sublist-item'>
+        <navigator url="" class='re-name'>我不胖</navigator>：skr
       </view>
     </view>
   </view>
-</template>
+  <view class='send-box'>
+    <view>
+      <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
+    </view>
+    <view>
+      <input type='rext' focus='{{contShow}}' bindtap='inputTyping' placeholder='发表评论领积分' value="{{inputVal}}"></input>
+    </view>
+    <view class='fr' hidden='{{contShow}}'>
+      <image class='cont-icon' src='/images/contact.png' mode='widthFix'></image>
+    </view>
+    <view class='fr' hidden='{{sendShow}}'>
+      <view class='send-btn' bindtap='sendBtn'>发送</view>
+    </view>
+  </view>
+</view>
