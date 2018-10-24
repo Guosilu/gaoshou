@@ -9,10 +9,11 @@ Page({
     like_status: null,
     detail: {},
     // 评论
-    contShow: false,
-    sendShow: true,
+    // contShow: false,
+    // sendShow: true,
     types:'comment',
     inputVal: "",
+    comment:"",
   },
   input:function(e){
     var that = this;
@@ -38,18 +39,34 @@ Page({
     param['content'] = that.data.value;
     param['types'] = that.data.types;
     param['compose_type'] = 'publication';
+    param['openId'] = app.globalData.openId;
+    param['compose_id'] = that.data.detail.id
     
-    comment.add('add', param);
-    
+    comment.query('add', param).then(
+      function(data){
+        console.log(data);
+        if(data!='0'){
+          wx.showToast({
+            title: '添加成功',
+          })
+        }else{
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none'
+          })
+        }
+        
+      }
+    );    
   },
-  contReply: function (e) {
-    this.setData({
-      contShow: true,
-      sendShow: false,
-      inputVal: "回复",
-      types:'reply'
-    })
-  },
+  // contReply: function (e) {
+  //   this.setData({
+  //     contShow: true,
+  //     sendShow: false,
+  //     inputVal: "回复",
+  //     types:'reply'
+  //   })
+  // },
   // 评论End
 
   /**
@@ -79,7 +96,19 @@ Page({
           wx.hideLoading();
         }
       },
+      // 最后查询评论
       complete:function(){
+        var param = {};
+        param['compose_id'] = that.data.detail.id;
+        // param['page'] = that.data.deatil.id;
+        comment.query('list', param).then(
+          function (data) {
+            console.log(data);
+            that.setData({
+              comment:data
+            })
+          }
+        );   
       }
     });
     // console.log(comment.getlist(id,'publication'));
