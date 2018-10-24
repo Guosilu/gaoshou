@@ -15,7 +15,7 @@
     "pages/orderDetail/orderDetail",
     "pages/detail/detail",
     "pages/login/login",
-    "pages/article/article",
+    "pages/forum/article/article",
     "pages/xieyi/index",
     "pages/my/my",
     "pages/list/list",
