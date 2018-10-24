@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/forum/forum",
     "pages/index/index",
     "pages/square/add/index",
     "pages/publication/add/publication",
@@ -25,7 +26,6 @@
     "pages/square/detail/detail",
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
-    "pages/forum/forum",
     "pages/template/reward/reward"
   ],
   "window": {
