@@ -202,7 +202,7 @@
       <view class="cate_tit">
         推荐作品
       </view>
-      <view class="eventsItem worksItem" wx:for="{{worksList}}" wx:key="*this">
+      <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">

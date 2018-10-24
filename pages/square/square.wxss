@@ -55,7 +55,11 @@ cate_tit .cate_tit {
 }
 
 .user_date {
-  font-size: 20rpx;
+  font-size: 12px;
+  line-height: 36rpx;
+}
+.sys-number{
+  margin-left: 20rpx;
 }
 .end-time{
   color: #dc4e40;
@@ -110,4 +114,8 @@ cate_tit .cate_tit {
   color: #fff;
   text-align: center;
   border-radius: 10rpx;
+}
+
+.sys-number{
+  float: right;
 }
