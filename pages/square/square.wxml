@@ -8,7 +8,7 @@
           <view class="user_name">{{item.nickName}}</view>
           <view class="user_date">{{item.addtime}}
             <!-- <text class='end-time'>截止时间: 2018-10-20 18:00</text> -->
-          <text class='sys-number'>编号：123456789</text> 
+          <text class='sys-number' style='display:none;'>编号：123456789</text> 
           </view>
         </view>
       </view>

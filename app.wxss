@@ -126,7 +126,7 @@ swiper {
   height: 50rpx;
   line-height: 50rpx;
   font-size: 18px;
-  padding-left: 10rpx;
+  padding-left: 5rpx;
   margin: 10rpx 0;
   border-left: 10rpx solid #dc4e40;
 }

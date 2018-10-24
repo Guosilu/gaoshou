@@ -11,9 +11,6 @@
     <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
       <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{data.like?data.like:0}}
     </view>
-    <view class='ex_info ex_num'>
-      编号：123564
-    </view>
   </view>
 </view>
 
