@@ -15,7 +15,7 @@
       <view class="ex_info like_on" wx:else if="{{like_status == 1}}" bindtap='like_cancel'>
         <image class='ex_icon' src="/images/like_on.png" mode="widthFix" />12</view>
 
-      <view class='ex_info ex_num'>
+      <view class='ex_info ex_num' style='display:none;'>
         编号：123564
       </view>
     </view>

@@ -58,8 +58,8 @@
       <view class="cate_tab isYellow">互助类</view>
     </view>
 
-    <view class="page__modules">
-      <view class="cate_icon hide" style='display:none;'>
+    <view class="page__modules" style='display:none;'>
+      <view class="cate_icon hide">
         <image mode='aspectFill' src="{{img}}help.png" mode="scaleToFill"></image>
         <view class="cate_text">
           <view class="cate_text_tit">新手帮助</view>
@@ -75,7 +75,7 @@
         </view>
       </view>
 
-      <view class="cate_icon hide" style='display:none;'>
+      <view class="cate_icon">
         <image src="{{img}}italk.png" mode="scaleToFill"></image>
         <view class="cate_text">
           <view class="cate_text_tit">即时交流</view>
@@ -108,10 +108,10 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator open-type='switchTab' url="../square/square" hover-class="navigator-hover">
+        <navigator open-type='switchTab' url="/pages/forum/forum" hover-class="navigator-hover">
           <image src="{{img}}cate4_6.png" mode='aspectFill'></image>
           <view class="cate_text">
-            <view class="cate_text_tit">赛脉广场</view>
+            <view class="cate_text_tit">赛脉论坛</view>
           </view>
         </navigator>
       </view>
@@ -172,7 +172,7 @@
 
     <view class="page__modules eventsList">
       <view class="cate_tit">
-        赛脉广场
+        最红冠军
       </view>
       <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
         <navigator url="../square/detail/detail?id={{item.id}}">
@@ -202,12 +202,12 @@
       <view class="cate_tit">
         推荐作品
       </view>
-      <view class="eventsItem worksItem" wx:for="{{worksList}}" wx:key="*this">
+      <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
-            <view class='sys-number'>编号：123456789</view>
+            <view class='sys-number' style='display:none;'>编号：123456789</view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
@@ -281,3 +281,5 @@
   </view>
 
 </view>
+<import src='../template/foot/foot.wxml' />
+<template is='foot'></template>
