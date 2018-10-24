@@ -50,7 +50,7 @@
   opacity: 0.8;
   font-size: 13px;
 }
-.yh_hudong .u-avatar{
+.yh_hudong .wx-avatar{
   border-radius: 50%;
   width: 45rpx;
   margin-top: -3rpx;
