@@ -26,7 +26,8 @@
     "pages/square/detail/detail",
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
-    "pages/template/reward/reward"
+    "pages/template/reward/reward",
+    "pages/forum/question/question"
   ],
   "window": {
     "backgroundTextStyle": "light",
