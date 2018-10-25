@@ -83,14 +83,10 @@ Page({
         action: 'champion'
       },
       success: function (res) {
-        console.log(res);
-        // let data = res.data;
-        // for (let a = 0; a < data.length;a++){
-        //   data[a].image = data[a].image.split(','); 
-        // } 
-        // that.setData({
-        //   square: res.data,
-        // });
+        console.log(res.data);
+        that.setData({
+          square: res.data,
+        });
       }
     })
 
