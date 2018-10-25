@@ -22,15 +22,15 @@
     <navigator url="" class='u-name'>{{item.nickName}}</navigator>
     <view class='cont-fav'>
       <image src='/images/zan.png' mode='widthFix' />{{item.likes?item.likes:'0'}}</view>
-    <view class='cont-text'>
+    <view class='cont-text' bindtap='contReply' data-uid='{{item.id}}'>
       {{item.content}}
       <view wx:if="{{item.reply_nickName}}">
       //@{{item.reply_nickName}}：{{item.reply_content}}
       </view>
     </view>
-    <view class='cont-bar'>
+    <view class='cont-bar' bindtap='contReply' data-uid='{{item.id}}'>
       <text class='cont-time'>{{item.addtime}}</text> ·
-      <text class='cont-reply' bindtap='contReply' data-uid='{{item.id}}'>回复Ta</text>
+      <text class='cont-reply'>回复Ta</text>
     </view>
   </view>
   </block>
