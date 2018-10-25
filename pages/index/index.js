@@ -75,21 +75,15 @@ Page({
         });
       }
     })
-
-
-    //获取赛脉广场
+    //获取最红冠军
     wx.request({
-      url: config.squareUrl,
+      url: config.activity_orderUrl,
       method: 'POST',
       data: {
-        action: 'list'
+        action: 'champion'
       },
       success: function (res) {
         console.log(res.data);
-        let data = res.data;
-        for (let a = 0; a < data.length;a++){
-          data[a].image = data[a].image.split(','); 
-        } 
         that.setData({
           square: res.data,
         });

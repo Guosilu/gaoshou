@@ -175,17 +175,17 @@
         最红冠军
       </view>
       <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
-        <navigator url="/pages/pastEvents/detail/detail?id={{item.id}}">
-          <image mode='aspectFill' src="{{item.image[0]}}"></image>
+        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
-            <view class="listInfoTit">{{item.title}}</view>
+            <view class="listInfoTit">{{item.truename?item.truename:"标题"}}</view>
             <view class='sys-number'>编号：123456789</view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
                 <image class="item-icon" src='/images/like.png' mode='widthFix' />
-                <text class='item-icnum'>{{item.like?item.like:0}}</text>
+                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
                 <image class="item-icon" src='/images/looks.png' mode='widthFix' />

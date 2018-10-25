@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/forum/forum",
     "pages/index/index",
+    "pages/forum/forum",
     "pages/forum/question/question",
     "pages/square/square",
     "pages/square/add/index",
@@ -26,7 +26,8 @@
     "pages/square/detail/detail",
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
-    "pages/template/reward/reward"
+    "pages/template/reward/reward",
+    "pages/publication/detail/detail"
 
   ],
   "window": {
