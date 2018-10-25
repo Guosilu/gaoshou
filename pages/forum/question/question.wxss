@@ -17,6 +17,8 @@
 
 .contact-item {
   position: relative;
+  border-top: 2rpx solid #f2f2f2;
+  margin-bottom: 20rpx;
 }
 
 .ask-box {
@@ -27,7 +29,6 @@
 }
 
 .contact-bar {
-  border-bottom: 2rpx solid #f2f2f2;
   padding-bottom: 15rpx;
 }
 
