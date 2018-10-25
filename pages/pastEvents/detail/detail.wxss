@@ -91,4 +91,9 @@
   margin: 0;
 }
 
+.exhibit-parent{
+  padding: 0 30rpx 20rpx;
+  font-size: 18px;
+  font-weight: bold;
+}
 

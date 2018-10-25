@@ -29,8 +29,11 @@
   line-height: 50rpx;
   font-size: 12px;
 }
-
-.cont-icon {
+.contm-bar view{
+  width: 25%;
+  text-align: center;
+}
+.contm-icon {
   width: 30rpx;
   line-height: 50rpx;
   vertical-align: middle;

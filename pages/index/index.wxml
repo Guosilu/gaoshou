@@ -132,7 +132,7 @@
         </navigator>
       </view>
       <view class="cate_icon4">
-        <navigator open-type='switchTab' url="../pastEvents/pastEvents">
+        <navigator url="../pastEvents/pastEvents">
           <image src="{{img}}cate4_8.png" mode='aspectFill'></image>
           <view class="cate_text">
             <view class="cate_text_tit">冠军列表</view>
@@ -160,7 +160,7 @@
                 <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
-                <image class="item-icon" src='/images/contact.png' mode='widthFix' />
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
               </view>
             </view>
@@ -175,7 +175,7 @@
         最红冠军
       </view>
       <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
-        <navigator url="../square/detail/detail?id={{item.id}}">
+        <navigator url="/pages/pastEvents/detail/detail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.image[0]}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
@@ -188,7 +188,7 @@
                 <text class='item-icnum'>{{item.like?item.like:0}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
-                <image class="item-icon" src='/images/contact.png' mode='widthFix' />
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
               </view>
             </view>
@@ -216,7 +216,7 @@
                 <text class='item-icnum'>{{item.dianzan}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan}}</text> -->
-                <image class="item-icon" src='/images/contact.png' mode='widthFix' />
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
               </view>
             </view>

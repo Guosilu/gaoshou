@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/forum/question/question",
     "pages/index/index",
+    "pages/pastEvents/detail/detail",
+    "pages/forum/question/question",
     "pages/square/add/index",
     "pages/publication/add/publication",
     "pages/record/record",
