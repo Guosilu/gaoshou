@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/pastEvents/detail/detail",
     "pages/forum/question/question",
     "pages/square/square",
     "pages/square/add/index",
