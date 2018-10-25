@@ -21,10 +21,10 @@
     <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
     <view class='contm-bar'>
       <view>
-        <image src='/images/contact.png' class='contm-icon' mode='widthFix'></image>18
+        <image src='/images/support.png' class='contm-icon' mode='widthFix'></image>18
       </view>
       <view>
-        <image src='/images/contact.png' class='contm-icon' mode='widthFix'></image>踩
+        <image src='/images/oppose.png' class='contm-icon' mode='widthFix'></image>踩
       </view>
       <view>
         <image src='/images/contact.png' class='contm-icon' mode='widthFix'></image>16
