@@ -55,6 +55,17 @@ Page({
             icon: 'none'
           })
         }
+        //评论完成更新数据
+        var param = {};
+        param['compose_id'] = that.data.detail.id;
+        comment.query('list', param).then(
+          function (data) {
+            console.log(data);
+            that.setData({
+              comment: data
+            })
+          }
+        );  
         
       }
     );    
@@ -78,8 +89,10 @@ Page({
       title: '加载中...',
     })
     var that = this;
-    let id = options.id;
-    id ='3';
+    let id = '3';
+    if (options.id){
+      id = options.id;
+    }
     wx.request({
       url: config.publicationUrl,
       method: "POST",

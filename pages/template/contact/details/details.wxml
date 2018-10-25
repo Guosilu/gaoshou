@@ -1,51 +1,46 @@
 <!--pages/template/contact/contact.wxml-->
 <view class='contact-box no-border'>
   <view class='contact-item'>
-    <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
-    <navigator url="" class='u-name'>等等，我先提上裤子</navigator>
-    <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
+    <image class='u-avatar' src='{{detail.comment.avatarUrl}}' mode='widthFix'></image>
+    <navigator url="" class='u-name'>{{detail.comment.nickName}}</navigator>
+    <view class='cont-text'>{{detail.comment.content}}</view>
     <view class='cont-bar'>
-      <text class='cont-time'>54分钟前</text>
+      <text class='cont-time'>Time : {{detail.comment.addtime}}</text>
     </view>
     
     <view class='cont-fav'>
-      <image src='/images/zan.png' mode='widthFix' />699
+      <image src='/images/zan.png' mode='widthFix' />{{detail.comment.likes?detail.comment.likes:"0"}}
     </view>
   </view>
 </view>
 <view class='contact-box'>
   <view>全部评论</view>
   <!-- 循环 item -->
+  <block wx:for="{{detail.reply}}" wx:key="*this">
   <view class='contact-item'>
-    <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
-    <navigator url="" class='u-name'>老恭</navigator>
+    <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+    <navigator url="" class='u-name'>{{item.nickName}}</navigator>
     <view class='cont-fav'>
-      <image src='/images/zan.png' mode='widthFix' />666</view>
-    <view class='cont-text'>我不</view>
+      <image src='/images/zan.png' mode='widthFix' />{{item.likes?item.likes:'0'}}</view>
+    <view class='cont-text'>
+      {{item.content}}
+      <view wx:if="{{item.reply_nickName}}">
+      //@{{item.reply_nickName}}：{{item.reply_content}}
+      </view>
+    </view>
     <view class='cont-bar'>
-      <text class='cont-time'>54分钟前</text> ·
-      <text class='cont-reply' bindtap='contReply'>回复Ta</text>
+      <text class='cont-time'>{{item.addtime}}</text> ·
+      <text class='cont-reply' bindtap='contReply' data-uid='{{item.id}}'>回复Ta</text>
     </view>
   </view>
-  <!-- 循环 item -->
-  <view class='contact-item'>
-    <image class='u-avatar' src='http://img1.imgtn.bdimg.com/it/u=3986380545,999013868&fm=26&gp=0.jpg' mode='widthFix'></image>
-    <navigator url="" class='u-name'>膜法师</navigator>
-    <view class='cont-fav'>
-      <image src='/images/zan.png' mode='widthFix' />NaN</view>
-    <view class='cont-text'>要不要传授你点人生经验？</view>
-    <view class='cont-bar'>
-      <text class='cont-time'>56分钟前</text> ·
-      <text class='cont-reply' bindtap='contReply'>回复Ta</text>
-    </view>
-  </view>
+  </block>
 
   <view class='send-box'>
     <view>
       <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
     </view>
     <view>
-      <input type='rext' focus='{{contShow}}' bindtap='inputTyping' placeholder='发表评论领积分' value="{{inputVal}}"></input>
+      <input type='rext' focus='{{contShow}}' bindtap='inputTyping' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
     </view>
     <view class='fr' hidden='{{contShow}}'>
       <image class='cont-icon' src='/images/contact.png' mode='widthFix'></image>
