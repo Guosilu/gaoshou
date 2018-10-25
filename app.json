@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/pastEvents/detail/detail",
     "pages/forum/question/question",
+    "pages/square/square",
     "pages/square/add/index",
     "pages/publication/add/publication",
     "pages/record/record",
@@ -22,13 +23,12 @@
     "pages/list/list",
     "pages/notice/notice",
     "pages/profile/profile",
-    "pages/square/square",
-    "pages/publication/detail/detail",
     "pages/square/detail/detail",
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
     "pages/template/reward/reward",
     "pages/forum/forum"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
