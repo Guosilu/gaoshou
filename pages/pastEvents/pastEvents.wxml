@@ -1,82 +1,58 @@
-<!--pages/launch/launch.wxml-->
-<block wx:if="{{detail.id && like_status !== null}}">
-  <view class='ex-title'>
-    {{detail.title}}
-    <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
-      <view class='ex_info'>
-        <image src='{{detail.avatarUrl}}' class='ex_icon wx-avatar' mode='widthFix' />{{detail.nickName}}</view>
-      <view class='ex_info'>
-        <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+<block wx:if="{{types=='all'}}">
+  <view class='list'>
+    <view class='list-item' wx:for='{{list}}' wx:key="*this">
+      <view class='portrait'>
+        <view class='exh_title'>活动名称</view>
+        <view class="user_info">
+          <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
+          <text class="user_name">{{item.nickName}}</text>
+          <text class="user_date">截止日期：10月31日（周三）</text>
+        </view>
       </view>
-      <view class='ex_info'>
-        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
-      <view class='ex_info' wx:if="{{like_status == 0}}" bindtap='like'>
-        <image class='ex_icon' src="/images/like.png" mode="widthFix" />11</view>
-      <view class="ex_info like_on" wx:else if="{{like_status == 1}}" bindtap='like_cancel'>
-        <image class='ex_icon' src="/images/like_on.png" mode="widthFix" />12</view>
+      <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
+        {{item.rule}}
+      </view>
+      <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
+        <image src='{{item.thumb}}' mode='aspectFill'></image>
+        <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
+        <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image>
+      </view>
 
-      <view class='ex_info ex_num'>
-        编号：123564
+      <view class='partic'>
+          <image src='/images/like.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.zanshang}}</text>
+          <image src='/images/looks.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.liulan}}</text>
+
+          <navigator class='join' url='../participate/participate?id={{item.id}}'>参与活动</navigator>
       </view>
     </view>
   </view>
-  <view class='informat'>
-    <view class='ex-cover'>
-      <image wx:if="{{detail.thumb}}" src="{{detail.thumb}}" mode='widthFix'></image>
-      <image wx:if="{{detail.thumb1}}" src="{{detail.thumb1}}" mode='widthFix'></image>
-      <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
-
-      <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
-    </view>
-    <view class='reward-btn'>
-      赏
-    </view>
-  </view>
-  <view class='rule'>
-    <view class='ex-tit'>
-      作品说明
-    </view>
-    <view class='rule-cont'>
-      {{detail.introduce}}
-    </view>
-  </view>
-  <!-- <import src='/pages/template/contact/contact.wxml' />
-  <template is='contact'></template> -->
 </block>
-<!-- 评论 -->
-<view class='contact-box'>
-  <view>全部评论</view>
-  <view class='contact-item' wx:for="{{comment}}" wx:key="*this">
 
-    <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
-    <navigator url="" class='u-name'>{{item.nickName}}</navigator>
-    <view class='cont-fav'>
-      <image src='/images/zan.png' mode='widthFix' />{{item.like?item.like:0}}</view>
-    <navigator url='../../template/contact/details/details?id={{item.id}}'>
-      <view class='cont-text'>
-        {{item.content}}
+<block wx:else>
+   <view class='list'>
+    <view class='list-item' wx:for='{{list}}' wx:key="*this">
+      <view class='portrait'>
+        <view class='exh_title'>
+        作品名称 : {{item.title}}
+        </view>
+        <view class="user_info">
+          <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
+          <text class="user_name">{{item.nickName}}</text>
+        </view>
       </view>
-      <view class='cont-bar'>
-        <text class='cont-time'>{{item.addtime}}</text> ·
-        <text class='cont-reply'>回复Ta</text>
-        <view class='cont-time'>{{item.replyNum}}条回复</view>
+      <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
+        {{item.rule}}
       </view>
-    </navigator>
-  </view>
+      <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
+        <image src='{{item.thumb}}' mode='aspectFill'></image>
+        <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
+        <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image>
+      </view>
 
-  
-  <view class='send-box'>
-    <view>
-      <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
-    </view>
-    <view>
-      <input type='rext' focus='{{contShow}}' bindtap='inputTyping' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
-    </view>
-    <!-- <view class='fr' hidden='{{contShow}}'>
-      <image class='cont-icon' src='/images/contact.png' mode='widthFix'></image>
-    </view> -->
-    <view class='fr' hidden='{{sendShow}}'>
-      <view class='send-btn' bindtap='sendBtn'>发送</view>
+      <view class='partic'>
+          <image src='/images/like.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.zanshang}}</text>
+          <image src='/images/looks.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.liulan}}</text>
+      </view>
     </view>
   </view>
-</view>
+</block>
