@@ -341,14 +341,14 @@ swiper {
 /* 赏 */
 .reward-btn{
   margin: 20rpx auto;
-  width: 200rpx;
-  height: 55rpx;
-  line-height: 55rpx;
+  width: 280rpx;
+  height: 66rpx;
+  line-height: 66rpx;
   text-align: center;
   font-size: 16px;
   color: #dc4e40;
   border: 2rpx solid #dc4e40;
-  border-radius: 30rpx;
+  border-radius: 33rpx;
 }
 .sys-number{
   font-size: 12px;
