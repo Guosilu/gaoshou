@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/forum/question/question",
     "pages/index/index",
     "pages/square/add/index",
     "pages/publication/add/publication",
@@ -26,8 +27,7 @@
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
     "pages/template/reward/reward",
-    "pages/forum/forum",
-    "pages/forum/question/question"
+    "pages/forum/forum"
   ],
   "window": {
     "backgroundTextStyle": "light",
