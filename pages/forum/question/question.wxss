@@ -1,0 +1,17 @@
+/* pages/forum/question/question.wxss */
+@import "/pages/forum/forum.wxss";
+@import "/pages/template/contact/contact.wxss";
+.blist-item{
+  border: none;
+}
+.que-title{
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+.ask-box{
+  text-align: center;
+  margin-top: 35rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #f2f2f2;
+}

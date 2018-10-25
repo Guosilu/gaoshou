@@ -1,2 +1,29 @@
 <!--pages/forum/forum.wxml-->
-<text>pages/forum/forum.wxml</text>
+<view class='page__modules'>
+  <view class='blist-item'>
+    <navigator url='/pages/forum/article/article'>
+      <view class='list-title'>章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</view>
+      <view class='del-cont'>
+        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+      </view>
+      <view class='del-name'>
+        打不死的小强
+      </view>
+    </navigator>
+  </view>
+  <view class='blist-item'>
+    <navigator url='/pages/forum/question/question'>
+      <view class='list-title'>问答问答问答</view>
+      <view class='del-cont'>
+        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+      </view>
+      <view class='del-name'>
+        打不死的小强
+      </view>
+    </navigator>
+  </view>
+</view>

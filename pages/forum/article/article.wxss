@@ -1,0 +1,17 @@
+/* pages/article/article.wxss */
+.weui-article__h1{
+  margin: 0;
+}
+.weui-article__user{
+  margin: 20rpx 0;
+}
+.weui-article__avatar{
+  width: 100rpx;
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px 0 #f2f2f2;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+.weui-article__user .u-name{
+  display: inline-block;
+}

@@ -14,7 +14,7 @@
     "pages/orderDetail/orderDetail",
     "pages/detail/detail",
     "pages/login/login",
-    "pages/article/article",
+    "pages/forum/article/article",
     "pages/xieyi/index",
     "pages/my/my",
     "pages/list/list",
@@ -25,8 +25,9 @@
     "pages/square/detail/detail",
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
+    "pages/template/reward/reward",
     "pages/forum/forum",
-    "pages/template/reward/reward"
+    "pages/forum/question/question"
   ],
   "window": {
     "backgroundTextStyle": "light",

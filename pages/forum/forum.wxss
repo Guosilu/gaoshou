@@ -1,1 +1,31 @@
 /* pages/forum/forum.wxss */
+.page__modules{
+  display: block;
+}
+.blist-item{
+  border-bottom: 2rpx solid #f2f2f2;
+  margin-bottom: 20rpx;
+}
+.blist-item:last-child{
+  border: none;
+}
+.list-title{
+  font-size: 16px;
+}
+.del-cont {
+  display: flex;
+  justify-content: space-between;
+  margin: 10rpx 0;
+}
+
+.del-cont image {
+  width: 31.5%;
+  height: 150rpx;
+  box-sizing: border-box;
+  border: 2rpx solid #f2f2f2;
+}
+.del-name{
+  font-size: 12px;
+  color: gray;
+  margin: 20rpx 0;
+}
