@@ -28,7 +28,7 @@
 
       <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
     </view>
-    <view class='reward-btn'>
+    <view class='reward-btn' bindtap='reward'>
       赏
     </view>
   </view>

@@ -22,7 +22,7 @@
     <view class='ex-cover'>
       <image src='{{detail.thumb}}' mode='widthFix'></image>
     </view>
-    <view class='reward-btn'>
+    <view bindtap='reward' class='reward-btn'>
       赏
     </view>
   </view>

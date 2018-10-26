@@ -7,6 +7,44 @@ Page({
     detail: {},
     order_lists: {},
     exhibit_lists: {}
+  }, 
+  
+   //赏金
+  reward: function (e) {
+    var randa = new Date().getTime().toString();
+    var randb = Math.round(Math.random() * 10000).toString();
+
+    wx.request({
+      url: config.payApi,
+      dataType: "json",
+      method: "post",
+      data: {
+        action: "unifiedOrder",
+        out_trade_no: randa + randb,//商户订单号
+        body: "Guosilu 测试", //商品描述
+        total_fee: "1", //金额 单位:分
+        trade_type: "JSAPI", //交易类型
+        openId: app.globalData.openId
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    })
+
+
+
+    // wx.requestPayment(
+    //   {
+    //     'timeStamp': new Date().getTime().toString(),
+    //     'nonceStr': Math.round(Math.random() * 10000).toString(),
+    //     'package': '',
+    //     'signType': 'MD5',
+    //     'paySign': '',
+    //     'success': function (res) { },
+    //     'fail': function (res) { },
+    //     'complete': function (res) { }
+    //   }) 
+
   },
   is_like: function (id) {
     let that = this;
