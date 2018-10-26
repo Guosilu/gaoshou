@@ -99,3 +99,135 @@
 
 
 
+/* 评论 */
+
+.contact-box {
+  padding: 30rpx 30rpx 120rpx;
+  border-top: 5px solid #f2f2f2;
+}
+
+.contact-item {
+  position: relative;
+  border-top: 2rpx solid #f2f2f2;
+  margin-bottom: 20rpx;
+}
+
+.ask-box {
+  text-align: center;
+  margin-top: 35rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #f2f2f2;
+}
+
+.contact-bar {
+  padding-bottom: 15rpx;
+}
+
+.u-avatar {
+  width: 66rpx;
+  border: 5rpx solid #fff;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 5rpx;
+}
+
+.u-name {
+  padding: 20rpx 0;
+  color: #405b95;
+}
+
+.contm-bar {
+  display: flex;
+  line-height: 50rpx;
+  font-size: 12px;
+  justify-content: space-between;
+  padding: 15rpx;
+  margin-top: 20rpx;
+  border-top: 2rpx solid #f2f2f2;
+}
+.contm-icon {
+  width: 36rpx;
+  line-height: 50rpx;
+  vertical-align: middle;
+  margin-right: 5rpx;
+}
+
+.cont-sublist-box {
+  margin: 0 0 5rpx 100rpx;
+  padding: 15rpx 20rpx;
+  background: #f8f8f8;
+}
+
+
+.cont-reply {
+  color: #555;
+}
+
+.re-name {
+  color: #405b95;
+  display: inline;
+}
+
+.send-box {
+  padding: 10rpx 30rpx;
+  box-sizing: border-box;
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  left: 0;
+  bottom: 0;
+  height: 85rpx;
+  line-height: 70rpx;
+  border-top: 2rpx solid #f2f2f2;
+  background: #FFF;
+}
+
+.send-box view {
+  float: left;
+}
+
+.send-box input {
+  width: 360rpx;
+  border: 2rpx solid #999;
+  border-radius: 6rpx;
+  padding-left: 10rpx;
+  box-sizing: border-box;
+  font-size: 13px;
+  height: 60rpx;
+  margin-bottom: 10rpx;
+}
+
+.send-box .fr {
+  float: right;
+}
+
+.back-icon, .cont-icon {
+  width: 50rpx;
+  padding: 5rpx 10rpx;
+}
+.send-btn{
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 5rpx 20rpx;
+  border-radius: 6rpx;
+  background: #3c76ff;
+  color: #FFF;
+}
+/* 返回活动 */
+.ex-back{
+  padding: 25rpx 30rpx;
+  margin-bottom: 20rpx;
+  border-top: 2rpx solid #f2f2f2;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.ext-title{
+  font-size: 18px;
+  font-weight: bold;
+}
+.ext-info{
+  color: #666;
+}
+.ext-bar{
+  font-size: 12px;
+  color: gray;
+}
