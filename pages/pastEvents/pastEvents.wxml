@@ -10,7 +10,7 @@
       {{item.rule}}
     </view>
     <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
-      <image src='{{item.thumb}}' mode='aspectFill'></image>
+      <image src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3797481993,1929347741&fm=27&gp=0.jpg' mode='aspectFill'></image>
       <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
       <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image>
     </view>
