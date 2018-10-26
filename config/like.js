@@ -1,12 +1,16 @@
 const app = getApp();
 const config = require('config.js');
-function is_like(id) {
+is_like = function (id) {
+  let that = this;
   wx.request({
     url: config.activityUrl,
     method: "POST",
     data: {
       action: 'is_like',
-      where: where
+      where: {
+        activity_id: id,
+        openId: app.globalData.openId
+      }
     },
     success: function (res) {
       let like_status;
@@ -21,7 +25,7 @@ function is_like(id) {
     }
   });
 }
-function like() {
+like: function () {
   let that = this;
   let post = {};
   let id = that.data.detail.id;
@@ -50,7 +54,7 @@ function like() {
     }
   });
 }
-function like_cancel() {
+like_cancel: function () {
   let that = this;
   wx.showModal({
     title: '提示',
@@ -89,7 +93,9 @@ function like_cancel() {
     }
   });
 }
+
+
 // interface
 module.exports = {
-  is_like: is_like
+  comment: comment
 }
