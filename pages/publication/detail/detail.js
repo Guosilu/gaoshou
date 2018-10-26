@@ -15,7 +15,7 @@ Page({
     inputVal: "",
     comment:"",
   },
-  is_like = function (id) {
+  is_like: function (id) {
     let that = this;
     wx.request({
       url: config.activityUrl,
