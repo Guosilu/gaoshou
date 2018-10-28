@@ -1,4 +1,5 @@
 const util = require('../../../config/comment.js');
+const configLike = require('../../../config/like.js');
 const config = util.config;
 const comment = util.comment;
 const app = util.app;
@@ -16,93 +17,61 @@ Page({
     comment:"",
   },
   is_like: function (id) {
-    let that = this;
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      data: {
-        action: 'is_like',
-        where: {
-          publication_id: id,
-          openId: app.globalData.openId
-        }
-      },
-      success: function (res) {
-        let like_status;
-        if (res.data == 1) {
-          like_status = 1;
-        } else {
-          like_status = 0;
-        }
+    var that = this;
+    var where = {
+      id: this.data.detail.id,
+      openId: app.globalData.openId
+    }
+    configLike.is_like(config.publicationUrl, 'is_like', where).then(function(data){
+      that.setData({
+        like_status: data
+      })
+    });
+  },
+  like: function () {
+    var that = this;
+    var post = {
+      id: this.data.detail.id,
+      openId: app.globalData.openId
+    };
+    configLike.like(config.publicationUrl, 'like', post).then(function (data) {
+      if (data.success == 1) {
         that.setData({
-          like_status: like_status
+          like_status: 1,
+          'detail.dianzan': data.dianzan
         })
+        wx.showToast({
+          icon: 'none',
+          title: '点赞成功！'
+        });
       }
     });
   },
-like: function () {
-    let that = this;
-    let post = {};
-    let id = that.data.detail.id;
-    post['publication_id'] = id;
-    post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      data: {
-        action: 'like',
-        id: id,
-        post: post
-      },
-      success: function (res) {
-        let data = res.data;
-        if (data.success == 1) {
-          that.setData({
-            like_status: 1,
-            'detail.dianzan': data.dianzan
-          })
-          wx.showToast({
-            icon: 'none',
-            title: '点赞成功！'
-          });
-        }
-      }
-    });
-  },
-like_cancel: function () {
-    let that = this;
+  like_cancel: function () {
+    var that = this;
     wx.showModal({
       title: '提示',
       content: '确定取消点赞吗？',
-      success: function (res) {
-        if (res.confirm) {
-          let where = {};
-          let id = that.data.detail.id;
-          where['publication_id'] = id;
-          where['openId'] = app.globalData.openId;
-          wx.request({
-            url: config.activityUrl,
-            method: "POST",
-            data: {
-              action: 'like_cancel',
-              id: id,
-              where: where
-            },
-            success: function (res) {
-              let data = res.data;
-              if (data.success == 1) {
-                that.setData({
-                  like_status: 0,
-                  'detail.dianzan': data.dianzan
-                })
-                wx.showToast({
-                  icon: 'none',
-                  title: '已取消点赞！'
-                });
-              }
+      success: function (confirm) {
+        if (confirm.confirm) {
+          var where = {
+            id: that.data.detail.id,
+            openId: app.globalData.openId
+          };
+          configLike.like(config.publicationUrl, 'like_cancel', where).then(function (data) {
+            if (data.success == 1) {
+              that.setData({
+                like_status: 0,
+                'detail.dianzan': data.dianzan
+              })
+              wx.showToast({
+                icon: 'none',
+                title: '已取消点赞！'
+              });
             }
           });
-        } else if (res.cancel) {
+
+        } else if (confirm.cancel) {
           console.log('用户点击取消')
         }
       }
@@ -214,6 +183,7 @@ like_cancel: function () {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.is_like(options.id);
     wx.showLoading({
       mask: true,
       title: '加载中...',
@@ -256,95 +226,6 @@ like_cancel: function () {
     });
     // console.log(comment.getlist(id,'publication'));
 
-  },
-  is_like: function (id) {
-    let that = this;
-    wx.request({
-      url: config.publicationUrl,
-      method: "POST",
-      data: {
-        action: 'is_like',
-        where: {
-          activity_order_id: id,
-          openId: app.globalData.openId
-        }
-      },
-      success: function (res) {
-        let like_status;
-        if (res.data == 1) {
-          like_status = 1;
-        } else {
-          like_status = 0;
-        }
-        that.setData({
-          like_status: like_status
-        })
-      }
-    });
-  },
-  like: function () {
-    let that = this;
-    let post = {};
-    let id = that.data.detail.id;
-    post['activity_order_id'] = id;
-    post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.publicationUrl,
-      method: "POST",
-      data: {
-        action: 'like',
-        id: id,
-        post: post
-      },
-      success: function (res) {
-        if (res.data == 1) {
-          that.setData({
-            like_status: 1
-          })
-          wx.showToast({
-            icon: 'none',
-            title: '点赞成功！'
-          });
-        }
-      }
-    });
-  },
-  like_cancel: function () {
-    let that = this;
-    wx.showModal({
-      title: '提示',
-      content: '确定取消点赞吗？',
-      success: function (res) {
-        if (res.confirm) {
-          let where = {};
-          let id = that.data.detail.id;
-          where['activity_order_id'] = id;
-          where['openId'] = app.globalData.openId;
-          wx.request({
-            url: config.publicationUrl,
-            method: "POST",
-            data: {
-              action: 'like_cancel',
-              id: id,
-              where: where
-            },
-            success: function (res) {
-              if (res.data == 1) {
-                that.setData({
-                  like_status: 0
-                })
-                wx.showToast({
-                  icon: 'none',
-                  title: '已取消点赞！'
-                });
-              }
-            }
-          });
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
