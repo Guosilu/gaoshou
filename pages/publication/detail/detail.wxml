@@ -1,17 +1,18 @@
 <!--pages/launch/launch.wxml-->
-<block wx:if="{{detail.id && like_status !== null}}">
+<block wx:if="{{loading==3 && like_status !== null}}">
   <view class='ex-title'>
     {{detail.title}}
-    <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
+    <view class="yh_hudong">
       <view class='ex_info'>
         <image src='{{detail.avatarUrl}}' class='ex_icon wx-avatar' mode='widthFix' />{{detail.nickName}}</view>
       <view class='ex_info'>
         <image src='/images/time.png' class='ex_icon' mode='widthFix' />
       </view>
-      <view class='ex_info'>
+     <view class='ex_info'>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
       <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
-        <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}</view>
+        <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
+      </view>
       <view class='ex_info ex_num' style='display:none;'>
         编号：123564
       </view>
@@ -39,7 +40,7 @@
   </view>
   <!-- <import src='/pages/template/contact/contact.wxml' />
   <template is='contact'></template> -->
-</block>
+
 <!-- 评论 -->
 <view class='contact-box'>
   <view>全部评论</view>
@@ -48,7 +49,7 @@
     <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
     <navigator url="" class='u-name'>{{item.nickName}}</navigator>
     <view class='cont-fav'>
-      <image src='/images/zan.png' mode='widthFix' />{{item.like?item.like:0}}</view>
+      <image src='/images/{{item.like_status ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' bindtap='{{item.like_status ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}</view>
     <navigator url='../../template/contact/details/details?id={{item.id}}'>
       <view class='cont-text'>
         {{item.content}}
@@ -77,3 +78,4 @@
     </view>
   </view>
 </view>
+</block>

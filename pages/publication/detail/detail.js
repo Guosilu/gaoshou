@@ -9,6 +9,7 @@ Page({
   data: {
     like_status: null,
     detail: {},
+    loading: 0,
     // 评论
     // contShow: false,
     // sendShow: true,
@@ -16,25 +17,35 @@ Page({
     inputVal: "",
     comment:"",
   },
+
   is_like: function (id) {
     var that = this;
-    var where = {
-      id: this.data.detail.id,
-      openId: app.globalData.openId
+    var param = {
+      action: 'is_like',
+      post: {
+        id: id,
+        openId: app.globalData.openId
+      }
     }
-    configLike.is_like(config.publicationUrl, 'is_like', where).then(function(data){
+    configLike.requestFun(config.publicationUrl, param).then(function (data){
       that.setData({
-        like_status: data
+        like_status: data,
+        loading: that.data.loading+1
       })
+      if (that.data.loading == 3) wx.hideLoading();
     });
   },
+
   like: function () {
     var that = this;
-    var post = {
-      id: this.data.detail.id,
-      openId: app.globalData.openId
-    };
-    configLike.like(config.publicationUrl, 'like', post).then(function (data) {
+    var param = {
+      action: 'like',
+      post: {
+        id: that.data.detail.id,
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.publicationUrl, param).then(function (data) {
       if (data.success == 1) {
         that.setData({
           like_status: 1,
@@ -47,35 +58,28 @@ Page({
       }
     });
   },
+
   like_cancel: function () {
     var that = this;
-    wx.showModal({
-      title: '提示',
-      content: '确定取消点赞吗？',
-      success: function (confirm) {
-        if (confirm.confirm) {
-          var where = {
-            id: that.data.detail.id,
-            openId: app.globalData.openId
-          };
-          configLike.like(config.publicationUrl, 'like_cancel', where).then(function (data) {
-            if (data.success == 1) {
-              that.setData({
-                like_status: 0,
-                'detail.dianzan': data.dianzan
-              })
-              wx.showToast({
-                icon: 'none',
-                title: '已取消点赞！'
-              });
-            }
-          });
-
-        } else if (confirm.cancel) {
-          console.log('用户点击取消')
-        }
+    var param = {
+      action: 'like_cancel',
+      post: {
+        id: that.data.detail.id,
+        openId: app.globalData.openId
       }
-    });
+    }
+    configLike.requestFun(config.publicationUrl, param, 1).then(function (data) {
+      if (data.success == 1) {
+        that.setData({
+          like_status: 0,
+          'detail.dianzan': data.dianzan
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '已取消！'
+        });
+      }
+    });  
   },
   //赏金
   reward:function(e){
@@ -155,8 +159,10 @@ Page({
           })
         }
         //评论完成更新数据
-        var param = {};
-        param['compose_id'] = that.data.detail.id;
+        var param = {
+          compose_id: that.data.detail.id,
+          openId: app.globalData.openId
+        }
         comment.query('list', param).then(
           function (data) {
             console.log(data);
@@ -182,50 +188,105 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+
+
+  get_detail: function (id) {
+    var that = this;
+    var param = {
+      action: 'detail',
+      id: id
+    }
+    configLike.requestFun(config.publicationUrl, param).then(function (data) {
+      if (data) {
+        that.setData({
+          detail: data,
+          loading: that.data.loading + 1
+        })
+        if (that.data.loading == 3) wx.hideLoading();
+      }
+    });
+  },
+
+  get_compose_list: function (id) {
+    var that = this;
+    var param = {
+      compose_id: id,
+      openId: app.globalData.openId
+    }
+    comment.query('list', param).then(function (data) {
+      if (data) {
+        console.log(data);
+        that.setData({
+          comment: data,
+          loading: that.data.loading + 1
+        })
+        if (that.data.loading == 3) wx.hideLoading();
+      }
+    }); 
+  },
+
+  comment_like: function (option) {
+    console.log(option.target.dataset)
+    var id = option.target.dataset.id
+    var index = option.target.dataset.index
+    var dianzan = Number(option.target.dataset.dianzan);
+    var that = this;
+    var param = {
+      action: 'like',
+      post: {
+        id: id,
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.comment, param).then(function (data) {
+      if (data.success == 1) {
+        that.setData({
+          [`comment[${index}].like_status`]: 1,
+          [`comment[${index}].dianzan`]: dianzan+1
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '点赞成功！'
+        });
+      }
+    });
+  },
+
+  comment_like_cancel: function (option) {
+    console.log(option.target.dataset)
+    var id = option.target.dataset.id;
+    var index = option.target.dataset.index;
+    var dianzan = Number(option.target.dataset.dianzan);
+    var that = this;
+    var param = {
+      action: 'like_cancel',
+      post: {
+        id: id,
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.comment, param, 1).then(function (data) {
+      if (data.success == 1) {
+        that.setData({
+          [`comment[${index}].like_status`]: 0,
+          [`comment[${index}].dianzan`]: dianzan-1
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '已取消！'
+        });
+      }
+    });
+  },
   onLoad: function (options) {
-    this.is_like(options.id);
+    var that = this;
     wx.showLoading({
       mask: true,
       title: '加载中...',
     })
-    var that = this;
-    let id = '3';
-    if (options.id){
-      id = options.id;
-    }
-    wx.request({
-      url: config.publicationUrl,
-      method: "POST",
-      data: {
-        action: 'detail',
-        id: id
-      },
-      success: function (res) {
-        if (res.data) {
-          that.setData({
-            detail: res.data
-          })
-          that.is_like(res.data.id);
-          wx.hideLoading();
-        }
-      },
-      // 最后查询评论
-      complete:function(){
-        var param = {};
-        param['compose_id'] = that.data.detail.id;
-        // param['page'] = that.data.deatil.id;
-        comment.query('list', param).then(
-          function (data) {
-            console.log(data);
-            that.setData({
-              comment:data
-            })
-          }
-        );   
-      }
-    });
-    // console.log(comment.getlist(id,'publication'));
-
+    this.get_detail(options.id);
+    this.get_compose_list(options.id);
+    this.is_like(options.id);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
