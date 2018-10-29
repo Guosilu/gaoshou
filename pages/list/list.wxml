@@ -3,6 +3,7 @@
     <view class='list-item' wx:for='{{list}}' wx:key="*this">
       <view class='portrait'>
         <view class='exh_title'>活动名称</view>
+        <view class='exh_title'>编号：{{item.number?item.number:""}}</view>
         <view class="user_info">
           <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
           <text class="user_name">{{item.nickName}}</text>
