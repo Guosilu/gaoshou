@@ -1,4 +1,5 @@
 const util = require('../../../../config/comment.js');
+const configLike = require('../../../../config/like.js');
 const config = util.config;
 const comment = util.comment;
 const app = util.app;
@@ -10,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    like_status: null,
+    loading: 0,
     contShow: false,
     sendShow: true,
     inputVal: "",
@@ -51,8 +54,10 @@ Page({
           icon:"none"
         })
         //刷新
-        var param = {};
-        param['id'] = that.data.detail.comment.id;
+        var param = {
+          id: that.data.detail.comment.id,
+          openId: app.globalData.openId
+        };
         comment.query('show', param).then(
           function (data) {
             console.log(data);
@@ -84,23 +89,100 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  is_like: function (id) {
+    var that = this;
+    var param = {
+      action: 'is_like',
+      post: {
+        id: id,
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.comment, param).then(function (data) {
+      that.setData({
+        like_status: data,
+        loading: that.data.loading + 1
+      })
+      if (that.data.loading == 3) wx.hideLoading();
+    });
+  },
+  likeFun: function (option, act) {
+    var that = this, like_status, confirm, tipTitle;
+    console.log(option.target.dataset)
+    var alter_table = option.target.dataset.alter_table || '';
+    var id = option.target.dataset.id || 0;
+    var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
+    var dianzan = Number(option.target.dataset.dianzan) >= 0 ? Number(option.target.dataset.dianzan) : '';
+    var param = {
+      action: 'like_add_minus',
+      post: {
+        id: id,
+        alter_table: alter_table,
+        openId: app.globalData.openId,
+        act: act
+      }
+    }
+    if (act == 'add') {
+      like_status = 1;
+      dianzan = dianzan + 1;
+      confirm = '';
+      tipTitle = '点赞成功！';
+    } else if (act == 'minus') {
+      like_status = 0;
+      dianzan = dianzan - 1;
+      confirm = 1;
+      tipTitle = '已取消！';
+    }
+    configLike.requestFun(config.comment, param, confirm).then(function (data) {
+      if (data.success == 1) {
+        if (alter_table) {
+          that.setData({
+            [`detail.reply[${index}].like_status`]: like_status,
+            [`detail.reply[${index}].dianzan`]: dianzan
+          })
+        } else {
+          that.setData({
+            like_status: like_status,
+            'detail.comment.dianzan': dianzan
+          })
+        }
+        wx.showToast({
+          icon: 'none',
+          title: tipTitle
+        });
+      }
+    });
+  },
+
+  comment_like: function (option) {
+    this.likeFun(option, 'add'); 
+  },
+  comment_like_cancel: function (option) {
+    this.likeFun(option, 'minus'); 
+  },
+  get_detail: function (id) {
+    var that = this;
+    var param = {
+      action: 'show',
+      param:{
+        id: id,
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.comment, param).then(function (data) {
+      if (data) {
+        that.setData({
+          detail: data,
+          loading: that.data.loading + 1
+        })
+        if (that.data.loading == 3) wx.hideLoading();
+      }
+    });
+  },
   onLoad: function (options) {
     var that =this;
-    var id = "1";
-    if(options.id){
-      id=options.id;
-    }
-    var param = {};
-    param['id'] = id;
-    comment.query('show', param).then(
-      function (data) {
-        console.log(data);
-        that.setData({
-          detail:data
-        })
-      }
-    ); 
-
+    this.get_detail(options.id);
+    this.is_like(options.id);
 
 
 

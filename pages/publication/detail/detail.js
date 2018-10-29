@@ -46,6 +46,7 @@ Page({
       }
     }
     configLike.requestFun(config.publicationUrl, param).then(function (data) {
+      console.log(data);
       if (data.success == 1) {
         that.setData({
           like_status: 1,
@@ -53,7 +54,12 @@ Page({
         })
         wx.showToast({
           icon: 'none',
-          title: '点赞成功！'
+          title: '投票成功！'
+        });
+      } else if (data.success == 2) {
+        wx.showToast({
+          icon: 'none',
+          title: '您已经投过票了！'
         });
       }
     });
