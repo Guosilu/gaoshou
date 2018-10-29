@@ -12,6 +12,21 @@ Page({
   },
 
   //赏金
+  money:function(e){
+    console.log(e);
+    var that = this;
+    that.setData({
+      money: e.currentTarget.dataset.money
+    })
+    that.reward();
+  },
+  money1: function (e) {
+    console.log(e);
+    var that  = this;
+    that.setData({
+      money: (e.detail.value)*100,
+    })
+  },
   openPay: function() {
     this.setData({
       payOpen: true
@@ -35,7 +50,7 @@ Page({
   reward: function(e) {
     var randa = new Date().getTime().toString();
     var randb = Math.round(Math.random() * 10000).toString();
-
+    var that = this;
     wx.request({
       url: config.payApi,
       dataType: "json",
@@ -43,8 +58,8 @@ Page({
       data: {
         action: "unifiedOrder",
         out_trade_no: randa + randb, //商户订单号
-        body: "Guosilu 测试", //商品描述
-        total_fee: 1, //金额 单位:分
+        body: "赛脉平台赏金", //商品描述
+        total_fee: that.data.money, //金额 单位:分
         trade_type: "JSAPI", //交易类型
         openId: app.globalData.openId
       },
@@ -72,6 +87,9 @@ Page({
               'paySign': signData.sign,
               success: function(res) {
                 console.log(res);
+                that.setData({
+                  payOpen: false
+                })
               },
               fail: function(res) {
                 console.log(res);

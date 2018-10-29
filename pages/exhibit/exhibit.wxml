@@ -28,16 +28,16 @@
       <view wx:if="{{payOpen}}" class='paySelect' catchtouchmove="ture">
         <view class='payTitle'>请选择金额</view>
         <view class='payInner' hidden='{{payInput}}'>
-          <view class='payPart'>5元</view>
-          <view class='payPart'>15元</view>
-          <view class='payPart'>25元</view>
-          <view class='payPart'>50元</view>
-          <view class='payPart'>80元</view>
-          <view class='payPart'>100元</view>
+          <view class='payPart' bindtap='money' data-money='500'>5元</view>
+          <view class='payPart' bindtap='money' data-money='1500'>15元</view>
+          <view class='payPart' bindtap='money' data-money='2500'>25元</view>
+          <view class='payPart' bindtap='money' data-money='5000'>50元</view>
+          <view class='payPart' bindtap='money' data-money='8000'>80元</view>
+          <view class='payPart' bindtap='money' data-money='10000'>100元</view>
         </view>
         <view wx:if="{{payInput}}" class='inputAmount'>
           <text>￥</text>
-          <input placeholder='0.00' class='payInput'></input>
+          <input placeholder='0.00' bindinput='money1' class='payInput'></input>
         </view>
         <view class='otherAmount' bindtap='otherAmount' hidden="{{payInput}}">其他金额</view>
         <view class='otherAmount' bindtap='fixAmount' wx:if='{{payInput}}'>固定金额</view>
