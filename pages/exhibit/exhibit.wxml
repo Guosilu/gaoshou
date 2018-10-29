@@ -1,96 +1,118 @@
 <block wx:if="{{detail.id && like_status !== null && order_lists && exhibit_lists}}">
-  <view class='ex-title'>
-    {{detail.title}}
-    <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
-      <view class='ex_info'>
-        <image src='{{detail.avatarUrl}}' class='ex_icon u-avatar' mode='widthFix' />{{detail.nickName}}</view>
-      <view class='ex_info'>
-        <image src='/images/time.png' class='ex_icon' mode='widthFix' />
-      </view>
-      <view class='ex_info'>
-        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
-      <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
-        <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
-      </view>
-      
-      <view class='ex_info ex_num'>
-        编号：123564
+  <view catchtouchmove='{{payOpen}}'>
+    <view class='ex-title'>
+      {{detail.title}}
+      <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
+        <view class='ex_info'>
+          <image src='{{detail.avatarUrl}}' class='ex_icon u-avatar' mode='widthFix' />{{detail.nickName}}</view>
+        <view class='ex_info'>
+          <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+        </view>
+        <view class='ex_info'>
+          <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
+        <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
+          <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
+        </view>
+        <view class='ex_info ex_num'>
+          编号：123564
+        </view>
       </view>
     </view>
-  </view>
-  <view class='informat'>
-    <view class='ex-cover'>
-      <image src='{{detail.thumb}}' mode='widthFix'></image>
+    <view class='informat'>
+      <view class='ex-cover'>
+        <image src='{{detail.thumb}}' mode='widthFix'></image>
+      </view>
+      <view bindtap='openPay' class='reward-btn'>
+        赏
+      </view>
+      <view wx:if="{{payOpen}}" class='paySelect' catchtouchmove="ture">
+        <view class='payTitle'>请选择金额</view>
+        <view class='payInner' hidden='{{payInput}}'>
+          <view class='payPart'>5元</view>
+          <view class='payPart'>15元</view>
+          <view class='payPart'>25元</view>
+          <view class='payPart'>50元</view>
+          <view class='payPart'>80元</view>
+          <view class='payPart'>100元</view>
+        </view>
+        <view wx:if="{{payInput}}" class='inputAmount'>
+          <text>￥</text>
+          <input placeholder='0.00' class='payInput'></input>
+        </view>
+        <view class='otherAmount' bindtap='otherAmount' hidden="{{payInput}}">其他金额</view>
+        <view class='otherAmount' bindtap='fixAmount' wx:if='{{payInput}}'>固定金额</view>
+        <view class='closePay'>
+          <view bindtap='closePay' class='payBtn'>关闭</view>
+          <view bindtap='reward' class='payBtn true' wx:if="{{payInput}}">确定</view>
+        </view>
+      </view>
     </view>
-    <view bindtap='reward' class='reward-btn'>
-      赏
-    </view>
-  </view>
 
-  <view class='rule page__modules modules__shadow'>
-    <view class='rule-cont no-borderTop'>
-      <view class='cont-title'>
-        活动规则
+    <view class='rule page__modules modules__shadow'>
+      <view class='rule-cont no-borderTop'>
+        <view class='cont-title'>
+          活动规则
+        </view>
+        {{detail.rule}}
       </view>
-      {{detail.rule}}
+      <view class='rule-cont'>
+        <view>发布时间：{{detail.starttime}}</view>
+        <view>截止时间：{{detail.endtime}}</view>
+      </view>
+      <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
+      <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
     </view>
-    <view class='rule-cont'>
-      <view>发布时间：{{detail.starttime}}</view>
-      <view>截止时间：{{detail.endtime}}</view>
-    </view>
-    <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
-    <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
-  </view>
-  <view class='informat'>
-    <view class='ex-tit'>
-      参赛列表
-    </view>
-    <view class='ex-list'>
-      <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
-        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
-          <image src='{{item.thumb}}' mode='aspectFill'></image>
-          <view class='listInfo'>
-            <view>
-              {{item.truename}}，
+    <view class='informat'>
+      <view class='ex-tit'>
+        参赛列表
+      </view>
+      <view class='ex-list'>
+        <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
+          <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+            <image src='{{item.thumb}}' mode='aspectFill'></image>
+            <view class='listInfo'>
+              <view>
+                {{item.truename}}，
+              </view>
+              <view class='sys-number'>编号：123456789</view>
+              <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image src='/images/like.png' class='ex_icon ex_icon1' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan}}</text>
+                <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan}}</text>
+              </view>
             </view>
-            <view class='sys-number'>编号：123456789</view>
-            <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
-            <text class='item-icnum'>{{item.nickName}}</text>
-            <view class='fr'>
-              <image src='/images/like.png' class='ex_icon ex_icon1' mode='widthFix' />
-              <text class='item-icnum'>{{item.dianzan}}</text>
-              <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
-              <text class='item-icnum'>{{item.liulan}}</text>
-            </view>
-          </view>
-        </navigator>
+          </navigator>
+        </view>
       </view>
     </view>
-  </view>
 
-  <view class='informat'>
-    <view class='ex-tit'>
-      推荐活动
-    </view>
-    <view class='ex-list'>
-      <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">
-        <navigator url="../exhibit/exhibit?id={{item.id}}">
-          <image src='{{item.thumb}}' mode='aspectFill'></image>
-          <view class='listInfo'>
-            <view>
-              {{item.truename}}
+    <view class='informat'>
+      <view class='ex-tit'>
+        推荐活动
+      </view>
+      <view class='ex-list'>
+        <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">
+          <navigator url="../exhibit/exhibit?id={{item.id}}">
+            <image src='{{item.thumb}}' mode='aspectFill'></image>
+            <view class='listInfo'>
+              <view>
+                {{item.truename}}
+              </view>
+              <view class='sys-number'>编号：123456789</view>
+              <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan}}</text>
+                <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan}}</text>
+              </view>
             </view>
-            <view class='sys-number'>编号：123456789</view>
-            <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
-            <text class='item-icnum'>{{item.nickName}}</text>
-            <view class='fr'>
-              <image src='/images/like.png' class='ex_icon' mode='widthFix' />
-              <text class='item-icnum'>{{item.dianzan}}</text>
-              <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
-              <text class='item-icnum'>{{item.liulan}}</text>
-            </view>
-          </view>
-        </navigator>
+          </navigator>
+        </view>
       </view>
     </view>
   </view>
