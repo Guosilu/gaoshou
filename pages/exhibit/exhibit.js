@@ -6,11 +6,33 @@ Page({
     like_status: null,
     detail: {},
     order_lists: {},
-    exhibit_lists: {}
-  }, 
-  
-   //赏金
-  reward: function (e) {
+    exhibit_lists: {},
+    payOpen: false,
+    payInput: false
+  },
+
+  //赏金
+  openPay: function() {
+    this.setData({
+      payOpen: true
+    })
+  },
+  closePay: function() {
+    this.setData({
+      payOpen: false
+    })
+  },
+  otherAmount: function() {
+    this.setData({
+      payInput: true,
+    })
+  },
+  fixAmount: function() {
+    this.setData({
+      payInput: false,
+    })
+  },
+  reward: function(e) {
     var randa = new Date().getTime().toString();
     var randb = Math.round(Math.random() * 10000).toString();
 
@@ -20,13 +42,13 @@ Page({
       method: "post",
       data: {
         action: "unifiedOrder",
-        out_trade_no: randa + randb,//商户订单号
+        out_trade_no: randa + randb, //商户订单号
         body: "Guosilu 测试", //商品描述
         total_fee: 1, //金额 单位:分
         trade_type: "JSAPI", //交易类型
         openId: app.globalData.openId
       },
-      success: function (res) {
+      success: function(res) {
         console.log(res.data);
         var data = res.data;
 
@@ -39,23 +61,22 @@ Page({
             "action": "getSign",
             'package': "prepay_id=" + data.prepay_id
           },
-          success: function (res){
+          success: function(res) {
             var signData = res.data;
             console.log(res.data);
-            wx.requestPayment(
-              {
-                'timeStamp': signData.timeStamp,
-                'nonceStr': signData.nonceStr,
-                'package': signData.package,
-                'signType': "MD5",
-                'paySign': signData.sign,
-                success: function (res) {
-                  console.log(res);
-                },
-                fail: function (res) {
-                  console.log(res);
-                }
-              }) 
+            wx.requestPayment({
+              'timeStamp': signData.timeStamp,
+              'nonceStr': signData.nonceStr,
+              'package': signData.package,
+              'signType': "MD5",
+              'paySign': signData.sign,
+              success: function(res) {
+                console.log(res);
+              },
+              fail: function(res) {
+                console.log(res);
+              }
+            })
           }
         })
 
@@ -70,7 +91,7 @@ Page({
 
 
   },
-  is_like: function (id) {
+  is_like: function(id) {
     let that = this;
     wx.request({
       url: config.activityUrl,
@@ -82,7 +103,7 @@ Page({
           openId: app.globalData.openId
         }
       },
-      success: function (res) {
+      success: function(res) {
         let like_status;
         if (res.data == 1) {
           like_status = 1;
@@ -95,7 +116,7 @@ Page({
       }
     });
   },
-  like: function () {
+  like: function() {
     let that = this;
     let post = {};
     let id = that.data.detail.id;
@@ -109,7 +130,7 @@ Page({
         id: id,
         post: post
       },
-      success: function (res) {
+      success: function(res) {
         let data = res.data;
         if (data.success == 1) {
           that.setData({
@@ -124,12 +145,12 @@ Page({
       }
     });
   },
-  like_cancel: function () {
+  like_cancel: function() {
     let that = this;
     wx.showModal({
       title: '提示',
       content: '确定取消点赞吗？',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           let where = {};
           let id = that.data.detail.id;
@@ -143,7 +164,7 @@ Page({
               id: id,
               where: where
             },
-            success: function (res) {
+            success: function(res) {
               let data = res.data;
               if (data.success == 1) {
                 that.setData({
@@ -163,7 +184,7 @@ Page({
       }
     });
   },
-  joinActivity: function () {
+  joinActivity: function() {
     let id = this.data.detail.id;
     wx.request({
       url: config.activityUrl,
@@ -175,7 +196,7 @@ Page({
           openId: app.globalData.openId
         }
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data == 1) {
           wx.navigateTo({
             url: '../participate/participate?id=' + id
@@ -200,12 +221,12 @@ Page({
     });
 
   },
-  go_Activity_Initiate: function () {
+  go_Activity_Initiate: function() {
     wx.redirectTo({
       url: '../activity_Initiate/activity_Initiate',
     })
   },
-  getOrderList: function (id) {
+  getOrderList: function(id) {
     let that = this;
     wx.request({
       url: config.activity_orderUrl,
@@ -217,14 +238,14 @@ Page({
           activity_id: id
         }
       },
-      success: function (res) {
+      success: function(res) {
         that.setData({
           order_lists: res.data
         });
       }
     })
   },
-  getExhibitList: function (id) {
+  getExhibitList: function(id) {
     var that = this;
     wx.request({
       url: config.activityUrl,
@@ -235,14 +256,14 @@ Page({
           id: id
         }
       },
-      success: function (res) {
+      success: function(res) {
         that.setData({
           exhibit_lists: res.data
         });
       }
     })
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.showLoading({
       mask: true,
       title: '加载中...',
@@ -253,8 +274,8 @@ Page({
       wx.showToast({
         title: '跳转异常!正在返回!',
         icon: "none",
-        success: function () {
-          setTimeout(function () {
+        success: function() {
+          setTimeout(function() {
             wx.navigateBack({
               delta: 1
             })
@@ -270,7 +291,7 @@ Page({
         action: 'detail',
         id: id
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data) {
           that.setData({
             detail: res.data
@@ -283,7 +304,7 @@ Page({
     this.getOrderList(id);
     this.getExhibitList(id);
   },
-  onShow: function () {
+  onShow: function() {
     if (this.data.detail.id) {
       this.getOrderList(this.data.detail.id);
       this.getExhibitList(this.data.detail.id);
