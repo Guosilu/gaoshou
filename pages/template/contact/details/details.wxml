@@ -8,9 +8,9 @@
       <text class='cont-time'>Time : {{detail.comment.addtime}}</text>
     </view>
     
-    <view class='cont-fav'>
-      <image src='/images/zan.png' mode='widthFix' />{{detail.comment.likes?detail.comment.likes:"0"}}
-    </view>
+    <view class='cont-fav {{like_status ? "like_on" : ""}}' data-id="{{detail.comment.id}}" data-dianzan='{{detail.comment.dianzan}}'  bindtap='{{like_status ? "comment_like_cancel" : "comment_like"}}'>
+        <image src='/images/{{like_status ? "zan_on.png"  :"zan.png"}}' mode="widthFix" />{{detail.comment.dianzan}}
+      </view>
   </view>
 </view>
 <view class='contact-box'>
@@ -21,7 +21,9 @@
     <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
     <navigator url="" class='u-name'>{{item.nickName}}</navigator>
     <view class='cont-fav'>
-      <image src='/images/zan.png' mode='widthFix' />{{item.likes?item.likes:'0'}}</view>
+      <image src='/images/{{item.like_status ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' data-alter_table="reply" bindtap='{{item.like_status ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}
+    </view>
+
     <view class='cont-text' bindtap='contReply' data-uid='{{item.id}}'>
       {{item.content}}
       <view wx:if="{{item.reply_nickName}}">
