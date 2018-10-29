@@ -29,23 +29,39 @@ Page({
       success: function (res) {
         console.log(res.data);
         var data = res.data;
-        wx.requestPayment(
-          {
-            'timeStamp': new Date().getTime().toString(),
-            'nonceStr': Math.round(Math.random() * 10000).toString(),
-            'package': "prepay_id="+data.prepay_id,
-            'signType': 'MD5',
-            'paySign': data.sign,
-            success: function (res) { 
-              console.log(res);
-            },
-            fail: function (res) {
-              console.log(res);
-            },
-            complete: function (res) { 
-              console.log(res);
-            }
-          }) 
+
+        //生成签名
+        wx.request({
+          url: config.payApi,
+          dataType: "json",
+          method: "post",
+          data: {
+            "action": "getSign",
+            'package': "prepay_id=" + data.prepay_id
+          },
+          success: function (res){
+            var signData = res.data;
+            console.log(res.data);
+            wx.requestPayment(
+              {
+                'timeStamp': signData.timeStamp,
+                'nonceStr': signData.nonceStr,
+                'package': signData.package,
+                'signType': "MD5",
+                'paySign': signData.sign,
+                success: function (res) {
+                  console.log(res);
+                },
+                fail: function (res) {
+                  console.log(res);
+                }
+              }) 
+          }
+        })
+
+
+
+
       }
     })
 
@@ -202,7 +218,6 @@ Page({
         }
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           order_lists: res.data
         });
@@ -221,7 +236,6 @@ Page({
         }
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           exhibit_lists: res.data
         });
@@ -257,9 +271,7 @@ Page({
         id: id
       },
       success: function (res) {
-        console.log(res.data);
         if (res.data) {
-          console.log(res.data);
           that.setData({
             detail: res.data
           })
