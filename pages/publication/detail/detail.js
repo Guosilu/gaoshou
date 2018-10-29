@@ -230,59 +230,49 @@ Page({
       }
     }); 
   },
-
-  comment_like: function (option) {
+  likeFun: function (option, act) {
+    var that = this, like_status, confirm, tipTitle;
     console.log(option.target.dataset)
-    var id = option.target.dataset.id
-    var index = option.target.dataset.index
-    var dianzan = Number(option.target.dataset.dianzan);
-    var that = this;
+    var id = option.target.dataset.id || 0;
+    var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
+    var dianzan = Number(option.target.dataset.dianzan) >= 0 ? Number(option.target.dataset.dianzan) : '';
     var param = {
-      action: 'like',
+      action: 'like_add_minus',
       post: {
         id: id,
-        openId: app.globalData.openId
+        openId: app.globalData.openId,
+        act: act
       }
     }
-    configLike.requestFun(config.comment, param).then(function (data) {
+    if (act == 'add') {
+      like_status = 1;
+      dianzan = dianzan + 1;
+      confirm = '';
+      tipTitle = '点赞成功！';
+    } else if (act == 'minus') {
+      like_status = 0;
+      dianzan = dianzan - 1;
+      confirm = 1;
+      tipTitle = '已取消！';
+    }
+    configLike.requestFun(config.comment, param, confirm).then(function (data) {
       if (data.success == 1) {
         that.setData({
-          [`comment[${index}].like_status`]: 1,
-          [`comment[${index}].dianzan`]: dianzan+1
+          [`comment[${index}].like_status`]: like_status,
+          [`comment[${index}].dianzan`]: dianzan
         })
         wx.showToast({
           icon: 'none',
-          title: '点赞成功！'
+          title: tipTitle
         });
       }
     });
   },
-
+  comment_like: function (option) {
+    this.likeFun(option, 'add');
+  },
   comment_like_cancel: function (option) {
-    console.log(option.target.dataset)
-    var id = option.target.dataset.id;
-    var index = option.target.dataset.index;
-    var dianzan = Number(option.target.dataset.dianzan);
-    var that = this;
-    var param = {
-      action: 'like_cancel',
-      post: {
-        id: id,
-        openId: app.globalData.openId
-      }
-    }
-    configLike.requestFun(config.comment, param, 1).then(function (data) {
-      if (data.success == 1) {
-        that.setData({
-          [`comment[${index}].like_status`]: 0,
-          [`comment[${index}].dianzan`]: dianzan-1
-        })
-        wx.showToast({
-          icon: 'none',
-          title: '已取消！'
-        });
-      }
-    });
+    this.likeFun(option, 'minus');
   },
   onLoad: function (options) {
     var that = this;
