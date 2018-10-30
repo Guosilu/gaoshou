@@ -18,7 +18,7 @@
           <view class="weui-search-bar__text">请输入您需要的内容</view>
         </label>
       </view>
-      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">确定</view>
+      <navigator url='/pages/search/search' class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">确定</navigator>
     </view>
     <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
       <navigator url="" class="weui-cell" hover-class="weui-cell_active">

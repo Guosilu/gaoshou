@@ -2,8 +2,9 @@
   <view class='list'>
     <view class='list-item' wx:for='{{list}}' wx:key="*this">
       <view class='portrait'>
-        <view class='exh_title'>活动名称</view>
-        <view class='exh_title'>编号：{{item.number?item.number:""}}</view>
+        <view class='exh_title'>活动名称
+          <view class='exh_num'>编号：<text selectable='true'>{{item.number?item.number:""}}</text></view>
+        </view>
         <view class="user_info">
           <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
           <text class="user_name">{{item.nickName}}</text>
@@ -20,21 +21,23 @@
       </view>
 
       <view class='partic'>
-          <image src='/images/like.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.zanshang}}</text>
-          <image src='/images/looks.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.liulan}}</text>
+        <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.zanshang}}</text>
+        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.liulan}}</text>
 
-          <navigator class='join' url='../participate/participate?id={{item.id}}'>参与活动</navigator>
+        <navigator class='join' url='../participate/participate?id={{item.id}}'>参与活动</navigator>
       </view>
     </view>
   </view>
 </block>
 
 <block wx:else>
-   <view class='list'>
+  <view class='list'>
     <view class='list-item' wx:for='{{list}}' wx:key="*this">
       <view class='portrait'>
         <view class='exh_title'>
-        作品名称 : {{item.title}}
+          作品名称 : {{item.title}}
         </view>
         <view class="user_info">
           <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
@@ -51,8 +54,10 @@
       </view>
 
       <view class='partic'>
-          <image src='/images/like.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.zanshang}}</text>
-          <image src='/images/looks.png' class='ex_icon' mode='widthFix' /><text class='ex_text'>{{item.liulan}}</text>
+        <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.zanshang}}</text>
+        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.liulan}}</text>
       </view>
     </view>
   </view>

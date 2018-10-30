@@ -93,3 +93,8 @@
   text-align: center;
   border-radius: 10rpx;
 }
+.exh_num{
+  font-weight: normal;
+  color: gray;
+  font-size: 12px;
+}

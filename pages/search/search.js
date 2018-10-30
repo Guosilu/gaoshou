@@ -5,9 +5,37 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    inputShowed: false,
+    inputVal: "",
   },
-
+  showInput: function () {
+    this.setData({
+      inputShowed: true
+    });
+  },
+  searchBtn: function (e) {
+    var inputVal = this.data.inputVal;
+    if (inputVal.length < 1) {
+      console.log("喵喵喵");
+      console.log("❤，这里空空哒~");
+      this.setData({
+        inputVal: "",
+        inputShowed: false
+      });
+    } else {
+      console.log("呼~哈哈，您输入的内容是：" + inputVal + "，长度" + inputVal.length);
+    }
+  },
+  clearInput: function () {
+    this.setData({
+      inputVal: ""
+    });
+  },
+  inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
