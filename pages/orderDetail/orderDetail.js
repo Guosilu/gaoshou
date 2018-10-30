@@ -204,6 +204,24 @@ Page({
               'paySign': signData.sign,
               success: function (res) {
                 console.log(res);
+
+                // 添加数据库信息
+                wx.request({
+                  url: config.payApi,
+                  dataType: "json",
+                  method: "post",
+                  data: {
+                    "action": "AddData",
+                    "total_fee": that.data.money,
+                    "type": 'activity_order',
+                    "id": that.data.detail.id
+                  },
+                  success: function (res) {
+                    wx.showToast({
+                      title: '赞赏成功',
+                    })
+                  }
+                })
                 that.setData({
                   payOpen: false
                 })

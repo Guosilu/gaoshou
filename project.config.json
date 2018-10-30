@@ -27,13 +27,36 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "活动页面",
+					"pathName": "pages/exhibit/exhibit",
+					"query": "id=21"
+				},
+				{
+					"id": 1,
+					"name": "赛脉广场详情页面",
+					"pathName": "pages/square/detail/detail",
+					"query": "id=27"
+				},
+				{
+					"id": -1,
+					"name": "参与活动详情页面",
+					"pathName": "pages/orderDetail/orderDetail",
+					"query": "id=24"
+				}
+			]
 		}
 	}
 }

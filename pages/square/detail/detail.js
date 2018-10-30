@@ -129,6 +129,9 @@ Page({
    */
   query : function(id){
     var that = this;
+    that.setData({
+      id:id
+    })
     wx.request({
       url: config.squareUrl,
       method: "POST",
@@ -137,7 +140,6 @@ Page({
         id: id
       },
       success: function (res) {
-        console.log(res);
         that.setData({
           image: res.data.image.split(','),
           data: res.data
@@ -148,7 +150,6 @@ Page({
 
   // -----------------赏金开始----------------
   money: function (e) {
-    console.log(e);
     var that = this;
     that.setData({
       money: e.currentTarget.dataset.money
@@ -156,7 +157,6 @@ Page({
     that.reward();
   },
   money1: function (e) {
-    console.log(e);
     var that = this;
     that.setData({
       money: (e.detail.value) * 100,
@@ -199,7 +199,6 @@ Page({
         openId: app.globalData.openId
       },
       success: function (res) {
-        console.log(res.data);
         var data = res.data;
 
         //生成签名
@@ -213,8 +212,8 @@ Page({
           },
           success: function (res) {
             var signData = res.data;
-            console.log(res.data);
-            // 调用支付
+            console.log(signData);
+            调用支付
             wx.requestPayment({
               'timeStamp': signData.timeStamp,
               'nonceStr': signData.nonceStr,
@@ -222,15 +221,29 @@ Page({
               'signType': "MD5",
               'paySign': signData.sign,
               success: function (res) {
-                console.log(res);
+                // 添加数据库信息
+                wx.request({
+                  url: config.payApi,
+                  dataType: "json",
+                  method: "post",
+                  data: {
+                    "action": "AddData",
+                    "total_fee": that.data.money,
+                    "type": 'square',
+                    "id": that.data.id
+                  },
+                  success: function (res) {
+                    wx.showToast({
+                      title: '赞赏成功',
+                    })
+                  }
+                })
                 that.setData({
                   payOpen: false
                 })
+               
               },
               fail: function (res) {
-                console.log(res);
-              },
-              complete: function (res) {
                 console.log(res);
               }
             })
