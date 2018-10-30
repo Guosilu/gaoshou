@@ -13,11 +13,11 @@ Page({
     // 评论
     // contShow: false,
     // sendShow: true,
-    types:'comment',
     inputVal: "",
     comment:"",
     payOpen: false,
-    payInput: false
+    payInput: false,
+    compose_type: "publication"
   },
 
 
@@ -194,12 +194,7 @@ Page({
       }
     });  
   },
-  input:function(e){
-    var that = this;
-    that.setData({
-      value: e.detail.value
-    })
-  },
+
   // 评论
   inputTyping: function (e) {
     this.setData({
@@ -207,6 +202,18 @@ Page({
       contShow: true
     })
   },
+  /**
+   * 评论输入框内容
+   */
+  input: function (e) {
+    var that = this;
+    that.setData({
+      value: e.detail.value
+    })
+  },
+  /**
+   * 添加评论
+   */
   sendBtn: function (e) {
     var that = this;
     that.setData({
@@ -216,8 +223,8 @@ Page({
     })
     var param = {};
     param['content'] = that.data.value;
-    param['types'] = that.data.types;
-    param['compose_type'] = 'publication';
+    param['types'] = 'comment';
+    param['compose_type'] = that.data.compose_type;
     param['openId'] = app.globalData.openId;
     param['compose_id'] = that.data.detail.id
     
@@ -237,7 +244,8 @@ Page({
         //评论完成更新数据
         var param = {
           compose_id: that.data.detail.id,
-          openId: app.globalData.openId
+          openId: app.globalData.openId,
+          compose_type:that.data.compose_type
         }
         comment.query('list', param).then(
           function (data) {
@@ -251,15 +259,6 @@ Page({
       }
     );    
   },
-  // contReply: function (e) {
-  //   this.setData({
-  //     contShow: true,
-  //     sendShow: false,
-  //     inputVal: "回复",
-  //     types:'reply'
-  //   })
-  // },
-  // 评论End
 
   /**
    * 生命周期函数--监听页面加载
@@ -282,12 +281,15 @@ Page({
       }
     });
   },
-
-  get_compose_list: function (id) {
+/**
+ *  获取评论
+ */
+  get_compose_list: function (id, compose_type) {
     var that = this;
     var param = {
       compose_id: id,
-      openId: app.globalData.openId
+      openId: app.globalData.openId,
+      compose_type: compose_type
     }
     comment.query('list', param).then(function (data) {
       if (data) {
@@ -350,9 +352,9 @@ Page({
       mask: true,
       title: '加载中...',
     })
-    this.get_detail(options.id);
-    this.get_compose_list(options.id);
-    this.is_like(options.id);
+    that.get_detail(options.id);
+    that.get_compose_list(options.id, that.data.compose_type);  //获取评论
+    that.is_like(options.id); //点赞
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

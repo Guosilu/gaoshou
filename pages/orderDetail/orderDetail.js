@@ -1,10 +1,80 @@
-const app = getApp();
-const config = require('../../config/config.js');
+const util = require('../../config/comment.js');
+const configLike = require('../../config/like.js');
+const config = util.config;
+const comment = util.comment;
+const app = util.app;
+
 Page({
   data: {
     like_status: null,
     detail: {},
+    compose_type:"orderDetail"
+    
   },
+
+
+  /**
+     * 评论输入框内容
+     */
+  input: function (e) {
+    var that = this;
+    that.setData({
+      value: e.detail.value
+    })
+  },
+  /**
+   * 添加评论
+   */
+  sendBtn: function (e) {
+    var that = this;
+    that.setData({
+      contShow: false,
+      sendShow: true,
+      inputVal: "",
+    })
+    var param = {};
+    param['content'] = that.data.value;
+    param['types'] = 'comment';
+    param['compose_type'] = that.data.compose_type;
+    param['openId'] = app.globalData.openId;
+    param['compose_id'] = that.data.detail.id
+
+    comment.query('add', param).then(
+      function (data) {
+        console.log(data);
+        if (data != '0') {
+          wx.showToast({
+            title: '添加成功',
+          })
+        } else {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none'
+          })
+        }
+        //评论完成更新数据
+        var param = {
+          compose_id: that.data.detail.id,
+          openId: app.globalData.openId,
+          compose_type: that.data.compose_type
+        }
+        comment.query('list', param).then(
+          function (data) {
+            console.log(data);
+            that.setData({
+              comment: data
+            })
+          }
+        );
+
+      }
+    );
+  },
+
+
+
+
+
   is_like: function (id) {
     let that = this;
     wx.request({
@@ -126,8 +196,29 @@ Page({
         }
       }
     });
+    that.get_compose_list(options.id, that.data.compose_type);  //获取评论
   },
-
+  /**
+   *  获取评论
+   */
+  get_compose_list: function (id, compose_type) {
+    var that = this;
+    var param = {
+      compose_id: id,
+      openId: app.globalData.openId,
+      compose_type: compose_type
+    }
+    comment.query('list', param).then(function (data) {
+      if (data) {
+        console.log(data);
+        that.setData({
+          comment: data,
+          loading: that.data.loading + 1
+        })
+        if (that.data.loading == 3) wx.hideLoading();
+      }
+    });
+  },
   //赏金
   money: function (e) {
     console.log(e);
