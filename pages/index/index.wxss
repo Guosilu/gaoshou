@@ -2,6 +2,9 @@
 .weui-cells{
   margin-top: 5rpx;
 }
+.search-back{
+  width: 40rpx;
+}
 .search-res{
   
 }

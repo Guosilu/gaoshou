@@ -1,3 +1,4 @@
+@import "/pages/template/contact/contact.wxss";
 .ex-title{
   position: relative;
   font-size: 18px;
