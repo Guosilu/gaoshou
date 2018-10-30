@@ -25,7 +25,6 @@
       <view bindtap='openPay' class='reward-btn'>
         赏
       </view>
-      
       <view wx:if="{{payOpen}}" class='paySelect' catchtouchmove="ture">
         <view class='payTitle'>请选择金额</view>
         <view class='payInner' hidden='{{payInput}}'>
@@ -47,11 +46,7 @@
           <view bindtap='reward' class='payBtn true' wx:if="{{payInput}}">确定</view>
         </view>
       </view>
-
-
-      
     </view>
-
     <view class='rule page__modules modules__shadow'>
       <view class='rule-cont no-borderTop'>
         <view class='cont-title'>
@@ -92,7 +87,6 @@
         </view>
       </view>
     </view>
-
     <view class='informat'>
       <view class='ex-tit'>
         推荐活动
@@ -120,7 +114,6 @@
       </view>
     </view>
   </view>
-
   <import src='../template/foot/foot.wxml' />
   <template is='foot'></template>
 </block>
