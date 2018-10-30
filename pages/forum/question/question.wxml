@@ -16,8 +16,8 @@
 <view class='contact-box'>
   <view class='contact-bar'>回答（1）</view>
   <view class='contact-item'>
-    <navigator url="" class='u-name'>
-    <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>等等，我先提上裤子</navigator>
+    <navigator url="" class='qu-name'>
+    <image class='qu-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>等等，我先提上裤子</navigator>
     <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
     <view class='contm-bar'>
       <view>

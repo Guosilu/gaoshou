@@ -32,7 +32,7 @@
   padding-bottom: 15rpx;
 }
 
-.u-avatar {
+.qu-avatar {
   width: 66rpx;
   border: 5rpx solid #fff;
   border-radius: 50%;
@@ -40,7 +40,7 @@
   margin-right: 5rpx;
 }
 
-.u-name {
+.qu-name {
   padding: 20rpx 0;
   color: #405b95;
 }
