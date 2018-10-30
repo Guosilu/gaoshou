@@ -47,6 +47,9 @@
           <view bindtap='reward' class='payBtn true' wx:if="{{payInput}}">确定</view>
         </view>
       </view>
+
+
+      
     </view>
 
     <view class='rule page__modules modules__shadow'>

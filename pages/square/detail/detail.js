@@ -11,8 +11,12 @@ Page({
     img: config.img,
     image:[],
     data:[],
-    options:'',
+    options: '', 
+    payOpen: false,
+    payInput: false
   },
+
+
   is_like: function (id) {
     let that = this;
     wx.request({
@@ -141,6 +145,104 @@ Page({
       }
     })
   },
+
+  // -----------------赏金开始----------------
+  money: function (e) {
+    console.log(e);
+    var that = this;
+    that.setData({
+      money: e.currentTarget.dataset.money
+    })
+    that.reward();
+  },
+  money1: function (e) {
+    console.log(e);
+    var that = this;
+    that.setData({
+      money: (e.detail.value) * 100,
+    })
+  },
+  openPay: function () {
+    this.setData({
+      payOpen: true
+    })
+  },
+  closePay: function () {
+    this.setData({
+      payOpen: false
+    })
+  },
+  otherAmount: function () {
+    this.setData({
+      payInput: true,
+    })
+  },
+  fixAmount: function () {
+    this.setData({
+      payInput: false,
+    })
+  },
+  reward: function (e) {
+    var randa = new Date().getTime().toString();
+    var randb = Math.round(Math.random() * 10000).toString();
+    var that = this;
+    wx.request({
+      url: config.payApi,
+      dataType: "json",
+      method: "post",
+      data: {
+        action: "unifiedOrder",
+        out_trade_no: randa + randb, //商户订单号
+        body: "赛脉平台赏金", //商品描述
+        total_fee: that.data.money, //金额 单位:分
+        trade_type: "JSAPI", //交易类型
+        openId: app.globalData.openId
+      },
+      success: function (res) {
+        console.log(res.data);
+        var data = res.data;
+
+        //生成签名
+        wx.request({
+          url: config.payApi,
+          dataType: "json",
+          method: "post",
+          data: {
+            "action": "getSign",
+            'package': "prepay_id=" + data.prepay_id
+          },
+          success: function (res) {
+            var signData = res.data;
+            console.log(res.data);
+            // 调用支付
+            wx.requestPayment({
+              'timeStamp': signData.timeStamp,
+              'nonceStr': signData.nonceStr,
+              'package': signData.package,
+              'signType': "MD5",
+              'paySign': signData.sign,
+              success: function (res) {
+                console.log(res);
+                that.setData({
+                  payOpen: false
+                })
+              },
+              fail: function (res) {
+                console.log(res);
+              },
+              complete: function (res) {
+                console.log(res);
+              }
+            })
+          }
+        })
+      }
+    })
+
+  },
+  // -----------------赏金结束----------------
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
