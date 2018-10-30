@@ -1,4 +1,15 @@
 /**index.wxss**/
+.search-res{
+  font-size: 16px;
+}
+.search-tag{
+  display: inline-block;
+  padding: 5rpx 10rpx;
+  border-radius: 6rpx;
+  background: #6DDC94;
+  color: #FFF;
+  font-size: 12px;
+}
 .userinfo {
   display: flex;
   flex-direction: column;
