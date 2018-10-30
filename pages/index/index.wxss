@@ -1,5 +1,11 @@
 /**index.wxss**/
+.weui-cells{
+  margin-top: 5rpx;
+}
 .search-res{
+  
+}
+.search-tit{
   font-size: 16px;
 }
 .search-tag{
@@ -9,6 +15,7 @@
   background: #6DDC94;
   color: #FFF;
   font-size: 12px;
+  margin-right: 5rpx;
 }
 .userinfo {
   display: flex;
