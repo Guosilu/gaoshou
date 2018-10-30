@@ -1,4 +1,3 @@
-
 <view class='page__modules'>
   <view class='blist-item'>
     <navigator url='/pages/forum/article/article'>

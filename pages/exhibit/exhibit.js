@@ -109,7 +109,6 @@ Page({
 
 
   },
-  
   is_like: function(id) {
     let that = this;
     wx.request({
