@@ -90,7 +90,7 @@
       <navigator url="" class='u-name'>{{item.nickName}}</navigator>
       <view class='cont-fav'>
         <image src='/images/zan.png' mode='widthFix' />{{item.like?item.like:0}}</view>
-      <navigator url='pages/template/contact/details/details?id={{item.id}}'>
+      <navigator url='../template/contact/details/details?id={{item.id}}'>
         <view class='cont-text'>
           {{item.content}}
         </view>
@@ -108,11 +108,8 @@
         <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
       </view>
       <view>
-        <input type='rext' focus='{{contShow}}' bindtap='inputTyping' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
+        <input type='rext' focus='{{contShow}}' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
       </view>
-      <!-- <view class='fr' hidden='{{contShow}}'>
-      <image class='cont-icon' src='/images/contact.png' mode='widthFix'></image>
-    </view> -->
       <view class='fr' hidden='{{sendShow}}'>
         <view class='send-btn' bindtap='sendBtn'>发送</view>
       </view>
