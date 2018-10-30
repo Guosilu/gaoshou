@@ -10,29 +10,31 @@
     </view>
   </view>
   <view class='ask-box'>
-    <image class='contm-icon' src='/images/edit.png' mode='widthFix'/> 我有靠谱回答
+    <image class='contm-icon' src='/images/edit.png' mode='widthFix' /> 我有靠谱回答
   </view>
 </view>
 <view class='contact-box'>
   <view class='contact-bar'>回答（1）</view>
   <view class='contact-item'>
-    <navigator url="" class='qu-name'>
-    <image class='qu-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>等等，我先提上裤子</navigator>
-    <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
-    <view class='contm-bar'>
-      <view>
-        <image src='/images/support.png' class='contm-icon' mode='widthFix'></image>18
+    <navigator url='/pages/forum/article/article'>
+      <view class='qu-name'>
+        <image class='qu-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>等等，我先提上裤子</view>
+      <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
+      <view class='contm-bar'>
+        <view>
+          <image src='/images/support.png' class='contm-icon' mode='widthFix'></image>18
+        </view>
+        <view>
+          <image src='/images/oppose.png' class='contm-icon' mode='widthFix'></image>踩
+        </view>
+        <view>
+          <image src='/images/contact.png' class='contm-icon' mode='widthFix'></image>16
+        </view>
+        <view>
+          <image src='/images/share.png' class='contm-icon' mode='widthFix'></image>分享
+        </view>
       </view>
-      <view>
-        <image src='/images/oppose.png' class='contm-icon' mode='widthFix'></image>踩
-      </view>
-      <view>
-        <image src='/images/contact.png' class='contm-icon' mode='widthFix'></image>16
-      </view>
-      <view>
-        <image src='/images/share.png' class='contm-icon' mode='widthFix'></image>分享
-      </view>
-    </view>
+    </navigator>
   </view>
   <view class='send-box'>
     <view>

@@ -4,7 +4,7 @@
 }
 .search-back{
   width: 40rpx;
-  margin-top: 12rpx;
+  margin-top: 10rpx;
   margin-left: -20rpx;
 }
 .search-res{
