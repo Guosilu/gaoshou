@@ -2,7 +2,7 @@
   <view class="page__bd">
     <!-- 搜索 -->
     <view class="weui-search-bar">
-      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">
+      <view class="" hidden="{{!inputShowed}}" bindtap="hideInput">
         <image class='search-back' src='/images/s-back.png' mode='widthFix'></image>
       </view>
       <view class="weui-search-bar__form">
