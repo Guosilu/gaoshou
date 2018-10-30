@@ -152,7 +152,7 @@
           <image mode='aspectFill' src="{{item.thumb}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
-            <view class='sys-number'>编号：{{item.number?item.number:"暂无"}}</view>
+            <view class='sys-number'>编号：<text selectable='true'>{{item.number?item.number:"暂无"}}</text></view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
