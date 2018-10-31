@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/search/search",
     "pages/index/index",
+    "pages/search/search",
     "pages/forum/forum",
     "pages/forum/question/question",
     "pages/square/square",
@@ -28,7 +28,9 @@
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
     "pages/template/reward/reward",
-    "pages/publication/detail/detail"
+    "pages/publication/detail/detail",
+    "pages/forum/add/q/q",
+    "pages/forum/add/a/a"
   ],
   "window": {
     "backgroundTextStyle": "light",
