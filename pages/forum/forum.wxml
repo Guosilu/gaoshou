@@ -1,14 +1,12 @@
-<view class='page__modules'>
+<view class='page__modules' wx:for='{{detail}}' wx:key="*this">
   <view class='blist-item'>
-    <navigator url='/pages/forum/question/question'>
-      <view class='list-title'>问答问答问答</view>
+    <navigator url='./question/question?id={{item.id}}'>
+      <view class='list-title'>{{item.title}}</view>
       <view class='del-cont'>
-        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
-        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
-        <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+        <image wx:for='{{item.image}}' wx:for-item='img' wx:key='*this' src='{{img}}' mode='aspectFill'></image>
       </view>
       <view class='del-name'>
-        打不死的小强
+        {{item.nickName}}
       </view>
     </navigator>
   </view>

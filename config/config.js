@@ -10,6 +10,7 @@ const coreUrl = baseUrl + "gaoshou/core/";
 const img = baseUrl + "gaoshou/images/";
 const comment = baseUrl +'gaoshou/api/commentApi.php';
 const payApi = baseUrl +'gaoshou/pay/GetSth.php'
+const forum = baseUrl + 'gaoshou/api/forumApi.php';
 
 // 对外接口
 module.exports = {
@@ -22,5 +23,6 @@ module.exports = {
   img: img,
   squareUrl: squareUrl,
   comment: comment,
-  payApi: payApi
+  payApi: payApi,
+  forum: forum
 }

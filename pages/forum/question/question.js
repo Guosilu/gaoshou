@@ -34,9 +34,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options);
   },
-
+  query: function () {
+    var that = this;
+    wx.request({
+      url: config.forum,
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'answerList'
+      },
+      success: function (res) {
+        var res = res.data;
+        console.log(res)
+  
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

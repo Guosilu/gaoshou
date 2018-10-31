@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -55,6 +55,18 @@
 					"name": "参与活动详情页面",
 					"pathName": "pages/orderDetail/orderDetail",
 					"query": "id=24"
+				},
+				{
+					"id": 3,
+					"name": "论坛首页",
+					"pathName": "pages/forum/forum",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "论坛问答首页",
+					"pathName": "pages/forum/question/question",
+					"query": "id=2"
 				}
 			]
 		}

@@ -1,4 +1,5 @@
-// pages/forum/forum.js
+const app = getApp()
+const config = require('../../config/config.js');
 Page({
 
   /**
@@ -12,7 +13,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.query();
+  },
+  query: function (){
+    var that = this;
+    wx.request({
+      url: config.forum,
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'questionList'
+      },
+      success: function (res) {
+        var res = res.data;
+        for(let a=0;a<res.length;a++){
+          res[a]['image'] = res[a]['image'].split(',');
+        }
+        console.log(res)
+        that.setData({
+          detail: res
+        })
+      }
+    })
   },
 
   /**
