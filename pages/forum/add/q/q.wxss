@@ -1,1 +1,38 @@
-/* pages/forum/add/q/q.wxss */
+.post-icon-container {
+  display: flex;
+  position: relative;
+  border: 2rpx solid rgb(214, 214, 214);
+  border-radius: 30rpx;
+  overflow: hidden;
+}
+
+.post-icon-emoj-wrap {
+  width: 30rpx;
+  min-height: 0px;
+  padding: 5rpx 18rpx 10rpx 5rpx;
+  display: inline-block;
+  position: relative;
+  background-color: rgba(245, 245, 245, 1);
+}
+
+.post-icon-img {
+  background: url(http://i.pengxun.cn//content/images/imgpost2/01/post-big-pic-01.png) no-repeat 0 -260px;
+  background-size: 100%;
+  height: 20px;
+  width: 20px;
+}
+
+.post-icon-voice {
+  background: url(http://i.pengxun.cn//content/images/imgpost2/01/post-big-pic-01.png) no-repeat 0 -220px;
+  background-size: 100%;
+  height: 20px;
+  width: 20px;
+}
+
+.post-icon-vedio {
+  background: url(http://i.pengxun.cn//content/images/imgpost2/01/post-big-pic-01.png) no-repeat 0 -300px;
+  background-size: 100%;
+  height: 20px;
+  width: 20px;
+}
+

@@ -1,2 +1,30 @@
 <!--pages/forum/add/q/q.wxml-->
-<text>pages/forum/add/q/q.wxml</text>
+<form bindsubmit="formSubmit">
+  <view class="page__modules modules__shadow">
+    <input class="activityName" name='title' value='{{form_reset}}' placeholder="文章标题"></input>
+    <view class="activityType">
+      <picker bindchange="bindAccountChange" name='type' value="{{activityTypeIndex}}" range="{{activityType}}">
+        <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[activityTypeIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="page__modules modules__shadow">
+    <textarea placeholder="文章内容" name='rule' value='{{form_reset}}'></textarea>
+
+    <view class="post-icon-container">
+      <view class="post-icon-emoj-wrap">
+        <view class="post-icon-img"></view>
+      </view>
+      <view class="post-icon-emoj-wrap">
+        <view class="post-icon-voice"></view>
+      </view>
+      <view class="post-icon-emoj-wrap">
+        <view class="post-icon-vedio"></view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="warn" formType="submit">发表</button>
+  </view>
+</form>
