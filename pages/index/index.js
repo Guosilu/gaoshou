@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    stopLoading: 0,
     // 网站信息
     siteName: "高手网",
     img:config.img,
@@ -71,7 +72,7 @@ Page({
       success: function (res) {
         console.log(res.data);
         that.setData({
-          taglist: res.data
+          taglist: res.data,
         });
       }
     })
@@ -89,8 +90,6 @@ Page({
         });
       }
     })
-
-
     //获取作品
     wx.request({
       url: config.publicationUrl,
@@ -101,16 +100,37 @@ Page({
       success: function (res) {
         console.log(res.data);
         that.setData({
-          worksList: res.data
+          worksList: res.data,
         });
+      },
+      complete: function () {
+        that.refreshStop();
       }
     })
-
+    
+  },
+  refreshStop: function() {
+    wx.hideLoading();
+    // 隐藏导航栏加载框
+    wx.hideNavigationBarLoading();
+    // 停止下拉动作
+    wx.stopPullDownRefresh();
   },
   onLoad: function() {
     app.redirectTo();
+    this.getActivityList();
   },
   onShow: function() {
+    
+  },
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    wx.showLoading({
+      title: '正在加载....',
+      icon: "loading"
+    })
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
     this.getActivityList();
-  }
+  },
 })

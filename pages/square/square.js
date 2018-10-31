@@ -36,6 +36,9 @@ Page({
     var that = this;
     if (onShow == 1) {
       var page = 1;
+      var pagesize = that.data.pagesize; 
+    } else if(onShow == 2){
+      var page = 1;
       var pagesize = that.data.pagesize * that.data.page; 
     } else {
       var page = that.data.page;
@@ -60,12 +63,18 @@ Page({
         if (res.data != '[]') {
           if (onShow == 1) {
             that.setData({
-              list: data
+              list: data,
+              page: 1,
             })
-            
+          } else if (onShow == 2) {
+            that.setData({
+              list: data,
+              page: 1,
+            })
           } else {
             that.setData({
-              list: that.data.list.concat(data)
+              list: that.data.list.concat(data),
+              page: that.data.page+1,
             })
           }
         } else {
@@ -81,10 +90,17 @@ Page({
           icon: "none"
         })
       },
-      complete: function() {
-        wx.hideLoading();
+      complete: function () {
+        that.refreshStop();
       }
     })
+  },
+  refreshStop: function () {
+    wx.hideLoading();
+    // 隐藏导航栏加载框
+    wx.hideNavigationBarLoading();
+    // 停止下拉动作
+    wx.stopPullDownRefresh();
   },
   /**
    * 生命周期函数--监听页面加载
@@ -92,6 +108,17 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.query('list', config.squareUrl);
+  },
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    wx.showLoading({
+      title: '正在加载....',
+      icon: "loading"
+    })
+    wx.showNavigationBarLoading();
+    this.query('list', config.squareUrl, 1);
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -137,16 +164,6 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    wx.showLoading({
-      title: '正在加载....',
-      icon: "loading"
-    })
-    this.query('list', config.squareUrl, 1);
-  },
 
   /**
    * 用户点击右上角分享
