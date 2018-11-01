@@ -9,29 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    contShow: false,
-    sendShow: true,
-    inputVal: "",
-  },
-  inputTyping: function (e) {
-    this.setData({
-      sendShow: false,
-      contShow: true
-    })
-  },
-  sendBtn: function (e) {
-    this.setData({
-      contShow: false,
-      sendShow: true,
-      inputVal: "",
-    })
-  },
-  contReply: function (e) {
-    this.setData({
-      contShow: true,
-      sendShow: false,
-      inputVal: "回复",
-    })
+
   },
 
   /**

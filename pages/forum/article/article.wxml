@@ -2,14 +2,13 @@
 <view class="page">
   <view class="page__bd">
     <view class="weui-article">
-      <view class="weui-article__h1">大标题</view>
       <view class='weui-article__user'>
-        <image class="weui-article__avatar" src="https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png" mode='widthFix'></image>
-        <navigator class='qu-name'>打不死的小强</navigator>
+        <image class="weui-article__avatar" src="{{answer.avatarUrl}}" mode='widthFix'></image>
+        <navigator class='qu-name'>{{answer.nickName}}</navigator>
       </view>
       <view class="weui-article__section">
         <view class="weui-article__p">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          {{answer.answer?answer.answer:"加载中....."}}
         </view>
       </view>
     </view>
@@ -18,7 +17,8 @@
 
 <view class='contact-box'>
   <view>全部评论</view>
-  <view class='contact-item'>
+
+  <view class='contact-item' wx:for='{{comment}}' wx:key="*this">
     <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
     <navigator url="" class='u-name'>等等，我先提上裤子</navigator>
     <view class='cont-fav'>
@@ -29,6 +29,8 @@
       <text class='cont-reply' bindtap='contReply'>回复Ta</text>
     </view>
   </view>
+
+
   <view class='send-box'>
     <view>
       <image class='back-icon' src='/images/back.png' mode='widthFix'></image>

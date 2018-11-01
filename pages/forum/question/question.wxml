@@ -16,15 +16,18 @@
 
 
 <view class='contact-box'>
-  <view class='contact-bar'>回答（1）</view>
+  <view class='contact-bar'>回答（{{question.answerNum?question.answerNum:0}}）</view>
 
   <view class='contact-item' wx:for="{{answer}}" wx:key="*this">
-    <navigator url='/pages/forum/article/article?id={{item.id}}'>
-      <view class='qu-name'>
-        <image class='qu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
-        {{item.nickName}}
-      </view>
-      <view class='cont-text'>{{item.answer}}</view>
+  
+      <navigator url='/pages/forum/article/article?id={{item.id}}'>
+        <view class='qu-name'>
+          <image class='qu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+          {{item.nickName}}
+        </view>
+        <view class='cont-text'>{{item.answer}}</view>
+      </navigator>
+
       <view class='contm-bar'>
         <view>
           <image src='/images/support.png' class='contm-icon' mode='widthFix'></image>{{item.like?item.like:"0"}}
@@ -39,12 +42,12 @@
           <image src='/images/share.png' class='contm-icon' mode='widthFix'></image>分享
         </view>
       </view>
-    </navigator>
+    
   </view>
   
 
 
-  <view class='send-box'>
+  <!-- <view class='send-box'>
     <view>
       <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
     </view>
@@ -57,5 +60,5 @@
     <view class='fr' hidden='{{sendShow}}'>
       <view class='send-btn' bindtap='sendBtn'>发送</view>
     </view>
-  </view>
+  </view> -->
 </view>
