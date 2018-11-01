@@ -2,33 +2,38 @@
 <!--pages/forum/forum.wxml-->
 <view class='page__modules'>
   <view class='blist-item'>
-    <view class='que-title'>问答问答问答</view>
+    <view class='que-title'>{{question.title}}</view>
     <view class='del-cont'>
-      <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
-      <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
-      <image src='https://aa.zdcom.net.cn/gaoshou/upload/2018/10/23/15402557452818.png' mode='aspectFill'></image>
+      <image src='{{item}}' mode='aspectFill' wx:for="{{question.image}}" wx:key="*key" class='cont-imgg'></image>
     </view>
   </view>
+
   <view class='ask-box'>
     <image class='contm-icon' src='/images/edit.png' mode='widthFix' /> 我有靠谱回答
   </view>
+
 </view>
+
+
 <view class='contact-box'>
   <view class='contact-bar'>回答（1）</view>
-  <view class='contact-item'>
-    <navigator url='/pages/forum/article/article'>
+
+  <view class='contact-item' wx:for="{{answer}}" wx:key="*this">
+    <navigator url='/pages/forum/article/article?id={{item.id}}'>
       <view class='qu-name'>
-        <image class='qu-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>等等，我先提上裤子</view>
-      <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
+        <image class='qu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+        {{item.nickName}}
+      </view>
+      <view class='cont-text'>{{item.answer}}</view>
       <view class='contm-bar'>
         <view>
-          <image src='/images/support.png' class='contm-icon' mode='widthFix'></image>18
+          <image src='/images/support.png' class='contm-icon' mode='widthFix'></image>{{item.like?item.like:"0"}}
         </view>
         <view>
           <image src='/images/oppose.png' class='contm-icon' mode='widthFix'></image>踩
         </view>
         <view>
-          <image src='/images/contact.png' class='contm-icon' mode='widthFix'></image>16
+          <image src='/images/contact.png' class='contm-icon' mode='widthFix'></image>{{item.pinglun?item.pinglun:"0"}}
         </view>
         <view>
           <image src='/images/share.png' class='contm-icon' mode='widthFix'></image>分享
@@ -36,6 +41,9 @@
       </view>
     </navigator>
   </view>
+  
+
+
   <view class='send-box'>
     <view>
       <image class='back-icon' src='/images/back.png' mode='widthFix'></image>

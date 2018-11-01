@@ -122,3 +122,11 @@
   background: #3c76ff;
   color: #FFF;
 }
+.del-cont{
+  justify-content: start;
+  flex-wrap: wrap;
+}
+.del-cont .cont-imgg{
+  width: 29%;
+  margin: 2%;
+}

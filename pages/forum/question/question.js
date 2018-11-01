@@ -1,4 +1,8 @@
-// pages/forum/question/question.js
+const util = require('../../../config/comment.js');
+const configLike = require('../../../config/like.js');
+const config = util.config;
+const comment = util.comment;
+const app = util.app;
 Page({
 
   /**
@@ -34,21 +38,54 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
+    var that = this;
+    that.getQuestion(options.id);
+    that.getAnswerList(options.id);
   },
-  query: function () {
+  /**
+   * 获取问题
+   */
+  getQuestion: function (id){
     var that = this;
     wx.request({
       url: config.forum,
       method: 'POST',
       dataType: 'json',
       data: {
-        action: 'answerList'
+        action: 'question',
+        id: id
+      },
+      success: function (res) {
+        var res = res.data;
+        res['image'] = res['image'].split(',')
+        that.setData({
+          question: res
+        })
+        console.log(res)
+
+      }
+    })
+  },
+
+  /**
+   * 获取回答列表
+   */
+  getAnswerList: function (id) {
+    var that = this;
+    wx.request({
+      url: config.forum,
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'getAnswerList',
+        id: id
       },
       success: function (res) {
         var res = res.data;
         console.log(res)
-  
+        that.setData({
+          answer: res
+        })
       }
     })
   },
