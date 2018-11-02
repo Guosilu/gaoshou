@@ -38,12 +38,14 @@ Page({
       inputShowed: true
     });
   },
+
   hideInput: function() {
     this.setData({
       inputVal: "",
       inputShowed: false
     });
   },
+
   clearInput: function() {
     this.setData({
       inputVal: ""
@@ -55,7 +57,7 @@ Page({
       downSearchList: false,
     });
   },
-
+  
   inputTyping: function(e) {
     let that = this;
     console.log(e);
@@ -74,8 +76,9 @@ Page({
       });
     })  
     this.setData({
+      keyword: e.detail.value,
       showList: {},
-      downSearchList: e.detail.value > 0 ? true : false,
+      downSearchList: true,
     });
   },
   //事件处理函数
@@ -84,6 +87,13 @@ Page({
       url: '../logs/logs'
     })
   },
+
+  navigatorSearch: function () {
+    wx.navigateTo({
+      url: '../search/search?keyword=' + this.data.keyword
+    })
+  },
+
   getActivityList: function () {
     var that = this;
     //获取活动
