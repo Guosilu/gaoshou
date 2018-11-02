@@ -1,4 +1,7 @@
-// pages/recharge/recharge.js
+const util = require('../../utils/util.js')
+const config = require('../../config/config.js');
+const configLike = require('../../config/like.js');
+const app = getApp()
 Page({
 
   /**
@@ -6,9 +9,79 @@ Page({
    */
   data: {
     activeIndex: 0,//默认选中第一个
-    numArray: [10, 20, 30, 40, 50, 60, 70, 80, 90]
+    numArray: [10, 20, 30, 40, 50, 60, 70, 80, 90],
+    money : 1,
   },
 
+  pay: function (){
+    console.log(app.globalData.openId);
+    var randa = new Date().getTime().toString();
+    var randb = Math.round(Math.random() * 10000).toString();
+    var that = this;
+    wx.request({
+      url: config.payApi,
+      dataType: "json",
+      method: "post",
+      data: {
+        action: "unifiedOrder",
+        out_trade_no: randa + randb, //商户订单号
+        body: "赛脉平台充值", //商品描述
+        total_fee: that.data.money, //金额 单位:分
+        trade_type: "JSAPI", //交易类型
+        openId: app.globalData.openId
+      },
+      success: function (res) {
+        console.log(res.data);
+        var data = res.data;
+
+        //生成签名
+        wx.request({
+          url: config.payApi,
+          dataType: "json",
+          method: "post",
+          data: {
+            "action": "getSign",
+            'package': "prepay_id=" + data.prepay_id
+          },
+          success: function (res) {
+            var signData = res.data;
+            console.log(res.data);
+            wx.requestPayment({
+              'timeStamp': signData.timeStamp,
+              'nonceStr': signData.nonceStr,
+              'package': signData.package,
+              'signType': "MD5",
+              'paySign': signData.sign,
+              success: function (res) {
+                console.log(res);
+                // 添加数据库信息
+                wx.request({
+                  url: config.payApi,
+                  dataType: "json",
+                  method: "post",
+                  data: {
+                    "action": "AddUserData",
+                    "total_fee": that.data.money,
+                    "type": 'user',
+                    "id": app.globalData.openId
+                  },
+                  success: function (res) {
+                    wx.showToast({
+                      title: '赞赏成功',
+                    })
+                  }
+                })
+  
+              },
+              fail: function (res) {
+                console.log(res);
+              }
+            })
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -66,8 +139,10 @@ Page({
   },
   activethis: function (event) {//点击选中事件
     var thisindex = event.currentTarget.dataset.thisindex;//当前index
+    var money = event.currentTarget.dataset.money;//当前index
     this.setData({
-      activeIndex: thisindex
+      activeIndex: thisindex,
+      money: money*100
     })
   }
 
