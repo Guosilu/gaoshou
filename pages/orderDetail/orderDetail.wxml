@@ -85,7 +85,7 @@
       <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
       <navigator url="" class='u-name'>{{item.nickName}}</navigator>
       <view class='cont-fav'>
-      <image src='/images/{{item.like_status ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' bindtap='{{item.like_status ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}</view>
+      <image src='/images/{{item.like_status > 0 ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' bindtap='{{item.like_status > 0 ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}</view>
       <navigator url='../template/contact/details/details?id={{item.id}}'>
         <view class='cont-text'>
           {{item.content}}
