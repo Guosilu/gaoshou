@@ -9,7 +9,6 @@ Page({
     // 网站信息
     siteName: "高手网",
     img:config.img,
-
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,

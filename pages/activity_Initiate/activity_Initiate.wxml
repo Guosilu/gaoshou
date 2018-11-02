@@ -6,40 +6,44 @@
       <swiper-item>
         <image src="{{item}}" class="slide-image" />
       </swiper-item>
-    </block> 
+    </block>
   </swiper>
 </view>
 
-<view wx:if="{{isLogin}}"> 
-<form bindsubmit="formSubmit">
-  <view class="page__modules modules__shadow">
-    <input class="activityName" name='title' value='{{form_reset}}' placeholder="请输入活动名称"></input>
-    <view class="activityType">
-      <picker bindchange="bindAccountChange" name='type' value="{{activityTypeIndex}}" range="{{activityType}}">
-        <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[activityTypeIndex]}}</view>
-      </picker>
+<view wx:if="{{isLogin}}">
+  <form bindsubmit="formSubmit">
+    <view class='act-cate'>
+      <view bindtap='cateClick' class='{{cateActive==index?"on":""}}' wx:for="{{cateName}}" data-current="{{index}}" wx:key="{{index}}">{{item}}</view>
     </view>
-  </view>
+    <view class="page__modules modules__shadow">
+      <input class="activityName" name='title' value='{{form_reset}}' placeholder="请输入活动名称"></input>
+      <view class="activityType">
+        <picker bindchange="bindAccountChange" name='type' value="{{activityTypeIndex}}" range="{{activityType}}">
+          <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[activityTypeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
 
-  <view class="page__modules modules__shadow">
-    <view class="page__bd">
-      <view class="weui-cells">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <view class="weui-uploader">
-              <view class="weui-uploader__hd">
-                <view class="weui-uploader__title">活动封面</view>
-                <view class="weui-uploader__info">{{file ? 1 : 0}}/1</view>
-              </view>
-              <view class="weui-uploader__bd">
-                <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{file != ''}}">
+    <view class="page__modules modules__shadow" wx:if='{{cateActive==0}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">活动封面</view>
+                  <view class="weui-uploader__info">{{file ? 1 : 0}}/1</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{file != ''}}">
                     <view class="weui-uploader__file">
                       <image class="weui-uploader__img" bindtap="previewImage" src="{{file}}" mode="aspectFill" />
                       <view bindtap="delImg">删除</view>
                     </view>
-                </view>
-                <view wx:if="{{file==''}}" class="weui-uploader__input-box">
-                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                  <view wx:if="{{file==''}}" class="weui-uploader__input-box">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
                 </view>
               </view>
             </view>
@@ -47,47 +51,46 @@
         </view>
       </view>
     </view>
-  </view>
 
-  <view class="page__modules modules__shadow">
-    <textarea placeholder="请输入活动规则" name='rule' value='{{form_reset}}'></textarea>
-  </view>
-  <view class="page__modules modules__shadow">
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">开始日期</view>
+    <view class="page__modules modules__shadow">
+      <textarea placeholder="请输入活动规则" name='rule' value='{{form_reset}}'></textarea>
+    </view>
+    <view class="page__modules modules__shadow">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">开始日期</view>
+        </view>
+        <view class="weui-cell__bd selectTime">
+          <picker mode="date" name='bdate' value="{{bdate}}" start="2018-09-01" end="2029-09-01" bindchange="bindDateChange">
+            <view class="weui-input">{{bdate}}</view>
+          </picker>
+          <picker mode="time" name='btime' value="{{btime}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+            <view class="weui-input">{{btime}}</view>
+          </picker>
+        </view>
       </view>
-      <view class="weui-cell__bd selectTime">
-        <picker mode="date" name='bdate' value="{{bdate}}" start="2018-09-01" end="2029-09-01" bindchange="bindDateChange">
-          <view class="weui-input">{{bdate}}</view>
-        </picker>
-        <picker mode="time" name='btime' value="{{btime}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-          <view class="weui-input">{{btime}}</view>
-        </picker>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">结束日期</view>
+        </view>
+        <view class="weui-cell__bd selectTime">
+          <picker name='edate' mode="date" value="{{edate}}" start="2018-09-01" end="2029-09-01" bindchange="bindeDateChange">
+            <view class="weui-input">{{edate}}</view>
+          </picker>
+          <picker name='etime' mode="time" value="{{etime}}" start="09:01" end="21:01" bindchange="bindeTimeChange">
+            <view class="weui-input">{{etime}}</view>
+          </picker>
+        </view>
       </view>
     </view>
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">结束日期</view>
-      </view>
-      <view class="weui-cell__bd selectTime">
-        <picker name='edate' mode="date" value="{{edate}}" start="2018-09-01" end="2029-09-01" bindchange="bindeDateChange">
-          <view class="weui-input">{{edate}}</view>
-        </picker>
-        <picker name='etime' mode="time" value="{{etime}}" start="09:01" end="21:01" bindchange="bindeTimeChange">
-          <view class="weui-input">{{etime}}</view>
-        </picker>
-      </view>
+    <view style="overflow:hidden;">
+      <navigator url="/pages/xieyi/index" class="uploadRuler">
+        了解上传协议？
+      </navigator>
     </view>
-  </view>
-  <view style="overflow:hidden;">
-    <navigator url="/pages/xieyi/index" class="uploadRuler">
-      了解上传协议？
-    </navigator>
-  </view>
-  <view class="weui-btn-area">
-    <button class="weui-btn" type="warn" formType="submit">提交</button>
-  </view>
-</form>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="warn" formType="submit">提交</button>
+    </view>
+  </form>
 </view>
 <view wx:else>未登录</view>
