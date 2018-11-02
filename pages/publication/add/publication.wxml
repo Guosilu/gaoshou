@@ -1,6 +1,6 @@
 <!--pages/publication/Publication.wxml-->
 <view>
-  <!-- 轮播 --> 
+  <!-- 轮播 -->
   <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{imgUrls}}" wx:key="*this">
       <swiper-item>
@@ -10,59 +10,59 @@
   </swiper>
 </view>
 
-<view wx:if="{{isLogin}}"> 
-<form bindsubmit="formSubmit" bindreset="formReset">
-<view class="page__modules modules__shadow">
-  <input class="activityName" name="title" placeholder="请填写作品名称"></input>
-  <view class="activityType">
-    <picker name="type" bindchange="bindAccountChange" value="{{activityType[activityTypeIndex]}}" range="{{activityType}}">
-      <view class="weui-select" style="background-image: url({{img}}Triangle.png);background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;">{{activityType[activityTypeIndex]}}</view>
-    </picker>
-  </view>
-</view>
+<view wx:if="{{isLogin}}">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="page__modules modules__shadow">
+      <input class="activityName" name="title" placeholder="请填写作品名称"></input>
+      <view class="activityType">
+        <picker name="type" bindchange="bindAccountChange" value="{{activityType[activityTypeIndex]}}" range="{{activityType}}">
+          <view class="weui-select" style="background-image: url({{img}}Triangle.png);background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;">{{activityType[activityTypeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
 
-<view class="page__modules modules__shadow">
-  <view class="page__bd">
-    <view class="weui-cells">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__hd">
-              <view class="weui-uploader__title">上传图片</view>
-              <view class="weui-uploader__info">{{files.length}}/4</view>
-            </view>
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="uploaderFiles">
-                <block wx:for="{{files}}" wx:key="*this">
-                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+    <view class="page__modules modules__shadow">
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传图片</view>
+                  <view class="weui-uploader__info">{{files.length}}/4</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles">
+                    <block wx:for="{{files}}" wx:key="*this">
+                      <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                        <view data-id="{{index}}" class='delImg' bindtap="delImg">删除×</view>
+                      </view>
+                    </block>
                   </view>
-                  <view data-id="{{index}}" bindtap="delImg">删除</view>
-                </block>
-              </view>
-              <view class="weui-uploader__input-box">
-                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  <view class="weui-uploader__input-box">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
               </view>
             </view>
           </view>
         </view>
       </view>
     </view>
-  </view>
-</view>
 
-<view class="page__modules modules__shadow">
-  <textarea name="introduce" placeholder="作品说明">
-  </textarea>
-</view>
-<view style="overflow:hidden;">
-  <navigator url="" class="uploadRuler">
-    了解上传协议？
-  </navigator>
-</view>
-<view class="weui-btn-area">
-  <button class="weui-btn" type="warn" form-type='submit' bindtap="showTopTips">提交</button>
-</view>
-</form>
+    <view class="page__modules modules__shadow">
+      <textarea name="introduce" placeholder="作品说明">
+      </textarea>
+    </view>
+    <view style="overflow:hidden;">
+      <navigator url="" class="uploadRuler">
+        了解上传协议？
+      </navigator>
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="warn" form-type='submit' bindtap="showTopTips">提交</button>
+    </view>
+  </form>
 </view>
 <view wx:else>未登录</view>
