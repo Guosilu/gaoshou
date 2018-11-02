@@ -22,7 +22,7 @@ Page({
     duration: 1000,
     //选择活动类型
     cateName: ["图片", "语音", "视频", "文章"],
-    cateActive: 0,
+    cateActive: 1,
     //活动分类
     activityType: ["类别", "比赛", "排名", "互助"],
     activityTypeIndex: 0,
@@ -31,10 +31,13 @@ Page({
     btime: "12:01",
     edate: "2018-09-01",
     etime: "12:01",
-
     form_reset: '',
     //图片上传
-    file: ''
+    file: '',
+    //音频
+    vofile: '',
+    //视频
+    vifile: '',
   },
   cateClick: function(e) {
     let clk = this;
