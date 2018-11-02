@@ -15,6 +15,7 @@ Page({
     // sendShow: true,
     inputVal: "",
     comment:"",
+    comNum:0,
     payOpen: false,
     payInput: false,
     compose_type: "publication"
@@ -118,13 +119,6 @@ Page({
   },
   // -----------------赏金结束----------------
 
-
-
-
-
-
-
-
   is_like: function (id) {
     var that = this;
     var param = {
@@ -194,7 +188,51 @@ Page({
       }
     });  
   },
-
+  
+  likeFun: function (option, act) {
+    var that = this, like_status, confirm, tipTitle;
+    console.log(option.target.dataset)
+    var id = option.target.dataset.id || 0;
+    var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
+    var dianzan = Number(option.target.dataset.dianzan) >= 0 ? Number(option.target.dataset.dianzan) : '';
+    var param = {
+      action: 'like_add_minus',
+      post: {
+        id: id,
+        openId: app.globalData.openId,
+        act: act
+      }
+    }
+    if (act == 'add') {
+      like_status = 1;
+      dianzan = dianzan + 1;
+      confirm = '';
+      tipTitle = '点赞成功！';
+    } else if (act == 'minus') {
+      like_status = 0;
+      dianzan = dianzan - 1;
+      confirm = 1;
+      tipTitle = '已取消！';
+    }
+    configLike.requestFun(config.comment, param, confirm).then(function (data) {
+      if (data.success == 1) {
+        that.setData({
+          [`comment[${index}].like_status`]: like_status,
+          [`comment[${index}].dianzan`]: dianzan
+        })
+        wx.showToast({
+          icon: 'none',
+          title: tipTitle
+        });
+      }
+    });
+  },
+  comment_like: function (option) {
+    this.likeFun(option, 'add');
+  },
+  comment_like_cancel: function (option) {
+    this.likeFun(option, 'minus');
+  },
   // 评论
   inputTyping: function (e) {
     this.setData({
@@ -242,20 +280,7 @@ Page({
           })
         }
         //评论完成更新数据
-        var param = {
-          compose_id: that.data.detail.id,
-          openId: app.globalData.openId,
-          compose_type:that.data.compose_type
-        }
-        comment.query('list', param).then(
-          function (data) {
-            console.log(data);
-            that.setData({
-              comment: data
-            })
-          }
-        );  
-        
+        that.get_compose_list(that.data.detail.id, that.data.compose_type);
       }
     );    
   },
@@ -293,60 +318,18 @@ Page({
       compose_type: compose_type
     }
     comment.query('list', param).then(function (data) {
-      if (data) {
-        console.log(data);
+      if (data.lists) {
+        console.log(data.lists);
         that.setData({
-          comment: data,
-          loading: that.data.loading + 1
+          comment: data.lists,
+          loading: that.data.loading + 1,
+          comNum: data.comNum,
         })
         if (that.data.loading == 3) wx.hideLoading();
       }
     }); 
   },
-  likeFun: function (option, act) {
-    var that = this, like_status, confirm, tipTitle;
-    console.log(option.target.dataset)
-    var id = option.target.dataset.id || 0;
-    var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
-    var dianzan = Number(option.target.dataset.dianzan) >= 0 ? Number(option.target.dataset.dianzan) : '';
-    var param = {
-      action: 'like_add_minus',
-      post: {
-        id: id,
-        openId: app.globalData.openId,
-        act: act
-      }
-    }
-    if (act == 'add') {
-      like_status = 1;
-      dianzan = dianzan + 1;
-      confirm = '';
-      tipTitle = '点赞成功！';
-    } else if (act == 'minus') {
-      like_status = 0;
-      dianzan = dianzan - 1;
-      confirm = 1;
-      tipTitle = '已取消！';
-    }
-    configLike.requestFun(config.comment, param, confirm).then(function (data) {
-      if (data.success == 1) {
-        that.setData({
-          [`comment[${index}].like_status`]: like_status,
-          [`comment[${index}].dianzan`]: dianzan
-        })
-        wx.showToast({
-          icon: 'none',
-          title: tipTitle
-        });
-      }
-    });
-  },
-  comment_like: function (option) {
-    this.likeFun(option, 'add');
-  },
-  comment_like_cancel: function (option) {
-    this.likeFun(option, 'minus');
-  },
+
   onLoad: function (options) {
     var that = this;
     wx.showLoading({

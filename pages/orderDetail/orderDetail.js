@@ -8,72 +8,9 @@ Page({
   data: {
     like_status: null,
     detail: {},
-    compose_type:"orderDetail"
-    
+    compose_type:"orderDetail",
+    comNum: 0,
   },
-
-
-  /**
-     * 评论输入框内容
-     */
-  input: function (e) {
-    var that = this;
-    that.setData({
-      value: e.detail.value
-    })
-  },
-  /**
-   * 添加评论
-   */
-  sendBtn: function (e) {
-    var that = this;
-    that.setData({
-      contShow: false,
-      sendShow: true,
-      inputVal: "",
-    })
-    var param = {};
-    param['content'] = that.data.value;
-    param['types'] = 'comment';
-    param['compose_type'] = that.data.compose_type;
-    param['openId'] = app.globalData.openId;
-    param['compose_id'] = that.data.detail.id
-
-    comment.query('add', param).then(
-      function (data) {
-        console.log(data);
-        if (data != '0') {
-          wx.showToast({
-            title: '添加成功',
-          })
-        } else {
-          wx.showToast({
-            title: '添加失败',
-            icon: 'none'
-          })
-        }
-        //评论完成更新数据
-        var param = {
-          compose_id: that.data.detail.id,
-          openId: app.globalData.openId,
-          compose_type: that.data.compose_type
-        }
-        comment.query('list', param).then(
-          function (data) {
-            console.log(data);
-            that.setData({
-              comment: data
-            })
-          }
-        );
-
-      }
-    );
-  },
-
-
-
-
 
   is_like: function (id) {
     let that = this;
@@ -168,6 +105,118 @@ Page({
       }
     });
   },
+  
+  likeFun: function (option, act) {
+    var that = this, like_status, confirm, tipTitle;
+    console.log(option.target.dataset)
+    var id = option.target.dataset.id || 0;
+    var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
+    var dianzan = Number(option.target.dataset.dianzan) >= 0 ? Number(option.target.dataset.dianzan) : '';
+    var param = {
+      action: 'like_add_minus',
+      post: {
+        id: id,
+        openId: app.globalData.openId,
+        act: act
+      }
+    }
+    if (act == 'add') {
+      like_status = 1;
+      dianzan = dianzan + 1;
+      confirm = '';
+      tipTitle = '点赞成功！';
+    } else if (act == 'minus') {
+      like_status = 0;
+      dianzan = dianzan - 1;
+      confirm = 1;
+      tipTitle = '已取消！';
+    }
+    configLike.requestFun(config.comment, param, confirm).then(function (data) {
+      if (data.success == 1) {
+        that.setData({
+          [`comment[${index}].like_status`]: like_status,
+          [`comment[${index}].dianzan`]: dianzan
+        })
+        wx.showToast({
+          icon: 'none',
+          title: tipTitle
+        });
+      }
+    });
+  },
+  comment_like: function (option) {
+    this.likeFun(option, 'add');
+  },
+  comment_like_cancel: function (option) {
+    this.likeFun(option, 'minus');
+  },
+  /**
+       * 评论输入框内容
+       */
+  input: function (e) {
+    var that = this;
+    that.setData({
+      value: e.detail.value
+    })
+  },
+  /**
+   * 添加评论
+   */
+  sendBtn: function (e) {
+    var that = this;
+    that.setData({
+      contShow: false,
+      sendShow: true,
+      inputVal: "",
+    })
+    var param = {};
+    param['content'] = that.data.value;
+    param['types'] = 'comment';
+    param['compose_type'] = that.data.compose_type;
+    param['openId'] = app.globalData.openId;
+    param['compose_id'] = that.data.detail.id
+
+    comment.query('add', param).then(
+      function (data) {
+        console.log(data);
+        if (data != '0') {
+          wx.showToast({
+            title: '添加成功',
+          })
+        } else {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none'
+          })
+        }
+        //评论完成更新数据
+        that.get_compose_list(that.data.detail.id, that.data.compose_type);
+      }
+    );
+  },
+
+  /**
+   *  获取评论
+   */
+  get_compose_list: function (id, compose_type) {
+    var that = this;
+    var param = {
+      compose_id: id,
+      openId: app.globalData.openId,
+      compose_type: compose_type
+    }
+    comment.query('list', param).then(function (data) {
+      if (data.lists) {
+        console.log(data.lists);
+        that.setData({
+          comment: data.lists,
+          loading: that.data.loading + 1,
+          comNum: data.comNum,
+        })
+        if (that.data.loading == 3) wx.hideLoading();
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -198,27 +247,7 @@ Page({
     });
     that.get_compose_list(options.id, that.data.compose_type);  //获取评论
   },
-  /**
-   *  获取评论
-   */
-  get_compose_list: function (id, compose_type) {
-    var that = this;
-    var param = {
-      compose_id: id,
-      openId: app.globalData.openId,
-      compose_type: compose_type
-    }
-    comment.query('list', param).then(function (data) {
-      if (data) {
-        console.log(data);
-        that.setData({
-          comment: data,
-          loading: that.data.loading + 1
-        })
-        if (that.data.loading == 3) wx.hideLoading();
-      }
-    });
-  },
+  
   //赏金
   money: function (e) {
     console.log(e);
