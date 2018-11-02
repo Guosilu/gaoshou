@@ -33,7 +33,8 @@
     "pages/publication/detail/detail",
     "pages/recharge/recharge",
     "pages/recharge/bringsuccess",
-    "pages/recharge/apply"
+    "pages/recharge/apply",
+    "pages/recharge/trecord"
   ],
   "window": {
     "backgroundTextStyle": "light",
