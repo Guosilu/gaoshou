@@ -30,7 +30,10 @@
     "pages/template/contact/contact",
     "pages/template/contact/details/details",
     "pages/template/reward/reward",
-    "pages/publication/detail/detail"
+    "pages/publication/detail/detail",
+    "pages/recharge/recharge",
+    "pages/recharge/bringsuccess",
+    "pages/recharge/apply"
   ],
   "window": {
     "backgroundTextStyle": "light",
