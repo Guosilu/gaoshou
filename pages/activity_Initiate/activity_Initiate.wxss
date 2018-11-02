@@ -1,10 +1,11 @@
 /* pages/activity_Initiate/activity_Initiate.wxss */
-.act-cate{
+.act-cate {
   padding: 30rpx 20rpx 0;
   display: flex;
   justify-content: space-between;
 }
-.act-cate view{
+
+.act-cate view {
   width: 22%;
   box-sizing: border-box;
   padding: 15rpx 30rpx;
@@ -12,47 +13,57 @@
   text-align: center;
   border: 2rpx solid #f2f2f2;
 }
-.act-cate view.on{
+
+.act-cate view.on {
   background: #da4e3f;
-  color: #FFF;
-}
-.weui-select{
-background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;
+  color: #fff;
 }
 
-.page__modules{
+.weui-select {
+  background-size: 36rpx 28rpx;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+.page__modules {
   padding: 20rpx 10rpx;
 }
-.weui-cells{
+
+.weui-cells {
   margin: 0;
 }
-.activityName{
+
+.activityName {
   text-align: center;
 }
-.activityType{
+
+.activityType {
   color: #b0b0b0;
   border-left: 1px solid #ddd;
   padding-right: 20rpx;
 }
 
-.activityType .weui-select{
+.activityType .weui-select {
   font-size: 18px;
 }
-textarea{
+
+textarea {
   padding: 20rpx;
 }
-.uploadRuler{
-  float:right;
+
+.uploadRuler {
+  float: right;
   color: #da4e3f;
   font-size: 14px;
   margin-top: 20rpx;
   margin-right: 30rpx;
 }
-.selectTime picker{
+
+.selectTime picker {
   float: left;
   margin-right: 10rpx;
 }
 
-.weui-btn-area{
+.weui-btn-area {
   margin-bottom: 50rpx;
 }

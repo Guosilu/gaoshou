@@ -1,3 +1,7 @@
+<navigator url='./add/question/question'>
+  <view>添加问题</view>
+</navigator>
+
 <view class='page__modules' wx:for='{{detail}}' wx:key="*this">
   <view class='blist-item'>
     <navigator url='./question/question?id={{item.id}}'>

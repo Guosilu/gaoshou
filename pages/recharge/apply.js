@@ -1,40 +1,14 @@
-const util = require('../../../../config/comment.js');
-const config = util.config;
-const app = util.app;
+// pages/recharge/recharge.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    activeIndex: 0,//默认选中第一个
+    numArray: [10, 20, 30, 40, 50, 60, 70, 80, 90]
   },
 
-  formSubmit: function(param){
-    
-    var param = param.detail.value;
-    console.log(param);
-    return;
-    wx.request({
-      url: config.forum,
-      dataType: "json",
-      method: "post",
-      data: {
-        "action": "addQuestion",
-        "param":{
-          title: param.title,
-          introduce: param.introduce,
-          openId: app.globalData.openId,
-          image: image,
-          state: '3'
-        }
-      },
-      success: function (res) {
-        console.log(res);
-      }
-    })
-
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -89,5 +63,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  activethis: function (event) {//点击选中事件
+    var thisindex = event.currentTarget.dataset.thisindex;//当前index
+    this.setData({
+      activeIndex: thisindex
+    })
   }
+
 })

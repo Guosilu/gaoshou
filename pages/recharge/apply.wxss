@@ -1,0 +1,39 @@
+/* pages/recharge/recharge.wxss */
+page{
+  background: #f5f5f5;
+}
+.main{
+  padding: 20px;overflow: hidden;
+}
+text{
+  font-size: 12px;
+  color: gray;
+  display: block;
+  margin: 20px auto;
+}
+.itemBox{
+  flex-flow: wrap;overflow: hidden;
+}
+.itemBox>view{
+  width: 33.3%;float: left;
+  box-sizing: border-box;
+}
+.itemBox view>.money{
+  text-align: center;
+  padding: 20px;
+  margin:5px;
+  border-radius: 8px;
+  background: white;
+  border: 2px solid white;
+  color: gray;
+  font-size: 15px;
+}
+.itemBox view.active>.money{
+  background: #ddf0ff;
+  border: 2px solid #5cbcfe;
+  color: #2c98ef;
+}
+.thisbtn{
+  margin: 0 auto;background: #c24e4e;color: #fff;width: 240rpx;text-align: center;
+  padding: 20rpx;border-radius: 10rpx;
+}

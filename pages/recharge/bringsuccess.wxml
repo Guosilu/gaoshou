@@ -1,0 +1,11 @@
+<view class="container">
+   <view class="result">
+      <image class="imgsize" src="buy_sucess.png"></image>
+      <view class="success">申请成功</view>
+      <view class="margin-top-30">提现金额:¥{{withdrawalAmount}}</view>
+      <!-- <view class="margin-top-30 font-color-333">收款银行卡：工商银行(2245)</view> -->
+   </view>  
+   <view class="butbox" style="margin-top:40rpx;">
+         <view bindtap="backMine" class="goback" >返回我的主页</view> 
+    </view>
+</view>

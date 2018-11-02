@@ -19,18 +19,15 @@
   <view>全部评论</view>
 
   <view class='contact-item' wx:for='{{comment}}' wx:key="*this">
-    <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
-    <navigator url="" class='u-name'>{{item.nickName}}</navigator>
-    <navigator url='../../template/contact/details/details?id={{item.id}}'>
-      <view class='cont-fav'>
-        <image src='/images/zan.png' mode='widthFix' />{{item.dianzan}}</view>
-      <view class='cont-text'>{{item.content}}</view>
-      <view class='cont-bar'>
-        <text class='cont-time'>{{item.addtime}}</text> ·
-        <text class='cont-reply' bindtap='contReply'>回复Ta</text>
-        <view class='cont-time'>{{item.replyNum}}条回复</view>
-      </view>
-    </navigator>
+    <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
+    <navigator url="" class='u-name'>等等，我先提上裤子</navigator>
+    <view class='cont-fav'>
+      <image src='/images/zan.png' mode='widthFix' />666</view>
+    <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>
+    <view class='cont-bar'>
+      <text class='cont-time'>54分钟前</text> ·
+      <text class='cont-reply' bindtap='contReply'>回复Ta</text>
+    </view>
   </view>
 
 
@@ -39,11 +36,11 @@
       <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
     </view>
     <view>
-      <input type='rext' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
+      <input type='rext' focus='{{contShow}}' bindtap='inputTyping' placeholder='发表评论领积分' value="{{inputVal}}"></input>
     </view>
-    <!-- <view class='fr' hidden='{{contShow}}'>
+    <view class='fr' hidden='{{contShow}}'>
       <image class='cont-icon' src='/images/contact.png' mode='widthFix'></image>
-    </view> -->
+    </view>
     <view class='fr' hidden='{{sendShow}}'>
       <view class='send-btn' bindtap='sendBtn'>发送</view>
     </view>

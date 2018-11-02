@@ -24,7 +24,7 @@
       </view>
     </view>
 
-    <view class="page__modules modules__shadow" wx:if='{{cateActive==0}}'>
+    <view class="page__modules modules__shadow">
       <view class="page__bd">
         <view class="weui-cells">
           <view class="weui-cell">
