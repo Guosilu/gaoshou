@@ -1,18 +1,13 @@
 
 /* pages/salesCommission/withdrawResult.wxss */
-.imgsize{
-    width: 200rpx;
-    height: 200rpx;
-}
 .result{
-    margin-top: 120rpx;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; 
 }
-.margin-top-30{
-    margin-top: 30rpx;
+.withdraw-info{
+  color: gray;
 }
 .goback{
   background: #c24e4e;color: #fff;width: 180px;margin: 0 auto;
@@ -20,4 +15,6 @@
 }
 .success{
   color: #c24e4e;
+  font-size: 18px;
+  margin-bottom: 20rpx;
 }

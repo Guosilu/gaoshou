@@ -120,24 +120,6 @@ Page({
   },
   // -----------------赏金结束----------------
 
-  is_like: function (id) {
-    var that = this;
-    var param = {
-      action: 'is_like',
-      post: {
-        id: id,
-        openId: app.globalData.openId
-      }
-    }
-    configLike.requestFun(config.publicationUrl, param).then(function (data){
-      that.setData({
-        like_status: data,
-        loading: that.data.loading+1
-      })
-      if (that.data.loading == 3) wx.hideLoading();
-    });
-  },
-
   like: function () {
     if (this.data.like_status == 1) {
       wx.showToast({
@@ -279,16 +261,17 @@ Page({
     var that = this;
     var param = {
       action: 'detail',
-      id: id
+      id: id,
+      openId: app.globalData.openId,
     }
     configLike.requestFun(config.publicationUrl, param).then(function (data) {
       if (data) {
         console.log(data)
         that.setData({
           detail: data,
-          loading: that.data.loading + 1
+          like_status: data.like_status,
         })
-        if (that.data.loading == 3) wx.hideLoading();
+        wx.hideLoading();
       }
     });
   },
@@ -333,7 +316,6 @@ Page({
     })
     that.get_detail(options.id);
     that.get_compose_list(dataObj, 2);  //获取评论
-    that.is_like(options.id); //点赞
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

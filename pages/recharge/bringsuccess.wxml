@@ -1,11 +1,34 @@
 <view class="container">
-   <view class="result">
-      <image class="imgsize" src="buy_sucess.png"></image>
-      <view class="success">申请成功</view>
-      <view class="margin-top-30">提现金额:¥{{withdrawalAmount}}</view>
+  <view class="result">
+    <view class="weui-msg" wx:if="{{false}}">
+      <view class="weui-msg__icon-area">
+        <icon type="success" size="93"></icon>
+      </view>
+      <view class="weui-msg__text-area">
+        <view class="success">申请成功</view>
+        <view class="weui-msg__desc">
+          <view>预计1个工作日内到账，具体以实际情况为准</view>如有疑问请
+          <navigator url="" class="weui-msg__link">联系客服</navigator>
+        </view>
+      </view>
+      <view class='withdraw-info'>提现金额：{{withdrawalAmount}}元</view>
       <!-- <view class="margin-top-30 font-color-333">收款银行卡：工商银行(2245)</view> -->
-   </view>  
-   <view class="butbox" style="margin-top:40rpx;">
-         <view bindtap="backMine" class="goback" >返回我的主页</view> 
     </view>
+    
+    <view class="weui-msg" wx:else>
+      <view class="weui-msg__icon-area">
+        <icon type="warn" size="93"></icon>
+      </view>
+      <view class="weui-msg__text-area">
+        <view class="success">提现失败</view>
+        <view class="weui-msg__desc">
+          <view>Oppos!!! 好像出错了，暗号：-404 ⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄</view>如有疑问请
+          <navigator url="" class="weui-msg__link">联系客服</navigator>
+        </view>
+      </view>
+    </view>
+    <view class="butbox" style="margin-top:40rpx;">
+      <view bindtap="backMine" class="goback">返回我的主页</view>
+    </view>
+  </view>
 </view>

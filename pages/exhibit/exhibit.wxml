@@ -11,8 +11,8 @@
         <view class='ex_info'>
           <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}
         </view>
-        <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='like'>
-        <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
+        <view class='ex_info {{like_status >= 1 ? "like_on" : ""}}' bindtap='like'>
+        <image class='ex_icon' src='/images/{{like_status >= 1 ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
       </view>
         
         <view class='ex_info'>

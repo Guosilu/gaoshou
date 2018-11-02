@@ -38,7 +38,7 @@
                   <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{file != ''}}">
                     <view class="weui-uploader__file">
                       <image class="weui-uploader__img" bindtap="previewImage" src="{{file}}" mode="aspectFill" />
-                      <view bindtap="delImg">删除</view>
+                      <view class='delImg' bindtap="delImg">删除×</view>
                     </view>
                   </view>
                   <view wx:if="{{file==''}}" class="weui-uploader__input-box">
