@@ -121,35 +121,8 @@ Page({
             })
           }
         })
-
-
-
-
       }
     })
-
-
-
-
-
-  },
-
-  is_like: function (id) {
-    var that = this;
-    var param = {
-      action: 'is_like',
-      post: {
-        id: id,
-        openId: app.globalData.openId
-      }
-    }
-    configLike.requestFun(config.activityUrl, param).then(function (data) {
-      that.setData({
-        like_status: data,
-        loading: that.data.loading + 1
-      })
-      wx.hideLoading();
-    });
   },
 
   like: function () {
@@ -266,6 +239,25 @@ Page({
     })
   },
 
+  get_detail: function (id) {
+    var that = this;
+    var param = {
+      action: 'detail',
+      id: id,
+      openId: app.globalData.openId,
+    }
+    configLike.requestFun(config.activityUrl, param).then(function (data) {
+      if (data) {
+        console.log(data)
+        that.setData({
+          detail: data,
+          like_status: data.like_status,
+        })
+        wx.hideLoading();
+      }
+    });
+  },
+
   onLoad: function(options) {
     wx.showLoading({
       mask: true,
@@ -287,23 +279,7 @@ Page({
       })
       return;
     }
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      data: {
-        action: 'detail',
-        id: id
-      },
-      success: function(res) {
-        if (res.data) {
-          that.setData({
-            detail: res.data
-          })
-          that.is_like(res.data.id);
-          wx.hideLoading();
-        }
-      }
-    });
+    this.get_detail(options.id);
     this.getOrderList(id);
     this.getExhibitList(id);
   },
