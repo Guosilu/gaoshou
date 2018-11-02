@@ -10,7 +10,7 @@
           <view class="weui-cell__bd">
             <view class="weui-uploader">
               <view class="weui-uploader__hd">
-                <view class="weui-uploader__title">活动封面</view>
+                <view class="weui-uploader__title">上传图片</view>
                 <view class="weui-uploader__info">{{file ? 1 : 0}}/1</view>
               </view>
               <view class="weui-uploader__bd">
