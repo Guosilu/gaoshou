@@ -2,6 +2,7 @@
   <view class='yeview'>
     <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <navigator url='/pages/recharge/trecord' class='fr' style='margin-top:56rpx;color:#666;'>资产：1212121元</navigator> 
   </view>
 </view>
 
@@ -22,7 +23,7 @@
       <image src="{{img}}my_scy.png" mode="widthFix" />谁参与了我的活动</navigator>
   </view>
 
-  <view class='btnlist'>
+  <view class='btnlist' style='display:none;'>
     <view class='ex-tit'>
       <image src="{{img}}my_sm.png" mode="widthFix"></image>说明</view>
     <view class='ex-con'>
