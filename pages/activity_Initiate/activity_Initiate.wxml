@@ -23,7 +23,7 @@
         </picker>
       </view>
     </view>
-
+    <!-- 图片 -->
     <view class="page__modules modules__shadow" wx:if='{{cateActive==0}}'>
       <view class="page__bd">
         <view class="weui-cells">
@@ -43,6 +43,60 @@
                   </view>
                   <view wx:if="{{file==''}}" class="weui-uploader__input-box">
                     <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+<!-- 语音 -->
+    <view class="page__modules modules__shadow" wx:if='{{cateActive==1}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传语音</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vofile != ''}}">
+                    <view class="weui-uploader__file">
+                      <image class="weui-uploader__img" bindtap="previewVoice" src="{{vofile}}" mode="aspectFill" />
+                      <view bindtap="delVoice">删除</view>
+                    </view>
+                  </view>
+                  <view class="" wx:if="{{vofile==''}}" bindtap="chooseVoice" class='voice-btn'>
+                    <image src='/images/voice_b.png' class='vobtn-img'/> 点击上传
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+<!-- 视频 -->
+    <view class="page__modules modules__shadow" wx:if='{{cateActive==2}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传视频</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vifile != ''}}">
+                    <view class="weui-uploader__file">
+                      <image class="weui-uploader__img" bindtap="previewVoice" src="{{vifile}}" mode="aspectFill" />
+                      <view bindtap="delVideo">删除</view>
+                    </view>
+                  </view>
+                  <view class="" wx:if="{{vifile==''}}" bindtap="chooseVideo" class='voice-btn'>
+                    <image src='/images/video_b.png' class='vobtn-img'/> 点击上传
                   </view>
                 </view>
               </view>
