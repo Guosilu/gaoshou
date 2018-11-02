@@ -14,24 +14,6 @@ Page({
     comment: [],
   },
 
-  is_like: function (id) {
-    var that = this;
-    var param = {
-      action: 'is_like',
-      post: {
-        id: id,
-        openId: app.globalData.openId
-      }
-    }
-    configLike.requestFun(config.activity_orderUrl, param).then(function (data) {
-      that.setData({
-        like_status: data,
-        loading: that.data.loading + 1
-      })
-      wx.hideLoading();
-    });
-  },
-
   like: function () {
     if (this.data.like_status == 1) {
       wx.showToast({
@@ -186,6 +168,26 @@ Page({
       }
     });
   },
+
+  get_detail: function (id) {
+    var that = this;
+    var param = {
+      action: 'detail',
+      id: id,
+      openId: app.globalData.openId,
+    }
+    configLike.requestFun(config.activity_orderUrl, param).then(function (data) {
+      if (data) {
+        console.log(data)
+        that.setData({
+          detail: data,
+          like_status: data.like_status,
+        })
+        wx.hideLoading();
+      }
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -200,25 +202,7 @@ Page({
       openId: app.globalData.openId,
       compose_type: this.data.compose_type
     }
-    let id = options.id;
-    wx.request({
-      url: config.activity_orderUrl,
-      method: "POST",
-      data: {
-        action: 'detail',
-        id: id
-      },
-      success: function (res) {
-        if (res.data) {
-          console.log(res.data);
-          that.setData({
-            detail: res.data
-          })
-          that.is_like(res.data.id);
-          wx.hideLoading();
-        }
-      }
-    });
+    this.get_detail(options.id);
     this.get_compose_list(dataObj, 2);
   },
   
