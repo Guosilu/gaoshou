@@ -1,5 +1,6 @@
 const util = require('../../utils/util.js')
 const config = require('../../config/config.js');
+const configLike = require('../../config/like.js');
 const app = getApp()
 Page({
   data: {
@@ -20,6 +21,7 @@ Page({
     })
     that.reward();
   },
+
   money1: function (e) {
     console.log(e);
     var that  = this;
@@ -27,26 +29,31 @@ Page({
       money: (e.detail.value)*100,
     })
   },
+
   openPay: function() {
     this.setData({
       payOpen: true
     })
   },
+
   closePay: function() {
     this.setData({
       payOpen: false
     })
   },
+
   otherAmount: function() {
     this.setData({
       payInput: true,
     })
   },
+
   fixAmount: function() {
     this.setData({
       payInput: false,
     })
   },
+
   reward: function(e) {
     var randa = new Date().getTime().toString();
     var randb = Math.round(Math.random() * 10000).toString();
@@ -126,99 +133,56 @@ Page({
 
 
   },
-  is_like: function(id) {
-    let that = this;
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      data: {
-        action: 'is_like',
-        where: {
-          activity_id: id,
-          openId: app.globalData.openId
-        }
-      },
-      success: function(res) {
-        let like_status;
-        if (res.data == 1) {
-          like_status = 1;
-        } else {
-          like_status = 0;
-        }
-        that.setData({
-          like_status: like_status
-        })
-      }
-    });
-  },
-  like: function() {
-    let that = this;
-    let post = {};
-    let id = that.data.detail.id;
-    post['activity_id'] = id;
-    post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      data: {
-        action: 'like',
+
+  is_like: function (id) {
+    var that = this;
+    var param = {
+      action: 'is_like',
+      post: {
         id: id,
-        post: post
-      },
-      success: function(res) {
-        let data = res.data;
-        if (data.success == 1) {
-          that.setData({
-            like_status: 1,
-            'detail.dianzan': data.dianzan
-          })
-          wx.showToast({
-            icon: 'none',
-            title: '点赞成功！'
-          });
-        }
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.activityUrl, param).then(function (data) {
+      that.setData({
+        like_status: data,
+        loading: that.data.loading + 1
+      })
+      wx.hideLoading();
+    });
+  },
+
+  like: function () {
+    if (this.data.like_status == 1) {
+      wx.showToast({
+        icon: 'none',
+        title: '您已经投过票了！'
+      });
+      return false;
+    }
+    var that = this;
+    var param = {
+      action: 'like',
+      post: {
+        id: that.data.detail.id,
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.activityUrl, param).then(function (data) {
+      console.log(data);
+      if (data.success == 1) {
+        that.setData({
+          like_status: 1,
+          'detail.dianzan': data.dianzan
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '投票成功！'
+        });
       }
     });
   },
-  like_cancel: function() {
-    let that = this;
-    wx.showModal({
-      title: '提示',
-      content: '确定取消点赞吗？',
-      success: function(res) {
-        if (res.confirm) {
-          let where = {};
-          let id = that.data.detail.id;
-          where['activity_id'] = id;
-          where['openId'] = app.globalData.openId;
-          wx.request({
-            url: config.activityUrl,
-            method: "POST",
-            data: {
-              action: 'like_cancel',
-              id: id,
-              where: where
-            },
-            success: function(res) {
-              let data = res.data;
-              if (data.success == 1) {
-                that.setData({
-                  like_status: 0,
-                  'detail.dianzan': data.dianzan
-                })
-                wx.showToast({
-                  icon: 'none',
-                  title: '已取消点赞！'
-                });
-              }
-            }
-          });
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    });
-  },
+
   joinActivity: function() {
     let id = this.data.detail.id;
     wx.request({
@@ -256,11 +220,13 @@ Page({
     });
 
   },
+
   go_Activity_Initiate: function() {
     wx.redirectTo({
       url: '../activity_Initiate/activity_Initiate',
     })
   },
+
   getOrderList: function(id) {
     let that = this;
     wx.request({
@@ -280,6 +246,7 @@ Page({
       }
     })
   },
+
   getExhibitList: function(id) {
     var that = this;
     wx.request({
@@ -298,6 +265,7 @@ Page({
       }
     })
   },
+
   onLoad: function(options) {
     wx.showLoading({
       mask: true,
@@ -339,6 +307,7 @@ Page({
     this.getOrderList(id);
     this.getExhibitList(id);
   },
+
   onShow: function() {
     if (this.data.detail.id) {
       this.getOrderList(this.data.detail.id);

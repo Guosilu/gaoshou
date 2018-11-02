@@ -16,9 +16,6 @@
       <view class='ex_info'>
         <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.addtime}}
       </view>
-       <!-- <view wx:if="{{like_status == 1}}" class='ex_info' bindtap='like_cancel'> -->
-          <!-- 取消测试 -->
-      <!-- </view> -->
       <view class='ex_info ex_num' style='display:none;'>
         编号：123564
       </view>
