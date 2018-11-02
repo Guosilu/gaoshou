@@ -1,5 +1,5 @@
 <!--pages/launch/launch.wxml-->
-<block wx:if="{{loading==3 && like_status !== null}}">
+<block wx:if="{{loading >= 3 && like_status !== null}}">
   <view class='ex-title'>
     {{detail.title}}
     <view class="yh_hudong">
@@ -74,7 +74,7 @@
 
 <!-- 评论 -->
 <view class='contact-box'>
-  <view>全部评论({{detail.comNum}})</view>
+  <view>全部评论({{comNum}})</view>
   <view class='contact-item' wx:for="{{comment}}" wx:key="*this">
 
     <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>

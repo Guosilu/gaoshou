@@ -56,16 +56,7 @@
         <view bindtap='reward' class='payBtn true' wx:if="{{payInput}}">确定</view>
       </view>
     </view>
-
-
-
-
-
   </view>
-
-
-
-
 
   <view class='rule'>
     <view class='ex-tit'>
@@ -89,12 +80,12 @@
     </navigator>
   </view>
   <view class='contact-box'>
-    <view>全部评论({{detail.comNum}})</view>
+    <view>全部评论({{comNum}})</view>
     <view class='contact-item' wx:for="{{comment}}" wx:key="*this">
       <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
       <navigator url="" class='u-name'>{{item.nickName}}</navigator>
       <view class='cont-fav'>
-        <image src='/images/zan.png' mode='widthFix' />{{item.like?item.like:0}}</view>
+      <image src='/images/{{item.like_status ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' bindtap='{{item.like_status ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}</view>
       <navigator url='../template/contact/details/details?id={{item.id}}'>
         <view class='cont-text'>
           {{item.content}}
