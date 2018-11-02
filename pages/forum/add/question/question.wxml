@@ -3,6 +3,34 @@
   <view class="page__modules modules__shadow">
     <input class="activityName" name='title' value='{{title}}' placeholder="问题标题"></input>
   </view>
+  <view class="page__modules modules__shadow">
+    <view class="page__bd">
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title">活动封面</view>
+                <view class="weui-uploader__info">{{file ? 1 : 0}}/1</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{file != ''}}">
+                  <view class="weui-uploader__file">
+                    <image class="weui-uploader__img" bindtap="previewImage" src="{{file}}" mode="aspectFill" />
+                    <view bindtap="delImg">删除</view>
+                  </view>
+                </view>
+                <view wx:if="{{file==''}}" class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
 
   <view class="page__modules modules__shadow">
     <textarea placeholder="问题详情" name='introduce' value='{{introduce}}'></textarea>

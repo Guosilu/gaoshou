@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    //图片上传
+    file: ''
   },
 
   formSubmit: function(param){
