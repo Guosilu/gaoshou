@@ -8,7 +8,7 @@
       <view class="weui-search-bar__form">
         <view class="weui-search-bar__box">
           <icon class="weui-icon-search_in-box" type="search" size="16"></icon>
-          <input type="text" class="weui-search-bar__input" placeholder="" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+          <input type="text" class="weui-search-bar__input" placeholder="" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindfocus='inputTyping' bindblur='inputBlur'/>
           <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
             <icon type="clear" size="16"></icon>
           </view>
@@ -20,25 +20,25 @@
       </view>
       <navigator url='/pages/search/search' class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">确定</navigator>
     </view>
-    <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+    <view class="weui-cells searchbar-result" wx:if="{{downSearchList === true}}">
       <navigator url="" class="weui-cell" hover-class="weui-cell_active">
         <view class="weui-cell__bd">
-          <view class='search-res'>
-            <text class='search-tag'>活动</text><text class='search-tit'>title</text>
+          <view class='search-res' wx:for='{{showList.act}}'>
+            <text class='search-tag'>活动</text><text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
       </navigator>
       <navigator url="" class="weui-cell" hover-class="weui-cell_active">
         <view class="weui-cell__bd">
-          <view class='search-res'>
-            <text class='search-tag'>作品</text><text class='search-tit'>title</text>
+          <view class='search-res' wx:for='{{showList.pub}}'>
+            <text class='search-tag'>作品</text><text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
       </navigator>
       <navigator url="" class="weui-cell" hover-class="weui-cell_active">
         <view class="weui-cell__bd">
-          <view class='search-res'>
-            <text class='search-tag'>广场</text><text class='search-tit'>title</text>
+          <view class='search-res' wx:for='{{showList.ord}}'>
+            <text class='search-tag'>广场</text><text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
       </navigator>
