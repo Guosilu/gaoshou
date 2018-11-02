@@ -1,0 +1,10 @@
+<view class="container">
+   <view class="result">
+      <view class="margin-top-30">剩余金额:¥{{withdrawalAmount}}</view>
+      <view class="margin-top-30">收到打赏：¥210</view>
+   </view>  
+   <view class="butbox" style="margin-top:40rpx;">
+      <view class="btns" >充值</view> 
+      <view class="btns" >提现</view> 
+    </view>
+</view>

@@ -8,100 +8,57 @@ Page({
   data: {
     like_status: null,
     detail: {},
-    compose_type:"orderDetail",
+    compose_type: "orderDetail",
+    page: 1,
     comNum: 0,
+    comment: [],
   },
 
   is_like: function (id) {
-    let that = this;
-    wx.request({
-      url: config.activity_orderUrl,
-      method: "POST",
-      data: {
-        action: 'is_like',
-        where: {
-          activity_order_id: id,
-          openId: app.globalData.openId
-        }
-      },
-      success: function (res) {
-        let like_status;
-        if (res.data == 1) {
-          like_status = 1;
-        } else {
-          like_status = 0;
-        }
-        that.setData({
-          like_status: like_status
-        })
-      }
-    });
-  },
-  like: function () {
-    let that = this;
-    let post = {};
-    let id = that.data.detail.id;
-    post['activity_order_id'] = id;
-    post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.activity_orderUrl,
-      method: "POST",
-      data: {
-        action: 'like',
+    var that = this;
+    var param = {
+      action: 'is_like',
+      post: {
         id: id,
-        post: post
-      },
-      success: function (res) {
-        let data = res.data;
-        if (data.success == 1) {
-          that.setData({
-            like_status: 1,
-            'detail.dianzan': data.dianzan
-          })
-          wx.showToast({
-            icon: 'none',
-            title: '点赞成功！'
-          });
-        }
+        openId: app.globalData.openId
       }
+    }
+    configLike.requestFun(config.activity_orderUrl, param).then(function (data) {
+      that.setData({
+        like_status: data,
+        loading: that.data.loading + 1
+      })
+      wx.hideLoading();
     });
   },
-  like_cancel: function () {
-    let that = this;
-    wx.showModal({
-      title: '提示',
-      content: '确定取消点赞吗？',
-      success: function (res) {
-        if (res.confirm) {
-          let where = {};
-          let id = that.data.detail.id;
-          where['activity_order_id'] = id;
-          where['openId'] = app.globalData.openId;
-          wx.request({
-            url: config.activity_orderUrl,
-            method: "POST",
-            data: {
-              action: 'like_cancel',
-              id: id,
-              where: where
-            },
-            success: function (res) {
-              let data = res.data;
-              if (data.success == 1) {
-                that.setData({
-                  like_status: 0,
-                  'detail.dianzan': data.dianzan
-                })
-                wx.showToast({
-                  icon: 'none',
-                  title: '已取消点赞！'
-                });
-              }
-            }
-          });
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
+
+  like: function () {
+    if (this.data.like_status == 1) {
+      wx.showToast({
+        icon: 'none',
+        title: '您已经投过票了！'
+      });
+      return false;
+    }
+    var that = this;
+    var param = {
+      action: 'like',
+      post: {
+        id: that.data.detail.id,
+        openId: app.globalData.openId
+      }
+    }
+    configLike.requestFun(config.activity_orderUrl, param).then(function (data) {
+      console.log(data);
+      if (data.success == 1) {
+        that.setData({
+          like_status: 1,
+          'detail.dianzan': data.dianzan
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '投票成功！'
+        });
       }
     });
   },
@@ -144,9 +101,11 @@ Page({
       }
     });
   },
+
   comment_like: function (option) {
     this.likeFun(option, 'add');
   },
+
   comment_like_cancel: function (option) {
     this.likeFun(option, 'minus');
   },
@@ -190,7 +149,12 @@ Page({
           })
         }
         //评论完成更新数据
-        that.get_compose_list(that.data.detail.id, that.data.compose_type);
+        var dataObj = {
+          compose_id: that.data.detail.id,
+          openId: app.globalData.openId,
+          compose_type: that.data.compose_type
+        }
+        that.get_compose_list(dataObj);
       }
     );
   },
@@ -198,22 +162,27 @@ Page({
   /**
    *  获取评论
    */
-  get_compose_list: function (id, compose_type) {
+  get_compose_list: function (dataObj, tip) {
+    var tip = tip || 1;
     var that = this;
-    var param = {
-      compose_id: id,
-      openId: app.globalData.openId,
-      compose_type: compose_type
-    }
-    comment.query('list', param).then(function (data) {
-      if (data.lists) {
+    comment.query('list', dataObj).then(function (data) {
+      if (data.lists.length > 0) {
         console.log(data.lists);
         that.setData({
-          comment: data.lists,
+          comment: that.data.comment.concat(data.lists),
           loading: that.data.loading + 1,
           comNum: data.comNum,
+          page: that.data.page + 1,
         })
-        if (that.data.loading == 3) wx.hideLoading();
+        wx.hideLoading();
+      } else {
+        if(tip == 1) {
+          wx.hideLoading();
+          wx.showToast({
+            icon: 'none',
+            title: '到底了~',
+          })
+        }
       }
     });
   },
@@ -226,6 +195,11 @@ Page({
       title: '加载中...',
     })
     var that = this;
+    var dataObj = {
+      compose_id: options.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type
+    }
     let id = options.id;
     wx.request({
       url: config.activity_orderUrl,
@@ -245,7 +219,7 @@ Page({
         }
       }
     });
-    that.get_compose_list(options.id, that.data.compose_type);  //获取评论
+    this.get_compose_list(dataObj, 2);
   },
   
   //赏金
@@ -407,10 +381,20 @@ Page({
   },
 
   /**
-   * 页面上拉触底事件的处理函数
-   */
+    * 页面上拉触底事件的处理函数
+    */
   onReachBottom: function () {
-
+    var dataObj = {
+      compose_id: this.data.detail.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type,
+      page: this.data.page,
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    this.get_compose_list(dataObj);  //获取评论
   },
 
   /**

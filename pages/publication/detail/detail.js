@@ -14,11 +14,12 @@ Page({
     // contShow: false,
     // sendShow: true,
     inputVal: "",
-    comment:"",
+    comment:[],
     comNum:0,
     payOpen: false,
     payInput: false,
-    compose_type: "publication"
+    compose_type: "publication",
+    page: 1,
   },
 
 
@@ -138,6 +139,13 @@ Page({
   },
 
   like: function () {
+    if (this.data.like_status == 1) {
+      wx.showToast({
+        icon: 'none',
+        title: '您已经投过票了！'
+      });
+      return false;
+    }
     var that = this;
     var param = {
       action: 'like',
@@ -157,36 +165,8 @@ Page({
           icon: 'none',
           title: '投票成功！'
         });
-      } else if (data.success == 2) {
-        wx.showToast({
-          icon: 'none',
-          title: '您已经投过票了！'
-        });
       }
     });
-  },
-
-  like_cancel: function () {
-    var that = this;
-    var param = {
-      action: 'like_cancel',
-      post: {
-        id: that.data.detail.id,
-        openId: app.globalData.openId
-      }
-    }
-    configLike.requestFun(config.publicationUrl, param, 1).then(function (data) {
-      if (data.success == 1) {
-        that.setData({
-          like_status: 0,
-          'detail.dianzan': data.dianzan
-        })
-        wx.showToast({
-          icon: 'none',
-          title: '已取消！'
-        });
-      }
-    });  
   },
   
   likeFun: function (option, act) {
@@ -280,7 +260,12 @@ Page({
           })
         }
         //评论完成更新数据
-        that.get_compose_list(that.data.detail.id, that.data.compose_type);
+        var dataObj = {
+          compose_id: that.data.detail.id,
+          openId: app.globalData.openId,
+          compose_type: that.data.compose_type
+        }
+        that.get_compose_list(dataObj);
       }
     );    
   },
@@ -310,34 +295,44 @@ Page({
 /**
  *  获取评论
  */
-  get_compose_list: function (id, compose_type) {
+  get_compose_list: function (dataObj, tip) {
     var that = this;
-    var param = {
-      compose_id: id,
-      openId: app.globalData.openId,
-      compose_type: compose_type
-    }
-    comment.query('list', param).then(function (data) {
-      if (data.lists) {
+    var tip = tip || 1;
+    comment.query('list', dataObj).then(function (data) {
+      if (data.lists.length > 0) {
         console.log(data.lists);
         that.setData({
-          comment: data.lists,
+          comment: that.data.comment.concat(data.lists),
           loading: that.data.loading + 1,
           comNum: data.comNum,
+          page: that.data.page + 1,
         })
-        if (that.data.loading == 3) wx.hideLoading();
+        wx.hideLoading();
+      } else {
+        if(tip == 1) {
+          wx.hideLoading();
+          wx.showToast({
+            icon: 'none',
+            title: '到底了~',
+          })
+        }
       }
     }); 
   },
 
   onLoad: function (options) {
     var that = this;
+    var dataObj = {
+      compose_id: options.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type
+    }
     wx.showLoading({
       mask: true,
       title: '加载中...',
     })
     that.get_detail(options.id);
-    that.get_compose_list(options.id, that.data.compose_type);  //获取评论
+    that.get_compose_list(dataObj, 2);  //获取评论
     that.is_like(options.id); //点赞
   },
   /**
@@ -379,13 +374,23 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    var dataObj = {
+      compose_id: this.data.detail.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type,
+      page: this.data.page,
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    this.get_compose_list(dataObj);  //获取评论
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    
   }
 })
