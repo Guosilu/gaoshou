@@ -1,7 +1,7 @@
 <!--pages/forum/add/q/q.wxml-->
 <form bindsubmit="formSubmit">
   <view class="page__modules modules__shadow">
-    <textarea placeholder="回答内容" name='rule' value='{{form_reset}}'></textarea>
+    <textarea placeholder="回答内容" name='answer' value='{{answer}}'></textarea>
   </view>
   <view class="weui-btn-area">
     <button class="weui-btn" type="warn" formType="submit">提交</button>

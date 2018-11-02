@@ -36,3 +36,6 @@
   width: 20px;
 }
 
+.weui-cells {
+  margin: 0;
+}

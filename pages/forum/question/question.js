@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    page: 1
   },
 
   /**
@@ -17,8 +17,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    that.getQuestion(options.id);
-    that.getAnswerList(options.id);
+    that.setData({
+      options: options
+    })
   },
   /**
    * 获取问题
@@ -78,7 +79,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this;
+    that.getQuestion(that.data.options.id);
+    that.getAnswerList(that.data.options.id);
   },
 
   /**

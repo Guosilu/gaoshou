@@ -7,10 +7,12 @@
       <image src='{{item}}' mode='aspectFill' wx:for="{{question.image}}" wx:key="*key" class='cont-imgg'></image>
     </view>
   </view>
+  <navigator url='../add/answer/answer?id={{question.id}}'>
 
-  <view class='ask-box'>
-    <image class='contm-icon' src='/images/edit.png' mode='widthFix' /> 我有靠谱回答
-  </view>
+    <view class='ask-box'>
+      <image class='contm-icon' src='/images/edit.png' mode='widthFix' /> 我有靠谱回答
+    </view>
+  </navigator>
 
 </view>
 

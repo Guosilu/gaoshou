@@ -1,4 +1,6 @@
-// pages/forum/add/a/a.js
+const util = require('../../../../config/comment.js');
+const config = util.config;
+const app = util.app;
 Page({
 
   /**
@@ -12,9 +14,47 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options);
+    var that = this;
+    that.setData({
+      question_id: options.id,
+    })
   },
 
+  formSubmit: function(value) {
+    var that = this;
+    var value = value.detail.value;
+    console.log(value);
+    wx.request({
+      url: config.forum,
+      dataType: "json",
+      method: "post",
+      data: {
+        types: 'answer',
+        "action": "addQuestion",
+        "param": {
+          answer: value.answer,
+          openId: app.globalData.openId,
+          question_id: that.data.question_id,
+          state: '3'
+        }
+      },
+      success: function (res) {
+        if (res.statusCode==200){
+          wx.showToast({
+            title: '添加成功',
+            success: function(){
+              setTimeout(function(){
+                wx.navigateBack({
+                  delta: 1
+                })
+              },1500)
+            }
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
