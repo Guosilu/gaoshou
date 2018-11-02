@@ -3,9 +3,11 @@
     {{detail.truename?detail.truename:"biaoti"}}
     <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
       <view class='ex_info'>
-        <image src='{{detail.avatarUrl}}' class='ex_icon eu-avatar' mode='widthFix' />{{detail.nickName}}</view>
+        <image src='{{detail.avatarUrl}}' class='ex_icon eu-avatar' mode='widthFix' />{{detail.nickName}}
+      </view>
+        
       <view class='ex_info'>
-        <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.money}}
       </view>
       <view class='ex_info'>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
@@ -13,6 +15,9 @@
         <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
       </view>
 
+      <view class='ex_info'>
+        <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.addtime}}
+      </view>
       <view class='ex_info ex_num'>
         编号：<text selectable='true'>{{detail.number?detail.number:"暂无"}}</text>
       </view>
@@ -84,7 +89,7 @@
     </navigator>
   </view>
   <view class='contact-box'>
-    <view>全部评论</view>
+    <view>全部评论({{detail.comNum}})</view>
     <view class='contact-item' wx:for="{{comment}}" wx:key="*this">
       <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
       <navigator url="" class='u-name'>{{item.nickName}}</navigator>

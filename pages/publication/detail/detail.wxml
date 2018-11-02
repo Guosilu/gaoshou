@@ -6,16 +6,19 @@
       <view class='ex_info'>
         <image src='{{detail.avatarUrl}}' class='ex_icon wx-avatar' mode='widthFix' />{{detail.nickName}}</view>
       <view class='ex_info'>
-        <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.money}}
       </view>
      <view class='ex_info'>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
       <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='like'>
         <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
       </view>
-       <view wx:if="{{like_status == 1}}" class='ex_info' bindtap='like_cancel'>
-          取消测试
+      <view class='ex_info'>
+        <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.addtime}}
       </view>
+       <!-- <view wx:if="{{like_status == 1}}" class='ex_info' bindtap='like_cancel'> -->
+          <!-- 取消测试 -->
+      <!-- </view> -->
       <view class='ex_info ex_num' style='display:none;'>
         编号：123564
       </view>
@@ -71,7 +74,7 @@
 
 <!-- 评论 -->
 <view class='contact-box'>
-  <view>全部评论</view>
+  <view>全部评论({{detail.comNum}})</view>
   <view class='contact-item' wx:for="{{comment}}" wx:key="*this">
 
     <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>

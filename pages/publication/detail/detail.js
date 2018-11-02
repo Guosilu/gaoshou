@@ -273,6 +273,7 @@ Page({
     }
     configLike.requestFun(config.publicationUrl, param).then(function (data) {
       if (data) {
+        console.log(data)
         that.setData({
           detail: data,
           loading: that.data.loading + 1

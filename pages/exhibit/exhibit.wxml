@@ -6,15 +6,17 @@
         <view class='ex_info'>
           <image src='{{detail.avatarUrl}}' class='ex_icon u-avatar' mode='widthFix' />{{detail.nickName}}</view>
         <view class='ex_info'>
-          <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.money}}
+          <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.money}}
         </view>
         <view class='ex_info'>
-          <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.addtime}}
+          <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}
         </view>
-        <view class='ex_info'>
-          <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
         <view class='ex_info {{like_status ? "like_on" : ""}}' bindtap='{{like_status ? "like_cancel" : "like"}}'>
           <image class='ex_icon' src='/images/{{like_status ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
+        </view>
+        
+        <view class='ex_info'>
+          <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.addtime}}
         </view>
         <view class='ex_info ex_num'>
           编号：<text selectable='true'>{{detail.number?detail.number:"暂无"}}</text>
