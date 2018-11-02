@@ -1,12 +1,12 @@
-<!--pages/recharge/recharge.wxml-->
 <view class='bg-gray'>
- 
-<view class='main'>
-  <text>选择充值金额</text>
-  <view class='flex between itemBox'>
-      <view class="{{activeIndex == index ? 'active':''}}"  wx:for="{{numArray}}" bindtap='activethis' data-thisindex='{{index}}'><view class='money'>{{item}}元</view></view>
+  <view class='main'>
+    <text>选择充值金额</text>
+    <view class='flex between itemBox'>
+      <view class="{{activeIndex == index ? 'active':''}}"  wx:for="{{numArray}}" wx:key="*this"
+        bindtap='activethis' data-money='{{item}}' data-thisindex='{{index}}'>
+        <view class='money'>{{item}}元</view>
+      </view>
+    </view>
   </view>
-</view>
-<view class='thisbtn'>立即充值</view>
-
+  <view class='thisbtn' bindtap='pay'>立即充值</view>
 </view>

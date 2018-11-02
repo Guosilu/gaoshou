@@ -1,21 +1,21 @@
-
+const commonFun = require("../../js/commonFun.js");
 const config = require('../../config/config.js');
 //获取应用实例
 const app = getApp()
 
 Page({
   data: {
+    showList: {},
     stopLoading: 0,
     // 网站信息
     siteName: "高手网",
     img:config.img,
-
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     inputShowed: false,
-    inputVal: "",
+    downSearchList: false,
     //swiper
     imgUrls: [
       config.img +'banner.png',
@@ -48,10 +48,34 @@ Page({
     this.setData({
       inputVal: ""
     });
-  },
-  inputTyping: function(e) {
+  }, 
+  
+  inputBlur: function() {
     this.setData({
-      inputVal: e.detail.value
+      downSearchList: false,
+    });
+  },
+
+  inputTyping: function(e) {
+    let that = this;
+    console.log(e);
+    let dataObj = {
+      url: config.searchUrl,
+      data: {
+        action: 'lists',
+        keyword: e.detail.value, 
+        column_short: 1,
+      }
+    }
+    commonFun.requestFun(dataObj).then(res=>{
+      console.log(res);
+      that.setData({
+        showList: res
+      });
+    })  
+    this.setData({
+      showList: {},
+      downSearchList: e.detail.value > 0 ? true : false,
     });
   },
   //事件处理函数
