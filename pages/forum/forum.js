@@ -6,13 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    page: 1,
+    detail: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
     
   },
   query: function (){
@@ -22,7 +29,8 @@ Page({
       method: 'POST',
       dataType: 'json',
       data: {
-        action: 'questionList'
+        action: 'questionList',
+        page: that.data.page
       },
       success: function (res) {
         var res = res.data;
@@ -31,10 +39,24 @@ Page({
         }
         console.log(res)
         that.setData({
-          detail: res
+          detail: that.data.detail.concat(res)
         })
+        wx.hideLoading();
       }
     })
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    this.setData({
+      page: this.data.page+1
+    })
+    wx.showLoading({
+      title: '加载中....',
+    })
+    this.query();
   },
 
   /**
@@ -72,12 +94,6 @@ Page({
 
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
 
   /**
    * 用户点击右上角分享

@@ -9,7 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    page: 1
+    page: 1,
+    answer: []
   },
 
   /**
@@ -57,14 +58,16 @@ Page({
       dataType: 'json',
       data: {
         action: 'getAnswerList',
-        id: id
+        id: id,
+        page: that.data.page+1
       },
       success: function (res) {
         var res = res.data;
         console.log(res)
         that.setData({
-          answer: res
+          answer: that.data.answer.concat(res)
         })
+        wx.hideLoading();
       }
     })
   },
@@ -109,6 +112,13 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    this.setData({
+      page: this.data.page + 1
+    })
+    wx.showLoading({
+      title: '加载中....',
+    })
+    this.getAnswerList(this.data.options.id);
 
   },
 
