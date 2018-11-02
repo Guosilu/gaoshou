@@ -64,6 +64,7 @@ swiper {
   border-radius: 25rpx;
   box-shadow: 1px 1px 20px 1px #f2f2f2;
 }
+
 .cate_tab {
   padding: 3% 7%;
   border-radius: 10rpx;

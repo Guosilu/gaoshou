@@ -452,8 +452,6 @@ icon {
 
 .weui-uploader__img {
     display: block;
-    width: 79px;
-    height: 79px
 }
 
 .weui-uploader__file_status {
