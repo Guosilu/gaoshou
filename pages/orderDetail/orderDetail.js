@@ -15,97 +15,50 @@ Page({
   },
 
   is_like: function (id) {
-    let that = this;
-    wx.request({
-      url: config.activity_orderUrl,
-      method: "POST",
-      data: {
-        action: 'is_like',
-        where: {
-          activity_order_id: id,
-          openId: app.globalData.openId
-        }
-      },
-      success: function (res) {
-        let like_status;
-        if (res.data == 1) {
-          like_status = 1;
-        } else {
-          like_status = 0;
-        }
-        that.setData({
-          like_status: like_status
-        })
+    var that = this;
+    var param = {
+      action: 'is_like',
+      post: {
+        id: id,
+        openId: app.globalData.openId
       }
+    }
+    configLike.requestFun(config.activity_orderUrl, param).then(function (data) {
+      that.setData({
+        like_status: data,
+        loading: that.data.loading + 1
+      })
+      wx.hideLoading();
     });
   },
 
   like: function () {
-    let that = this;
-    let post = {};
-    let id = that.data.detail.id;
-    post['activity_order_id'] = id;
-    post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.activity_orderUrl,
-      method: "POST",
-      data: {
-        action: 'like',
-        id: id,
-        post: post
-      },
-      success: function (res) {
-        let data = res.data;
-        if (data.success == 1) {
-          that.setData({
-            like_status: 1,
-            'detail.dianzan': data.dianzan
-          })
-          wx.showToast({
-            icon: 'none',
-            title: '点赞成功！'
-          });
-        }
+    if (this.data.like_status == 1) {
+      wx.showToast({
+        icon: 'none',
+        title: '您已经投过票了！'
+      });
+      return false;
+    }
+    var that = this;
+    var param = {
+      action: 'like',
+      post: {
+        id: that.data.detail.id,
+        openId: app.globalData.openId
       }
-    });
-  },
-
-  like_cancel: function () {
-    let that = this;
-    wx.showModal({
-      title: '提示',
-      content: '确定取消点赞吗？',
-      success: function (res) {
-        if (res.confirm) {
-          let where = {};
-          let id = that.data.detail.id;
-          where['activity_order_id'] = id;
-          where['openId'] = app.globalData.openId;
-          wx.request({
-            url: config.activity_orderUrl,
-            method: "POST",
-            data: {
-              action: 'like_cancel',
-              id: id,
-              where: where
-            },
-            success: function (res) {
-              let data = res.data;
-              if (data.success == 1) {
-                that.setData({
-                  like_status: 0,
-                  'detail.dianzan': data.dianzan
-                })
-                wx.showToast({
-                  icon: 'none',
-                  title: '已取消点赞！'
-                });
-              }
-            }
-          });
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
+    }
+    configLike.requestFun(config.activity_orderUrl, param).then(function (data) {
+      console.log(data);
+      if (data.success == 1) {
+        that.setData({
+          like_status: 1,
+          'detail.dianzan': data.dianzan
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '投票成功！'
+        });
       }
     });
   },
@@ -266,7 +219,7 @@ Page({
         }
       }
     });
-    this.get_compose_list(dataObj, 0);
+    this.get_compose_list(dataObj, 2);
   },
   
   //赏金

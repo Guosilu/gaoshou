@@ -139,6 +139,13 @@ Page({
   },
 
   like: function () {
+    if (this.data.like_status == 1) {
+      wx.showToast({
+        icon: 'none',
+        title: '您已经投过票了！'
+      });
+      return false;
+    }
     var that = this;
     var param = {
       action: 'like',
@@ -158,36 +165,8 @@ Page({
           icon: 'none',
           title: '投票成功！'
         });
-      } else if (data.success == 2) {
-        wx.showToast({
-          icon: 'none',
-          title: '您已经投过票了！'
-        });
       }
     });
-  },
-
-  like_cancel: function () {
-    var that = this;
-    var param = {
-      action: 'like_cancel',
-      post: {
-        id: that.data.detail.id,
-        openId: app.globalData.openId
-      }
-    }
-    configLike.requestFun(config.publicationUrl, param, 1).then(function (data) {
-      if (data.success == 1) {
-        that.setData({
-          like_status: 0,
-          'detail.dianzan': data.dianzan
-        })
-        wx.showToast({
-          icon: 'none',
-          title: '已取消！'
-        });
-      }
-    });  
   },
   
   likeFun: function (option, act) {
@@ -353,7 +332,7 @@ Page({
       title: '加载中...',
     })
     that.get_detail(options.id);
-    that.get_compose_list(dataObj, 0);  //获取评论
+    that.get_compose_list(dataObj, 2);  //获取评论
     that.is_like(options.id); //点赞
   },
   /**
