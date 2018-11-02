@@ -1,21 +1,6 @@
 /* pages/activity_Initiate/activity_Initiate.wxss */
-.act-cate{
-  padding: 30rpx 20rpx 0;
-  display: flex;
-  justify-content: space-between;
-}
-.act-cate view{
-  width: 22%;
-  box-sizing: border-box;
-  padding: 15rpx 30rpx;
-  border-radius: 10rpx;
-  text-align: center;
-  border: 2rpx solid #f2f2f2;
-}
-.act-cate view.on{
-  background: #da4e3f;
-  color: #FFF;
-}
+
+
 .weui-select{
 background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;
 }

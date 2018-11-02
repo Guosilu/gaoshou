@@ -20,9 +20,6 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
-    //选择活动类型
-    cateName: ["图片", "语音", "视频", "文章"],
-    cateActive: 0,
     //活动分类
     activityType: ["类别", "比赛", "排名", "互助"],
     activityTypeIndex: 0,
@@ -35,12 +32,6 @@ Page({
     form_reset: '',
     //图片上传
     file: ''
-  },
-  cateClick: function (e) {
-    let clk = this;
-    clk.setData({
-      cateActive: e.currentTarget.dataset.current,
-    })
   },
   form_reset: function () {
     this.setData({

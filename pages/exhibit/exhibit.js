@@ -327,7 +327,6 @@ Page({
         id: id
       },
       success: function(res) {
-        console.log(res.data);
         if (res.data) {
           that.setData({
             detail: res.data
