@@ -1,4 +1,4 @@
-
+const common = require("../../js/commonFun.js");
 const config = require('../../config/config.js');
 //获取应用实例
 const app = getApp()
@@ -50,6 +50,7 @@ Page({
     });
   },
   inputTyping: function(e) {
+    console.log(searchUrl)
     this.setData({
       inputVal: e.detail.value
     });

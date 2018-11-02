@@ -6,6 +6,7 @@ const publicationUrl = baseUrl + 'gaoshou/api/publicationApi.php';
 const activityUrl = baseUrl + 'gaoshou/api/activityApi.php';
 const activity_orderUrl = baseUrl + 'gaoshou/api/activity_orderApi.php';
 const squareUrl = baseUrl + 'gaoshou/api/squareApi.php';
+const searchUrl = baseUrl + 'gaoshou/api/searchApi.php';
 const coreUrl = baseUrl + "gaoshou/core/";
 const img = baseUrl + "gaoshou/images/";
 const comment = baseUrl +'gaoshou/api/commentApi.php';
@@ -22,6 +23,7 @@ module.exports = {
   coreUrl: coreUrl,
   img: img,
   squareUrl: squareUrl,
+  searchUrl: searchUrl,
   comment: comment,
   payApi: payApi,
   forum: forum

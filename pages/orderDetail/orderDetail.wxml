@@ -1,6 +1,6 @@
 <block wx:if="{{detail.id && like_status !== null}}">
   <view class='ex-title'>
-    {{detail.truename?detail.truename:"biaoti"}}
+    {{detail.title?detail.title:"biaoti"}}
     <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
       <view class='ex_info'>
         <image src='{{detail.avatarUrl}}' class='ex_icon eu-avatar' mode='widthFix' />{{detail.nickName}}
