@@ -10,31 +10,53 @@ Page({
    * 页面的初始数据
    */
   data: {
-    contShow: false,
-    sendShow: true,
-    inputVal: "",
     compose_type: "forum",
     loading: 0
   },
-  inputTyping: function (e) {
-    this.setData({
-      sendShow: false,
-      contShow: true
+
+  /**
+  * 评论输入框内容
+  */
+  input: function (e) {
+    var that = this;
+    that.setData({
+      value: e.detail.value
     })
   },
+  /**
+   * 添加评论
+   */
   sendBtn: function (e) {
-    this.setData({
-      contShow: false,
-      sendShow: true,
-      inputVal: "",
-    })
-  },
-  contReply: function (e) {
-    this.setData({
-      contShow: true,
-      sendShow: false,
-      inputVal: "回复",
-    })
+    var that = this;
+
+    var param = {};
+    param['content'] = that.data.value;
+    param['types'] = 'comment';
+    param['compose_type'] = that.data.compose_type;
+    param['openId'] = app.globalData.openId;
+    param['compose_id'] = that.data.answer.id
+
+    comment.query('add', param).then(
+      function (data) {
+        console.log(data);
+        if (data != '0') {
+          wx.showToast({
+            title: '添加成功',
+          })
+          that.setData({
+            inputVal: "",
+          })
+        } else {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none'
+          })
+        }
+        //评论完成更新数据
+
+        that.getComment(that.data.itemid, that.data.compose_type);
+      }
+    );
   },
 
   /**
