@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 9,
 			"list": [
 				{
 					"id": -1,
@@ -73,6 +73,30 @@
 					"name": "回答详情页",
 					"pathName": "pages/forum/article/article",
 					"query": "id=1"
+				},
+				{
+					"id": 6,
+					"name": "申请",
+					"pathName": "pages/recharge/recharge",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "申请成功",
+					"pathName": "pages/recharge/bringsuccess",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "充值",
+					"pathName": "pages/recharge/apply",
+					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "余额",
+					"pathName": "pages/recharge/trecord",
+					"query": ""
 				}
 			]
 		}
