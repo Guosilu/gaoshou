@@ -196,7 +196,7 @@
       </view>
       <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}">
-          <image mode='aspectFill' src="{{item.thumb}}"></image>
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
             <view class='sys-number' style='display:none;'>编号：123456789</view>

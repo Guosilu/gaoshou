@@ -154,6 +154,10 @@ Page({
       },
       success: function (res) {
         console.log(res.data);
+        let result = res.data;
+        for(let a=0;a<result.length;a++){
+          result[a]['file'] = result[a]['file'].split(',')
+        }
         that.setData({
           worksList: res.data,
         });

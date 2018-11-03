@@ -167,6 +167,7 @@ Page({
     configLike.requestFun(config.publicationUrl, param).then(function (data) {
       if (data) {
         console.log(data)
+        data['file'] = data.file.split(',')
         that.setData({
           detail: data,
           like_status: data.like_status,

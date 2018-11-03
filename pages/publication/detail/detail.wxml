@@ -23,11 +23,7 @@
   </view>
   <view class='informat'>
     <view class='ex-cover'>
-      <image wx:if="{{detail.thumb}}" src="{{detail.thumb}}" mode='widthFix'></image>
-      <image wx:if="{{detail.thumb1}}" src="{{detail.thumb1}}" mode='widthFix'></image>
-      <image wx:if="{{detail.thumb2}}" src="{{detail.thumb2}}" mode='widthFix'></image>
-
-      <image wx:if="{{detail.thumb3}}" src="{{detail.thumb3}}" mode='widthFix'></image>
+      <image wx:for="{{detail.file}}" wx:key="*this" src="{{item}}" mode='widthFix'></image>
     </view>
     <view class='reward-btn' bindtap='openPay'>
       赏
