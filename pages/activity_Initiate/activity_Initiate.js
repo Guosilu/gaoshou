@@ -41,15 +41,23 @@ Page({
    */
   chooseVideo: function() {
     var that = this;
-
     wx.chooseVideo({
       maxDuration: 1000,
       success: function(res) {
         console.log(res);
         that.setData({
-          vifile: res.tempFilePath
+          vifile: res
         })
       }
+    })
+  },
+  /**
+   * 删除视频
+   */
+  delVideo: function() {
+    var that = this;
+    that.setData({
+      vifile: []
     })
   },
 
