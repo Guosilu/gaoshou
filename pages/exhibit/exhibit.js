@@ -289,7 +289,6 @@ Page({
           like_status: data.like_status,
         })
         wx.hideLoading();
-        that.getComment(that.data.detail.id, that.data.compose_type);
       }
     });
   },
@@ -367,36 +366,6 @@ Page({
     });
   },
 
-  /**
-   *  获取评论
-   */
-  getComment: function (dataObj, act) {
-    var that = this;
-    var act = act || 1;
-    comment.query('list', dataObj).then(function (data) {
-      if (data.lists.length > 0) {
-        console.log(data.lists);
-        let comment = (act == 'sendCom') ? data.lists : that.data.comment.concat(data.lists);
-        let page = (act == 'sendCom') ? that.data.page : that.data.page + 1;
-        that.setData({
-          comment: comment,
-          loading: that.data.loading + 1,
-          comNum: data.comNum,
-          page: page,
-        })
-        wx.hideLoading();
-      } else {
-        if (act == 1) {
-          wx.hideLoading();
-          wx.showToast({
-            icon: 'none',
-            title: '到底了~',
-          })
-        }
-      }
-    });
-  },
-
   //评论列表(取消)点赞方法
   likeFun: function (option, act) {
     var that = this, like_status, confirm, tipTitle;
@@ -445,6 +414,36 @@ Page({
   //评论取消点赞
   comment_like_cancel: function (option) {
     this.likeFun(option, 'minus');
+  },
+
+  /**
+   *  获取评论
+   */
+  getComment: function (dataObj, act) {
+    var that = this;
+    var act = act || 1;
+    comment.query('list', dataObj).then(function (data) {
+      if (data.lists.length > 0) {
+        console.log(data.lists);
+        let comment = (act == 'sendCom') ? data.lists : that.data.comment.concat(data.lists);
+        let page = (act == 'sendCom') ? that.data.page : that.data.page + 1;
+        that.setData({
+          comment: comment,
+          loading: that.data.loading + 1,
+          comNum: data.comNum,
+          page: page,
+        })
+        wx.hideLoading();
+      } else {
+        if (act == 1) {
+          wx.hideLoading();
+          wx.showToast({
+            icon: 'none',
+            title: '到底了~',
+          })
+        }
+      }
+    });
   },
 
   /**
