@@ -20,6 +20,7 @@ Page({
     payInput: false,
     compose_type: "publication",
     page: 1,
+    pagesize: 5,
   },
 
 
@@ -120,6 +121,41 @@ Page({
   },
   // -----------------赏金结束----------------
 
+  /**
+  * 生命周期函数--监听页面加载
+  **/
+  onLoad: function (options) {
+    var that = this;
+    var dataObj = {
+      compose_id: options.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    that.get_detail(options.id);
+    that.getComment(dataObj, 2);  //获取评论
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    var dataObj = {
+      compose_id: this.data.detail.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type,
+      page: this.data.page,
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    this.getComment(dataObj);  //获取评论
+  },
+
   //获取详情页
   get_detail: function (id) {
     var that = this;
@@ -205,7 +241,7 @@ Page({
           comment: comment,
           loading: that.data.loading + 1,
           comNum: data.comNum,
-          page: that.data.page + 1,
+          page: page,
         })
         wx.hideLoading();
       } else {
@@ -311,41 +347,6 @@ Page({
         that.getComment(dataObj, 'sendCom');
       }
     );
-  },
-
-  /**
-  * 生命周期函数--监听页面加载
-  **/
-  onLoad: function (options) {
-    var that = this;
-    var dataObj = {
-      compose_id: options.id,
-      openId: app.globalData.openId,
-      compose_type: this.data.compose_type
-    }
-    wx.showLoading({
-      mask: true,
-      title: '加载中...',
-    })
-    that.get_detail(options.id);
-    that.getComment(dataObj, 2);  //获取评论
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    var dataObj = {
-      compose_id: this.data.detail.id,
-      openId: app.globalData.openId,
-      compose_type: this.data.compose_type,
-      page: this.data.page,
-    }
-    wx.showLoading({
-      mask: true,
-      title: '加载中...',
-    })
-    this.getComment(dataObj);  //获取评论
   },
 
   //生命周期函数--监听页面初次渲染完

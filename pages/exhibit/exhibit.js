@@ -5,6 +5,10 @@ const comment = util.comment;
 const app = util.app;
 Page({
   data: {
+    comment: [],
+    comNum: 0,
+    like_status: null,
+    detail: {},
     like_status: null,
     detail: {},
     order_lists: {},
@@ -13,6 +17,8 @@ Page({
     payInput: false,
     compose_type: "exhibit",
     joinClick: false,
+    page: 1,
+    pagesize: 5,
   },
 
   //赏金
@@ -212,53 +218,70 @@ Page({
     })
   },
 
-  getOrderList: function(id) {
-    let that = this;
-    wx.request({
-      url: config.activity_orderUrl,
-      method: 'POST',
-      data: {
-        action: 'lists',
-        pagesize: 4,
-        where: {
-          activity_id: id
-        }
-      },
-      success: function(res) {
-        that.setData({
-          order_lists: res.data
-        });
-      }
+  //初次加载
+  onLoad: function (options) {
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
     })
-  },
-
-  getExhibitList: function(id) {
     var that = this;
-    wx.request({
-      url: config.activityUrl,
-      method: 'POST',
-      data: {
-        action: 'lists',
-        where_except: {
-          id: id
+    let id = options.id;
+    if (Object.keys(options).length == 0) {
+      wx.showToast({
+        title: '跳转异常!正在返回!',
+        icon: "none",
+        success: function () {
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1500)
         }
-      },
-      success: function(res) {
-        that.setData({
-          exhibit_lists: res.data
-        });
-      }
-    })
+      })
+      return;
+    }
+    var dataObj = {
+      compose_id: options.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type,
+      pagesize: 5,
+    }
+    this.getComment(dataObj, 2);
+    this.get_detail(options.id);
+    this.getOrderList(id);
+    this.getExhibitList(id);
   },
 
-  get_detail: function(id) {
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    var dataObj = {
+      compose_id: this.data.detail.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type,
+      page: this.data.page,
+      pagesize: 5,
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    this.getComment(dataObj);  //获取评论
+  },
+
+  onShow: function () {
+  },
+
+  //获取详情
+  get_detail: function (id) {
     var that = this;
     var param = {
       action: 'detail',
       id: id,
       openId: app.globalData.openId,
     }
-    configLike.requestFun(config.activityUrl, param).then(function(data) {
+    configLike.requestFun(config.activityUrl, param).then(function (data) {
       if (data) {
         console.log(data)
         that.setData({
@@ -271,76 +294,163 @@ Page({
     });
   },
 
-  onLoad: function(options) {
-    wx.showLoading({
-      mask: true,
-      title: '加载中...',
-    })
-    var that = this;
-    let id = options.id;
-    if (Object.keys(options).length == 0) {
-      wx.showToast({
-        title: '跳转异常!正在返回!',
-        icon: "none",
-        success: function() {
-          setTimeout(function() {
-            wx.navigateBack({
-              delta: 1
-            })
-          }, 1500)
+  //获取广场
+  getOrderList: function (id) {
+    let that = this;
+    wx.request({
+      url: config.activity_orderUrl,
+      method: 'POST',
+      data: {
+        action: 'lists',
+        pagesize: 4,
+        where: {
+          activity_id: id
         }
-      })
-      return;
-    }
-    this.get_detail(options.id);
-    this.getOrderList(id);
-    this.getExhibitList(id);
+      },
+      success: function (res) {
+        that.setData({
+          order_lists: res.data
+        });
+      }
+    })
   },
 
-  onShow: function() {
+  //获取活动列表
+  getExhibitList: function (id) {
     var that = this;
-    //获取评论
-    if (that.data.detail.id) {
-      that.getOrderList(that.data.detail.id);
-      that.getExhibitList(that.data.detail.id);
-      that.getComment(that.data.detail.id, that.data.compose_type);
-    }
+    wx.request({
+      url: config.activityUrl,
+      method: 'POST',
+      data: {
+        action: 'lists',
+        where_except: {
+          id: id
+        }
+      },
+      success: function (res) {
+        that.setData({
+          exhibit_lists: res.data
+        });
+      }
+    })
   },
-  /**
-   * 获取回答评论
-   */
-  getComment: function(id, compose_type) {
+
+  //投票点赞
+  like: function () {
+    if (this.data.like_status == 1) {
+      wx.showToast({
+        icon: 'none',
+        title: '您已经投过票了！'
+      });
+      return false;
+    }
     var that = this;
     var param = {
-      compose_id: id,
-      openId: app.globalData.openId,
-      compose_type: compose_type
+      action: 'like',
+      post: {
+        id: that.data.detail.id,
+        openId: app.globalData.openId
+      }
     }
-    comment.query('list', param).then(function(data) {
-      if (data) {
-        console.log(data);
+    configLike.requestFun(config.activityUrl, param).then(function (data) {
+      console.log(data);
+      if (data.success == 1) {
         that.setData({
-          comment: data,
-          loading: that.data.loading + 1
+          like_status: 1,
+          'detail.dianzan': data.dianzan
         })
-        if (that.data.loading == 3) wx.hideLoading();
+        wx.showToast({
+          icon: 'none',
+          title: '投票成功！'
+        });
       }
     });
   },
 
   /**
-   * 评论输入框内容
+   *  获取评论
    */
-  input: function(e) {
+  getComment: function (dataObj, act) {
     var that = this;
-    that.setData({
-      value: e.detail.value
-    })
+    var act = act || 1;
+    comment.query('list', dataObj).then(function (data) {
+      if (data.lists.length > 0) {
+        console.log(data.lists);
+        let comment = (act == 'sendCom') ? data.lists : that.data.comment.concat(data.lists);
+        let page = (act == 'sendCom') ? that.data.page : that.data.page + 1;
+        that.setData({
+          comment: comment,
+          loading: that.data.loading + 1,
+          comNum: data.comNum,
+          page: page,
+        })
+        wx.hideLoading();
+      } else {
+        if (act == 1) {
+          wx.hideLoading();
+          wx.showToast({
+            icon: 'none',
+            title: '到底了~',
+          })
+        }
+      }
+    });
   },
+
+  //评论列表(取消)点赞方法
+  likeFun: function (option, act) {
+    var that = this, like_status, confirm, tipTitle;
+    console.log(option.target.dataset)
+    var id = option.target.dataset.id || 0;
+    var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
+    var dianzan = Number(option.target.dataset.dianzan) >= 0 ? Number(option.target.dataset.dianzan) : '';
+    var param = {
+      action: 'like_add_minus',
+      post: {
+        id: id,
+        openId: app.globalData.openId,
+        act: act
+      }
+    }
+    if (act == 'add') {
+      like_status = 1;
+      dianzan = dianzan + 1;
+      confirm = '';
+      tipTitle = '点赞成功！';
+    } else if (act == 'minus') {
+      like_status = 0;
+      dianzan = dianzan - 1;
+      confirm = 1;
+      tipTitle = '已取消！';
+    }
+    configLike.requestFun(config.comment, param, confirm).then(function (data) {
+      if (data.success == 1) {
+        that.setData({
+          [`comment[${index}].like_status`]: like_status,
+          [`comment[${index}].dianzan`]: dianzan
+        })
+        wx.showToast({
+          icon: 'none',
+          title: tipTitle
+        });
+      }
+    });
+  },
+
+  //评论列表点赞
+  comment_like: function (option) {
+    this.likeFun(option, 'add');
+  },
+
+  //评论取消点赞
+  comment_like_cancel: function (option) {
+    this.likeFun(option, 'minus');
+  },
+
   /**
    * 添加评论
    */
-  sendBtn: function(e) {
+  sendBtn: function (e) {
     var that = this;
 
     var param = {};
@@ -351,7 +461,7 @@ Page({
     param['compose_id'] = that.data.detail.id
 
     comment.query('add', param).then(
-      function(data) {
+      function (data) {
         console.log(data);
         if (data != '0') {
           wx.showToast({
@@ -368,9 +478,25 @@ Page({
         }
         //评论完成更新数据
 
-        that.getComment(that.data.detail.id, that.data.compose_type);
+        var dataObj = {
+          compose_id: that.data.detail.id,
+          openId: app.globalData.openId,
+          compose_type: that.data.compose_type,
+          page: 1,
+          pagesize: (that.data.page - 1) * that.data.pagesize,
+        }
+        that.getComment(dataObj, 'sendCom');
       }
     );
   },
 
+  /**
+   * 评论输入框内容
+   */
+  input: function (e) {
+    var that = this;
+    that.setData({
+      value: e.detail.value
+    })
+  },
 })
