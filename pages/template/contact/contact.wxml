@@ -2,8 +2,8 @@
 <view class='contact-box'>
   <view>全部评论</view>
   <view class='contact-item'>
-    <image class='u-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
-    <navigator url="" class='u-name'>等等，我先提上裤子</navigator>
+    <image class='cu-avatar' src='http://img5.imgtn.bdimg.com/it/u=2825220814,358504285&fm=26&gp=0.jpg' mode='widthFix'></image>
+    <navigator url="" class='cu-name'>等等，我先提上裤子</navigator>
     <view class='cont-fav'>
       <image src='/images/zan.png' mode='widthFix' />666</view>
     <view class='cont-text'>你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊你过来啊</view>

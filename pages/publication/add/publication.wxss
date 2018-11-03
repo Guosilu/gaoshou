@@ -1,5 +1,5 @@
 /* pages/publication/Publication.wxss */
-@import "/pages/activity_Initiate/activity_Initiate.wxss"
+@import "/pages/activity_Initiate/activity_Initiate.wxss";
 
 .weui-btn-area{
   margin-bottom: 50rpx;

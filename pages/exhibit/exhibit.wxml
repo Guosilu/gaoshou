@@ -124,8 +124,8 @@
   <view>全部评论({{comment.comNum}})</view>
 
   <view class='contact-item' wx:for='{{comment.lists}}' wx:key="*this">
-    <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
-    <navigator url="" class='u-name'>{{item.nickName}}</navigator>
+    <image class='cu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+    <navigator url="" class='cu-name'>{{item.nickName}}</navigator>
       <view class='cont-fav'>
         <image src='/images/zan.png' mode='widthFix' />{{item.dianzan}}</view>
 
