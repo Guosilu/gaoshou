@@ -1,3 +1,4 @@
+@import "/pages/template/contact/contact.wxss";
 .informat{
   margin: 10rpx 20rpx;background: #fff;
 }
