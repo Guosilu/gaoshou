@@ -9,11 +9,7 @@ Page({
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    imgUrls: [],
     indicatorDots: true,
     indicatorColor: "#FFF", //指示点颜色
     indicatorActiveColor: "#22b38a",
@@ -36,15 +32,57 @@ Page({
     file: '',
     //音频
     vofile: '',
-    //视频
+    //视频  chooseVoice
     vifile: '',
+  }, 
+
+  /**
+   * 选择视频
+   */
+  chooseVideo: function() {
+    var that = this;
+
+    wx.chooseVideo({
+      maxDuration: 1000,
+      success: function(res) {
+        console.log(res);
+        that.setData({
+          vifile: res.tempFilePath
+        })
+      }
+    })
   },
+
+  /**
+   * banner
+   */
+  getBanner: function () {
+    var that = this;
+    wx.request({
+      url: config.activity_orderUrl,
+      method: 'POST',
+      data: {
+        action: 'getBanner'
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          imgUrls: res.data,
+        });
+      }
+    })
+  },
+
   cateClick: function(e) {
     let clk = this;
     clk.setData({
       cateActive: e.currentTarget.dataset.current,
     })
   },
+
+  /**
+   * 重置form
+   */
   form_reset: function() {
     this.setData({
       activityTypeIndex: 0,
@@ -56,6 +94,10 @@ Page({
       file: ''
     });
   },
+
+  /**
+   * 提交
+   */
   formSubmit: function(e) {
     wx.showLoading({
       mask: true,
@@ -84,6 +126,10 @@ Page({
       this.fileUpload(file, post);
     }
   },
+
+  /**
+   * 图片上传
+   */
   fileUpload: function(path, post) {
     let that = this;
     wx.uploadFile({
@@ -100,6 +146,10 @@ Page({
       }
     });
   },
+
+  /**
+   * 提交DO
+   */
   formSubmitDo: function(post) {
     let that = this;
     post['openId'] = app.globalData.openId;
@@ -128,12 +178,19 @@ Page({
       }
     })
   },
-  //删除图片
+
+  /**
+   * 删除图片
+   */
   delImg: function(e) {
     this.setData({
       file: ''
     })
   },
+
+  /**
+   * 活动类别
+   */
   bindAccountChange: function(e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
     if (e.detail.value < 1) {
@@ -147,6 +204,7 @@ Page({
       activityTypeIndex: e.detail.value
     })
   },
+
   // 图片上传
   chooseImage: function(e) {
     var that = this;
@@ -164,12 +222,17 @@ Page({
 
 
   },
+
+  /**
+   * 浏览图片
+   */
   previewImage: function(e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.file // 需要预览的图片http链接列表
     })
   },
+
   // 改变时间
   bindDateChange: function(e) {
     this.setData({
@@ -182,7 +245,6 @@ Page({
     })
   },
   bindeDateChange: function(e) {
-    console.log(e);
     this.setData({
       edate: e.detail.value
     })
@@ -196,7 +258,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getBanner()
   },
 
   /**
