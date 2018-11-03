@@ -10,6 +10,7 @@ Page({
     detail: {},
     compose_type: "orderDetail",
     page: 1,
+    pagesize: 5,
     comNum: 0,
     comment: [],
   },
@@ -152,7 +153,7 @@ Page({
       compose_type: this.data.compose_type
     }
     this.get_detail(options.id);
-    this.get_compose_list(dataObj, 2);
+    this.getComment(dataObj, 2);
   },
 
 
