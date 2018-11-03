@@ -12,6 +12,7 @@ Page({
     payOpen: false,
     payInput: false,
     compose_type: "exhibit",
+    joinClick: false,
   },
 
   //赏金
@@ -157,8 +158,15 @@ Page({
       }
     });
   },
-
+  closeJoin: function () {
+    this.setData({
+      joinClick: false,
+    })
+  },
   joinActivity: function() {
+    this.setData({
+      joinClick: true,
+    })
     let id = this.data.detail.id;
     wx.request({
       url: config.activityUrl,
@@ -173,7 +181,7 @@ Page({
       success: function(res) {
         if (res.data == 1) {
           wx.navigateTo({
-            url: '../participate/participate?id=' + id
+            // url: '../participate/participate?id=' + id
           })
         } else if (res.data == 2) {
           wx.showToast({
