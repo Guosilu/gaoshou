@@ -1,7 +1,8 @@
 const commonFun = require("../../js/commonFun.js");
 const config = require('../../config/config.js');
 //获取应用实例
-const app = getApp()
+const app = getApp();
+const partt = /\S+/;
 
 Page({
   data: {
@@ -69,10 +70,11 @@ Page({
         column_short: 1,
       }
     }
-    if (Boolean(e.detail.value)) {
+    console.log(partt.test(e.detail.value));
+    if (partt.test(e.detail.value)) {
       this.setData({
         keyword: e.detail.value,
-        downSearchList: Boolean(e.detail.value),
+        downSearchList: true,
       });
       commonFun.requestFun(dataObj).then(res => {
         console.log(res);
@@ -84,7 +86,7 @@ Page({
       this.setData({
         keyword: e.detail.value,
         showList: {},
-        downSearchList: Boolean(e.detail.value),
+        downSearchList: false,
       });
     }
   },
@@ -96,9 +98,16 @@ Page({
   },
 
   navigatorSearch: function () {
-    wx.navigateTo({
-      url: '../search/search?keyword=' + this.data.keyword
-    })
+    if (partt.test(this.data.keyword)) {
+      wx.navigateTo({
+        url: '../search/search?keyword=' + this.data.keyword
+      })
+    } else {
+      wx.showToast({
+        icon: 'none',
+        title: '请输入合法内容',
+      })
+    }
   },
 
   getActivityList: function () {
