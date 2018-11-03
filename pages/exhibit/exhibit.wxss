@@ -1,8 +1,11 @@
 @import "/pages/template/contact/contact.wxss";
-.informat{
-  margin: 10rpx 20rpx;background: #fff;
+
+.informat {
+  margin: 10rpx 20rpx;
+  background: #fff;
 }
-.ex-title{
+
+.ex-title {
   position: relative;
   font-size: 18px;
   line-height: 60rpx;
@@ -11,7 +14,7 @@
   margin: 20rpx 0;
 }
 
-.ex-title::after{
+.ex-title::after {
   position: absolute;
   content: "";
   top: 8rpx;
@@ -21,6 +24,7 @@
   height: 46rpx;
   background: #dc4e40;
 }
+
 .yh_hudong {
   margin: 20rpx 0 30rpx;
   font-weight: normal;
@@ -31,17 +35,18 @@
   border-bottom: 1rpx solid #f2f2f2;
 }
 
-.yh_hudong .ex_info{
+.yh_hudong .ex_info {
   float: left;
   margin-right: 30rpx;
 }
-.yh_hudong .ex_num{
+
+.yh_hudong .ex_num {
   float: right;
   font-size: 12px;
   margin: 0;
 }
 
-.yh_hudong .ex_icon{
+.yh_hudong .ex_icon {
   width: 30rpx;
   line-height: 60rpx;
   margin-right: 2rpx;
@@ -50,34 +55,44 @@
   opacity: 0.8;
   font-size: 13px;
 }
-.yh_hudong .u-avatar{
+
+.yh_hudong .u-avatar {
   border-radius: 50%;
   width: 45rpx;
   margin-top: -3rpx;
 }
 
-.yh_hudong .like_on{
+.yh_hudong .like_on {
   color: #dc4e40;
 }
-.ex-cover image{
+
+.ex-cover image {
   margin: 20rpx 0;
 }
-.ex-list{
-  overflow: hidden;margin-bottom: 30rpx;
+
+.ex-list {
+  overflow: hidden;
+  margin-bottom: 30rpx;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.ex-cipate{
-  float: left;width: 48%;margin-bottom: 20rpx;
+
+.ex-cipate {
+  float: left;
+  width: 48%;
+  margin-bottom: 20rpx;
   border: 1px solid #f2f2f2;
 }
+
 .ex-cipate .listInfo {
   padding: 10rpx 20rpx;
   color: gray;
 }
-.ex-cipate image{
-  width: 100%;height: 340rpx;
+
+.ex-cipate image {
+  width: 100%;
+  height: 340rpx;
 }
 
 .ex-cipate .ex_icon {
@@ -87,37 +102,141 @@
   margin-top: -1rpx;
   margin-left: 10rpx;
   margin-right: 2rpx;
-  opacity: 0.8
+  opacity: 0.8;
 }
 
-.ex-cipate .ex_icon1{
+.ex-cipate .ex_icon1 {
   margin-left: -8rpx !important;
 }
+
 .ex-cipate .item-icnum {
   line-height: 32rpx;
   font-size: 12px;
   color: gray;
 }
 
-.ex-btn{
-  float: left;width: 48%;background: #dc4e40;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
+.ex-btn {
+  float: left;
+  width: 48%;
+  background: #dc4e40;
+  color: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 32rpx;
+  border-radius: 15rpx;
 }
-.ex-btn:nth-child(even){
+
+.ex-btn:nth-child(even) {
   float: right;
 }
-.ex-btn view{
-  float: left;width: 48%;background: #dc4e40;color: #fff;height: 80rpx;line-height: 80rpx ;text-align: center;font-size: 32rpx  ;border-radius: 15rpx;
+
+.ex-btn view {
+  float: left;
+  width: 48%;
+  background: #dc4e40;
+  color: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 32rpx;
+  border-radius: 15rpx;
 }
-.rule{
-  margin: 30rpx 20rpx;padding: 30rpx 20rpx;background: #fff;border-radius: 15rpx;box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;overflow: hidden;
+
+.rule {
+  margin: 30rpx 20rpx;
+  padding: 30rpx 20rpx;
+  background: #fff;
+  border-radius: 15rpx;
+  box-shadow: 2rpx 2rpx 2rpx 2rpx #ddd;
+  overflow: hidden;
 }
-.rule-cont{
-  width:100%;line-height: 50rpx;padding: 20rpx 15rpx;overflow: hidden;
+
+.rule-cont {
+  width: 100%;
+  line-height: 50rpx;
+  padding: 20rpx 15rpx;
+  overflow: hidden;
 }
-.no-borderTop{
+
+.no-borderTop {
   padding: 0 15rpx;
 }
-.cont-title{
+
+.cont-title {
   font-size: 16px;
   font-weight: bold;
+}
+
+/* 参与活动弹窗 */
+
+.joinActModel {
+  position: fixed;
+  background: #fff;
+  top: 16%;
+  left: 120rpx;
+  width: 600rpx;
+  background: #fff;
+  border: 2rpx solid #f2f2f2;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  transition: 1s;
+  box-shadow: 1px 1px 3px 1px #f2f2f2;
+}
+
+.closeJoin {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  border-top: 2rpx solid #f2f2f2;
+  margin-top: 20rpx;
+  padding: 20rpx 30rpx;
+  font-size: 16px;
+}
+.addBtn{
+  padding: 10rpx;
+  width: 200rpx;
+  margin: 10rpx auto;
+  text-align: center;
+  background: #dc4e40;
+  border-radius: 50rpx;
+  color: #FFF;
+}
+.addInfo{
+  font-size: 12px;
+  color: gray;
+}
+.joinBtn {
+  display: inline-block;
+  width: 45%;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.joinBtn.true {
+  color: green;
+  border-left: 2rpx solid #f2f2f2;
+}
+.my-ext{
+  height: 500rpx;
+  margin-top: 10rpx;
+  margin-bottom: 90rpx;
+}
+.my-ext-item{
+  border-bottom: 2rpx solid #f2f2f2;
+  padding: 10rpx 10rpx 20rpx;
+}
+.my-ext-title{
+  font-size: 16px;
+}
+.my-ext-img{
+  display: flex;
+  justify-content: start;
+}
+.my-ext-img image{
+  width: 160rpx;
+  margin-right: 10rpx;
 }

@@ -12,6 +12,7 @@ Page({
     payOpen: false,
     payInput: false,
     compose_type: "exhibit",
+    joinClick: false,
   },
 
   //赏金
@@ -157,7 +158,16 @@ Page({
       }
     });
   },
-
+  closeJoin: function () {
+    this.setData({
+      joinClick: false,
+    })
+  },
+  activityBtn: function(){
+    this.setData({
+      joinClick: true,
+    })
+  },
   joinActivity: function() {
     let id = this.data.detail.id;
     wx.request({

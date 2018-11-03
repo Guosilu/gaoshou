@@ -1,3 +1,4 @@
+//被调用文件上传方法
 function fileUpload(paramObj) {
   return new Promise(function (resolve, reject) {
     wx.uploadFile({
@@ -22,7 +23,11 @@ function fileUpload(paramObj) {
     });
   });
 }
-
+/*
+*上传文件
+*返回单/多文件的带字段名columnName,文件url地址fileUrl的数组中对象
+*请使用for循环赋值对应data对象提交
+*/
 function uploadFileNameList (paramObjList) {
   return new Promise(function (resolve, reject) {
     let promiseArr = [];

@@ -1,3 +1,4 @@
+//关注方法
 function collectFun(url, param, confirm) {
   var confirm = confirm || '';
   if (confirm) {
@@ -32,7 +33,7 @@ function collectFun(url, param, confirm) {
     });
   }
 }
-
+//请求方法 配置dataObj对象
 function requestFun(dataObj) {
   return new Promise(function (resolve, reject) {
     wx.request({
@@ -46,7 +47,7 @@ function requestFun(dataObj) {
     })
   });
 }
-
+//被调用方法 配合getList
 function promiseFun (dataObj) {
   return new Promise(function (resolve, reject) {
     wx.request({
@@ -64,7 +65,7 @@ function promiseFun (dataObj) {
     })
   });
 }
-
+//列表方法 dataObjList多维对象dataObj
 function getList(dataObjList) {
   return new Promise(function (resolve, reject) {
     let promiseArr = [];

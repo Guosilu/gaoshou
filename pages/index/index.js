@@ -35,32 +35,33 @@ Page({
     worksList: [],
     square: []
   },
+  //显示搜索框
   showInput: function() {
     this.setData({
       inputShowed: true
     });
   },
-
+  //情况搜索内容
   hideInput: function() {
     this.setData({
       keyword: "",
       inputShowed: false
     });
   },
-
+  //清空搜索内容
   clearInput: function() {
     this.setData({
       keyword: ""
     });
   }, 
-  
+  //失去焦点
   inputBlur: function() {
     this.setData({
       inputShowed: false,
       downSearchList: false,
     });
   },
-  
+  //搜索方法共用 commonFun.js->requestFun(dataObj)
   inputTyping: function(e) {
     let that = this;
     console.log(e);
@@ -70,6 +71,7 @@ Page({
         action: 'lists',
         keyword: e.detail.value, 
         column_short: 1,
+        pagesize_wx: 10
       }
     }
     console.log(partt.test(e.detail.value));
@@ -92,7 +94,7 @@ Page({
       });
     }
   },
-
+  //搜索 跳转详情
   navigatorSearch: function () {
     if (partt.test(this.data.keyword)) {
       wx.navigateTo({
@@ -171,6 +173,9 @@ Page({
   },
   onLoad: function() {
     var that = this;
+    wx.showLoading({
+      title: '正在加载...',
+    })
     app.redirectTo();
     that.getActivityList();
     that.getBanner();

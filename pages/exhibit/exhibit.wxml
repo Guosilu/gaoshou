@@ -12,14 +12,14 @@
           <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}
         </view>
         <view class='ex_info {{like_status >= 1 ? "like_on" : ""}}' bindtap='like'>
-        <image class='ex_icon' src='/images/{{like_status >= 1 ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
-      </view>
-        
+          <image class='ex_icon' src='/images/{{like_status >= 1 ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
+        </view>
         <view class='ex_info'>
           <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.addtime}}
         </view>
         <view class='ex_info ex_num'>
-          编号：<text selectable='true'>{{detail.number?detail.number:"暂无"}}</text>
+          编号：
+          <text selectable='true'>{{detail.number?detail.number:"暂无"}}</text>
         </view>
       </view>
     </view>
@@ -63,8 +63,45 @@
         <view>发布时间：{{detail.starttime}}</view>
         <view>截止时间：{{detail.endtime}}</view>
       </view>
-      <view class='ex-btn' bindtap='joinActivity'>参与活动</view>
+      <view class='ex-btn' bindtap='activityBtn'>参与活动</view>
       <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
+      <view class='joinActModel' wx:if='{{joinClick}}' catchtouchmove='{{joinClick}}'>
+        <view class='addBtn' bindtap='joinActivity'>发布新作品</view>
+        <view class='addInfo'>
+          从我的作品中选择
+          <scroll-view scroll-y class='my-ext'>
+            <view class='my-ext-item'>
+              <view class='my-ext-title'>我的作品</view>
+              <view class='my-ext-img'>
+                <image src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=356729896,1181030408&fm=200&gp=0.jpg' mode='widthFix' />
+                <image src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=111&gp=0.jpg' mode='widthFix' />
+                <image src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2715201274,348455391&fm=200&gp=0.jpg' mode='widthFix' />
+              </view>
+            </view>
+            <view class='my-ext-item'>
+              <view class='my-ext-title'>我的作品</view>
+              <view class='my-ext-img'>
+                <image src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=356729896,1181030408&fm=200&gp=0.jpg' mode='widthFix' />
+                <image src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=111&gp=0.jpg' mode='widthFix' />
+                <image src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2715201274,348455391&fm=200&gp=0.jpg' mode='widthFix' />
+              </view>
+            </view>
+            <view class='my-ext-item'>
+              <view class='my-ext-title'>我的作品</view>
+              <view class='my-ext-img'>
+                <image src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=356729896,1181030408&fm=200&gp=0.jpg' mode='widthFix' />
+                <image src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=111&gp=0.jpg' mode='widthFix' />
+                <image src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2715201274,348455391&fm=200&gp=0.jpg' mode='widthFix' />
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+
+        <view class='closeJoin'>
+          <view bindtap='closeJoin' class='joinBtn'>关闭</view>
+          <view class='joinBtn true'>确定</view>
+        </view>
+      </view>
     </view>
     <view class='informat'>
       <view class='ex-tit'>
@@ -78,7 +115,9 @@
               <view>
                 {{item.truename}}，
               </view>
-              <view class='sys-number'>编号：<text selectable='true'>123456789</text></view>
+              <view class='sys-number'>编号：
+                <text selectable='true'>123456789</text>
+              </view>
               <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
@@ -104,7 +143,9 @@
               <view>
                 {{item.truename}}
               </view>
-              <view class='sys-number'>编号：<text selectable='true'>123456789</text></view>
+              <view class='sys-number'>编号：
+                <text selectable='true'>123456789</text>
+              </view>
               <image src='/images/Avatar.png' class='ex_icon ex_icon1' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
@@ -121,36 +162,36 @@
   </view>
   <!-- 评论 -->
   <view class='contact-box'>
-  <view>全部评论({{comment.comNum}})</view>
+    <view>全部评论({{comment.comNum}})</view>
 
-  <view class='contact-item' wx:for='{{comment.lists}}' wx:key="*this">
-    <image class='cu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
-    <navigator url="" class='cu-name'>{{item.nickName}}</navigator>
+    <view class='contact-item' wx:for='{{comment.lists}}' wx:key="*this">
+      <image class='cu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+      <navigator url="" class='cu-name'>{{item.nickName}}</navigator>
       <view class='cont-fav'>
         <image src='/images/zan.png' mode='widthFix' />{{item.dianzan}}</view>
 
-    <navigator url='../../template/contact/details/details?id={{item.id}}'>
-      <view class='cont-text'>{{item.content}}</view>
-      <view class='cont-bar'>
-        <text class='cont-time'>{{item.addtime}}</text> ·
-        <text class='cont-reply' bindtap='contReply'>回复Ta</text>
+      <navigator url='../../template/contact/details/details?id={{item.id}}'>
+        <view class='cont-text'>{{item.content}}</view>
+        <view class='cont-bar'>
+          <text class='cont-time'>{{item.addtime}}</text> ·
+          <text class='cont-reply' bindtap='contReply'>回复Ta</text>
+        </view>
+      </navigator>
+    </view>
+
+
+    <view class='send-box'>
+      <view>
+        <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
       </view>
-    </navigator>
-  </view>
-
-
-  <view class='send-box'>
-    <view>
-      <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
-    </view>
-    <view>
-      <input type='rext' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
-    </view>
-    <view class='fr'>
-      <view class='send-btn' bindtap='sendBtn'>发送</view>
+      <view>
+        <input type='rext' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
+      </view>
+      <view class='fr'>
+        <view class='send-btn' bindtap='sendBtn'>发送</view>
+      </view>
     </view>
   </view>
-</view>
 
   <import src='../template/foot/foot.wxml' />
   <template is='foot'></template>

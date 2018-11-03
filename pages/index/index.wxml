@@ -21,24 +21,10 @@
       <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="navigatorSearch">确定</view>
     </view>
     <view class="weui-cells searchbar-result" wx:if="{{downSearchList == true}}">
-      <navigator url="../exhibit/exhibit?id={{item.id}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList.act}}' wx:key="*this">
+      <navigator url="{{item.navUrl}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList}}' wx:key="*this">
         <view class="weui-cell__bd">
           <view class='search-res'>
-            <text class='search-tag'>活动</text><text class='search-tit'>{{item.title}}</text>
-          </view>
-        </view>
-      </navigator>
-      <navigator url="../publication/detail/detail?id={{item.id}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList.pub}}' wx:key="*this">
-        <view class="weui-cell__bd">
-          <view class='search-res'>
-            <text class='search-tag'>作品</text><text class='search-tit'>{{item.title}}</text>
-          </view>
-        </view>
-      </navigator>
-      <navigator url="../orderDetail/orderDetail?id={{item.id}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList.ord}}' wx:key="*this">
-        <view class="weui-cell__bd">
-          <view class='search-res'>
-            <text class='search-tag'>广场</text><text class='search-tit'>{{item.title}}</text>
+            <text class='search-tag'>{{item.typeName}}</text><text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
       </navigator>
