@@ -70,6 +70,7 @@ Page({
         action: 'lists',
         keyword: e.detail.value, 
         column_short: 1,
+        pagesize_wx: 10
       }
     }
     console.log(partt.test(e.detail.value));

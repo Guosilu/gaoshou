@@ -9,10 +9,42 @@ Page({
    * 页面的初始数据
    */
   data: {
-    lists: {},
+    lists: [],
     inputShowed: false,
     keyword: '',
     downSearchList: false,
+    page: 1,
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(options);
+    wx.showLoading({
+      title: '正在加载...',
+    })
+    this.setData({
+      keyword: options.keyword
+    });
+    this.searchFun(options.keyword);
+  },
+
+  searchList: function () {
+    wx.showLoading({
+      title: '正在搜索...',
+    })
+    this.searchFun(this.data.keyword);
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    wx.showLoading({
+      title: '正在加载...',
+    })
+    this.searchFun(this.data.keyword);
   },
 
   showInput: function () {
@@ -37,10 +69,9 @@ Page({
       });
     }
   },
-
-  searchList: function () {
+  
+  searchFun: function (keyword) {
     let that = this;
-    let keyword = this.data.keyword;
     let dataObj = {
       url: config.searchUrl,
       data: {
@@ -53,8 +84,10 @@ Page({
       commonFun.requestFun(dataObj).then(res => {
         console.log(res);
         that.setData({
-          lists: res
+          lists: that.data.lists.concat(res),
+          page: that.data.page + 1,
         });
+        wx.hideLoading();
       });
     } else {
       this.showToast('请输入合法内容');
@@ -66,13 +99,6 @@ Page({
       icon: 'none',
       title: msg,
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    console.log(options);
   },
 
   /**
@@ -107,13 +133,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 
