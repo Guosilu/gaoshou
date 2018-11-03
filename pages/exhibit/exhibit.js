@@ -163,10 +163,12 @@ Page({
       joinClick: false,
     })
   },
-  joinActivity: function() {
+  activityBtn: function(){
     this.setData({
       joinClick: true,
     })
+  },
+  joinActivity: function() {
     let id = this.data.detail.id;
     wx.request({
       url: config.activityUrl,
@@ -181,7 +183,7 @@ Page({
       success: function(res) {
         if (res.data == 1) {
           wx.navigateTo({
-            // url: '../participate/participate?id=' + id
+            url: '../participate/participate?id=' + id
           })
         } else if (res.data == 2) {
           wx.showToast({
