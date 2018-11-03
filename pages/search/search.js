@@ -13,7 +13,7 @@ Page({
     inputShowed: false,
     keyword: '',
     downSearchList: false,
-    page: 1,
+    page_wx: 1,
   },
 
   /**
@@ -34,6 +34,10 @@ Page({
     wx.showLoading({
       title: '正在搜索...',
     })
+    this.setData({
+      lists: [],
+      page_wx: 1,
+    });
     this.searchFun(this.data.keyword);
   },
 
@@ -77,17 +81,24 @@ Page({
       data: {
         action: 'lists',
         keyword: keyword,
+        page_wx: this.data.page_wx,
       }
     }
     console.log(partt.test(keyword));
     if (partt.test(keyword)) {
       commonFun.requestFun(dataObj).then(res => {
         console.log(res);
-        that.setData({
-          lists: that.data.lists.concat(res),
-          page: that.data.page + 1,
-        });
-        wx.hideLoading();
+        if(res.length > 0) {
+          that.setData({
+            lists: that.data.lists.concat(res),
+            page_wx: that.data.page_wx + 1,
+          });
+          wx.hideLoading();
+        } else {
+          wx.hideLoading();
+          that.showToast('搜不到了呢~');
+        }
+        
       });
     } else {
       this.showToast('请输入合法内容');
