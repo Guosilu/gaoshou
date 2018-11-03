@@ -69,17 +69,24 @@ Page({
         column_short: 1,
       }
     }
-    commonFun.requestFun(dataObj).then(res=>{
-      console.log(res);
-      that.setData({
-        showList: res
+    if (Boolean(e.detail.value)) {
+      this.setData({
+        keyword: e.detail.value,
+        downSearchList: Boolean(e.detail.value),
       });
-    })  
-    this.setData({
-      keyword: e.detail.value,
-      showList: {},
-      downSearchList: true,
-    });
+      commonFun.requestFun(dataObj).then(res => {
+        console.log(res);
+        that.setData({
+          showList: res
+        });
+      });
+    } else {
+      this.setData({
+        keyword: e.detail.value,
+        showList: {},
+        downSearchList: Boolean(e.detail.value),
+      });
+    }
   },
   //事件处理函数
   bindViewTap: function() {
