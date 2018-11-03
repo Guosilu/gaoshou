@@ -16,6 +16,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     inputShowed: false,
+    keyword: '',
     downSearchList: false,
     //swiper
     imgUrls: [
@@ -42,19 +43,20 @@ Page({
 
   hideInput: function() {
     this.setData({
-      inputVal: "",
+      keyword: "",
       inputShowed: false
     });
   },
 
   clearInput: function() {
     this.setData({
-      inputVal: ""
+      keyword: ""
     });
   }, 
   
   inputBlur: function() {
     this.setData({
+      inputShowed: false,
       downSearchList: false,
     });
   },
@@ -90,12 +92,6 @@ Page({
       });
     }
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
 
   navigatorSearch: function () {
     if (partt.test(this.data.keyword)) {
@@ -108,6 +104,13 @@ Page({
         title: '请输入合法内容',
       })
     }
+  },
+
+  //事件处理函数
+  bindViewTap: function () {
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
   },
 
   getActivityList: function () {
