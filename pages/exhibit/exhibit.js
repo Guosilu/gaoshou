@@ -256,6 +256,7 @@ Page({
           like_status: data.like_status,
         })
         wx.hideLoading();
+        that.getComment(that.data.detail.id, that.data.compose_type);
       }
     });
   },
@@ -287,11 +288,12 @@ Page({
   },
 
   onShow: function() {
-    if (this.data.detail.id) {
-      this.getOrderList(this.data.detail.id);
-      this.getExhibitList(this.data.detail.id);
-      //获取评论
-      this.getComment(this.data.detail.id, this.data.compose_type);
+    var that = this;
+    //获取评论
+    if (that.data.detail.id) {
+      that.getOrderList(that.data.detail.id);
+      that.getExhibitList(that.data.detail.id);
+      that.getComment(that.data.detail.id, that.data.compose_type);
     }
   },  
   /**
