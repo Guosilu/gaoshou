@@ -160,7 +160,7 @@
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
-                <image class="item-icon" src='/images/like.png' mode='widthFix' />
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
@@ -188,7 +188,7 @@
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
-                <image class="item-icon" src='/images/like.png' mode='widthFix' />
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
@@ -216,7 +216,7 @@
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
               <view class='fr'>
-                <image class="item-icon" src='/images/like.png' mode='widthFix' />
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.dianzan}}</text>
                 <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
                 <text class='item-icnum'>{{item.liulan}}</text> -->
