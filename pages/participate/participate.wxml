@@ -11,7 +11,7 @@
 <view wx:if="{{isLogin}}"> 
 <form bindsubmit="formSubmit" bindreset="formReset">
 <view class="page__modules modules__shadow">
-  <input name="truename" value="{{form_reset}}" class="activityName" placeholder="请填写您的姓名"></input>
+  <input name="truename" value="{{form_reset}}" class="activityName" placeholder="请填写您的名称"></input>
 </view>
 
 <view class="page__modules modules__shadow">
