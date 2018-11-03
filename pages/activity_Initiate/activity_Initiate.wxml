@@ -94,6 +94,7 @@
                   <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vifile != ''}}">
                     <view class="weui-uploader__file">
                       <video class="weui-uploader__img" poster='{{vifile.thumbTempFilePath}}' src="{{vifile.tempFilePath}}"></video>
+                      <!-- <image src='{{vifile.thumbTempFilePath}}'></image> -->
                       <view bindtap="delVideo">删除</view>
                     </view>
                   </view>
