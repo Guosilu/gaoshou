@@ -19,7 +19,7 @@
         <image src='{{image}}' mode='aspectFill' wx:for="{{item.image}}" wx:for-item="image" wx:key="*this"></image>
       </view>
       <view class='partic'>
-        <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+        <image src='/images/like_on.png' class='ex_icon' mode='widthFix' />
         <text class='ex_text'>{{item.like?item.like:0}}</text>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
         <text class='ex_text'>{{item.liulan?item.liulan:0}}</text>
