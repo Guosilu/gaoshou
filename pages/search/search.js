@@ -29,7 +29,7 @@ Page({
     });
     this.searchFun(options.keyword);
   },
-
+  //搜索入口
   searchList: function () {
     wx.showLoading({
       title: '正在搜索...',
@@ -50,19 +50,19 @@ Page({
     })
     this.searchFun(this.data.keyword);
   },
-
+  //显示搜索框
   showInput: function () {
     this.setData({
       inputShowed: true
     });
   },
-
+  //清空搜索内容
   clearInput: function () {
     this.setData({
       keyword: ""
     });
   },
-
+  //检测搜索内容
   checkInput: function (e) {
     let value = e.detail.value;
     if (value.length == 15) {
@@ -73,7 +73,7 @@ Page({
       });
     }
   },
-  
+  //搜索方法共用 commonFun.js->requestFun(dataObj)
   searchFun: function (keyword) {
     let that = this;
     let dataObj = {
@@ -104,7 +104,7 @@ Page({
       this.showToast('请输入合法内容');
     }
   },
-
+  //提示方法
   showToast: function (msg) {
     wx.showToast({
       icon: 'none',
