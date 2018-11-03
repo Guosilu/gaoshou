@@ -15,7 +15,7 @@ Page({
   },
 
   //赏金
-  money:function(e){
+  money: function(e) {
     console.log(e);
     var that = this;
     that.setData({
@@ -24,11 +24,11 @@ Page({
     that.reward();
   },
 
-  money1: function (e) {
+  money1: function(e) {
     console.log(e);
-    var that  = this;
+    var that = this;
     that.setData({
-      money: (e.detail.value)*100,
+      money: (e.detail.value) * 100,
     })
   },
 
@@ -107,7 +107,7 @@ Page({
                     "type": 'activity',
                     "id": that.data.detail.id
                   },
-                  success: function (res) {
+                  success: function(res) {
                     wx.showToast({
                       title: '赞赏成功',
                     })
@@ -127,7 +127,7 @@ Page({
     })
   },
 
-  like: function () {
+  like: function() {
     if (this.data.like_status == 1) {
       wx.showToast({
         icon: 'none',
@@ -143,7 +143,7 @@ Page({
         openId: app.globalData.openId
       }
     }
-    configLike.requestFun(config.activityUrl, param).then(function (data) {
+    configLike.requestFun(config.activityUrl, param).then(function(data) {
       console.log(data);
       if (data.success == 1) {
         that.setData({
@@ -241,14 +241,14 @@ Page({
     })
   },
 
-  get_detail: function (id) {
+  get_detail: function(id) {
     var that = this;
     var param = {
       action: 'detail',
       id: id,
       openId: app.globalData.openId,
     }
-    configLike.requestFun(config.activityUrl, param).then(function (data) {
+    configLike.requestFun(config.activityUrl, param).then(function(data) {
       if (data) {
         console.log(data)
         that.setData({
@@ -295,18 +295,18 @@ Page({
       that.getExhibitList(that.data.detail.id);
       that.getComment(that.data.detail.id, that.data.compose_type);
     }
-  },  
+  },
   /**
    * 获取回答评论
    */
-  getComment: function (id, compose_type) {
+  getComment: function(id, compose_type) {
     var that = this;
     var param = {
       compose_id: id,
       openId: app.globalData.openId,
       compose_type: compose_type
     }
-    comment.query('list', param).then(function (data) {
+    comment.query('list', param).then(function(data) {
       if (data) {
         console.log(data);
         that.setData({
@@ -317,11 +317,11 @@ Page({
       }
     });
   },
-  
+
   /**
-  * 评论输入框内容
-  */
-  input: function (e) {
+   * 评论输入框内容
+   */
+  input: function(e) {
     var that = this;
     that.setData({
       value: e.detail.value
@@ -330,18 +330,18 @@ Page({
   /**
    * 添加评论
    */
-  sendBtn: function (e) {
+  sendBtn: function(e) {
     var that = this;
 
     var param = {};
-    param['content'] = that.data.value ? that.data.value: " ";
+    param['content'] = that.data.value ? that.data.value : " ";
     param['types'] = 'comment';
     param['compose_type'] = that.data.compose_type;
     param['openId'] = app.globalData.openId;
     param['compose_id'] = that.data.detail.id
 
     comment.query('add', param).then(
-      function (data) {
+      function(data) {
         console.log(data);
         if (data != '0') {
           wx.showToast({
