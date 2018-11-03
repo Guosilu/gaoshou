@@ -1,7 +1,8 @@
-const util = require('../../utils/util.js')
-const config = require('../../config/config.js');
+const util = require('../../config/comment.js');
 const configLike = require('../../config/like.js');
-const app = getApp()
+const config = util.config;
+const comment = util.comment;
+const app = util.app;
 Page({
   data: {
     like_status: null,
@@ -9,7 +10,8 @@ Page({
     order_lists: {},
     exhibit_lists: {},
     payOpen: false,
-    payInput: false
+    payInput: false,
+    compose_type: "exhibit",
   },
 
   //赏金
@@ -288,6 +290,75 @@ Page({
     if (this.data.detail.id) {
       this.getOrderList(this.data.detail.id);
       this.getExhibitList(this.data.detail.id);
+      //获取评论
+      this.getComment(this.data.detail.id, this.data.compose_type);
     }
-  }
+  },  
+  /**
+   * 获取回答评论
+   */
+  getComment: function (id, compose_type) {
+    var that = this;
+    var param = {
+      compose_id: id,
+      openId: app.globalData.openId,
+      compose_type: compose_type
+    }
+    comment.query('list', param).then(function (data) {
+      if (data) {
+        console.log(data);
+        that.setData({
+          comment: data,
+          loading: that.data.loading + 1
+        })
+        if (that.data.loading == 3) wx.hideLoading();
+      }
+    });
+  },
+  
+  /**
+  * 评论输入框内容
+  */
+  input: function (e) {
+    var that = this;
+    that.setData({
+      value: e.detail.value
+    })
+  },
+  /**
+   * 添加评论
+   */
+  sendBtn: function (e) {
+    var that = this;
+
+    var param = {};
+    param['content'] = that.data.value ? that.data.value: " ";
+    param['types'] = 'comment';
+    param['compose_type'] = that.data.compose_type;
+    param['openId'] = app.globalData.openId;
+    param['compose_id'] = that.data.detail.id
+
+    comment.query('add', param).then(
+      function (data) {
+        console.log(data);
+        if (data != '0') {
+          wx.showToast({
+            title: '添加成功',
+          })
+          that.setData({
+            inputVal: "",
+          })
+        } else {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none'
+          })
+        }
+        //评论完成更新数据
+
+        that.getComment(that.data.detail.id, that.data.compose_type);
+      }
+    );
+  },
+
 })

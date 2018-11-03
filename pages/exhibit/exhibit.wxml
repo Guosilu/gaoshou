@@ -119,6 +119,39 @@
       </view>
     </view>
   </view>
+  <!-- 评论 -->
+  <view class='contact-box'>
+  <view>全部评论({{comment.comNum}})</view>
+
+  <view class='contact-item' wx:for='{{comment.lists}}' wx:key="*this">
+    <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+    <navigator url="" class='u-name'>{{item.nickName}}</navigator>
+      <view class='cont-fav'>
+        <image src='/images/zan.png' mode='widthFix' />{{item.dianzan}}</view>
+
+    <navigator url='../../template/contact/details/details?id={{item.id}}'>
+      <view class='cont-text'>{{item.content}}</view>
+      <view class='cont-bar'>
+        <text class='cont-time'>{{item.addtime}}</text> ·
+        <text class='cont-reply' bindtap='contReply'>回复Ta</text>
+      </view>
+    </navigator>
+  </view>
+
+
+  <view class='send-box'>
+    <view>
+      <image class='back-icon' src='/images/back.png' mode='widthFix'></image>
+    </view>
+    <view>
+      <input type='rext' bindinput='input' placeholder='发表评论领积分' value="{{inputVal}}"></input>
+    </view>
+    <view class='fr'>
+      <view class='send-btn' bindtap='sendBtn'>发送</view>
+    </view>
+  </view>
+</view>
+
   <import src='../template/foot/foot.wxml' />
   <template is='foot'></template>
 </block>
