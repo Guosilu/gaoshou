@@ -18,26 +18,26 @@
           <view class="weui-search-bar__text">请输入您需要的内容</view>
         </label>
       </view>
-      <navigator url='/pages/search/search' class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">确定</navigator>
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="navigatorSearch">确定</view>
     </view>
-    <view class="weui-cells searchbar-result" wx:if="{{downSearchList === true}}">
-      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+    <view class="weui-cells searchbar-result" wx:if="{{downSearchList == true}}">
+      <navigator url="../exhibit/exhibit?id={{item.id}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList.act}}'>
         <view class="weui-cell__bd">
-          <view class='search-res' wx:for='{{showList.act}}'>
+          <view class='search-res'>
             <text class='search-tag'>活动</text><text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
       </navigator>
-      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+      <navigator url="../publication/detail/detail?id={{item.id}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList.pub}}'>
         <view class="weui-cell__bd">
-          <view class='search-res' wx:for='{{showList.pub}}'>
+          <view class='search-res'>
             <text class='search-tag'>作品</text><text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
       </navigator>
-      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+      <navigator url="../orderDetail/orderDetail?id={{item.id}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList.ord}}'>
         <view class="weui-cell__bd">
-          <view class='search-res' wx:for='{{showList.ord}}'>
+          <view class='search-res'>
             <text class='search-tag'>广场</text><text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
