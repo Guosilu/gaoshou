@@ -170,8 +170,30 @@ Page({
     wx.stopPullDownRefresh();
   },
   onLoad: function() {
+    var that = this;
     app.redirectTo();
-    this.getActivityList();
+    that.getActivityList();
+    that.getBanner();
+  },
+  /**
+   * 首页banner图
+   * setData : imgUrls
+   */
+  getBanner: function () {
+    var that = this;
+    wx.request({
+      url: config.activity_orderUrl,
+      method: 'POST',
+      data: {
+        action: 'getBanner'
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          imgUrls: res.data,
+        });
+      }
+    })
   },
   onShow: function() {
     
