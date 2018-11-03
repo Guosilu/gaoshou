@@ -1,41 +1,73 @@
-// pages/search/search.js
+const commonFun = require("../../js/commonFun.js");
+const config = require('../../config/config.js');
+//获取应用实例
+const app = getApp();
+const partt = /\S+/;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    lists: {},
     inputShowed: false,
-    inputVal: "",
+    keyword: '',
+    downSearchList: false,
   },
+
   showInput: function () {
     this.setData({
       inputShowed: true
     });
   },
-  searchBtn: function (e) {
-    var inputVal = this.data.inputVal;
-    if (inputVal.length < 1) {
-      console.log("喵喵喵");
-      console.log("❤，这里空空哒~");
-      this.setData({
-        inputVal: "",
-        inputShowed: false
-      });
-    } else {
-      console.log("呼~哈哈，您输入的内容是：" + inputVal + "，长度" + inputVal.length);
-    }
-  },
+
   clearInput: function () {
     this.setData({
-      inputVal: ""
+      keyword: ""
     });
   },
-  inputTyping: function (e) {
-    this.setData({
-      inputVal: e.detail.value
-    });
+
+  checkInput: function (e) {
+    let value = e.detail.value;
+    if (value.length == 15) {
+      this.showToast('超过输入限制15字');
+    } else {
+      this.setData({
+        keyword: e.detail.value
+      });
+    }
   },
+
+  searchList: function () {
+    let that = this;
+    let keyword = this.data.keyword;
+    let dataObj = {
+      url: config.searchUrl,
+      data: {
+        action: 'lists',
+        keyword: keyword,
+      }
+    }
+    console.log(partt.test(keyword));
+    if (partt.test(keyword)) {
+      commonFun.requestFun(dataObj).then(res => {
+        console.log(res);
+        that.setData({
+          lists: res
+        });
+      });
+    } else {
+      this.showToast('请输入合法内容');
+    }
+  },
+
+  showToast: function (msg) {
+    wx.showToast({
+      icon: 'none',
+      title: msg,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

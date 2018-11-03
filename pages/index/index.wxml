@@ -8,14 +8,14 @@
       <view class="weui-search-bar__form">
         <view class="weui-search-bar__box">
           <icon class="weui-icon-search_in-box" type="search" size="16"></icon>
-          <input type="text" confirm-type="search" bindconfirm="navigatorSearch" class="weui-search-bar__input" placeholder="" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindfocus='inputTyping' bindblur='inputBlur'/>
-          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+          <input type="text" confirm-type="search" bindconfirm="navigatorSearch" class="weui-search-bar__input" placeholder="" value="{{keyword}}" focus="{{inputShowed}}" bindinput="inputTyping" bindfocus='inputTyping' bindblur='inputBlur'/>
+          <view class="weui-icon-clear" wx:if="{{keyword.length > 0}}" bindtap="clearInput">
             <icon type="clear" size="16"></icon>
           </view>
         </view>
         <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
           <icon class="weui-icon-search" type="search" size="16"></icon>
-          <view class="weui-search-bar__text">请输入您需要的内容</view>
+          <view class="weui-search-bar__text">{{keyword ? keyword : "请输入您需要的内容"}}</view>
         </label>
       </view>
       <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="navigatorSearch">确定</view>
