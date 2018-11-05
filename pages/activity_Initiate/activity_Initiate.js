@@ -108,6 +108,23 @@ Page({
    * 提交
    */
   formSubmit: function(e) {
+    wx.showModal({
+      title: '发布活动支付',
+      content: '确定要支付10元吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+        //  调用支付
+        // console.log(app.scan());
+      console.log(app.release_pay())
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+    return false;
+
+
     wx.showLoading({
       mask: true,
       title: '提交中...',
