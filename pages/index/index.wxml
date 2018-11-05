@@ -35,7 +35,7 @@
       <block wx:for="{{imgUrls}}" wx:key="*this">
         <swiper-item>
           <navigator url="../orderDetail/orderDetail?id={{item.id}}">
-            <image mode='aspectFill' src="{{item.thumb}}" class="slide-image" />
+            <image mode='aspectFill' src="{{item.file[0]}}" class="slide-image" />
           </navigator>
         </swiper-item>
       </block>

@@ -283,6 +283,9 @@ Page({
     }
     configLike.requestFun(config.activityUrl, param).then(function (data) {
       if (data) {
+        // if(data['file'] && data['mode'] == 'image'){
+        //   data['file'] = data['file'].split(',');
+        // }
         console.log(data)
         that.setData({
           detail: data,

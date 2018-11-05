@@ -36,7 +36,7 @@
     </view>
     <view class='informat'>
       <view class='ex-cover'>
-        <image src='{{detail.thumb}}' mode='widthFix'></image>
+        <image src='{{detail.file}}' mode='widthFix'></image>
       </view>
       <view bindtap='openPay' class='reward-btn'>
         赏
