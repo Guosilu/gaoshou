@@ -34,7 +34,8 @@
     "pages/recharge/recharge",
     "pages/recharge/bringsuccess",
     "pages/recharge/apply",
-    "pages/recharge/trecord"
+    "pages/recharge/trecord",
+    "pages/my_release/my_release"
   ],
   "window": {
     "backgroundTextStyle": "light",
