@@ -96,6 +96,6 @@ App({
     openId: null,
   },
   payData: {
-    release_money: 1,
+    release_money: 2,
   }
 })
