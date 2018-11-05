@@ -162,7 +162,7 @@ Page({
     //支付
     wx.showModal({
       title: '发布活动支付',
-      content: '确定要支付10元吗？',
+      content: '确定要支付' + (app.payData.release_money)/100 +'元吗？',
       success: function(sm) {
         if (sm.confirm) {
           //支付 
