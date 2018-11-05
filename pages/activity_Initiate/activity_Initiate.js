@@ -157,11 +157,12 @@ Page({
    */
   formSubmitDo: function(post) {
     let that = this;
+    console.log(post.type);
     post['openId'] = app.globalData.openId;
     //支付
     wx.showModal({
       title: '发布活动支付',
-      content: '确定要支付10元吗？',
+      content: '确定要支付' + (app.payData.release_money)/100 +'元吗？',
       success: function(sm) {
         if (sm.confirm) {
           //支付 
@@ -211,9 +212,10 @@ Page({
                           "total_fee": app.payData.release_money,
                           "user": app.globalData.userInfo.nickName,
                           "openid": app.globalData.openId,
+                          "type": post.type,
                         },
-                        success: function(res) {
-                          console.log(app);
+                        success: function(res1) {
+                          console.log(res);
                           // console.log(res);
                           //支付成功
                           //sta
@@ -226,7 +228,8 @@ Page({
                             method: "POST",
                             data: {
                               action: 'add',
-                              post: post
+                              post: post,
+                              release_id : res1.data //发布的id
                             },
                             success: function(res) {
                               if (res.data > 0) {
@@ -250,6 +253,24 @@ Page({
                       })
                     },
                     fail: function(res) {
+                      //添加成功
+                      // wx.request({
+                      //   url: config.activityUrl,
+                      //   dataType: "json",
+                      //   method: "post",
+                      //   data: {
+                      //     "action": "add_release",
+                      //     "total_fee": app.payData.release_money,
+                      //     "user": app.globalData.userInfo.nickName,
+                      //     "openid": app.globalData.openId,
+                      //     "type": post.type,
+                      //   },
+                      //   success: function(res) {
+                      //     console.log(res);
+
+                      //   }
+                      // })
+                      //end
                       wx.showToast({
                         title: '支付已取消',
                         icon: 'none'
