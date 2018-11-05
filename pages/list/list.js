@@ -82,7 +82,12 @@ Page({
       },
       success: function (res) {
         let data = JSON.parse(res.data);
-        console.log(data)
+        for(let a = 0; a< data.length; a++) {
+          if (data[a].mode=='image') {
+            data[a]['file']  = data[a]['file'].split(',')
+          }
+        }
+        console.log(data);
         if (res.data!='[]'){
           console.log(res);
           if (onShow == 1) {

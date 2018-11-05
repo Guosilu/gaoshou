@@ -152,7 +152,7 @@ Page({
       compose_type: this.data.compose_type
     }
     this.get_detail(options.id);
-    this.get_compose_list(dataObj, 2);
+    this.getComment(dataObj, 2);
   },
 
 
