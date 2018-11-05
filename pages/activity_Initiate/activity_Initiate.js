@@ -34,7 +34,7 @@ Page({
     vofile: '',
     //视频  chooseVoice
     vifile: '',
-  }, 
+  },
 
   /**
    * 选择视频
@@ -51,7 +51,7 @@ Page({
       }
     })
   },
-  
+
   /**
    * 删除视频
    */
@@ -65,7 +65,7 @@ Page({
   /**
    * banner
    */
-  getBanner: function () {
+  getBanner: function() {
     var that = this;
     wx.request({
       url: config.activity_orderUrl,
@@ -73,7 +73,7 @@ Page({
       data: {
         action: 'getBanner'
       },
-      success: function (res) {
+      success: function(res) {
         console.log(res.data);
         that.setData({
           imgUrls: res.data,
@@ -108,27 +108,6 @@ Page({
    * 提交
    */
   formSubmit: function(e) {
-    wx.showModal({
-      title: '发布活动支付',
-      content: '确定要支付10元吗？',
-      success: function (sm) {
-        if (sm.confirm) {
-        //  调用支付
-        // console.log(app.scan());
-      console.log(app.release_pay())
-        } else if (sm.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-
-    return false;
-
-
-    wx.showLoading({
-      mask: true,
-      title: '提交中...',
-    });
     let post = e.detail.value;
     post['starttime'] = post.bdate + ' ' + post.btime;
     post['endtime'] = post.edate + ' ' + post.etime;
@@ -167,7 +146,7 @@ Page({
       },
       success: function(res) {
         console.log(res.data);
-        post['thumb'] = res.data;
+        post['file'] = res.data;
         that.formSubmitDo(post);
       }
     });
@@ -178,31 +157,141 @@ Page({
    */
   formSubmitDo: function(post) {
     let that = this;
+    console.log(post.type);
     post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      data: {
-        action: 'add',
-        post: post
-      },
-      success: function(res) {
-        if (res.data > 0) {
-          wx.showToast({
-            title: '提交成功！',
-          });
-          that.form_reset();
-          wx.redirectTo({
-            url: '../exhibit/exhibit?id=' + res.data,
+    //支付
+    wx.showModal({
+      title: '发布活动支付',
+      content: '确定要支付' + (app.payData.release_money)/100 +'元吗？',
+      success: function(sm) {
+        if (sm.confirm) {
+          //支付 
+          var randa = new Date().getTime().toString();
+          var randb = Math.round(Math.random() * 10000).toString();
+          var that = this;
+          wx.request({
+            url: config.payApi,
+            dataType: "json",
+            method: "post",
+            data: {
+              action: "unifiedOrder",
+              out_trade_no: randa + randb, //商户订单号
+              body: "赛脉平台活动发布", //商品描述
+              total_fee: app.payData.release_money, //金额 单位:分
+              trade_type: "JSAPI", //交易类型
+              openId: app.globalData.openId
+            },
+            success: function(res) {
+              // console.log(res.data);
+              var data = res.data;
+              //生成签名
+              wx.request({
+                url: config.payApi,
+                dataType: "json",
+                method: "post",
+                data: {
+                  "action": "getSign",
+                  'package': "prepay_id=" + data.prepay_id
+                },
+                success: function(res) {
+                  var signData = res.data;
+                  wx.requestPayment({
+                    'timeStamp': signData.timeStamp,
+                    'nonceStr': signData.nonceStr,
+                    'package': signData.package,
+                    'signType': "MD5",
+                    'paySign': signData.sign,
+                    success: function(res) {
+                      // 添加数据库信息
+                      wx.request({
+                        url: config.activityUrl,
+                        dataType: "json",
+                        method: "post",
+                        data: {
+                          "action": "add_release",
+                          "total_fee": app.payData.release_money,
+                          "user": app.globalData.userInfo.nickName,
+                          "openid": app.globalData.openId,
+                          "type": post.type,
+                        },
+                        success: function(res1) {
+                          console.log(res);
+                          // console.log(res);
+                          //支付成功
+                          //sta
+                          wx.showLoading({
+                            mask: true,
+                            title: '提交中...',
+                          });
+                          wx.request({
+                            url: config.activityUrl,
+                            method: "POST",
+                            data: {
+                              action: 'add',
+                              post: post,
+                              release_id : res1.data //发布的id
+                            },
+                            success: function(res) {
+                              if (res.data > 0) {
+                                wx.showToast({
+                                  title: '提交成功！',
+                                });
+                                // that.form_reset();
+                                wx.redirectTo({
+                                  url: '../exhibit/exhibit?id=' + res.data,
+                                })
+                              } else {
+                                wx.showToast({
+                                  title: '提交失败！',
+                                  icon: 'none'
+                                });
+                              }
+                            }
+                          })
+                          // over
+                        }
+                      })
+                    },
+                    fail: function(res) {
+                      //添加成功
+                      // wx.request({
+                      //   url: config.activityUrl,
+                      //   dataType: "json",
+                      //   method: "post",
+                      //   data: {
+                      //     "action": "add_release",
+                      //     "total_fee": app.payData.release_money,
+                      //     "user": app.globalData.userInfo.nickName,
+                      //     "openid": app.globalData.openId,
+                      //     "type": post.type,
+                      //   },
+                      //   success: function(res) {
+                      //     console.log(res);
+
+                      //   }
+                      // })
+                      //end
+                      wx.showToast({
+                        title: '支付已取消',
+                        icon: 'none'
+                      });
+                    }
+                  })
+                }
+              })
+            }
           })
-        } else {
+        } else if (sm.cancel) {
+          console.log('用户点击取消');
           wx.showToast({
-            title: '提交失败！',
+            title: '您已取消活动发布',
             icon: 'none'
           });
+          return false;
         }
       }
-    })
+    });
+
   },
 
   /**
@@ -284,6 +373,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(app);
     this.getBanner();
   },
 

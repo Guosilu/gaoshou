@@ -35,7 +35,7 @@
       <block wx:for="{{imgUrls}}" wx:key="*this">
         <swiper-item>
           <navigator url="../orderDetail/orderDetail?id={{item.id}}">
-            <image mode='aspectFill' src="{{item.thumb}}" class="slide-image" />
+            <image mode='aspectFill' src="{{item.file[0]}}" class="slide-image" />
           </navigator>
         </swiper-item>
       </block>
@@ -140,7 +140,7 @@
       </view>
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
-          <image mode='aspectFill' src="{{item.thumb}}"></image>
+          <image mode='aspectFill' src="{{item.file}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
             <view class='sys-number'>编号：<text selectable='true'>{{item.number?item.number:"暂无"}}</text></view>
@@ -168,7 +168,7 @@
       </view>
       <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
         <navigator url="../orderDetail/orderDetail?id={{item.id}}">
-          <image mode='aspectFill' src="{{item.thumb}}"></image>
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title?item.title:"标题"}}</view>
             <view class='sys-number'>编号：{{item.number?item.number:'暂无'}}</view>

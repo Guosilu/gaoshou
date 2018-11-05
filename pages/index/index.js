@@ -139,9 +139,15 @@ Page({
         action: 'champion'
       },
       success: function (res) {
-        console.log(res.data);
+        var result = res.data;
+        for (let a = 0; a < result.length; a++){
+          if (result[a]['file'] && result[a]['mode'] == 'image'){
+            result[a]['file'] = result[a]['file'].split(',')
+          }
+        }
+        console.log(result);
         that.setData({
-          square: res.data,
+          square: result,
         });
       }
     })
@@ -197,9 +203,15 @@ Page({
         action: 'getBanner'
       },
       success: function (res) {
-        console.log(res.data);
+        var result = res.data;
+        for(let a = 0; a<result.length; a++){
+          if (result[a]['file'] && result[a]['mode'] == 'image'){
+            result[a]['file'] = result[a]['file'].split(',');
+          }
+        }
+        console.log(result);
         that.setData({
-          imgUrls: res.data,
+          imgUrls: result,
         });
       }
     })

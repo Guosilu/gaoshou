@@ -10,7 +10,6 @@ Page({
     like_status: null,
     detail: {},
     like_status: null,
-    detail: {},
     order_lists: {},
     exhibit_lists: {},
     payOpen: false,
@@ -19,6 +18,30 @@ Page({
     joinClick: false,
     page: 1,
     pagesize: 5,
+    publicationPage: 1,
+  },
+
+  /**
+   * 点击选中的作品
+   */
+  clickPublication: function(e) {
+    var that = this;
+    var id = e.currentTarget.dataset.id;
+    wx.request({
+      url: config.activityUrl,
+      method: "POST",
+      data: {
+        action: 'addByPublication',
+        id: id,
+        openId: app.globalData.openId,
+        mode: 'image',
+        activity_id: that.data.detail.id
+      },
+      success: function (res) {
+        console.log(res);
+      }
+    })
+
   },
 
   //赏金
@@ -164,16 +187,57 @@ Page({
       }
     });
   },
-  closeJoin: function () {
+
+  closeJoin: function() {
     this.setData({
       joinClick: false,
     })
   },
-  activityBtn: function(){
+
+  /**
+   * 选择新作品查询
+   */
+  activityBtn: function() {
     this.setData({
       joinClick: true,
     })
+    wx.showLoading({
+      title: '加载中....',
+    })
+    this.queryPublication();
   },
+
+  /**
+   * 查询新作品
+   */
+  queryPublication: function() {
+    var that = this;
+    wx.request({
+      url: config.publicationUrl,
+      method: "POST",
+      data: {
+        action: 'lists',
+        page: that.data.publicationPage,
+        post: {
+          openId: app.globalData.openId
+        }
+      },
+      success: function(res) {
+        var result = res.data;
+        for (let a = 0; a < result.length; a++) {
+          if (result[a]['file'] && result[a]['mode'] == 'image') {
+            result[a]['file'] = result[a]['file'].split(',')
+          }
+        }
+        console.log(result)
+        that.setData({
+          publication: result
+        })
+        wx.hideLoading();
+      }
+    })
+  },
+
   joinActivity: function() {
     let id = this.data.detail.id;
     wx.request({
@@ -219,7 +283,7 @@ Page({
   },
 
   //初次加载
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.showLoading({
       mask: true,
       title: '加载中...',
@@ -230,8 +294,8 @@ Page({
       wx.showToast({
         title: '跳转异常!正在返回!',
         icon: "none",
-        success: function () {
-          setTimeout(function () {
+        success: function() {
+          setTimeout(function() {
             wx.navigateBack({
               delta: 1
             })
@@ -255,7 +319,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     var dataObj = {
       compose_id: this.data.detail.id,
       openId: app.globalData.openId,
@@ -267,22 +331,24 @@ Page({
       mask: true,
       title: '加载中...',
     })
-    this.getComment(dataObj);  //获取评论
+    this.getComment(dataObj); //获取评论
   },
 
-  onShow: function () {
-  },
+  onShow: function() {},
 
   //获取详情
-  get_detail: function (id) {
+  get_detail: function(id) {
     var that = this;
     var param = {
       action: 'detail',
       id: id,
       openId: app.globalData.openId,
     }
-    configLike.requestFun(config.activityUrl, param).then(function (data) {
+    configLike.requestFun(config.activityUrl, param).then(function(data) {
       if (data) {
+        // if(data['file'] && data['mode'] == 'image'){
+        //   data['file'] = data['file'].split(',');
+        // }
         console.log(data)
         that.setData({
           detail: data,
@@ -294,7 +360,7 @@ Page({
   },
 
   //获取广场
-  getOrderList: function (id) {
+  getOrderList: function(id) {
     let that = this;
     wx.request({
       url: config.activity_orderUrl,
@@ -306,10 +372,10 @@ Page({
           activity_id: id
         }
       },
-      success: function (res) {
+      success: function(res) {
         var result = res.data;
-        for(let a= 0;a<result.length;a++){
-          if (result[a]['file'] && result[a]['mode']=='image'){
+        for (let a = 0; a < result.length; a++) {
+          if (result[a]['file'] && result[a]['mode'] == 'image') {
             result[a]['file'] = result[a]['file'].split(',')
           }
         }
@@ -322,7 +388,7 @@ Page({
   },
 
   //获取活动列表
-  getExhibitList: function (id) {
+  getExhibitList: function(id) {
     var that = this;
     wx.request({
       url: config.activityUrl,
@@ -333,7 +399,7 @@ Page({
           id: id
         }
       },
-      success: function (res) {
+      success: function(res) {
         that.setData({
           exhibit_lists: res.data
         });
@@ -342,7 +408,7 @@ Page({
   },
 
   //投票点赞
-  like: function () {
+  like: function() {
     if (this.data.like_status == 1) {
       wx.showToast({
         icon: 'none',
@@ -358,7 +424,7 @@ Page({
         openId: app.globalData.openId
       }
     }
-    configLike.requestFun(config.activityUrl, param).then(function (data) {
+    configLike.requestFun(config.activityUrl, param).then(function(data) {
       console.log(data);
       if (data.success == 1) {
         that.setData({
@@ -374,8 +440,9 @@ Page({
   },
 
   //评论列表(取消)点赞方法
-  likeFun: function (option, act) {
-    var that = this, like_status, confirm, tipTitle;
+  likeFun: function(option, act) {
+    var that = this,
+      like_status, confirm, tipTitle;
     console.log(option.target.dataset)
     var id = option.target.dataset.id || 0;
     var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
@@ -399,7 +466,7 @@ Page({
       confirm = 1;
       tipTitle = '已取消！';
     }
-    configLike.requestFun(config.comment, param, confirm).then(function (data) {
+    configLike.requestFun(config.comment, param, confirm).then(function(data) {
       if (data.success == 1) {
         that.setData({
           [`comment[${index}].like_status`]: like_status,
@@ -414,22 +481,22 @@ Page({
   },
 
   //评论列表点赞
-  comment_like: function (option) {
+  comment_like: function(option) {
     this.likeFun(option, 'add');
   },
 
   //评论取消点赞
-  comment_like_cancel: function (option) {
+  comment_like_cancel: function(option) {
     this.likeFun(option, 'minus');
   },
 
   /**
    *  获取评论
    */
-  getComment: function (dataObj, act) {
+  getComment: function(dataObj, act) {
     var that = this;
     var act = act || 1;
-    comment.query('list', dataObj).then(function (data) {
+    comment.query('list', dataObj).then(function(data) {
       if (data.lists.length > 0) {
         console.log(data.lists);
         let comment = (act == 'sendCom') ? data.lists : that.data.comment.concat(data.lists);
@@ -456,7 +523,7 @@ Page({
   /**
    * 添加评论
    */
-  sendBtn: function (e) {
+  sendBtn: function(e) {
     var that = this;
 
     var param = {};
@@ -467,7 +534,7 @@ Page({
     param['compose_id'] = that.data.detail.id
 
     comment.query('add', param).then(
-      function (data) {
+      function(data) {
         console.log(data);
         if (data != '0') {
           wx.showToast({
@@ -499,7 +566,7 @@ Page({
   /**
    * 评论输入框内容
    */
-  input: function (e) {
+  input: function(e) {
     var that = this;
     that.setData({
       value: e.detail.value

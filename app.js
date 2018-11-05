@@ -51,6 +51,7 @@ App({
       success: res => {
         that.globalData.userInfo = res.userInfo;
         that.dataLogin(res.userInfo);
+        // console.log(res.userInfo);
         if (that.userInfoReadyCallback) {
           that.userInfoReadyCallback(res)
         }
@@ -94,77 +95,7 @@ App({
     userInfo: null,
     openId: null,
   },
-  //支付 
-  release_pay: function (e) {
-      var randa = new Date().getTime().toString();
-      var randb = Math.round(Math.random() * 10000).toString();
-      var that = this;
-      wx.request({
-        url: config.payApi,
-        dataType: "json",
-        method: "post",
-        data: {
-          action: "unifiedOrder",
-          out_trade_no: randa + randb, //商户订单号
-          body: "赛脉平台活动发布", //商品描述
-          total_fee: 1000, //金额 单位:分
-          // total_fee: that.data.money, //金额 单位:分
-          trade_type: "JSAPI", //交易类型
-          openId: that.globalData.openId
-        },
-        success: function (res) {
-          console.log(res.data);
-          var data = res.data;
-          //生成签名
-          wx.request({
-            url: config.payApi,
-            dataType: "json",
-            method: "post",
-            data: {
-              "action": "getSign",
-              'package': "prepay_id=" + data.prepay_id
-            },
-            success: function (res) {
-              var signData = res.data;
-              console.log(res.data);
-              wx.requestPayment({
-                'timeStamp': signData.timeStamp,
-                'nonceStr': signData.nonceStr,
-                'package': signData.package,
-                'signType': "MD5",
-                'paySign': signData.sign,
-                success: function (res) {
-                  // 添加数据库信息
-                  wx.request({
-                    url: config.payApi,
-                    dataType: "json",
-                    method: "post",
-                    data: {
-                      "action": "AddData",
-                      "total_fee": 1000,
-                      "type": 'activity_order',
-                      "id": 21
-                    },
-                    success: function (res) {
-                     return (res);
-                    }
-                  })
-                  that.setData({
-                    payOpen: false
-                  })
-                },
-                fail: function (res) {
-                  console.log(123);
-                }
-              })
-            }
-          })
-        }
-      })
-  },
-  scan:function(e){
-    console.log(111111);
+  payData: {
+    release_money: 2,
   }
-  //结束
-
 })
