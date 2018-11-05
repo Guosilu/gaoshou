@@ -1,21 +1,23 @@
-
+const commonFun = require("../../js/commonFun.js");
 const config = require('../../config/config.js');
 //获取应用实例
-const app = getApp()
+const app = getApp();
+const partt = /\S+/;
 
 Page({
   data: {
+    showList: {},
     stopLoading: 0,
     // 网站信息
     siteName: "高手网",
     img:config.img,
-
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     inputShowed: false,
-    inputVal: "",
+    keyword: '',
+    downSearchList: false,
     //swiper
     imgUrls: [
       config.img +'banner.png',
@@ -33,33 +35,86 @@ Page({
     worksList: [],
     square: []
   },
+  //显示搜索框
   showInput: function() {
     this.setData({
       inputShowed: true
     });
   },
+  //情况搜索内容
   hideInput: function() {
     this.setData({
-      inputVal: "",
+      keyword: "",
       inputShowed: false
     });
   },
+  //清空搜索内容
   clearInput: function() {
     this.setData({
-      inputVal: ""
+      keyword: ""
     });
-  },
-  inputTyping: function(e) {
+  }, 
+  //失去焦点
+  inputBlur: function() {
     this.setData({
-      inputVal: e.detail.value
+      inputShowed: false,
+      downSearchList: false,
     });
   },
+  //搜索方法共用 commonFun.js->requestFun(dataObj)
+  inputTyping: function(e) {
+    let that = this;
+    console.log(e);
+    let dataObj = {
+      url: config.searchUrl,
+      data: {
+        action: 'lists',
+        keyword: e.detail.value, 
+        column_short: 1,
+        pagesize_wx: 10
+      }
+    }
+    console.log(partt.test(e.detail.value));
+    if (partt.test(e.detail.value)) {
+      this.setData({
+        keyword: e.detail.value,
+        downSearchList: true,
+      });
+      commonFun.requestFun(dataObj).then(res => {
+        console.log(res);
+        that.setData({
+          showList: res
+        });
+      });
+    } else {
+      this.setData({
+        keyword: e.detail.value,
+        showList: {},
+        downSearchList: false,
+      });
+    }
+  },
+  //搜索 跳转详情
+  navigatorSearch: function () {
+    if (partt.test(this.data.keyword)) {
+      wx.navigateTo({
+        url: '../search/search?keyword=' + this.data.keyword
+      })
+    } else {
+      wx.showToast({
+        icon: 'none',
+        title: '请输入合法内容',
+      })
+    }
+  },
+
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap: function () {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
+
   getActivityList: function () {
     var that = this;
     //获取活动
@@ -99,6 +154,10 @@ Page({
       },
       success: function (res) {
         console.log(res.data);
+        let result = res.data;
+        for(let a=0;a<result.length;a++){
+          result[a]['file'] = result[a]['file'].split(',')
+        }
         that.setData({
           worksList: res.data,
         });
@@ -117,8 +176,33 @@ Page({
     wx.stopPullDownRefresh();
   },
   onLoad: function() {
+    var that = this;
+    wx.showLoading({
+      title: '正在加载...',
+    })
     app.redirectTo();
-    this.getActivityList();
+    that.getActivityList();
+    that.getBanner();
+  },
+  /**
+   * 首页banner图
+   * setData : imgUrls
+   */
+  getBanner: function () {
+    var that = this;
+    wx.request({
+      url: config.activity_orderUrl,
+      method: 'POST',
+      data: {
+        action: 'getBanner'
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          imgUrls: res.data,
+        });
+      }
+    })
   },
   onShow: function() {
     

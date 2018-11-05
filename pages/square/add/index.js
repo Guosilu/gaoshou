@@ -123,6 +123,7 @@ Page({
     });
   },
   formSubmitDo: function(post) {
+    console.log(post);return;
     let that = this;
     post['openId'] = app.globalData.openId;
     wx.request({

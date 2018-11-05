@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -97,6 +97,30 @@
 					"name": "余额",
 					"pathName": "pages/recharge/trecord",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "发起活动",
+					"pathName": "pages/activity_Initiate/activity_Initiate",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加作品",
+					"pathName": "pages/publication/add/publication",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "作品详情",
+					"pathName": "pages/publication/detail/detail",
+					"query": "id=8"
+				},
+				{
+					"id": -1,
+					"name": "添加参与活动",
+					"pathName": "pages/participate/participate",
+					"query": "id=7"
 				}
 			]
 		}

@@ -18,8 +18,8 @@
                     <block wx:for="{{files}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                        <view data-num='{{index}}' class='delImg' bindtap="delImg">删除×</view>
                       </view>
-                      <view data-num='{{index}}' bindtap="delImg">删除</view>
                     </block>
                   </view>
                   <view wx:if="{{files.length<3}}" class="weui-uploader__input-box">
@@ -34,11 +34,15 @@
     </view>
 
     <view class="page__modules modules__shadow">
-      <view>广告位</view>
-      <view wx:if="{{advertImage.length<1}}" class="weui-uploader__input-box">
-        <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
+      <view class="weui-uploader">
+        <view class="weui-uploader__bd">
+          <view class='weui-uploader__title'>广告位</view>
+        </view>
+        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" wx:if="{{advertImage[0]}}" src="{{advertImage[0]}}" mode="aspectFill"></image>
+        <view wx:if="{{advertImage.length<1}}" class="weui-uploader__input-box">
+          <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
+        </view>
       </view>
-      <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" src="{{advertImage[0]}}" mode="aspectFill"></image>
     </view>
     <view style="overflow:hidden;">
       <navigator url="/pages/xieyi/index" class="uploadRuler">

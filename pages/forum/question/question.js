@@ -59,7 +59,7 @@ Page({
       data: {
         action: 'getAnswerList',
         id: id,
-        page: that.data.page+1
+        page: that.data.page
       },
       success: function (res) {
         var res = res.data;

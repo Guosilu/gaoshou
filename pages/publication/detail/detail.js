@@ -20,6 +20,7 @@ Page({
     payInput: false,
     compose_type: "publication",
     page: 1,
+    pagesize: 5,
   },
 
 
@@ -120,6 +121,63 @@ Page({
   },
   // -----------------赏金结束----------------
 
+  /**
+  * 生命周期函数--监听页面加载
+  **/
+  onLoad: function (options) {
+    var that = this;
+    var dataObj = {
+      compose_id: options.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    that.get_detail(options.id);
+    that.getComment(dataObj, 2);  //获取评论
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    var dataObj = {
+      compose_id: this.data.detail.id,
+      openId: app.globalData.openId,
+      compose_type: this.data.compose_type,
+      page: this.data.page,
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中...',
+    })
+    this.getComment(dataObj);  //获取评论
+  },
+
+  //获取详情页
+  get_detail: function (id) {
+    var that = this;
+    var param = {
+      action: 'detail',
+      id: id,
+      openId: app.globalData.openId,
+    }
+    configLike.requestFun(config.publicationUrl, param).then(function (data) {
+      if (data) {
+        console.log(data)
+        data['file'] = data.file.split(',')
+        that.setData({
+          detail: data,
+          like_status: data.like_status,
+        })
+        wx.hideLoading();
+      }
+    });
+  },
+
+  //详情页点赞
   like: function () {
     if (this.data.like_status == 1) {
       wx.showToast({
@@ -150,7 +208,56 @@ Page({
       }
     });
   },
-  
+
+  // 评论
+  inputTyping: function (e) {
+    this.setData({
+      sendShow: false,
+      contShow: true
+    })
+  },
+
+  /**
+   * 评论输入框内容
+   */
+  input: function (e) {
+    var that = this;
+    that.setData({
+      value: e.detail.value
+    })
+  },
+
+  /**
+  *  获取评论
+  */
+  getComment: function (dataObj, act) {
+    var that = this;
+    var act = act || 1;
+    comment.query('list', dataObj).then(function (data) {
+      if (data.lists.length > 0) {
+        console.log(data.lists);
+        let comment = (act == 'sendCom') ? data.lists : that.data.comment.concat(data.lists);
+        let page = (act == 'sendCom') ? that.data.page : that.data.page + 1;
+        that.setData({
+          comment: comment,
+          loading: that.data.loading + 1,
+          comNum: data.comNum,
+          page: page,
+        })
+        wx.hideLoading();
+      } else {
+        if (act == 1) {
+          wx.hideLoading();
+          wx.showToast({
+            icon: 'none',
+            title: '到底了~',
+          })
+        }
+      }
+    }); 
+  },
+
+  //评论列表(取消)点赞方法
   likeFun: function (option, act) {
     var that = this, like_status, confirm, tipTitle;
     console.log(option.target.dataset)
@@ -189,28 +296,17 @@ Page({
       }
     });
   },
+
+  //评论列表点赞
   comment_like: function (option) {
     this.likeFun(option, 'add');
   },
+
+  //评论取消点赞
   comment_like_cancel: function (option) {
     this.likeFun(option, 'minus');
   },
-  // 评论
-  inputTyping: function (e) {
-    this.setData({
-      sendShow: false,
-      contShow: true
-    })
-  },
-  /**
-   * 评论输入框内容
-   */
-  input: function (e) {
-    var that = this;
-    that.setData({
-      value: e.detail.value
-    })
-  },
+
   /**
    * 添加评论
    */
@@ -227,15 +323,15 @@ Page({
     param['compose_type'] = that.data.compose_type;
     param['openId'] = app.globalData.openId;
     param['compose_id'] = that.data.detail.id
-    
+
     comment.query('add', param).then(
-      function(data){
+      function (data) {
         console.log(data);
-        if(data!='0'){
+        if (data != '0') {
           wx.showToast({
             title: '添加成功',
           })
-        }else{
+        } else {
           wx.showToast({
             title: '添加失败',
             icon: 'none'
@@ -245,88 +341,21 @@ Page({
         var dataObj = {
           compose_id: that.data.detail.id,
           openId: app.globalData.openId,
-          compose_type: that.data.compose_type
+          compose_type: that.data.compose_type,
+          page: 1,
+          pagesize: (that.data.page - 1) * that.data.pagesize,
         }
-        that.get_compose_list(dataObj);
+        that.getComment(dataObj, 'sendCom');
       }
-    );    
+    );
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-
-
-  get_detail: function (id) {
-    var that = this;
-    var param = {
-      action: 'detail',
-      id: id,
-      openId: app.globalData.openId,
-    }
-    configLike.requestFun(config.publicationUrl, param).then(function (data) {
-      if (data) {
-        console.log(data)
-        that.setData({
-          detail: data,
-          like_status: data.like_status,
-        })
-        wx.hideLoading();
-      }
-    });
-  },
-/**
- *  获取评论
- */
-  get_compose_list: function (dataObj, tip) {
-    var that = this;
-    var tip = tip || 1;
-    comment.query('list', dataObj).then(function (data) {
-      if (data.lists.length > 0) {
-        console.log(data.lists);
-        that.setData({
-          comment: that.data.comment.concat(data.lists),
-          loading: that.data.loading + 1,
-          comNum: data.comNum,
-          page: that.data.page + 1,
-        })
-        wx.hideLoading();
-      } else {
-        if(tip == 1) {
-          wx.hideLoading();
-          wx.showToast({
-            icon: 'none',
-            title: '到底了~',
-          })
-        }
-      }
-    }); 
-  },
-
-  onLoad: function (options) {
-    var that = this;
-    var dataObj = {
-      compose_id: options.id,
-      openId: app.globalData.openId,
-      compose_type: this.data.compose_type
-    }
-    wx.showLoading({
-      mask: true,
-      title: '加载中...',
-    })
-    that.get_detail(options.id);
-    that.get_compose_list(dataObj, 2);  //获取评论
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
+  //生命周期函数--监听页面初次渲染完
   onReady: function () {
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  //生命周期函数--监听页面显示
   onShow: function () {
 
   },
@@ -350,23 +379,6 @@ Page({
    */
   onPullDownRefresh: function () {
     console.log("下拉事件.")
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    var dataObj = {
-      compose_id: this.data.detail.id,
-      openId: app.globalData.openId,
-      compose_type: this.data.compose_type,
-      page: this.data.page,
-    }
-    wx.showLoading({
-      mask: true,
-      title: '加载中...',
-    })
-    this.get_compose_list(dataObj);  //获取评论
   },
 
   /**

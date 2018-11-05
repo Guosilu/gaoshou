@@ -1,13 +1,13 @@
 <block wx:if="{{detail.id && like_status !== null}}">
   <view class='ex-title'>
-    {{detail.truename?detail.truename:"biaoti"}}
+    {{detail.title?detail.title:"biaoti"}}
     <view class="yh_hudong" wx:if="{{detail.id && like_status !== null}}">
       <view class='ex_info'>
         <image src='{{detail.avatarUrl}}' class='ex_icon eu-avatar' mode='widthFix' />{{detail.nickName}}
       </view>
         
       <view class='ex_info'>
-        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.money}}
+        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.zanshang}}
       </view>
       <view class='ex_info'>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
@@ -82,8 +82,8 @@
   <view class='contact-box'>
     <view>全部评论({{comNum}})</view>
     <view class='contact-item' wx:for="{{comment}}" wx:key="*this">
-      <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
-      <navigator url="" class='u-name'>{{item.nickName}}</navigator>
+      <image class='cu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+      <navigator url="" class='cu-name'>{{item.nickName}}</navigator>
       <view class='cont-fav'>
       <image src='/images/{{item.like_status > 0 ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' bindtap='{{item.like_status > 0 ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}</view>
       <navigator url='../template/contact/details/details?id={{item.id}}'>

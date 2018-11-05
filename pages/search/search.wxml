@@ -3,41 +3,41 @@
   <view class="weui-search-bar__form">
     <view class="weui-search-bar__box">
       <icon class="weui-icon-search_in-box" type="search" size="16"></icon>
-      <input type="text" class="weui-search-bar__input" placeholder="" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
-      <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+      <input type="text" maxlength="15" confirm-type="search" bindconfirm="searchList" class="weui-search-bar__input" placeholder="" value="{{keyword}}" focus="{{inputShowed}}" bindinput="checkInput"/>
+      <view class="weui-icon-clear" wx:if="{{keyword.length > 0}}" bindtap="clearInput">
         <icon type="clear" size="16"></icon>
       </view>
     </view>
     <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
       <icon class="weui-icon-search" type="search" size="16"></icon>
-      <view class="weui-search-bar__text">请输入您需要的内容</view>
+      <view class="weui-search-bar__text">{{keyword ? keyword : "请输入您需要的内容"}}</view>
     </label>
   </view>
-  <view class="weui-search-bar__cancel-btn" bindtap="searchBtn">确定</view>
+  <view class="weui-search-bar__cancel-btn" bindtap="searchList">确定</view>
 </view>
 
 <view class='list'>
-  <view class='list-item'>
+  <view class='list-item' wx:for='{{lists}}' wx:key="*this">
     <view class='item-bar'>
-      <view class='item-bar-inner'>活动</view>
+      <view class='item-bar-inner'>{{item.typeName}}</view>
     </view>
     <view class='portrait'>
-      <view class='exh_title'>活动名称
+      <view class='exh_title'>{{item.title}}
         <view class='exh_num'>编号：
-          <text selectable='true'>121666461</text>
+          <text selectable='true'>{{item.number}}</text>
         </view>
       </view>
       <view class="user_info">
-        <image class="list_Avatar" src="http://img1.imgtn.bdimg.com/it/u=413624308,508741839&fm=26&gp=0.jpg"></image>
-        <text class="user_name">你愁啥</text>
-        <text class="user_date">截止日期：10月31日（周三）</text>
+        <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
+        <text class="user_name">{{item.nickName}}</text>
+        <text class="user_date">{{item.addtime}}</text>
       </view>
     </view>
     <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
       {{item.rule}}
     </view>
     <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
-      <image src='http://img3.imgtn.bdimg.com/it/u=345829488,884295663&fm=26&gp=0.jpg' mode='aspectFill'></image>
+      <image src='{{item.thumb}}' mode='aspectFill'></image>
       <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
       <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image>
     </view>
@@ -48,41 +48,7 @@
       <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
       <text class='ex_text'>{{item.liulan}}</text>
 
-      <navigator class='join' url='../participate/participate?id={{item.id}}'>参与活动</navigator>
-    </view>
-  </view>
-  <view class='list-item'>
-    <view class='item-bar'>
-      <view class='item-bar-inner'>作品</view>
-    </view>
-    <view class='portrait'>
-      <view class='exh_title'>活动名称
-        <view class='exh_num'>编号：
-          <text selectable='true'>121666461</text>
-        </view>
-      </view>
-      <view class="user_info">
-        <image class="list_Avatar" src="http://img1.imgtn.bdimg.com/it/u=413624308,508741839&fm=26&gp=0.jpg"></image>
-        <text class="user_name">你愁啥</text>
-        <text class="user_date">截止日期：10月31日（周三）</text>
-      </view>
-    </view>
-    <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
-      {{item.rule}}
-    </view>
-    <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
-      <image src='http://img3.imgtn.bdimg.com/it/u=345829488,884295663&fm=26&gp=0.jpg' mode='aspectFill'></image>
-      <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
-      <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image>
-    </view>
-
-    <view class='partic'>
-      <image src='/images/like.png' class='ex_icon' mode='widthFix' />
-      <text class='ex_text'>{{item.zanshang}}</text>
-      <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
-      <text class='ex_text'>{{item.liulan}}</text>
-
-      <navigator class='join' url='../participate/participate?id={{item.id}}'>查看</navigator>
+      <navigator class='join' url='{{item.navUrl}}'>{{item.typeName == '活动' ? '参与活动' : '查看'}}</navigator>
     </view>
   </view>
 </view>

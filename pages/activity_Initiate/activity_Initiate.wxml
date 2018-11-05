@@ -2,11 +2,13 @@
 <view>
   <!-- 轮播 -->
   <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{imgUrls}}" wx:key="*this">
-      <swiper-item>
-        <image src="{{item}}" class="slide-image" />
-      </swiper-item>
-    </block>
+          <block wx:for="{{imgUrls}}" wx:key="*this">
+        <swiper-item>
+          <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+            <image mode='aspectFill' src="{{item.thumb}}" class="slide-image" />
+          </navigator>
+        </swiper-item>
+      </block>
   </swiper>
 </view>
 
@@ -91,7 +93,8 @@
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vifile != ''}}">
                     <view class="weui-uploader__file">
-                      <image class="weui-uploader__img" bindtap="previewVoice" src="{{vifile}}" mode="aspectFill" />
+                      <video class="weui-uploader__img" poster='{{vifile.thumbTempFilePath}}' src="{{vifile.tempFilePath}}"></video>
+                      <!-- <image src='{{vifile.thumbTempFilePath}}'></image> -->
                       <view bindtap="delVideo">删除</view>
                     </view>
                   </view>

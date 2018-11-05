@@ -1,27 +1,27 @@
 <!--pages/template/contact/contact.wxml-->
 <view class='contact-box no-border'>
   <view class='contact-item'>
-    <image class='u-avatar' src='{{detail.comment.avatarUrl}}' mode='widthFix'></image>
-    <navigator url="" class='u-name'>{{detail.comment.nickName}}</navigator>
-    <view class='cont-text'>{{detail.comment.content}}</view>
+    <image class='cu-avatar' src='{{comment.avatarUrl}}' mode='widthFix'></image>
+    <navigator url="" class='cu-name'>{{comment.nickName}}</navigator>
+    <view class='cont-text'>{{comment.content}}</view>
     <view class='cont-bar'>
-      <text class='cont-time'>Time : {{detail.comment.addtime}}</text>
+      <text class='cont-time'>Time : {{comment.addtime}}</text>
     </view>
     
-    <view class='cont-fav {{like_status ? "like_on" : ""}}' data-id="{{detail.comment.id}}" data-dianzan='{{detail.comment.dianzan}}'  bindtap='{{like_status ? "comment_like_cancel" : "comment_like"}}'>
-        <image src='/images/{{like_status ? "zan_on.png"  :"zan.png"}}' mode="widthFix" />{{detail.comment.dianzan}}
+    <view class='cont-fav {{comment.like_status == 1 ? "like_on" : ""}}' data-id="{{comment.id}}" data-dianzan='{{comment.dianzan}}'  bindtap='{{comment.like_status == 1 ? "comment_like_cancel" : "comment_like"}}'>
+        <image src='/images/{{comment.like_status == 1 ? "zan_on.png"  :"zan.png"}}' mode="widthFix" />{{comment.dianzan}}
       </view>
   </view>
 </view>
 <view class='contact-box'>
-  <view>全部评论</view>
+  <view>全部评论({{comment.replyNum}})</view>
   <!-- 循环 item -->
-  <block wx:for="{{detail.reply}}" wx:key="*this">
+  <block wx:for="{{reply}}" wx:key="*this">
   <view class='contact-item'>
-    <image class='u-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
-    <navigator url="" class='u-name'>{{item.nickName}}</navigator>
+    <image class='cu-avatar' src='{{item.avatarUrl}}' mode='widthFix'></image>
+    <navigator url="" class='cu-name'>{{item.nickName}}</navigator>
     <view class='cont-fav'>
-      <image src='/images/{{item.like_status ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' data-alter_table="reply" bindtap='{{item.like_status ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}
+      <image src='/images/{{item.like_status == 1 ? "zan_on.png"  :"zan.png"}}' data-id='{{item.id}}' data-index='{{index}}' data-dianzan='{{item.dianzan?item.dianzan:0}}' data-alter_table="reply" bindtap='{{item.like_status == 1 ? "comment_like_cancel" : "comment_like"}}' mode='widthFix' />{{item.dianzan?item.dianzan:0}}
     </view>
 
     <view class='cont-text' bindtap='contReply' data-uid='{{item.id}}'>
