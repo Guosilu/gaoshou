@@ -1,4 +1,5 @@
 const config = require('../../../config/config.js');
+const commonFun = require("../../../js/commonFun.js");
 const app = getApp();
 Page({
 
@@ -8,8 +9,6 @@ Page({
   data: {
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
-    //swiper
-    imgUrls: [],
     indicatorDots: true,
     indicatorColor: "#FFF", //指示点颜色
     indicatorActiveColor: "#22b38a",
@@ -34,7 +33,43 @@ Page({
     vofile: '',
     //视频  chooseVoice
     vifile: '',
-  }, 
+    itemType: '',
+    detail: {},
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      itemType: options.itemType,
+    })
+    this.getDeatil(options.id, options.itemType);
+  },
+
+  //获取详情
+  getDeatil: function (id, itemType) {
+    var that = this;
+    var dataObj = {
+      url: config.myUrl,
+      data: {
+        action: 'detail',
+        post: {
+          id: id,
+          itemType: itemType,
+          openId: app.globalData.openId,
+        }
+      }
+    }
+    console.log(dataObj);
+    commonFun.requestFun(dataObj).then((res) => {
+      console.log(res)
+      that.setData({
+        detail: res,
+      })
+      wx.hideLoading();
+    });
+  },
 
   /**
    * 选择视频
@@ -59,26 +94,6 @@ Page({
     var that = this;
     that.setData({
       vifile: []
-    })
-  },
-
-  /**
-   * banner
-   */
-  getBanner: function () {
-    var that = this;
-    wx.request({
-      url: config.activity_orderUrl,
-      method: 'POST',
-      data: {
-        action: 'getBanner'
-      },
-      success: function (res) {
-        console.log(res.data);
-        that.setData({
-          imgUrls: res.data,
-        });
-      }
     })
   },
 
@@ -248,26 +263,23 @@ Page({
       bdate: e.detail.value
     })
   },
+
   bindTimeChange: function(e) {
     this.setData({
       btime: e.detail.value
     })
   },
+
   bindeDateChange: function(e) {
     this.setData({
       edate: e.detail.value
     })
   },
+
   bindeTimeChange: function(e) {
     this.setData({
       etime: e.detail.value
     })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    this.getBanner();
   },
 
   /**

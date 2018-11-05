@@ -1,4 +1,5 @@
 const config = require('../../../config/config.js');
+const commonFun = require("../../../js/commonFun.js");
 const app = getApp();
 Page({
 
@@ -15,13 +16,51 @@ Page({
     //广告
     advert: "",
     filePath:'',
-    post:[],
+    post: [],
+    itemType: '',
+    detail: {},
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      itemType: options.itemType,
+    })
+    this.getDeatil(options.id, options.itemType);
+  },
+
+  //获取详情
+  getDeatil: function (id, itemType) {
+    var that = this;
+    var dataObj = {
+      url: config.myUrl,
+      data: {
+        action: 'detail',
+        post: {
+          id: id,
+          itemType: itemType,
+          openId: app.globalData.openId,
+        }
+      }
+    }
+    console.log(dataObj);
+    commonFun.requestFun(dataObj).then((res) => {
+      console.log(res)
+      that.setData({
+        detail: res,
+      })
+      wx.hideLoading();
+    });
+  },
+
   form_reset: function() {
     this.setData({
       files: ''
     });
   },
+
   formSubmit: function(e) {
     var that = this;
     let post = e.detail.value;
@@ -52,6 +91,7 @@ Page({
       that.fileUpload(i,files);
     }
   },
+
   //文件上传
   fileUploadFun: function (post, files) {
     var that = this;
@@ -80,6 +120,7 @@ Page({
       }
     });
   },
+
   fileUpload: function (i, files) {
     i = i ? i : 0;
     var that = this;
@@ -122,6 +163,7 @@ Page({
       }
     });
   },
+
   formSubmitDo: function(post) {
     console.log(post);return;
     let that = this;
@@ -151,6 +193,7 @@ Page({
       }
     })
   },
+
   //删除图片
   delImg: function(e) {
     var num = e.currentTarget.dataset.num;
@@ -165,6 +208,7 @@ Page({
       files: NewFilesArr
     })
   },
+
   // 图片上传
   chooseImage: function(e) {
     var that = this;
@@ -180,6 +224,7 @@ Page({
       }
     })
   },
+
   chooseAdvertImage: function (e) {
     var that = this;
     wx.chooseImage({
@@ -194,27 +239,19 @@ Page({
       }
     })
   },
+
   previewImage: function(e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表
     })
   },
+
   previewAdvertImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.advertImage // 需要预览的图片http链接列表
     })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    if (options.url) {
-      this.setData({
-        files: [options.url]
-      })
-    }
   },
 
   /**

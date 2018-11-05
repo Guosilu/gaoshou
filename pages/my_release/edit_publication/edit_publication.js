@@ -1,5 +1,6 @@
-const app = getApp();
 const config = require('../../../config/config.js');
+const commonFun = require("../../../js/commonFun.js");
+const app = getApp();
 Page({
 
   /**
@@ -26,8 +27,45 @@ Page({
     activityTypeIndex: 0,
     //图片上传
     files: [],
-    files_url: []
+    files_url: [],
+    itemType: '',
+    detail: {},
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      itemType: options.itemType,
+    })
+    this.getDeatil(options.id, options.itemType);
+  },
+
+  //获取详情
+  getDeatil: function (id, itemType) {
+    var that = this;
+    var dataObj = {
+      url: config.myUrl,
+      data: {
+        action: 'detail',
+        post: {
+          id: id,
+          itemType: itemType,
+          openId: app.globalData.openId,
+        }
+      }
+    }
+    console.log(dataObj);
+    commonFun.requestFun(dataObj).then((res) => {
+      console.log(res)
+      that.setData({
+        detail: res,
+      })
+      wx.hideLoading();
+    });
+  },
+
   formSubmit: function (e) {
     let post = e.detail.value;
     if (post.introduce == '' || post.title == '' || post.type == '类别') {
@@ -181,17 +219,12 @@ Page({
       files: files_new
     })
   },
+
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表
     })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
   },
 
   /**

@@ -1,6 +1,5 @@
-const commonFun = require("../../js/commonFun.js");
 const config = require('../../config/config.js');
-//获取应用实例
+const commonFun = require("../../js/commonFun.js");
 const app = getApp();
 const partt = /\S+/;
 Page({
@@ -11,34 +10,20 @@ Page({
   data: {
     lists: [],
     inputShowed: false,
-    keyword: '',
+    keyword: "",
     downSearchList: false,
     page_wx: 1,
+    pagesizez_wx: 5,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log(options);
+  onLoad: function () {
     wx.showLoading({
       title: '正在加载...',
     })
-    this.setData({
-      keyword: options.keyword
-    });
-    this.searchFun(options.keyword);
-  },
-  //搜索入口
-  searchList: function () {
-    wx.showLoading({
-      title: '正在搜索...',
-    })
-    this.setData({
-      lists: [],
-      page_wx: 1,
-    });
-    this.searchFun(this.data.keyword);
+    this.listsFun();
   },
 
   /**
@@ -48,20 +33,87 @@ Page({
     wx.showLoading({
       title: '正在加载...',
     })
-    this.searchFun(this.data.keyword);
+    this.listsFun(this.data.keyword);
   },
-  
-  //显示搜索框
-  showInput: function () {
+
+  //搜索入口
+  searchList: function () {
+    /*if(!partt.test(this.data.keyword)) {
+      this.showToast('请输入合法内容');
+      return false;
+    }*/
+    wx.showLoading({
+      title: '正在搜索...',
+    })
     this.setData({
-      inputShowed: true
+      lists: [],
+      page_wx: 1,
+    });
+    this.listsFun(this.data.keyword);
+  },
+
+  //搜索方法共用 commonFun.js->requestFun(dataObj)
+  listsFun: function (keyword) {
+    //console.log(partt.test(keyword));
+    var that = this;
+    var keyword = partt.test(keyword) ? keyword : "";
+    var dataObj = {
+      url: config.myUrl,
+      data: {
+        action: 'lists',
+        post: {
+          keyword: keyword,
+          page_wx: this.data.page_wx,
+          openId: app.globalData.openId,
+        }
+      }
+    }
+    commonFun.requestFun(dataObj).then(res => {
+      console.log(res);
+      if (res.length > 0) {
+        that.setData({
+          lists: that.data.lists.concat(res),
+          page_wx: that.data.page_wx + 1,
+        });
+        wx.hideLoading();
+      } else {
+        wx.hideLoading();
+        that.showToast('搜不到了呢~');
+      }
+
     });
   },
 
-  //清空搜索内容
-  clearInput: function () {
-    this.setData({
-      keyword: ""
+  //检测搜索内容
+  deleteItem: function (e) {
+    var that = this;
+    var dataObj = {
+      url: config.myUrl,
+      data: {
+        action: 'delete',
+        post: {
+          id: e.target.dataset.id,
+          itemType: e.target.dataset.item_type,
+          openId: app.globalData.openId,
+        }
+      }
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定删除 ' + e.target.dataset.title+' 吗？',
+      success: function (confirm) {
+        if (confirm.confirm) {
+          commonFun.requestFun(dataObj).then((res) => {
+            if (res == 1) {
+              that.setData({
+                lists: [],
+              });
+              //that.listsFun();
+              that.showToast('删除成功!');
+            }
+          });
+        }
+      }
     });
   },
 
@@ -77,43 +129,26 @@ Page({
     }
   },
 
-  //搜索方法共用 commonFun.js->requestFun(dataObj)
-  searchFun: function (keyword) {
-    let that = this;
-    let dataObj = {
-      url: config.myUrl,
-      data: {
-        action: 'lists',
-        keyword: keyword,
-        page_wx: this.data.page_wx,
-      }
-    }
-    console.log(partt.test(keyword));
-    if (partt.test(keyword)) {
-      commonFun.requestFun(dataObj).then(res => {
-        console.log(res);
-        if (res.length > 0) {
-          that.setData({
-            lists: that.data.lists.concat(res),
-            page_wx: that.data.page_wx + 1,
-          });
-          wx.hideLoading();
-        } else {
-          wx.hideLoading();
-          that.showToast('搜不到了呢~');
-        }
-
-      });
-    } else {
-      this.showToast('请输入合法内容');
-    }
-  },
   //提示方法
   showToast: function (msg) {
     wx.showToast({
       icon: 'none',
       title: msg,
     })
+  },
+
+  //显示搜索框
+  showInput: function () {
+    this.setData({
+      inputShowed: true
+    });
+  },
+
+  //清空搜索内容
+  clearInput: function () {
+    this.setData({
+      keyword: ""
+    });
   },
 
   /**

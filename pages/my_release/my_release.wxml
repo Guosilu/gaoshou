@@ -47,7 +47,7 @@
       <text class='ex_text'>{{item.zanshang}}</text>
       <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
       <text class='ex_text'>{{item.liulan}}</text>
-
+      <view class='join' bindtap='deleteItem' data-id='{{item.id}}' data-item_type='{{item.itemType}}' data-title='{{item.title}}'>删除</view>
       <navigator class='join' url='{{item.navUrl}}'>编辑</navigator>
     </view>
   </view>
