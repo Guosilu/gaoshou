@@ -95,7 +95,7 @@ App({
     openId: null,
   },
   //支付 
-  wx_pay: function (e) {
+  release_pay: function (e) {
       var randa = new Date().getTime().toString();
       var randb = Math.round(Math.random() * 10000).toString();
       var that = this;
@@ -107,9 +107,10 @@ App({
           action: "unifiedOrder",
           out_trade_no: randa + randb, //商户订单号
           body: "赛脉平台活动发布", //商品描述
-          total_fee: that.data.money, //金额 单位:分
+          total_fee: 1000, //金额 单位:分
+          // total_fee: that.data.money, //金额 单位:分
           trade_type: "JSAPI", //交易类型
-          openId: app.globalData.openId
+          openId: that.globalData.openId
         },
         success: function (res) {
           console.log(res.data);
@@ -133,8 +134,6 @@ App({
                 'signType': "MD5",
                 'paySign': signData.sign,
                 success: function (res) {
-                  console.log(res);
-
                   // 添加数据库信息
                   wx.request({
                     url: config.payApi,
@@ -142,14 +141,12 @@ App({
                     method: "post",
                     data: {
                       "action": "AddData",
-                      "total_fee": that.data.money,
+                      "total_fee": 1000,
                       "type": 'activity_order',
-                      "id": that.data.detail.id
+                      "id": 21
                     },
                     success: function (res) {
-                      wx.showToast({
-                        title: '赞赏成功',
-                      })
+                     return (res);
                     }
                   })
                   that.setData({
@@ -157,13 +154,16 @@ App({
                   })
                 },
                 fail: function (res) {
-                  console.log(res);
+                  console.log(123);
                 }
               })
             }
           })
         }
       })
+  },
+  scan:function(e){
+    console.log(111111);
   }
   //结束
 
