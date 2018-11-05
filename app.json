@@ -35,7 +35,10 @@
     "pages/recharge/bringsuccess",
     "pages/recharge/apply",
     "pages/recharge/trecord",
-    "pages/my_release/my_release"
+    "pages/my_release/my_release",
+    "pages/my_release/edit_activity/edit_activity",
+    "pages/my_release/edit_order/edit_order",
+    "pages/my_release/edit_publication/edit_publication"
   ],
   "window": {
     "backgroundTextStyle": "light",
