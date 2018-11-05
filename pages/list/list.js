@@ -83,7 +83,7 @@ Page({
       success: function (res) {
         let data = JSON.parse(res.data);
         for(let a = 0; a< data.length; a++) {
-          if (data[a].mode=='image') {
+          if (data[a].mode == 'image' && data[a]['file']) {
             data[a]['file']  = data[a]['file'].split(',')
           }
         }
