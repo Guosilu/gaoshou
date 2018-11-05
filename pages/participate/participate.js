@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    filePath: '',
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
@@ -44,16 +45,17 @@ Page({
     let that = this;
     let files = this.data.files;
     if (files.length>0) {
-      for (let i = 0; i < files.length; i++) {
-        this.uploadFile(files[i], post);
-      }
+      that.setData({
+        post: post
+      })
+      that.fileUpload(0, files);
+
     } else {
       wx.showToast({
         title: '至少上传一张作品！',
         icon: 'none'
       })
       return false;
-      //this.formSubmitDo(post);
     }
   },
   formSubmitDo: function (post) {
@@ -62,17 +64,14 @@ Page({
     post['openId'] = app.globalData.openId;
     wx.request({
       url: config.activity_orderUrl,
-      method: 'POST',
-      header: {
-        'content-type': 'application/json'
-      },
+      method: 'post',
       data: {
         action: 'add',
         post: post
       },
+      dataType:'json',
       success: function (res) {
         wx.hideLoading();
-        console.log(res);
         if (res.data > 0) {
           wx.showToast({
             title: '提交成功！',
@@ -94,33 +93,48 @@ Page({
       }
     })
   },
-  uploadFile: function (path, post) {
-    let that = this;
+  /**
+ * 递归上传文件
+ */
+  fileUpload: function (i, files) {
+    i = i ? i : 0;
+    var that = this;
     wx.uploadFile({
       url: config.uploadUrl,
-      filePath: path,
+      filePath: files[i],
       name: 'file',
       formData: {
         action: 'upload_file'
       },
-      success(res) {
-        console.log(res);
-        that.setData({
-          files_url: that.data.files_url.concat(res.data)
-        });
-        let files_url = that.data.files_url
-        let files = that.data.files
-        if (files_url.length == files.length) {
-          for (let i = 0; i < files_url.length; i++) {
-            let k = i;
-            if (k == 0) k = '';
-            post['thumb' + k] = files_url[i];
-          }
-          that.formSubmitDo(post);
+      success: function (res) {
+        i++;
+        if (that.data.filePath == '') {
+          that.setData({
+            filePath: that.data.filePath.concat(res.data)
+          })
+        } else {
+          that.setData({
+            filePath: that.data.filePath.concat(',' + res.data)
+          })
         }
+        if (i == files.length) {
+          let post = that.data.post;
+          post['file'] = that.data.filePath;
+          that.formSubmitDo(post);
+        } else {
+          that.fileUpload(i, files);
+        }
+      },
+      fail: function () {
+        wx.showToast({
+          title: '上传异常!请稍后再试',
+          icon: 'none'
+        })
+        return;
       }
-    })
+    });
   },
+
   bindAccountChange: function (e) {
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
     if (e.detail.value < 1) {
@@ -131,11 +145,12 @@ Page({
     })
   },
   bindAccountChange: function (e) {
+    var that = this;
     console.log('picker account 发生选择改变，携带值为', e.detail.value);
     if (e.detail.value < 1) {
  
     }
-    this.setData({
+    that.setData({
       activityTypeIndex: e.detail.value
     })
   },
@@ -249,5 +264,32 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  // uploadFile: function (path, post) {
+  //   let that = this;
+  //   wx.uploadFile({
+  //     url: config.uploadUrl,
+  //     filePath: path,
+  //     name: 'file',
+  //     formData: {
+  //       action: 'upload_file'
+  //     },
+  //     success(res) {
+  //       console.log(res);
+  //       that.setData({
+  //         files_url: that.data.files_url.concat(res.data)
+  //       });
+  //       let files_url = that.data.files_url
+  //       let files = that.data.files
+  //       if (files_url.length == files.length) {
+  //         for (let i = 0; i < files_url.length; i++) {
+  //           let k = i;
+  //           if (k == 0) k = '';
+  //           post['thumb' + k] = files_url[i];
+  //         }
+  //         that.formSubmitDo(post);
+  //       }
+  //     }
+  //   })
+  // },
 })

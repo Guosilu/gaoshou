@@ -48,9 +48,8 @@
         {{item.rule}}
       </view>
       <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
-        <image src='{{item.thumb}}' mode='aspectFill'></image>
-        <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
-        <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image>
+        <image wx:for='{{item.file}}' wx:key="*this" wx:for-item="items" src='{{items}}' mode='aspectFill'></image>
+
       </view>
 
       <view class='partic'>
