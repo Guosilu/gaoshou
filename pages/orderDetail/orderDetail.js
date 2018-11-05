@@ -185,11 +185,14 @@ Page({
     }
     configLike.requestFun(config.activity_orderUrl, param).then(function (data) {
       if (data) {
-        console.log(data)
+        if(data.mode=='image' && data['file']){
+          data['file'] = data['file'].split(',')
+        }
         that.setData({
           detail: data,
           like_status: data.like_status,
         })
+        console.log(data)
         wx.hideLoading();
       }
     });
