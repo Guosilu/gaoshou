@@ -48,7 +48,7 @@
       <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
       <text class='ex_text'>{{item.liulan}}</text>
 
-      <navigator class='join' url='{{item.navUrl}}'>{{item.typeName == '活动' ? '参与活动' : '查看'}}</navigator>
+      <navigator class='join' url='{{item.navUrl}}'>编辑</navigator>
     </view>
   </view>
 </view>

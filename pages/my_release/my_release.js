@@ -50,18 +50,21 @@ Page({
     })
     this.searchFun(this.data.keyword);
   },
+  
   //显示搜索框
   showInput: function () {
     this.setData({
       inputShowed: true
     });
   },
+
   //清空搜索内容
   clearInput: function () {
     this.setData({
       keyword: ""
     });
   },
+
   //检测搜索内容
   checkInput: function (e) {
     let value = e.detail.value;
@@ -73,6 +76,7 @@ Page({
       });
     }
   },
+
   //搜索方法共用 commonFun.js->requestFun(dataObj)
   searchFun: function (keyword) {
     let that = this;
