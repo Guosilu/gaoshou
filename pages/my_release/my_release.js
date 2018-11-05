@@ -13,7 +13,7 @@ Page({
     keyword: "",
     downSearchList: false,
     page_wx: 1,
-    pagesizez_wx: 5,
+    pagesize_wx: 5,
   },
 
   /**
@@ -23,7 +23,12 @@ Page({
     wx.showLoading({
       title: '正在加载...',
     })
-    this.listsFun();
+    var post = {
+      keyword: "",
+      page_wx: 1,
+      openId: app.globalData.openId,
+    }
+    this.listsFun(post);
   },
 
   /**
@@ -33,54 +38,58 @@ Page({
     wx.showLoading({
       title: '正在加载...',
     })
-    this.listsFun(this.data.keyword);
+    var page_wx = this.data.page_wx + 1;
+    this.setData({
+      page_wx: page_wx,
+    });
+    var post = {
+      keyword: partt.test(this.data.keyword) ? this.data.keyword : "",
+      page_wx: page_wx,
+      openId: app.globalData.openId,
+    }
+    this.listsFun(post);
   },
 
   //搜索入口
   searchList: function () {
-    /*if(!partt.test(this.data.keyword)) {
-      this.showToast('请输入合法内容');
-      return false;
-    }*/
     wx.showLoading({
       title: '正在搜索...',
     })
     this.setData({
-      lists: [],
       page_wx: 1,
     });
-    this.listsFun(this.data.keyword);
+    var post = {
+      keyword: partt.test(this.data.keyword) ? this.data.keyword : "",
+      page_wx: 1,
+      openId: app.globalData.openId,
+    }
+    this.listsFun(post, 'reget');
   },
 
   //搜索方法共用 commonFun.js->requestFun(dataObj)
-  listsFun: function (keyword) {
-    //console.log(partt.test(keyword));
+  listsFun: function (post, act) {
     var that = this;
-    var keyword = partt.test(keyword) ? keyword : "";
+    var act = act || "";
     var dataObj = {
       url: config.myUrl,
       data: {
         action: 'lists',
-        post: {
-          keyword: keyword,
-          page_wx: this.data.page_wx,
-          openId: app.globalData.openId,
-        }
+        post: post
       }
     }
     commonFun.requestFun(dataObj).then(res => {
       console.log(res);
       if (res.length > 0) {
+        var lists = (act == "reget") ? res : that.data.lists.concat(res);
         that.setData({
-          lists: that.data.lists.concat(res),
-          page_wx: that.data.page_wx + 1,
+          lists: lists,
+          page_wx: that.data.page_wx,
         });
         wx.hideLoading();
       } else {
         wx.hideLoading();
         that.showToast('搜不到了呢~');
       }
-
     });
   },
 
@@ -103,13 +112,19 @@ Page({
       content: '确定删除 ' + e.target.dataset.title+' 吗？',
       success: function (confirm) {
         if (confirm.confirm) {
+          wx.showLoading({
+            title: '正在删除...',
+          })
           commonFun.requestFun(dataObj).then((res) => {
             if (res == 1) {
-              that.setData({
-                lists: [],
-              });
-              //that.listsFun();
-              that.showToast('删除成功!');
+              var post = {
+                keyword: partt.test(that.data.keyword) ? that.data.keyword : "",
+                page_wx: 1,
+                pagesize_wx: that.data.page_wx * that.data.pagesize_wx,
+                openId: app.globalData.openId,
+              }
+              that.listsFun(post, 'reget');
+              that.showToast('删除成功!', "success");
             }
           });
         }
@@ -130,9 +145,10 @@ Page({
   },
 
   //提示方法
-  showToast: function (msg) {
+  showToast: function (msg, icon) {
+    var icon = icon || "none"
     wx.showToast({
-      icon: 'none',
+      icon: icon,
       title: msg,
     })
   },

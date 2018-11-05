@@ -22,7 +22,8 @@
       <view class='item-bar-inner'>{{item.typeName}}</view>
     </view>
     <view class='portrait'>
-      <view class='exh_title'>{{item.title}}
+      <view class='exh_title'>
+        <navigator class='join' url='{{item.detailUrl}}'>{{item.title}}</navigator>
         <view class='exh_num'>编号：
           <text selectable='true'>{{item.number}}</text>
         </view>
@@ -48,7 +49,7 @@
       <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
       <text class='ex_text'>{{item.liulan}}</text>
       <view class='join' bindtap='deleteItem' data-id='{{item.id}}' data-item_type='{{item.itemType}}' data-title='{{item.title}}'>删除</view>
-      <navigator class='join' url='{{item.navUrl}}'>编辑</navigator>
+      <navigator class='join' url='{{item.editUrl}}'>编辑</navigator>
     </view>
   </view>
 </view>
