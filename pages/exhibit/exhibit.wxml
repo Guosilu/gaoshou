@@ -64,45 +64,31 @@
       </view>
     </view>
     <view class='rule page__modules modules__shadow'>
+
       <view class='rule-cont no-borderTop'>
         <view class='cont-title'>
           活动规则
         </view>
         {{detail.rule}}
       </view>
+
       <view class='rule-cont'>
         <view>发布时间：{{detail.starttime}}</view>
         <view>截止时间：{{detail.endtime}}</view>
       </view>
       <view class='ex-btn' bindtap='activityBtn'>参与活动</view>
       <view class='ex-btn' bindtap='go_Activity_Initiate'>发起活动</view>
+
       <view class='joinActModel' wx:if='{{joinClick}}' catchtouchmove='{{joinClick}}'>
         <view class='addBtn' bindtap='joinActivity'>发布新作品</view>
+
         <view class='addInfo'>
           从我的作品中选择
           <scroll-view scroll-y class='my-ext'>
-            <view class='my-ext-item'>
-              <view class='my-ext-title'>我的作品</view>
-              <view class='my-ext-img'>
-                <image src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=356729896,1181030408&fm=200&gp=0.jpg' mode='widthFix' />
-                <image src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=111&gp=0.jpg' mode='widthFix' />
-                <image src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2715201274,348455391&fm=200&gp=0.jpg' mode='widthFix' />
-              </view>
-            </view>
-            <view class='my-ext-item'>
-              <view class='my-ext-title'>我的作品</view>
-              <view class='my-ext-img'>
-                <image src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=356729896,1181030408&fm=200&gp=0.jpg' mode='widthFix' />
-                <image src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=111&gp=0.jpg' mode='widthFix' />
-                <image src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2715201274,348455391&fm=200&gp=0.jpg' mode='widthFix' />
-              </view>
-            </view>
-            <view class='my-ext-item'>
-              <view class='my-ext-title'>我的作品</view>
-              <view class='my-ext-img'>
-                <image src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=356729896,1181030408&fm=200&gp=0.jpg' mode='widthFix' />
-                <image src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=111&gp=0.jpg' mode='widthFix' />
-                <image src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2715201274,348455391&fm=200&gp=0.jpg' mode='widthFix' />
+            <view class='my-ext-item' wx:for='{{publication}}' wx:key="*this">
+              <view class='my-ext-title' data-id='{{item.id}}' bindtap='clickPublication'>{{item.title}}</view>
+              <view class='my-ext-img' data-id='{{item.id}}' bindtap='clickPublication'>
+                <image wx:for='{{item.file}}' wx:key="*this" wx:for-item="img" src='{{img}}' mode='widthFix' />
               </view>
             </view>
           </scroll-view>
@@ -113,6 +99,7 @@
           <view class='joinBtn true'>确定</view>
         </view>
       </view>
+
     </view>
     <view class='informat'>
       <view class='ex-tit'>
