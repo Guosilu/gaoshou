@@ -149,7 +149,7 @@
       <view class='ex-list'>
         <view class='ex-cipate' wx:for="{{exhibit_lists}}" wx:key="*this">
           <navigator url="../exhibit/exhibit?id={{item.id}}">
-            <image src='{{item.thumb}}' mode='aspectFill'></image>
+            <image src='{{item.file}}' mode='aspectFill'></image>
             <view class='listInfo'>
               <view>
                 {{item.truename}}
