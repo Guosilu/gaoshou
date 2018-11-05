@@ -1,7 +1,7 @@
 <block wx:if="{{judge}}"> 
   <view wx:for="{{list}}" wx:key="*this" class="page__modules modules__shadow"> 
     <navigator url="../exhibit/exhibit?id={{item.id}}"> 
-      <image class="recordListImg" src="{{item.thumb}}"></image> 
+      <image class="recordListImg" src="{{item.file}}"></image> 
       <view class="recordListInfo"> 
         <view class="recordListTitle">{{item.title}}</view> 
         <view class="recordListOther"> 
