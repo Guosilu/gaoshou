@@ -13,6 +13,7 @@ Page({
     keyword: "",
     downSearchList: false,
     page_wx: 1,
+    pagesizez_wx: 5,
   },
 
   /**
@@ -67,7 +68,6 @@ Page({
         }
       }
     }
-    
     commonFun.requestFun(dataObj).then(res => {
       console.log(res);
       if (res.length > 0) {
@@ -81,6 +81,39 @@ Page({
         that.showToast('搜不到了呢~');
       }
 
+    });
+  },
+
+  //检测搜索内容
+  deleteItem: function (e) {
+    var that = this;
+    var dataObj = {
+      url: config.myUrl,
+      data: {
+        action: 'delete',
+        post: {
+          id: e.target.dataset.id,
+          itemType: e.target.dataset.item_type,
+          openId: app.globalData.openId,
+        }
+      }
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定删除 ' + e.target.dataset.title+' 吗？',
+      success: function (confirm) {
+        if (confirm.confirm) {
+          commonFun.requestFun(dataObj).then((res) => {
+            if (res == 1) {
+              that.setData({
+                lists: [],
+              });
+              //that.listsFun();
+              that.showToast('删除成功!');
+            }
+          });
+        }
+      }
     });
   },
 
