@@ -95,7 +95,7 @@ App({
     openId: null,
   },
   //支付 
-  pay: function (e) {
+  wx_pay: function (e) {
       var randa = new Date().getTime().toString();
       var randb = Math.round(Math.random() * 10000).toString();
       var that = this;
