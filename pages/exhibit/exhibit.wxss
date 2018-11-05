@@ -25,6 +25,29 @@
   background: #dc4e40;
 }
 
+.user-list {
+  padding-left: 35rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-bottom: -20rpx;
+}
+
+.user-avatar {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  margin-left: -15rpx;
+  border: 4rpx solod #fff;
+  box-shadow: 2rpx 2rpx 6rpx 2rpx #fff;
+  vertical-align: middle;
+}
+
+.user-list-text {
+  font-size: 12px;
+  color: gray;
+  padding-left: 10rpx;
+}
+
 .yh_hudong {
   margin: 20rpx 0 30rpx;
   font-weight: normal;
@@ -196,19 +219,22 @@
   padding: 20rpx 30rpx;
   font-size: 16px;
 }
-.addBtn{
+
+.addBtn {
   padding: 10rpx;
   width: 200rpx;
   margin: 10rpx auto;
   text-align: center;
   background: #dc4e40;
   border-radius: 50rpx;
-  color: #FFF;
+  color: #fff;
 }
-.addInfo{
+
+.addInfo {
   font-size: 12px;
   color: gray;
 }
+
 .joinBtn {
   display: inline-block;
   width: 45%;
@@ -220,23 +246,28 @@
   color: green;
   border-left: 2rpx solid #f2f2f2;
 }
-.my-ext{
+
+.my-ext {
   height: 500rpx;
   margin-top: 10rpx;
   margin-bottom: 90rpx;
 }
-.my-ext-item{
+
+.my-ext-item {
   border-bottom: 2rpx solid #f2f2f2;
   padding: 10rpx 10rpx 20rpx;
 }
-.my-ext-title{
+
+.my-ext-title {
   font-size: 16px;
 }
-.my-ext-img{
+
+.my-ext-img {
   display: flex;
   justify-content: start;
 }
-.my-ext-img image{
+
+.my-ext-img image {
   width: 160rpx;
   margin-right: 10rpx;
 }
