@@ -10,6 +10,7 @@ Page({
     detail: {},
     compose_type: "orderDetail",
     page: 1,
+    pagesize: 5,
     comNum: 0,
     comment: [],
   },
