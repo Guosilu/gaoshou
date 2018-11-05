@@ -1,5 +1,5 @@
-const commonFun = require("../../js/commonFun.js");
 const config = require('../../config/config.js');
+const commonFun = require("../../js/commonFun.js");
 const app = getApp();
 const partt = /\S+/;
 Page({
@@ -18,8 +18,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log(options);
+  onLoad: function () {
     wx.showLoading({
       title: '正在加载...',
     })
@@ -54,6 +53,7 @@ Page({
 
   //搜索方法共用 commonFun.js->requestFun(dataObj)
   listsFun: function (keyword) {
+    //console.log(partt.test(keyword));
     var that = this;
     var keyword = partt.test(keyword) ? keyword : "";
     var dataObj = {
@@ -67,7 +67,7 @@ Page({
         }
       }
     }
-    console.log(partt.test(keyword));
+    
     commonFun.requestFun(dataObj).then(res => {
       console.log(res);
       if (res.length > 0) {
