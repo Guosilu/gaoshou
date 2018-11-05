@@ -21,6 +21,8 @@
       <image src="{{img}}my_wcy.png" mode="widthFix" />我参与的活动</navigator>
     <navigator hover-class="none" url="/pages/record/record?type=WhoLaunch">
       <image src="{{img}}my_scy.png" mode="widthFix" />谁参与了我的活动</navigator>
+    <navigator hover-class="none" url="/pages/my_release/my_release">
+      <image src="/images/my_release.png" mode="widthFix" />我的发布</navigator>
   </view>
 
   <view class='btnlist' style='display:none;'>
