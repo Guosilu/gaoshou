@@ -268,7 +268,6 @@ Page({
    */
   onLoad: function(options) {
     this.getBanner();
-    console.log(app.scan());
   },
 
   /**
