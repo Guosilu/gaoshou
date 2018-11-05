@@ -254,23 +254,22 @@ Page({
                     },
                     fail: function(res) {
                       //添加成功
-                      wx.request({
-                        url: config.activityUrl,
-                        dataType: "json",
-                        method: "post",
-                        data: {
-                          "action": "add_release",
-                          "total_fee": app.payData.release_money,
-                          "user": app.globalData.userInfo.nickName,
-                          "openid": app.globalData.openId,
-                          "type": post.type,
-                        },
-                        success: function(res) {
-                          console.log(res);
-                          // console.log(res);
+                      // wx.request({
+                      //   url: config.activityUrl,
+                      //   dataType: "json",
+                      //   method: "post",
+                      //   data: {
+                      //     "action": "add_release",
+                      //     "total_fee": app.payData.release_money,
+                      //     "user": app.globalData.userInfo.nickName,
+                      //     "openid": app.globalData.openId,
+                      //     "type": post.type,
+                      //   },
+                      //   success: function(res) {
+                      //     console.log(res);
 
-                        }
-                      })
+                      //   }
+                      // })
                       //end
                       wx.showToast({
                         title: '支付已取消',
