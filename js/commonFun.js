@@ -83,7 +83,52 @@ function getList(dataObjList) {
   });
 }
 
+/**
+ * 当前日期时间方法
+ * return: ['2018-08-08','12:01']
+ */
+
+function getDateTime() {
+  var myDate = new Date();
+  var dateTime = [];
+  var month = (myDate.getMonth() + 1) < 10 ? ('0' + (myDate.getMonth() + 1)) : (myDate.getMonth() + 1);
+  var day = myDate.getDate() < 10 ? ('0' + myDate.getDate()) : myDate.getDate();
+  var hour = myDate.getHours() < 10 ? ('0' + myDate.getHours()) : myDate.getHours();
+  var min = myDate.getMinutes() < 10 ? ('0' + myDate.getMinutes()) : myDate.getMinutes();
+  dateTime.push(myDate.getFullYear() + '-' + month + '-' + day);
+  dateTime.push(hour + ':' + min);
+  return dateTime;
+}
+
+/**
+ * 转时间戳
+ */
+function getTimeStep(dateTime) {
+  console.log(dateTime);
+  var myDate = new Date(dateTime.replace(/-/g, '/'));
+  return myDate.getTime();
+}
+
+/**
+ * 下载网络文件
+ */
+function downloadFile(url) {
+  return new Promise(function (resolve, reject) {
+    wx.downloadFile({
+      url: url,
+      success(res) {
+        if (res.statusCode === 200) {
+          resolve(res.tempFilePath);
+        }
+      }
+    })
+  });
+}
+
 module.exports = {
   requestFun: requestFun,
   getList: getList,
+  getDateTime: getDateTime,
+  getTimeStep: getTimeStep,
+  downloadFile: downloadFile,
 }
