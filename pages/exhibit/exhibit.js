@@ -307,9 +307,16 @@ Page({
         }
       },
       success: function (res) {
+        var result = res.data;
+        for(let a= 0;a<result.length;a++){
+          if (result[a]['file'] && result[a]['mode']=='image'){
+            result[a]['file'] = result[a]['file'].split(',')
+          }
+        }
         that.setData({
           order_lists: res.data
         });
+        console.log(res);
       }
     })
   },
