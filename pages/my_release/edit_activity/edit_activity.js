@@ -47,11 +47,13 @@ Page({
       curttenDate: dataTime[0],
       curttenTime: dataTime[1],
     })
+    console.log(options);
     this.getDeatil(options.id, options.itemType);
   },
 
   //获取详情
   getDeatil: function (id, itemType) {
+    console.log(id);
     var that = this;
     var dataObj = {
       url: config.myUrl,
@@ -75,6 +77,7 @@ Page({
           filePath: that.data.filePath.concat(downloadPath),
         })
       })
+      console.log(res);
       that.setData({
         detail: res,
       })
@@ -115,11 +118,13 @@ Page({
     that.showLoading('正在上传文件...', true);
     uploadObj.fileUpload(paramObj).then(res => {
       console.log(res);
+      post['file'] = res['fileUrl'];
       if (res['fileUrl']) {
         var dataObj = {
           url: config.myUrl,
           data: {
-            action: 'update',
+            action: 'edit',
+            itemType: that.data.itemType,
             post: post,
           }
         }
@@ -128,8 +133,8 @@ Page({
           if (res > 0) {
             that.showLoading('提交完成...', true)
             setTimeout(function () {
-              wx.switchTab({
-                url: '/pages/my_release/my_release'
+              wx.navigateBack({
+                delta: 1
               })
             }, 1000)
           }
@@ -142,7 +147,6 @@ Page({
     post['starttime'] = commonFun.getTimeStep(post['sDate'] + " " + post['sTime']);
     post['endtime'] = commonFun.getTimeStep(post['eDate'] + " " + post['eTime']);
     post['id'] = this.data.detail.id;
-    post['itemType'] = this.data.itemType;
     post['openId'] = app.globalData.openId;
     return post;
   },

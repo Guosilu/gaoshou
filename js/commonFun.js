@@ -33,6 +33,7 @@ function collectFun(url, param, confirm) {
     });
   }
 }
+
 //请求方法 配置dataObj对象
 function requestFun(dataObj) {
   return new Promise(function (resolve, reject) {
@@ -47,6 +48,7 @@ function requestFun(dataObj) {
     })
   });
 }
+
 //被调用方法 配合getList
 function promiseFun (dataObj) {
   return new Promise(function (resolve, reject) {
@@ -65,6 +67,7 @@ function promiseFun (dataObj) {
     })
   });
 }
+
 //列表方法 dataObjList多维对象dataObj
 function getList(dataObjList) {
   return new Promise(function (resolve, reject) {
@@ -101,12 +104,12 @@ function getDateTime() {
 }
 
 /**
- * 转时间戳
+ * 转时间戳 s
  */
 function getTimeStep(dateTime) {
   console.log(dateTime);
   var myDate = new Date(dateTime.replace(/-/g, '/'));
-  return myDate.getTime();
+  return myDate.getTime() / 1000;
 }
 
 /**
