@@ -10,7 +10,7 @@ Page({
   data: {
     activeIndex: 0,//默认选中第一个
     numArray: [10, 20, 30, 40, 50, 60, 70, 80, 90],
-    money : 1,
+    money : 1000,
   },
 
   pay: function (){
@@ -66,8 +66,9 @@ Page({
                     "id": app.globalData.openId
                   },
                   success: function (res) {
+                    console.log(res);
                     wx.showToast({
-                      title: '赞赏成功',
+                      title: '充值成功',
                     })
                   }
                 })
