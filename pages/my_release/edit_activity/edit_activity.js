@@ -1,5 +1,6 @@
 const config = require('../../../config/config.js');
 const commonFun = require("../../../js/commonFun.js");
+const uploadObjFile = new require("../../../js/uploadObj.js");
 const app = getApp();
 Page({
 
@@ -16,33 +17,35 @@ Page({
     interval: 5000,
     duration: 1000,
     //选择活动类型
-    cateName: ["图片", "语音", "视频", "文章"],
-    cateActive: 0,
+    cateName: [
+      { mode: "image", name: "图片" },
+      { mode: "voice", name: "语音" },
+      { mode: "video", name: "视频" },
+      { mode: "article", name: "文章" },
+    ],
+    cateActive: '',
     //活动分类
     activityType: ["类别", "比赛", "排名", "互助"],
-    activityTypeIndex: 0,
     // 日期插件
-    bdate: "2018-09-01",
-    btime: "12:01",
-    edate: "2018-09-01",
-    etime: "12:01",
+    curttenDate: "",
+    curttenTime: "",
     form_reset: '',
     //图片上传
-    file: '',
-    //音频
-    vofile: '',
-    //视频  chooseVoice
-    vifile: '',
+    filePath: [],
     itemType: '',
     detail: {},
+    submitDisabled: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var dataTime = commonFun.getDateTime();
     this.setData({
       itemType: options.itemType,
+      curttenDate: dataTime[0],
+      curttenTime: dataTime[1],
     })
     this.getDeatil(options.id, options.itemType);
   },
@@ -63,7 +66,15 @@ Page({
     }
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
-      console.log(res)
+      var filePath = res.file.split(",")
+      res.starttime = res.starttime.split(" ");
+      res.endtime = res.endtime.split(" ");
+      commonFun.downloadFile(filePath[0]).then((downloadPath) => {
+        console.log(downloadPath);
+        that.setData({
+          filePath: that.data.filePath.concat(downloadPath),
+        })
+      })
       that.setData({
         detail: res,
       })
@@ -71,214 +82,207 @@ Page({
     });
   },
 
-  /**
-   * 选择视频
-   */
-  chooseVideo: function() {
-    var that = this;
-    wx.chooseVideo({
-      maxDuration: 1000,
-      success: function(res) {
-        console.log(res);
-        that.setData({
-          vifile: res
-        })
-      }
-    })
-  },
-  
-  /**
-   * 删除视频
-   */
-  delVideo: function() {
-    var that = this;
-    that.setData({
-      vifile: []
-    })
-  },
-
   cateClick: function(e) {
     let clk = this;
     clk.setData({
-      cateActive: e.currentTarget.dataset.current,
+      'detail.mode': e.currentTarget.dataset.current,
     })
-  },
-
-  /**
-   * 重置form
-   */
-  form_reset: function() {
-    this.setData({
-      activityTypeIndex: 0,
-      bdate: "2016-09-01",
-      btime: "12:01",
-      edate: "2016-09-01",
-      etime: "12:01",
-      form_reset: '',
-      file: ''
-    });
   },
 
   /**
    * 提交
    */
-  formSubmit: function(e) {
-    wx.showLoading({
-      mask: true,
-      title: '提交中...',
-    });
-    let post = e.detail.value;
-    post['starttime'] = post.bdate + ' ' + post.btime;
-    post['endtime'] = post.edate + ' ' + post.etime;
-    post['nickName'] = app.globalData.userInfo.nickName;
-    if (post.type == '0' || post.rule.trim() == '' || post.title.trim() == '') {
-      wx.showToast({
-        title: '填写不完整！',
-        icon: 'none'
+  //表单提交
+  formSubmit: function (e) {
+    this.setData({
+      //submitDisabled: true,
+    })
+    var that = this;
+    var post = this.setSubmitDate(e.detail.value);
+    var paramObj = this.fileParamConfig();
+
+    //实例化
+    var uploadObj = new uploadObjFile.upload();
+
+    //表单验证
+    /*if (!this.submitCheck(post)) {
+      this.setData({
+        submitDisabled: false,
       })
       return false;
-    }
-    let file = this.data.file;
-    if (file == '') {
-      wx.showToast({
-        title: '请上传活动封面！',
-        icon: 'none'
-      });
-      return false;
-    } else {
-      console.log(file);
-      this.fileUpload(file, post);
-    }
+    }*/
+    //console.log(paramObj); return;
+    that.showLoading('正在上传文件...', true);
+    uploadObj.fileUpload(paramObj).then(res => {
+      console.log(res);
+      if (res['fileUrl']) {
+        var dataObj = {
+          url: config.myUrl,
+          data: {
+            action: 'update',
+            post: post,
+          }
+        }
+        that.showLoading('正在提交数据...', true)
+        commonFun.requestFun(dataObj).then(res => {
+          if (res > 0) {
+            that.showLoading('提交完成...', true)
+            setTimeout(function () {
+              wx.switchTab({
+                url: '/pages/my_release/my_release'
+              })
+            }, 1000)
+          }
+        });
+      }
+    })
   },
 
-  /**
-   * 图片上传
-   */
-  fileUpload: function(path, post) {
-    let that = this;
-    wx.uploadFile({
+  setSubmitDate: function(post) {
+    post['starttime'] = commonFun.getTimeStep(post['sDate'] + " " + post['sTime']);
+    post['endtime'] = commonFun.getTimeStep(post['eDate'] + " " + post['eTime']);
+    post['id'] = this.data.detail.id;
+    post['itemType'] = this.data.itemType;
+    post['openId'] = app.globalData.openId;
+    return post;
+  },
+
+  //上传文件参数配置
+  fileParamConfig: function () {
+    var paramObj = {
       url: config.uploadUrl,
-      filePath: path,
+      filePath: this.data.filePath[0],
+      columnName: 'file',
       name: 'file',
       formData: {
-        action: 'upload_file'
-      },
-      success: function(res) {
-        console.log(res.data);
-        post['thumb'] = res.data;
-        that.formSubmitDo(post);
+        action: 'upload',
       }
-    });
+    };
+    return paramObj;
   },
 
-  /**
-   * 提交DO
-   */
-  formSubmitDo: function(post) {
-    let that = this;
-    post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.activityUrl,
-      method: "POST",
-      data: {
-        action: 'add',
-        post: post
-      },
-      success: function(res) {
-        if (res.data > 0) {
-          wx.showToast({
-            title: '提交成功！',
-          });
-          that.form_reset();
-          wx.redirectTo({
-            url: '../exhibit/exhibit?id=' + res.data,
-          })
-        } else {
-          wx.showToast({
-            title: '提交失败！',
-            icon: 'none'
-          });
-        }
-      }
-    })
-  },
-
-  /**
-   * 删除图片
-   */
-  delImg: function(e) {
-    this.setData({
-      file: ''
-    })
-  },
-
-  /**
-   * 活动类别
-   */
-  bindAccountChange: function(e) {
-    console.log('picker account 发生选择改变，携带值为', e.detail.value);
-    if (e.detail.value < 1) {
-      wx.showToast({
-        title: '活动类别不可为空',
-        icon: 'none',
-      })
-      return;
+  //验证表单
+  submitCheck: function (submitVal) {
+    if (submitVal.catid < 1) {
+      this.showTip('请选择分类');
+      return false;
     }
-    this.setData({
-      activityTypeIndex: e.detail.value
-    })
+    if (submitVal.title == '') {
+      this.showTip('请填写标题');
+      return false;
+    }
+    if (this.data.imagePath == '') {
+      this.showTip('至少传一个图');
+      return false;
+    }
+    if (this.data.videoPath == '') {
+      this.showTip('请录制或选择一个小视频');
+      return false;
+    }
+    if (parseFloat(this.data.videoSize) > 100) {
+      this.showTip('很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M');
+      return false;
+    }
+    return true;
   },
 
   // 图片上传
-  chooseImage: function(e) {
+  chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          file: res.tempFilePaths[0],
+          filePath: [res.tempFilePaths[0]],
         });
       }
     });
+  },
 
-
+  //选择视频
+  chooseVideo: function () {
+    var that = this;
+    wx.chooseVideo({
+      maxDuration: 1000,
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          filePath: res
+        })
+      }
+    })
   },
 
   /**
    * 浏览图片
    */
-  previewImage: function(e) {
+  previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.file // 需要预览的图片http链接列表
     })
   },
 
-  // 改变时间
-  bindDateChange: function(e) {
+  /**
+   * 删除图片
+   */
+  deleteFile: function(e) {
     this.setData({
-      bdate: e.detail.value
+      filePath: [],
     })
   },
 
-  bindTimeChange: function(e) {
+  // 改变时间
+  bindDateChange: function(e) {
+    let edit = 'detail.starttime[0]';
     this.setData({
-      btime: e.detail.value
+      [edit]: e.detail.value
     })
+    console.log(this.data.detail.starttime);
+  },
+
+  bindTimeChange: function (e) {
+    let edit = 'detail.starttime[1]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.starttime);
   },
 
   bindeDateChange: function(e) {
+    let edit = 'detail.endtime[0]';
     this.setData({
-      edate: e.detail.value
+      [edit]: e.detail.value
     })
+    console.log(this.data.detail.endtime);
   },
 
   bindeTimeChange: function(e) {
+    let edit = 'detail.endtime[1]';
     this.setData({
-      etime: e.detail.value
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.endtime);
+  },
+
+  //提示方法
+  showTip: function (msg, icon) {
+    var icon = icon || "none";
+    wx.showToast({
+      icon: icon,
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
     })
   },
 
@@ -309,9 +313,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    if (wx.getStorageSync('isLogin')) {
-      this.form_reset();
-    }
+
   },
 
   /**

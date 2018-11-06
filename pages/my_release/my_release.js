@@ -78,8 +78,11 @@ Page({
       }
     }
     commonFun.requestFun(dataObj).then(res => {
-      console.log(res);
       if (res.length > 0) {
+        for (let i = 0; i < res.length; i++) {
+          res[i].file = res[i].file.split(",");
+        }
+        console.log(res);
         var lists = (act == "reget") ? res : that.data.lists.concat(res);
         that.setData({
           lists: lists,
