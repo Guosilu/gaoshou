@@ -1,5 +1,6 @@
 <!--pages/publication/Publication.wxml-->
 <view wx:if="{{isLogin}}">
+  <block wx:if="{{pageFileLock && pageDataLock}}">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="page__modules modules__shadow">
       <input class="activityName" name='title' value='{{detail.title}}' placeholder="请填写作品名称"></input>
@@ -25,7 +26,7 @@
                     <block wx:for="{{filePath}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                        <view data-id="{{index}}" class='delImg' bindtap="deleteFile">删除×</view>
+                        <view style='z-index: 999' data-id="{{index}}" class='delImg' bindtap="deleteFile">删除×</view>
                       </view>
                     </block>
                   </view>
@@ -41,7 +42,7 @@
     </view>
 
     <view class="page__modules modules__shadow">
-      <textarea name="introduce" placeholder="">{{detail.introduce}}</textarea>
+      <textarea name="introduce" placeholder="请填写作品说明" value="{{detail.introduce}}"></textarea>
     </view>
     <view style="overflow:hidden;">
       <navigator url="" class="uploadRuler">
@@ -52,5 +53,6 @@
        <button class="weui-btn" type="warn" disabled='{{submitDisabled}}' formType="submit">提交</button>
     </view>
   </form>
+  </block>
 </view>
 <view wx:else>未登录</view>

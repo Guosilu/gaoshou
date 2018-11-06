@@ -1,4 +1,5 @@
 <view wx:if="{{isLogin}}">
+  <block wx:if="{{pageFileLock && pageDataLock}}">
   <form bindsubmit="formSubmit">
     <view class='act-cate'>
       <view class='{{detail.mode == item.mode ? "on" : ""}}' wx:for="{{cateName}}" wx:key="{{index}}">{{item.name}}</view>
@@ -135,5 +136,6 @@
       <button class="weui-btn" type="warn" disabled='{{submitDisabled}}' formType="submit">提交</button>
     </view>
   </form>
+  </block>
 </view>
 <view wx:else>未登录</view>

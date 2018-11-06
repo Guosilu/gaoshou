@@ -34,13 +34,15 @@ Page({
     filePath: [],
     itemType: '',
     detail: {},
-    submitDisabled: false,
+    pageFileLock: false,
+    pageDataLock: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.showLoading("正在加载...")
     var dataTime = commonFun.getDateTime();
     this.setData({
       itemType: options.itemType,
@@ -75,21 +77,16 @@ Page({
         console.log(downloadPath);
         that.setData({
           filePath: that.data.filePath.concat(downloadPath),
+          pageFileLock: true,
         })
       })
       console.log(res);
       that.setData({
         detail: res,
+        pageDataLock: true,
       })
       wx.hideLoading();
     });
-  },
-
-  cateClick: function(e) {
-    let clk = this;
-    clk.setData({
-      'detail.mode': e.currentTarget.dataset.current,
-    })
   },
 
   /**
@@ -98,22 +95,20 @@ Page({
   //表单提交
   formSubmit: function (e) {
     this.setData({
-      //submitDisabled: true,
+      submitDisabled: true,
     })
+    var paramObj = this.fileParamConfig();
     var that = this;
     var post = this.setSubmitDate(e.detail.value);
-    var paramObj = this.fileParamConfig();
-
     //实例化
     var uploadObj = new fileHandleObjFile.upload();
-
     //表单验证
-    /*if (!this.submitCheck(post)) {
+    if (!this.submitCheck(post)) {
       this.setData({
         submitDisabled: false,
       })
       return false;
-    }*/
+    }
     //console.log(paramObj); return;
     that.showLoading('正在上传文件...', true);
     uploadObj.fileUpload(paramObj).then(res => {
@@ -143,14 +138,6 @@ Page({
     })
   },
 
-  setSubmitDate: function(post) {
-    post['starttime'] = commonFun.getTimeStep(post['sDate'] + " " + post['sTime']);
-    post['endtime'] = commonFun.getTimeStep(post['eDate'] + " " + post['eTime']);
-    post['id'] = this.data.detail.id;
-    post['openId'] = app.globalData.openId;
-    return post;
-  },
-
   //上传文件参数配置
   fileParamConfig: function () {
     var paramObj = {
@@ -165,32 +152,37 @@ Page({
     return paramObj;
   },
 
+  //设置提交内容
+  setSubmitDate: function(post) {
+    post['starttime'] = commonFun.getTimeStep(post['sDate'] + " " + post['sTime']);
+    post['endtime'] = commonFun.getTimeStep(post['eDate'] + " " + post['eTime']);
+    post['id'] = this.data.detail.id;
+    post['openId'] = app.globalData.openId;
+    return post;
+  },
+
   //验证表单
   submitCheck: function (submitVal) {
-    if (submitVal.catid < 1) {
-      this.showTip('请选择分类');
+    if (submitVal.type < 1) {
+      this.showTip('请选择分类！');
       return false;
     }
     if (submitVal.title == '') {
-      this.showTip('请填写标题');
+      this.showTip('请填写标题！');
       return false;
     }
-    if (this.data.imagePath == '') {
-      this.showTip('至少传一个图');
+    if (this.data.filePath.length < 1) {
+      this.showTip('至少传一个图！');
       return false;
     }
-    if (this.data.videoPath == '') {
-      this.showTip('请录制或选择一个小视频');
-      return false;
-    }
-    if (parseFloat(this.data.videoSize) > 100) {
-      this.showTip('很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M');
+    if (submitVal.starttime <= submitVal.endtime) {
+      this.showTip('结束时间必须大于开始时间！');
       return false;
     }
     return true;
   },
 
-  // 图片上传
+  //图片选择
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
@@ -225,8 +217,8 @@ Page({
    */
   previewImage: function (e) {
     wx.previewImage({
-      current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.file // 需要预览的图片http链接列表
+      current: 1, // 当前显示图片的http链接
+      urls: this.data.filePath// 需要预览的图片http链接列表
     })
   },
 
@@ -287,6 +279,22 @@ Page({
     wx.showLoading({
       mask: mask,
       title: msg,
+    })
+  },
+
+  //类型选择
+  bindAccountChange: function (e) {
+    console.log(e);
+    this.setData({
+      'detail.type': e.detail.value,
+    })
+  },
+
+  //未知
+  cateClick: function (e) {
+    let clk = this;
+    clk.setData({
+      'detail.mode': e.currentTarget.dataset.current,
     })
   },
 
