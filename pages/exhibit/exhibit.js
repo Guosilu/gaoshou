@@ -26,22 +26,68 @@ Page({
    */
   clickPublication: function(e) {
     var that = this;
-    var id = e.currentTarget.dataset.id;
+    let id = this.data.detail.id;
+    var ids = e.currentTarget.dataset.id;
+
     wx.request({
       url: config.activityUrl,
       method: "POST",
       data: {
-        action: 'addByPublication',
-        id: id,
-        openId: app.globalData.openId,
-        mode: 'image',
-        activity_id: that.data.detail.id
+        action: 'is_join',
+        post: {
+          id: id,
+          openId: app.globalData.openId
+        }
       },
-      success: function (res) {
-        console.log(res);
-      }
-    })
 
+      success: function (res) {
+        if (res.data == 1) {
+
+          wx.request({
+            url: config.activityUrl,
+            method: "POST",
+            data: {
+              action: 'addByPublication',
+              id: ids,
+              openId: app.globalData.openId,
+              mode: 'image',
+              activity_id: that.data.detail.id
+            },
+            success: function (res) {
+              console.log(res);
+              if (res.data > 0) {
+                wx.showToast({
+                  title: '添加成功',
+                  success: function () {
+                    setTimeout(function () {
+                      wx.redirectTo({
+                        url: '../orderDetail/orderDetail?id=' + res.data
+                      })
+                    }, 1500)
+                  }
+                })
+              }
+            }
+          })
+          
+        } else if (res.data == 2) {
+          wx.showToast({
+            icon: 'none',
+            title: '您不能参加自己发布的活动！'
+          });
+        } else if (res.data == 3) {
+          wx.showToast({
+            icon: 'none',
+            title: '您已经参加！'
+          });
+        } else if (res.data == 4) {
+          wx.showToast({
+            icon: 'none',
+            title: '活动已经开始！'
+          });
+        }
+      }
+    });
   },
 
   //赏金
