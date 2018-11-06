@@ -57,11 +57,11 @@ Page({
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
       var filePath = res.file.split(",");
-      var downloadObj = new fileHandleObjFile.download(filePath);
-      downloadObj.downloadFileList().then((res) => {
-        console.log(res);
+      var downloadObj = new fileHandleObjFile.dowload(filePath);
+      downloadObj.downloadFileList().then((tp) => {
+        console.log(tp);
         that.setData({
-          filePath: res,
+          filePath: tp,
         })
       })
       console.log(res);
@@ -207,8 +207,16 @@ Page({
    * 删除图片
    */
   deleteFile: function (e) {
+    var id = e.target.dataset.id;
+    var filePath = this.data.filePath;
+    var filePathNew = [];
+    for (let i = 0; i < filePath.length; i++) {
+      if (i != id) {
+        filePathNew.push(filePath[i]);
+      }
+    }
     this.setData({
-      filePath: [],
+      filePath: filePathNew
     })
   },
 

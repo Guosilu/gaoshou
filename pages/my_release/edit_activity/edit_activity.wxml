@@ -7,7 +7,7 @@
       <input class="activityName" name='title' value='{{detail.title}}' placeholder="请输入活动名称"></input>
       <view class="activityType">
         <picker bindchange="bindAccountChange" name='type' value="{{detail.type}}" range="{{activityType}}">
-          <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[detail.type]}}       </view>
+          <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[detail.type]}}</view>
         </picker>
       </view>
     </view>

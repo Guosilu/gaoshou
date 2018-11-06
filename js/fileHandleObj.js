@@ -82,18 +82,26 @@ function upload() {
 
 /**
  * 下载单网络文件对象
+ * urls: []或""
  */
 function dowload(urls) {
   this.urls = urls;
+  this.url = "";//可变动url
   /**
    * 下载单网络文件
    * 返回: 本地临时路径
    * 类型: 字符串
   */
   this.downloadFile = function () {
+    var that = this;
+    var urls = this.urls
     return new Promise(function (resolve, reject) {
-      if ((typeof (this.urls == "object") && urls.length === 1) || (typeof(this.urls == "string") && urls.length != "")) {
-        var url = typeof(this.urls == "object") ? this.urls[0] : this.urls;
+      if (urls.length > 0) {
+        if (typeof (urls == "object") && urls.length > 1 && that.url) {
+          var url = that.url;
+        } else if ((typeof (urls == "object") && urls.length == 1) || (typeof (urls == "string") && urls.length != "")) {
+          var url = typeof (that.urls == "object") ? that.urls[0] : that.urls;
+        }
         wx.downloadFile({
           url: url,
           success(res) {
@@ -115,16 +123,17 @@ function dowload(urls) {
    */
   this.downloadFileList = function () {
     var that = this;
+    var urls = that.urls;
+    var promiseArr = [];
     return new Promise(function (resolve, reject) {
-      if (typeof (that.urls == "object") && urls.length > 0) {
-        var urls = that.urls;
-        var promiseArr = [];
+      if (typeof (urls == "object") && urls.length > 0) {
+        console.log(urls);
         for (let i = 0; i < urls.length; i++) {
-          let promise = that.downloadFile(urls[i]);
+          that.url = urls[i];
+          let promise = that.downloadFile();
           promiseArr.push(promise);
         }
         Promise.all(promiseArr).then((res) => {
-          console.log(res);
           resolve(res);
         });
       }

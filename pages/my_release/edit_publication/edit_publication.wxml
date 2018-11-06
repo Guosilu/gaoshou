@@ -2,10 +2,10 @@
 <view wx:if="{{isLogin}}">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="page__modules modules__shadow">
-      <input class="activityName" name="title" placeholder="请填写作品名称"></input>
+      <input class="activityName" name='title' value='{{detail.title}}' placeholder="请填写作品名称"></input>
       <view class="activityType">
-        <picker name="type" bindchange="bindAccountChange" value="{{activityType[activityTypeIndex]}}" range="{{activityType}}">
-          <view class="weui-select" style="background-image: url({{img}}Triangle.png);background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;">{{activityType[activityTypeIndex]}}</view>
+        <picker bindchange="bindAccountChange" name='type' value="{{detail.type}}" range="{{activityType}}">
+          <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[detail.type]}}</view>
         </picker>
       </view>
     </view>
@@ -25,7 +25,7 @@
                     <block wx:for="{{filePath}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                        <view data-id="{{index}}" class='delImg' bindtap="delImg">删除×</view>
+                        <view data-id="{{index}}" class='delImg' bindtap="deleteFile">删除×</view>
                       </view>
                     </block>
                   </view>
@@ -41,8 +41,7 @@
     </view>
 
     <view class="page__modules modules__shadow">
-      <textarea name="introduce" placeholder="作品说明">
-      </textarea>
+      <textarea name="introduce" placeholder="">{{detail.introduce}}</textarea>
     </view>
     <view style="overflow:hidden;">
       <navigator url="" class="uploadRuler">
@@ -50,7 +49,7 @@
       </navigator>
     </view>
     <view class="weui-btn-area">
-      <button class="weui-btn" type="warn" form-type='submit' bindtap="showTopTips">提交</button>
+       <button class="weui-btn" type="warn" disabled='{{submitDisabled}}' formType="submit">提交</button>
     </view>
   </form>
 </view>
