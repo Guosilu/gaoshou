@@ -3,7 +3,7 @@
     <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="*this">
         <swiper-item>
-          <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+          <navigator url="../../orderDetail/orderDetail?id={{item.id}}">
             <image mode='aspectFill' src="{{item.file[0]}}" class="slide-image" />
           </navigator>
         </swiper-item>
