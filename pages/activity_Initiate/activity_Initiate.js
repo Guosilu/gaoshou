@@ -67,7 +67,7 @@ Page({
   /**
    * banner
    */
-  getBanner: function() {
+  getBanner: function () {
     var that = this;
     wx.request({
       url: config.activity_orderUrl,
@@ -75,10 +75,16 @@ Page({
       data: {
         action: 'getBanner'
       },
-      success: function(res) {
-        console.log(res.data);
+      success: function (res) {
+        var result = res.data;
+        for (let a = 0; a < result.length; a++) {
+          if (result[a]['file'] && result[a]['mode'] == 'image') {
+            result[a]['file'] = result[a]['file'].split(',');
+          }
+        }
+        console.log(result);
         that.setData({
-          imgUrls: res.data,
+          imgUrls: result,
         });
       }
     })
