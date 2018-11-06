@@ -309,11 +309,40 @@ Page({
       urls: this.data.files // 需要预览的图片http链接列表
     })
   },
+
+
+
+  /**
+   * banner
+   */
+  getBanner: function () {
+    var that = this;
+    wx.request({
+      url: config.activity_orderUrl,
+      method: 'POST',
+      data: {
+        action: 'getBanner'
+      },
+      success: function (res) {
+        var result = res.data;
+        for (let a = 0; a < result.length; a++) {
+          if (result[a]['file'] && result[a]['mode'] == 'image') {
+            result[a]['file'] = result[a]['file'].split(',');
+          }
+        }
+        console.log(result);
+        that.setData({
+          imgUrls: result,
+        });
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getBanner();
   },
 
   /**
