@@ -318,6 +318,13 @@ Page({
       inputVal: "",
     })
     var param = {};
+    if (!that.data.value || that.data.value == "" || that.data.value.trim() == "") {
+      wx.showToast({
+        title: '评论不可为空',
+        icon: 'none'
+      })
+      return;
+    }
     param['content'] = that.data.value;
     param['types'] = 'comment';
     param['compose_type'] = that.data.compose_type;
