@@ -9,7 +9,6 @@ Page({
     comNum: 0,
     like_status: null,
     detail: {},
-    like_status: null,
     order_lists: {},
     exhibit_lists: {},
     payOpen: false,
@@ -356,11 +355,15 @@ Page({
       compose_type: this.data.compose_type,
       pagesize: 5,
     }
-    this.getComment(dataObj, 2);
     this.get_detail(options.id);
+    this.getComment(dataObj, 2);
     this.getOrderList(id);
     this.getExhibitList(id);
+
+
   },
+
+
 
   /**
    * 页面上拉触底事件的处理函数
@@ -405,7 +408,7 @@ Page({
     });
   },
 
-  //获取广场
+  //获取参与者
   getOrderList: function(id) {
     let that = this;
     wx.request({
