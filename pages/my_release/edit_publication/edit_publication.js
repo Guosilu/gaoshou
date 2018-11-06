@@ -70,16 +70,6 @@ Page({
     });
   },
 
-  cateClick: function (e) {
-    let clk = this;
-    clk.setData({
-      'detail.mode': e.currentTarget.dataset.current,
-    })
-  },
-
-  /**
-   * 提交
-   */
   //表单提交
   formSubmit: function (e) {
     this.setData({
@@ -238,6 +228,13 @@ Page({
     console.log(e);
     this.setData({
       'detail.type': e.detail.value,
+    })
+  },
+
+  cateClick: function (e) {
+    let clk = this;
+    clk.setData({
+      'detail.mode': e.currentTarget.dataset.current,
     })
   },
 

@@ -1,7 +1,8 @@
 <view wx:if="{{isLogin}}">
+  <block wx:if="{{pageFileLock && pageDataLock && pageAdvertLock}}">
   <form bindsubmit="formSubmit">
     <view class="page__modules modules__shadow">
-      <input class="activityName" name='title' placeholder="起个好玩的的名字吧~"></input>
+      <input class="activityName" name='title' value="{{detail.title}}" placeholder="起个好玩的的名字吧~"></input>
     </view>
     <view class="page__modules modules__shadow">
       <view class="page__bd">
@@ -11,18 +12,18 @@
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
                   <view class="weui-uploader__title">作品上传</view>
-                  <view class="weui-uploader__info">{{files.length}}/3</view>
+                  <view class="weui-uploader__info">{{filePath.length}}/3</view>
                 </view>
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files" id="uploaderFiles">
-                    <block wx:for="{{files}}" wx:key="*this">
+                    <block wx:for="{{filePath}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                        <view data-num='{{index}}' class='delImg' bindtap="delImg">删除×</view>
+                        <view data-num='{{index}}' class='delImg' bindtap="deleteFile">删除×</view>
                       </view>
                     </block>
                   </view>
-                  <view wx:if="{{files.length<3}}" class="weui-uploader__input-box">
+                  <view wx:if="{{filePath.length<3}}" class="weui-uploader__input-box">
                     <view class="weui-uploader__input" bindtap="chooseImage"></view>
                   </view>
                 </view>
@@ -38,8 +39,11 @@
         <view class="weui-uploader__bd">
           <view class='weui-uploader__title'>广告位</view>
         </view>
-        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" wx:if="{{advertImage[0]}}" src="{{advertImage[0]}}" mode="aspectFill"></image>
-        <view wx:if="{{advertImage.length<1}}" class="weui-uploader__input-box">
+        <block wx:if="{{advertPath.length > 0}}">
+        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" src="{{advertPath[0]}}" mode="aspectFill"></image>
+         <view bindtap="deleteAdvert">删除×</view>
+        </block>
+        <view wx:if="{{advertPath.length<1}}" class="weui-uploader__input-box">
           <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
         </view>
       </view>
@@ -57,5 +61,6 @@
       <button class="weui-btn" formType="">参与比赛</button>
     </view> -->
   </form>
+  </block>
 </view>
 <view wx:else>未登录</view>

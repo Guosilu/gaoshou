@@ -1,5 +1,6 @@
 const config = require('../../../config/config.js');
 const commonFun = require("../../../js/commonFun.js");
+const fileHandleObjFile = require("../../../js/fileHandleObj.js");
 const app = getApp();
 Page({
 
@@ -7,28 +8,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-    advertImage: [],
-    advertPath: '',
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
-    //图片上传
-    files: [],
     //广告
-    advert: "",
-    filePath:'',
-    post: [],
-    itemType: '',
+    advertPath: [],
+    filePath: [],
+    itemType: "",
     detail: {},
+    submitDisabled: false,
+    pageFileLock: false,
+    pageDataLock: false,
+    pageAdvertLock: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.showLoading("正在加载...")
     this.setData({
       itemType: options.itemType,
     })
     this.getDeatil(options.id, options.itemType);
+  },
+
+  //获取下载图片临时地址
+  getDownloadFile: function (res) {
+    var that = this;
+    var filePath = res.file.split(",");
+    var advertPath = res.advert.split(",");
+    var downloadObj = new fileHandleObjFile.dowload(filePath);
+    var downloadAdvertObj = new fileHandleObjFile.dowload(advertPath);
+    downloadObj.downloadFileList().then((tp) => {
+      console.log(tp);
+      that.setData({
+        filePath: tp,
+        pageFileLock: true,
+      })
+    })
+    downloadAdvertObj.downloadFileList().then((tp) => {
+      console.log(tp);
+      that.setData({
+        advertPath: tp,
+        pageAdvertLock: true,
+      })
+    })
   },
 
   //获取详情
@@ -47,184 +71,145 @@ Page({
     }
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
-      console.log(res)
+      that.getDownloadFile(res);
+      console.log(res);
       that.setData({
         detail: res,
+        pageDataLock: true,
       })
       wx.hideLoading();
     });
   },
 
-  form_reset: function() {
+  //表单提交
+  formSubmit: function (e) {
     this.setData({
-      files: ''
-    });
-  },
-
-  formSubmit: function(e) {
+      submitDisabled: true,
+    })
     var that = this;
-    let post = e.detail.value;
-    if (post.title==''){
-      wx.showToast({
-        title: '名称不可为空',
-        icon: 'none'
+    var post = this.setSubmitDate(e.detail.value);
+    var paramObjList = this.fileParamConfig();
+    //实例化
+    var uploadObj = new fileHandleObjFile.upload();
+    //表单验证
+    if (!this.submitCheck(post)) {
+      this.setData({
+        submitDisabled: false,
       })
-      return;
-    }else{
-      that.setData({
-        post:post,
-      })
-    }
-    let files = that.data.files;
-    if (files.length == 0) {
-      wx.showToast({
-        title: '请上传图片！',
-        icon: 'none'
-      });
       return false;
-    } else {
-      wx.showLoading({
-        mask: true,
-        title: '提交中...',
-      });
-      let i = 0;
-      that.fileUpload(i,files);
     }
-  },
-
-  //文件上传
-  fileUploadFun: function (post, files) {
-    var that = this;
-    wx.uploadFile({
-      url: config.uploadUrl,
-      filePath: files[0],
-      name: 'file',
-      formData: {
-        action: 'upload_file'
-      },
-      success: function(res) {
-        if (res.data){
-          that.setData({
-            advertPath: res.data
-          })
-          post['advert'] = res.data;
-          that.formSubmitDo(post);
-        }
-      },
-      fail:function(){
-        wx.showToast({
-          title: '上传异常!请稍后再试',
-          icon:'none'
-        })
-        return;
+    //console.log(paramObjList); return;
+    that.showLoading('正在上传文件...', true);
+    uploadObj.uploadFileNameList(paramObjList).then(res => {
+      console.log(res);
+      let filePathArray = [];
+      let advertPathStr = [];
+      for (let i = 0; i < res.length; i++) {
+        if (res[i]['columnName'] == "file") filePathArray.push(res[i].fileUrl);
+        if (res[i]['columnName'] == "advert") advertPathStr.push(res[i].fileUrl);
       }
-    });
-  },
-
-  fileUpload: function (i, files) {
-    i = i ? i : 0;
-    var that = this;
-    wx.uploadFile({
-      url: config.uploadUrl,
-      filePath: files[i],
-      name: 'file',
-      formData: {
-        action: 'upload_file'
-      },
-      success: function (res) {
-        i++;
-        if (that.data.filePath == '') {
-          that.setData({
-            filePath: that.data.filePath.concat(res.data)
-          })
-        } else {
-          that.setData({
-            filePath: that.data.filePath.concat(',' + res.data)
-          })
-        } 
-        if (i == files.length) {
-          let post = that.data.post;
-          post['image'] = that.data.filePath;
-          if (that.data.advertImage.length >= 1) {
-            that.fileUploadFun(post, that.data.advertImage);
-          } else {
-            that.formSubmitDo(post);
+      post['file'] = filePathArray.join();
+      post['advert'] = advertPathStr.join();
+      if (filePathArray.length > 0) {
+        var dataObj = {
+          url: config.myUrl,
+          data: {
+            action: 'edit',
+            itemType: that.data.itemType,
+            post: post,
           }
-        } else {
-          that.fileUpload(i, files);
         }
-      },
-      fail: function () {
-        wx.showToast({
-          title: '上传异常!请稍后再试',
-          icon: 'none'
+        that.showLoading('正在提交数据...', true)
+        commonFun.requestFun(dataObj).then(res => {
+          if (res > 0) {
+            that.showLoading('提交完成...', true)
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1000)
+          }
+        });
+      } else {
+        that.showTip('上传不完整');
+        that.setData({
+          submitDisabled: false,
         })
-        return;
       }
-    });
+    })
   },
 
-  formSubmitDo: function(post) {
-    console.log(post);return;
-    let that = this;
+  //设置提交内容
+  setSubmitDate: function (post) {
+    post['id'] = this.data.detail.id;
     post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.squareUrl,
-      method: "POST",
-      data: {
-        action: 'add',
-        post: post
-      },
-      success: function(res) {
-        if (res.data > 0) {
-          wx.showToast({
-            title: '提交成功！',
-          });
-          that.form_reset();
-          wx.redirectTo({
-            url: '../detail/detail?id='+res.data,
-          })
-        } else {
-          wx.showToast({
-            title: '提交失败！',
-            icon: 'none'
-          });
-        }
+    return post;
+  },
+
+  //上传文件参数配置
+  fileParamConfig: function () {
+    var paramObjList = [];
+    var filePath = this.data.filePath;
+    var advertPath = this.data.advertPath;
+    var advertOjb = {
+      url: config.uploadUrl,
+      filePath: advertPath[0],
+      columnName: 'advert',
+      name: 'file',
+      formData: {
+        action: 'upload',
       }
-    })
-  },
-
-  //删除图片
-  delImg: function(e) {
-    var num = e.currentTarget.dataset.num;
-    var files = this.data.files;
-    var NewFilesArr = [];
-    for(let a = 0;a<files.length;a++){
-      if(a!=num){
-        NewFilesArr.push(files[a]);
-      }  
     }
-    this.setData({
-      files: NewFilesArr
-    })
+    paramObjList.push(advertOjb);
+    for (let i = 0; i < filePath.length; i++) {
+      var paramObj = {
+        url: config.uploadUrl,
+        filePath: filePath[i],
+        columnName: 'file',
+        name: 'file',
+        formData: {
+          action: 'upload',
+        }
+      };
+      paramObjList.push(paramObj);
+    }
+    return paramObjList;
   },
 
-  // 图片上传
-  chooseImage: function(e) {
+  //验证表单
+  submitCheck: function (submitVal) {
+    if (submitVal.title == '') {
+      this.showTip('请填写标题');
+      return false;
+    }
+    if (this.data.filePath.length < 1) {
+      this.showTip('至少传一个图');
+      return false;
+    }
+    /*if (this.data.advertPath.length < 1) {
+      this.showTip('请上传广告');
+      return false;
+    }*/
+    return true;
+  },
+
+  //选择上传
+  chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
-      count: 1,
+      count: 4,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+      success: function (res) {
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          filePath: that.data.filePath.concat(res.tempFilePaths),
         });
       }
-    })
+    });
   },
 
+
+  //选择广告
   chooseAdvertImage: function (e) {
     var that = this;
     wx.chooseImage({
@@ -232,25 +217,66 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          advertImage: that.data.advertImage.concat(res.tempFilePaths)
+          advertPath: that.data.advertPath.concat(res.tempFilePaths)
         });
       }
     })
   },
 
-  previewImage: function(e) {
+  //浏览图片
+  previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
+      urls: this.data.filePath // 需要预览的图片http链接列表
     })
   },
 
+  //浏览广告
   previewAdvertImage: function (e) {
     wx.previewImage({
-      current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.advertImage // 需要预览的图片http链接列表
+      current: 1, // 当前显示图片的http链接
+      urls: this.data.advertPath // 需要预览的图片http链接列表
+    })
+  },
+
+  //删除图片
+  deleteFile: function (e) {
+    var id = e.target.dataset.id;
+    var filePath = this.data.filePath;
+    var filePathNew = [];
+    for (let i = 0; i < filePath.length; i++) {
+      if (i != id) {
+        filePathNew.push(filePath[i]);
+      }
+    }
+    this.setData({
+      filePath: filePathNew
+    })
+  },
+
+  //删除广告
+  deleteAdvert: function (e) {
+    this.setData({
+      advertPath: []
+    })
+  },
+
+  //提示方法
+  showTip: function (msg, icon) {
+    var icon = icon || "none";
+    wx.showToast({
+      icon: icon,
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
     })
   },
 
@@ -281,9 +307,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    if (wx.getStorageSync('isLogin')) {
-      this.form_reset();
-    }
+    
   },
 
   /**
