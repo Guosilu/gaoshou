@@ -1,6 +1,6 @@
 const config = require('../../../config/config.js');
-const commonFun = require("../../../js/commonFun.js");
-const uploadObjFile = new require("../../../js/uploadObj.js");
+const commonFun = require("../../../js/commonFun.js"); 
+const fileHandleObjFile = require("../../../js/fileHandleObj.js");
 const app = getApp();
 Page({
 
@@ -57,10 +57,11 @@ Page({
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
       var filePath = res.file.split(",");
-      commonFun.downloadFile(filePath[0]).then((downloadPath) => {
-        console.log(downloadPath);
+      var downloadObj = new fileHandleObjFile.download(filePath);
+      downloadObj.downloadFileList().then((res) => {
+        console.log(res);
         that.setData({
-          filePath: that.data.filePath.concat(downloadPath),
+          filePath: res,
         })
       })
       console.log(res);
@@ -91,7 +92,7 @@ Page({
     var paramObj = this.fileParamConfig();
 
     //实例化
-    var uploadObj = new uploadObjFile.upload();
+    var uploadObj = new fileHandleObjFile.upload();
 
     //表单验证
     /*if (!this.submitCheck(post)) {

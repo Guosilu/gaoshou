@@ -80,6 +80,60 @@ function upload() {
   }
 }
 
+/**
+ * 下载单网络文件对象
+ */
+function dowload(urls) {
+  this.urls = urls;
+  /**
+   * 下载单网络文件
+   * 返回: 本地临时路径
+   * 类型: 字符串
+  */
+  this.downloadFile = function () {
+    return new Promise(function (resolve, reject) {
+      if ((typeof (this.urls == "object") && urls.length === 1) || (typeof(this.urls == "string") && urls.length != "")) {
+        var url = typeof(this.urls == "object") ? this.urls[0] : this.urls;
+        wx.downloadFile({
+          url: url,
+          success(res) {
+            if (res.statusCode === 200) {
+              resolve(res.tempFilePath);
+            }
+          }
+        })
+      } else {
+        resolve(0)
+      }
+    });
+  }
+
+  /**
+   * 下载多网络文件
+   * 返回: 本地临时路径
+   * 类型: 数组
+   */
+  this.downloadFileList = function () {
+    var that = this;
+    return new Promise(function (resolve, reject) {
+      if (typeof (that.urls == "object") && urls.length > 0) {
+        var urls = that.urls;
+        var promiseArr = [];
+        for (let i = 0; i < urls.length; i++) {
+          let promise = that.downloadFile(urls[i]);
+          promiseArr.push(promise);
+        }
+        Promise.all(promiseArr).then((res) => {
+          console.log(res);
+          resolve(res);
+        });
+      }
+      
+    })
+  }
+}
+
 module.exports = {
   upload: upload,
+  dowload: dowload
 }
