@@ -1,3 +1,7 @@
+/**
+ * 非直接使用
+ * 请复制一份自行修改
+ */
 //关注方法
 function collectFun(url, param, confirm) {
   var confirm = confirm || '';

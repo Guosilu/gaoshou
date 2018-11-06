@@ -1,4 +1,7 @@
-
+/**
+ * 非直接使用
+ * 请复制一份自行修改
+ */
 /** 
  * 单文件上传
  * paramObj: {url: '', filePath: '', formData: '', name: '', columnName: ''}
