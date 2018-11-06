@@ -80,3 +80,35 @@ textarea {
   height: 45rpx;
   vertical-align: middle;
 }
+.payMask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+}
+.payBtn{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background: #FFF;
+}
+.payBtn>view{
+  height: 88rpx;
+  line-height: 88rpx;
+}
+.payBtn>view>image{
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+  margin-top: -3rpx;
+}
+.payBtn>view:first-child{
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.payBtn>view:last-child{
+  border-top: 10rpx solid #f2f2f2;
+}

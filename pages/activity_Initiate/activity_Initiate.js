@@ -34,6 +34,8 @@ Page({
     vofile: '',
     //视频  chooseVoice
     vifile: '',
+    // 选择支付方式
+    selectPay: false,
   },
 
   /**
@@ -81,7 +83,19 @@ Page({
       }
     })
   },
-
+  //选择支付方式
+  openPay: function () {
+    let that = this;
+    that.setData({
+      selectPay:true,
+    })
+  },
+  closePay: function () {
+    let that = this;
+    that.setData({
+      selectPay: false,
+    })
+  },
   cateClick: function(e) {
     let clk = this;
     clk.setData({
@@ -159,6 +173,7 @@ Page({
     let that = this;
     console.log(post.type);
     post['openId'] = app.globalData.openId;
+
     //支付
     wx.showModal({
       title: '发布活动支付',
