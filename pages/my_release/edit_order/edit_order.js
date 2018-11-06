@@ -179,15 +179,15 @@ Page({
   //验证表单
   submitCheck: function (submitVal) {
     if (submitVal.title == '') {
-      this.showTip('请填写标题');
+      this.showTip('请填写标题！');
       return false;
     }
-    if (this.data.filePath.length < 1) {
-      this.showTip('至少传一个图');
+    if (this.data.filePath.length < 1 || this.data.filePath.length > 3) {
+      this.showTip('上传作品数量不正确！');
       return false;
     }
     /*if (this.data.advertPath.length < 1) {
-      this.showTip('请上传广告');
+      this.showTip('请上传广告！');
       return false;
     }*/
     return true;
@@ -197,7 +197,7 @@ Page({
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
-      count: 4,
+      count: 3,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {

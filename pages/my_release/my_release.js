@@ -36,6 +36,7 @@ Page({
    */
   onReachBottom: function () {
     wx.showLoading({
+      mask: true,
       title: '正在加载...',
     })
     var page_wx = this.data.page_wx + 1;
@@ -116,6 +117,7 @@ Page({
       success: function (confirm) {
         if (confirm.confirm) {
           wx.showLoading({
+            mask: true,
             title: '正在删除...',
           })
           commonFun.requestFun(dataObj).then((res) => {
