@@ -1,15 +1,4 @@
 <!--pages/publication/Publication.wxml-->
-<view>
-  <!-- 轮播 -->
-  <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{imgUrls}}" wx:key="*this">
-      <swiper-item>
-        <image src="{{item}}" class="slide-image" />
-      </swiper-item>
-    </block>
-  </swiper>
-</view>
-
 <view wx:if="{{isLogin}}">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="page__modules modules__shadow">
@@ -29,18 +18,18 @@
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
                   <view class="weui-uploader__title">上传图片</view>
-                  <view class="weui-uploader__info">{{files.length}}/4</view>
+                  <view class="weui-uploader__info">{{filePath.length}}/4</view>
                 </view>
                 <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files" id="uploaderFiles">
-                    <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{filePath.length > 0}}">
+                    <block wx:for="{{filePath}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                         <view data-id="{{index}}" class='delImg' bindtap="delImg">删除×</view>
                       </view>
                     </block>
                   </view>
-                  <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input-box" wx:if="{{filePath.length < 4}}">
                     <view class="weui-uploader__input" bindtap="chooseImage"></view>
                   </view>
                 </view>

@@ -1,5 +1,6 @@
 const config = require('../../../config/config.js');
 const commonFun = require("../../../js/commonFun.js");
+const uploadObjFile = new require("../../../js/uploadObj.js");
 const app = getApp();
 Page({
 
@@ -7,15 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    filePath: '',
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
-    //swiper
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
     indicatorDots: true,
     indicatorColor: "#FFF", //指示点颜色
     indicatorActiveColor: "#22b38a",
@@ -24,26 +18,30 @@ Page({
     duration: 1000,
     //活动分类
     activityType: ["类别", "人物", "风景", "实物", "书画", "文化", "技艺", "其他"],
-    activityTypeIndex: 0,
     //图片上传
-    files: [],
-    files_url: [],
+    filePath: [],
     itemType: '',
     detail: {},
+    submitDisabled: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var dataTime = commonFun.getDateTime();
     this.setData({
       itemType: options.itemType,
+      curttenDate: dataTime[0],
+      curttenTime: dataTime[1],
     })
+    console.log(options);
     this.getDeatil(options.id, options.itemType);
   },
 
   //获取详情
   getDeatil: function (id, itemType) {
+    console.log(id);
     var that = this;
     var dataObj = {
       url: config.myUrl,
@@ -58,7 +56,14 @@ Page({
     }
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
-      console.log(res)
+      var filePath = res.file.split(",");
+      commonFun.downloadFile(filePath[0]).then((downloadPath) => {
+        console.log(downloadPath);
+        that.setData({
+          filePath: that.data.filePath.concat(downloadPath),
+        })
+      })
+      console.log(res);
       that.setData({
         detail: res,
       })
@@ -66,164 +71,194 @@ Page({
     });
   },
 
-  formSubmit: function (e) {
-    let post = e.detail.value;
-    if (post.introduce == '' || post.title == '' || post.type == '类别') {
-      wx.showToast({
-        title: '不可为空',
-        icon: "none"
-      })
-      return;
-    }
-    let that = this;
-    let files = this.data.files;
-    wx.showLoading({
-      mask: true,
-      title: '提交中...'
-    });
-
-    if (files.length > 0) {
-      that.setData({
-        post: post,
-      })
-      that.fileUpload (0, files);
-    } else {
-      // this.formSubmitDo(post);
-      wx.showToast({
-        title: '图片不可为空',
-        icon: "none"
-      })
-      return;
-    }
-  },
-
-  formSubmitDo: function (post) {
-    let that = this;
-    post['openId'] = app.globalData.openId;
-    wx.request({
-      url: config.publicationUrl,
-      method: 'post',
-      data: {
-        action: 'add',
-        post: post
-      },
-      success: function (res) {
-        wx.hideLoading();
-        console.log(res);
-        if (res.data > 0) {
-          wx.showToast({
-            title: '提交成功！正在跳转',
-            success:function(){
-              setTimeout(function(){
-                wx.redirectTo({
-                  url: '../detail/detail?id=' + res.data,
-                })
-              },1500)
-            }
-          });
-          that.setData({
-            form_reset: '',
-            files: [],
-            files_url: []
-          });
-        
-        } else {
-          wx.showToast({
-            title: '提交失败！',
-            icon: 'none'
-          });
-        }
-      }
+  cateClick: function (e) {
+    let clk = this;
+    clk.setData({
+      'detail.mode': e.currentTarget.dataset.current,
     })
   },
 
   /**
-   * 递归上传文件
+   * 提交
    */
-  fileUpload: function (i, files) {
-    i = i ? i : 0;
-    var that = this;
-    wx.uploadFile({
-      url: config.uploadUrl,
-      filePath: files[i],
-      name: 'file',
-      formData: {
-        action: 'upload_file'
-      },
-      success: function (res) {
-        i++;
-        if (that.data.filePath == '') {
-          that.setData({
-            filePath: that.data.filePath.concat(res.data)
-          })
-        } else {
-          that.setData({
-            filePath: that.data.filePath.concat(',' + res.data)
-          })
-        }
-        if (i == files.length) {
-          let post = that.data.post;
-          post['file'] = that.data.filePath;
-          that.formSubmitDo(post);
-        } else {
-          that.fileUpload(i, files);
-        }
-      },
-      fail: function () {
-        wx.showToast({
-          title: '上传异常!请稍后再试',
-          icon: 'none'
-        })
-        return;
-      }
-    });
-  },
-
-  bindAccountChange: function (e) {
-    console.log('picker account 发生选择改变，携带值为', e.detail.value);
-    if (e.detail.value < 1) {
-
-    }
+  //表单提交
+  formSubmit: function (e) {
     this.setData({
-      activityTypeIndex: e.detail.value
+      //submitDisabled: true,
     })
-  },
-  
-  // 图片上传
-  chooseImage: function (e) {
     var that = this;
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
-        let addFiles = res.tempFilePaths;
-        that.setData({
-          files: that.data.files.concat(addFiles)
+    var post = this.setSubmitDate(e.detail.value);
+    var paramObj = this.fileParamConfig();
+
+    //实例化
+    var uploadObj = new uploadObjFile.upload();
+
+    //表单验证
+    /*if (!this.submitCheck(post)) {
+      this.setData({
+        submitDisabled: false,
+      })
+      return false;
+    }*/
+    //console.log(paramObj); return;
+    that.showLoading('正在上传文件...', true);
+    uploadObj.fileUpload(paramObj).then(res => {
+      console.log(res);
+      post['file'] = res['fileUrl'];
+      if (res['fileUrl']) {
+        var dataObj = {
+          url: config.myUrl,
+          data: {
+            action: 'edit',
+            itemType: that.data.itemType,
+            post: post,
+          }
+        }
+        that.showLoading('正在提交数据...', true)
+        commonFun.requestFun(dataObj).then(res => {
+          if (res > 0) {
+            that.showLoading('提交完成...', true)
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1000)
+          }
         });
       }
     })
   },
 
-  //删除图片
-  delImg: function (e) {
-    let that = this;
-    let id = e.target.dataset.id;
-    let files = that.data.files;
-    let files_new = [];
-    for (var i = 0; i < files.length; i++) {
-      if (i != id) {
-        files_new.push(files[i]);
-      }
-    }
-    that.setData({
-      files: files_new
-    })
+  setSubmitDate: function (post) {
+    post['starttime'] = commonFun.getTimeStep(post['sDate'] + " " + post['sTime']);
+    post['endtime'] = commonFun.getTimeStep(post['eDate'] + " " + post['eTime']);
+    post['id'] = this.data.detail.id;
+    post['openId'] = app.globalData.openId;
+    return post;
   },
 
+  //上传文件参数配置
+  fileParamConfig: function () {
+    var paramObj = {
+      url: config.uploadUrl,
+      filePath: this.data.filePath[0],
+      columnName: 'file',
+      name: 'file',
+      formData: {
+        action: 'upload',
+      }
+    };
+    return paramObj;
+  },
+
+  //验证表单
+  submitCheck: function (submitVal) {
+    if (submitVal.catid < 1) {
+      this.showTip('请选择分类');
+      return false;
+    }
+    if (submitVal.title == '') {
+      this.showTip('请填写标题');
+      return false;
+    }
+    if (this.data.imagePath == '') {
+      this.showTip('至少传一个图');
+      return false;
+    }
+    if (this.data.videoPath == '') {
+      this.showTip('请录制或选择一个小视频');
+      return false;
+    }
+    if (parseFloat(this.data.videoSize) > 100) {
+      this.showTip('很抱歉，视频最大允许20M，当前为' + this.data.videoSize + 'M');
+      return false;
+    }
+    return true;
+  },
+
+  // 图片上传
+  chooseImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        that.setData({
+          filePath: [res.tempFilePaths[0]],
+        });
+      }
+    });
+  },
+
+  /**
+   * 浏览图片
+   */
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
+      urls: this.data.file // 需要预览的图片http链接列表
+    })
+  },
+
+  /**
+   * 删除图片
+   */
+  deleteFile: function (e) {
+    this.setData({
+      filePath: [],
+    })
+  },
+
+  // 改变时间
+  bindDateChange: function (e) {
+    let edit = 'detail.starttime[0]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.starttime);
+  },
+
+  bindTimeChange: function (e) {
+    let edit = 'detail.starttime[1]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.starttime);
+  },
+
+  bindeDateChange: function (e) {
+    let edit = 'detail.endtime[0]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.endtime);
+  },
+
+  bindeTimeChange: function (e) {
+    let edit = 'detail.endtime[1]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.endtime);
+  },
+
+  //提示方法
+  showTip: function (msg, icon) {
+    var icon = icon || "none";
+    wx.showToast({
+      icon: icon,
+      title: msg,
+    })
+  },
+
+  //加载方法
+  showLoading: function (msg, mask) {
+    var mask = mask || false;
+    wx.showLoading({
+      mask: mask,
+      title: msg,
     })
   },
 
@@ -277,33 +312,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-
-  // uploadFile: function (path, post) {
-  //   let that = this;
-  //   wx.uploadFile({
-  //     url: config.uploadUrl,
-  //     filePath: path,
-  //     name: 'file',
-  //     formData: {
-  //       action: 'upload_file'
-  //     },
-  //     success(res) {
-  //       console.log(res);
-  //       that.setData({
-  //         files_url: that.data.files_url.concat(res.data)
-  //       });
-  //       let files_url = that.data.files_url
-  //       let files = that.data.files
-  //       if (files_url.length == files.length) {
-  //         for (let i = 0; i < files_url.length; i++) {
-  //           let k = i;
-  //           if (k == 0) k = '';
-  //           post['thumb' + k] = files_url[i];
-  //         }
-  //         that.formSubmitDo(post);
-  //       }
-  //     }
-  //   })
-  // },
-
 })
