@@ -315,7 +315,13 @@ Page({
    */
   sendBtn: function (e) {
     var that = this;
-
+    if (!that.data.value || that.data.value == "" || that.data.value.trim() == ""){
+      wx.showToast({
+        title: '评论不可为空',
+        icon: 'none'
+      })
+      return;
+    }
     var param = {};
     param['content'] = that.data.value ? that.data.value : " ";
     param['types'] = 'comment';

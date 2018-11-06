@@ -194,6 +194,7 @@ Page({
    */
   onLoad: function (options) { 
     var that = this;
+    that.getBanner();
     console.log(options);
     if (Object.keys(options).length==0){
       wx.showToast({
@@ -211,6 +212,32 @@ Page({
       that.Jurisdiction(options.id)
     }
     
+  },
+  /**
+   * 首页banner图
+   * setData : imgUrls
+   */
+  getBanner: function () {
+    var that = this;
+    wx.request({
+      url: config.activity_orderUrl,
+      method: 'POST',
+      data: {
+        action: 'getBanner'
+      },
+      success: function (res) {
+        var result = res.data;
+        for (let a = 0; a < result.length; a++) {
+          if (result[a]['file'] && result[a]['mode'] == 'image') {
+            result[a]['file'] = result[a]['file'].split(',');
+          }
+        }
+        console.log(result);
+        that.setData({
+          imgUrls: result,
+        });
+      }
+    })
   },
 
   /**
