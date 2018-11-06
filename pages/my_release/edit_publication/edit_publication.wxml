@@ -25,7 +25,7 @@
                   <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{filePath.length > 0}}">
                     <block wx:for="{{filePath}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-index="{{index}}" binderror='imageError' />
                         <view style='z-index: 999' data-id="{{index}}" class='delImg' bindtap="deleteFile">删除×</view>
                       </view>
                     </block>

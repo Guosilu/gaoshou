@@ -18,7 +18,7 @@
                   <view class="weui-uploader__files" id="uploaderFiles">
                     <block wx:for="{{filePath}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-type="file" data-index="{{index}}" binderror='imageError' />
                         <view data-id='{{index}}' class='delImg' bindtap="deleteFile">删除×</view>
                       </view>
                     </block>
@@ -40,7 +40,7 @@
           <view class='weui-uploader__title'>广告位</view>
         </view>
         <block wx:if="{{advertPath.length > 0}}">
-        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" src="{{advertPath[0]}}" mode="aspectFill"></image>
+        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" src="{{advertPath[0]}}" mode="aspectFill" data-type="advert" binderror='imageError'></image>
          <view bindtap="deleteAdvert">删除×</view>
         </block>
         <view wx:if="{{advertPath.length<1}}" class="weui-uploader__input-box">

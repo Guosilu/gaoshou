@@ -262,6 +262,20 @@ Page({
     })
   },
 
+  //图片错误时默认图片
+  imageError: function (e) {
+    var fileType = e.currentTarget.dataset.type;
+    if (fileType == "file") {
+      var index = e.currentTarget.dataset.index;
+      var errorImg = 'filePath[' + index + ']';
+    } else if (fileType == "advert") {
+      var errorImg = 'advertPath[0]';
+    }
+    this.setData({
+      [errorImg]: config.defaultImg,
+    })
+  },
+
   //提示方法
   showTip: function (msg, icon) {
     var icon = icon || "none";

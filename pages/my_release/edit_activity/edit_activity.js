@@ -264,6 +264,13 @@ Page({
     console.log(this.data.detail.endtime);
   },
 
+  //图片错误时默认图片
+  imageError: function () {
+    this.setData({
+      [`filePath[0]`]: config.defaultImg,
+    })
+  },
+
   //提示方法
   showTip: function (msg, icon) {
     var icon = icon || "none";

@@ -105,11 +105,7 @@ function dowload(urls) {
         wx.downloadFile({
           url: url,
           success(res) {
-            if (res.statusCode === 200) {
-              resolve(res.tempFilePath);
-            } else {
-              resolve("https://aa.zdcom.net.cn/gaoshou/upload/img/myDefault.png");
-            }
+            resolve(res.tempFilePath);
           }
         })
       } else {

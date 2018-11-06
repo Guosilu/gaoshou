@@ -149,6 +149,18 @@ Page({
     }
   },
 
+  //图片错误时默认图片
+  imageError: function(e) {
+    console.log(e);
+    var lindex = e.currentTarget.dataset.lindex;
+    var iindex = e.currentTarget.dataset.iindex;
+    //var errorImg = 'lists['+ lindex +'].file['+ iindex +']';
+    console.log(this.data.lists[0].file[1]);
+    this.setData({
+      [`lists[${lindex}].file[${iindex}]`]: config.defaultImg,
+    })
+  },
+
   //提示方法
   showToast: function (msg, icon) {
     var icon = icon || "none"

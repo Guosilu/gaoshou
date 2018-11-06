@@ -205,6 +205,15 @@ Page({
     })
   },
 
+  //图片错误时默认图片
+  imageError: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var errorImg = 'filePath[' + index + ']';
+    this.setData({
+      [errorImg]: config.defaultImg,
+    })
+  },
+
   //提示方法
   showTip: function (msg, icon) {
     var icon = icon || "none";

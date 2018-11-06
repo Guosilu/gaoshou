@@ -17,7 +17,7 @@
 </view>
 
 <view class='list'>
-  <view class='list-item' wx:for='{{lists}}' wx:key="*this">
+  <view class='list-item' wx:for='{{lists}}' wx:for-index='listsInde' wx:key="*this">
     <view class='item-bar'>
       <view class='item-bar-inner'>{{item.typeName}}</view>
     </view>
@@ -38,7 +38,7 @@
       {{item.rule}}
     </view>
     <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
-      <image wx:for="{{item.file}}" wx:key="*this" wx:for-item="itemThumb" src='{{itemThumb}}' mode='aspectFill'></image>
+      <image data-lindex="{{listsInde}}" data-iindex="{{imageIndex}}" binderror='imageError' wx:for="{{item.file}}" wx:key="*this" wx:for-index="imageIndex" wx:for-item="itemThumb" src='{{itemThumb}}' mode='aspectFill'></image>
     </view>
 
     <view class='partic'>
