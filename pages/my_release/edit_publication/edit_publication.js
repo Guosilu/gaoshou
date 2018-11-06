@@ -17,7 +17,7 @@ Page({
     activityType: ["类别", "人物", "风景", "实物", "书画", "文化", "技艺", "其他"],
     //图片上传
     filePath: [],
-    itemType: '',
+    itemType: "",
     detail: {},
     submitDisabled: false,
     pageFileLock: false,
@@ -29,8 +29,9 @@ Page({
    */
   onLoad: function (options) {
     this.showLoading("正在加载...")
-    var dataTime = commonFun.getDateTime();
-    console.log(options);
+    this.setData({
+      itemType: options.itemType,
+    })
     this.getDeatil(options.id, options.itemType);
   },
 
