@@ -1,5 +1,5 @@
 <block wx:if="{{detail.id && like_status !== null && order_lists && exhibit_lists}}">
-  <view catchtouchmove='{{payOpen}}'>
+  <view catchtouchmove='{{payOpen||joinClick}}'>
     <view class='user-list'>
 
       <image wx:for="{{order_lists}}" wx:key="*this" class='user-avatar' mode='aspectFill' src='{{item.avatarUrl}}' />
