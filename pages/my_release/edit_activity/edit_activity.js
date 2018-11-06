@@ -1,6 +1,6 @@
 const config = require('../../../config/config.js');
 const commonFun = require("../../../js/commonFun.js");
-const uploadObjFile = new require("../../../js/uploadObj.js");
+const fileHandleObjFile = require("../../../js/fileHandleObj.js");
 const app = getApp();
 Page({
 
@@ -105,7 +105,7 @@ Page({
     var paramObj = this.fileParamConfig();
 
     //实例化
-    var uploadObj = new uploadObjFile.upload();
+    var uploadObj = new fileHandleObjFile.upload();
 
     //表单验证
     /*if (!this.submitCheck(post)) {

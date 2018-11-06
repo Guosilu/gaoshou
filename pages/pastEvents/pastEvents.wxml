@@ -1,30 +1,35 @@
 <view class='list'>
-  <view class='list-item' wx:key="*this">
-    <view class='portrait'>
-      <view class="user_info">
-        <image class="list_Avatar" src="http://img2.imgtn.bdimg.com/it/u=1504788190,2342400802&fm=26&gp=0.jpg" mode='widthFix'></image>
-        <text class="user_name">小强强</text>
+  <view class='list-item' wx:for="{{result}}" wx:key="*this">
+    <navigator url='../orderDetail/orderDetail?id={{item.id}}'>
+      <view class='portrait'>
+        <view class="user_info">
+          <image class="list_Avatar" src="{{item.avatarUrl}}" mode='widthFix'></image>
+          <text class="user_name">{{item.nickName}}</text>
+        </view>
       </view>
-    </view>
-    <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
-      {{item.rule}}
-    </view>
-    <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
-      <image src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3797481993,1929347741&fm=27&gp=0.jpg' mode='aspectFill'></image>
-      <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
-      <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image>
-    </view>
+      <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
+        {{item.note}}
+      </view>
+      <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
+        <image src='{{itemImage}}' mode='aspectFill' wx:for="{{item.file}}" wx:key="*this" wx:for-item="itemImage"></image>
+      </view>
 
-    <view class='partic'>
-      <image src='/images/like.png' class='ex_icon' mode='widthFix' />
-      <text class='ex_text'>{{item.zanshang}}</text>
-      <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
-      <text class='ex_text'>{{item.liulan}}</text>
-    </view>
+      <view class='partic'>
+        <image src='/images/like_on.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.dianzan}}</text>
+        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.liulan}}</text>
+        <image src='/images/money.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.zanshang}}</text>
+        <image src='/images/contact_on.png' class='ex_icon' mode='widthFix' />
+        <text class='ex_text'>{{item.comment}}</text>
+      </view>
+    </navigator>
     <view class='exh-box'>
       <view class='exh_title'>活动名称</view>
-      <text class="user_date">截止日期：10月31日（周三）</text>
-      <navigator class='join' url='../participate/participate?id={{item.id}}'>我也参加</navigator>
+      <text class="user_date">截止日期：{{item.endtime}}</text>
+      <navigator class='join' url='../participate/participate?id={{item.activity_id}}'>我也参加</navigator>
     </view>
+    
   </view>
 </view>
