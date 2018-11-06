@@ -12,7 +12,7 @@
         <view class='ex_info'>
           <image src='{{detail.avatarUrl}}' class='ex_icon u-avatar' mode='widthFix' />{{detail.nickName}}</view>
         <view class='ex_info'>
-          <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.money}}
+          <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.zanshang}}
         </view>
         <view class='ex_info'>
           <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}
