@@ -35,10 +35,21 @@ Page({
   //获取下载图片临时地址
   getDownloadFile: function (res) {
     var that = this;
+    console.log(res);
     var filePath = res.file.split(",");
-    var advertPath = res.advert.split(",");
+    var advertPath = [];
+    if (res.advert){
+      advertPath = res.advert.split(",");
+      var downloadAdvertObj = new fileHandleObjFile.dowload(advertPath);
+      downloadAdvertObj.downloadFileList().then((tp) => {
+        console.log(tp);
+        that.setData({
+          advertPath: tp,
+          // pageAdvertLock: true,
+        })
+      })
+    }
     var downloadObj = new fileHandleObjFile.dowload(filePath);
-    var downloadAdvertObj = new fileHandleObjFile.dowload(advertPath);
     downloadObj.downloadFileList().then((tp) => {
       console.log(tp);
       that.setData({
@@ -46,13 +57,7 @@ Page({
         pageFileLock: true,
       })
     })
-    downloadAdvertObj.downloadFileList().then((tp) => {
-      console.log(tp);
-      that.setData({
-        advertPath: tp,
-        pageAdvertLock: true,
-      })
-    })
+
   },
 
   //获取详情

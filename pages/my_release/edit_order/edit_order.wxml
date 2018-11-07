@@ -1,5 +1,5 @@
 <view wx:if="{{isLogin}}">
-  <block wx:if="{{pageFileLock && pageDataLock && pageAdvertLock}}">
+  <block wx:if="{{pageFileLock && pageDataLock}}">
   <form bindsubmit="formSubmit">
     <view class="page__modules modules__shadow">
       <input class="activityName" name='title' value="{{detail.title}}" placeholder="起个好玩的的名字吧~"></input>
