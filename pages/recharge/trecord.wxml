@@ -4,7 +4,14 @@
       <view class="margin-top-30">收到打赏：¥210</view>
    </view>  
    <view class="butbox" style="margin-top:40rpx;">
-      <view class="btns" >充值</view> 
-      <view class="btns" >提现</view> 
+   <!-- pages/recharge/apply -->
+      <navigator class="btns" url='./apply'>
+        <view>充值</view> 
+      </navigator>
+
+      <navigator class="btns" url='./bringsuccess'>
+        <view>提现</view> 
+      </navigator>
+
     </view>
 </view>
