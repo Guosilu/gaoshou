@@ -1,0 +1,154 @@
+<view wx:if="{{isLogin}}">
+  <block wx:if="{{1 && pageDataLock}}">
+  <form bindsubmit="formSubmit">
+    <view class='act-cate'>
+      <view class='{{detail.mode == item.mode ? "on" : ""}}' wx:for="{{cateName}}" wx:key="{{index}}">{{item.name}}</view>
+    </view>
+    <view class="page__modules modules__shadow">
+      <input class="activityName" name='title' value='{{detail.title}}' placeholder="请输入活动名称"></input>
+      <view class="activityType">
+        <picker bindchange="bindAccountChange" name='type' value="{{detail.type}}" range="{{activityType}}">
+          <view class="weui-select" style="background-image: url({{img}}Triangle.png);">{{activityType[detail.type]}}</view>
+        </picker>
+      </view>
+    </view>
+    <!-- 图片 -->
+    <view class="page__modules modules__shadow" wx:if='{{detail.mode == "image"}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">活动封面</view>
+                  <view class="weui-uploader__info">{{filePath.length > 0 ? 1 : 0}}/1</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{filePath.length > 0}}">
+                    <view class="weui-uploader__file">
+                      <image class="weui-uploader__img" bindtap="previewImage" src="{{filePath[0]}}" mode="aspectFill" binderror='imageError'/>
+                      <view class='delImg' bindtap="deleteFile">删除×</view>
+                    </view>
+                  </view>
+                  <view wx:if="{{filePath.length < 1}}" class="weui-uploader__input-box">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+<!-- 语音 -->
+    <view class="page__modules modules__shadow" wx:if='{{detail.mode == "voice"}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传语音</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vofile != ''}}">
+                    <view class="weui-uploader__file">
+                      <image class="weui-uploader__img" bindtap="previewVoice" src="{{vofile}}" mode="aspectFill" />
+                      <view bindtap="delVoice">删除</view>
+                    </view>
+                  </view>
+                  <view class="" wx:if="{{vofile==''}}" bindtap="chooseVoice" class='voice-btn'>
+                    <image src='/images/voice_b.png' class='vobtn-img'/> 点击上传
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+<!-- 视频 -->
+    <view class="page__modules modules__shadow" wx:if='{{detail.mode == "video"}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传视频</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{filePath.length > 0}}">
+                    <view class="weui-uploader__file">
+                      <video class="weui-uploader__img" poster='{{videoThumb}}' src="{{filePath[0]}}"></video>
+                      <!-- <image src='{{vifile.thumbTempFilePath}}'></image> -->
+                      <view bindtap="deleteVideo">删除</view>
+                    </view>
+                  </view>
+                  <view class="" wx:if="{{filePath.length < 1}}" bindtap="chooseVideo" class='voice-btn'>
+                    <image src='/images/video_b.png' class='vobtn-img'/> 点击上传
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="page__modules modules__shadow">
+      <textarea placeholder="请输入活动规则" name='rule' value='{{detail.rule}}'></textarea>
+    </view>
+    <view class="page__modules modules__shadow">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">开始日期</view>
+        </view>
+        <view class="weui-cell__bd selectTime">
+          <picker mode="date" name='sDate' value="{{detail.starttime[0]}}" start="{{curttenDate}}" end="2029-09-01" bindchange="bindDateChange">
+            <view class="weui-input">{{detail.starttime[0]}}</view>
+          </picker>
+          <picker mode="time" name='sTime' value="{{detail.starttime[1]}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+            <view class="weui-input">{{detail.starttime[1]}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">结束日期</view>
+        </view>
+        <view class="weui-cell__bd selectTime">
+          <picker name='eDate' mode="date" value="{{detail.endtime[0]}}" start="{{curttenDate}}" end="2029-09-01" bindchange="bindeDateChange">
+            <view class="weui-input">{{detail.endtime[0]}}</view>
+          </picker>
+          <picker name='eTime' mode="time" value="{{detail.endtime[1]}}" start="00:00" end="23:59" bindchange="bindeTimeChange">
+            <view class="weui-input">{{detail.endtime[1]}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <view class="page__modules modules__shadow">
+      <view class="weui-uploader ad-box">
+        <view class="weui-uploader__bd">
+          <view class='weui-uploader__title'>广告位</view>
+          广告链接：<input class="ad-url" placeholder="请输入广告链接"></input>
+        </view>
+        <view class="">添加广告图片</view>
+        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" wx:if="{{advertImage[0]}}" src="{{advertImage[0]}}" mode="aspectFill"></image>
+        <view wx:if="{{advertImage.length<1}}" class="weui-uploader__input-box">
+          <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
+        </view>
+      </view>
+    </view>
+    <view style="overflow:hidden;">
+      <navigator url="/pages/xieyi/index" class="uploadRuler">
+        了解上传协议？
+      </navigator>
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="warn" disabled='{{submitDisabled}}' formType="submit">提交</button>
+    </view>
+  </form>
+  </block>
+</view>
+<view wx:else>未登录</view>

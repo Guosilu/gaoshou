@@ -1,9 +1,12 @@
 const config = require('../../../config/config.js');
-const commonFun = require("../../../js/commonFun.js"); 
+const commonFun = require("../../../js/commonFun.js");
 const fileHandleObjFile = require("../../../js/fileHandleObj.js");
 const app = getApp();
 Page({
 
+  /** 
+   * 页面的初始数据
+   */
   data: {
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
@@ -13,13 +16,26 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
+    //选择活动类型
+    cateName: [
+      { mode: "image", name: "图片" },
+      { mode: "voice", name: "语音" },
+      { mode: "video", name: "视频" },
+      { mode: "article", name: "文章" },
+    ],
+    cateActive: '',
     //活动分类
-    activityType: ["类别", "人物", "风景", "实物", "书画", "文化", "技艺", "其他"],
+    activityType: ["类别", "比赛", "排名", "互助"],
+    // 日期插件
+    curttenDate: "",
+    curttenTime: "",
+    form_reset: '',
     //图片上传
+    videoThumb: [],
     filePath: [],
-    itemType: "",
+    itemType: '',
     detail: {},
-    submitDisabled: false,
+    pageFileLock: false,
     pageDataLock: false,
   },
 
@@ -28,9 +44,13 @@ Page({
    */
   onLoad: function (options) {
     this.showLoading("正在加载...")
+    var dataTime = commonFun.getDateTime();
     this.setData({
       itemType: options.itemType,
+      curttenDate: dataTime[0],
+      curttenTime: dataTime[1],
     })
+    console.log(options);
     this.getDeatil(options.id, options.itemType);
   },
 
@@ -51,36 +71,38 @@ Page({
     }
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
-      var filePath = res.file ? res.file.split(",") : [];
-      res.file = res.file ? res.file.split(",") : [];
-      /*var downloadObj = new fileHandleObjFile.dowload(filePath);
-      downloadObj.downloadFileList().then((tp) => {
-        console.log(tp);
+      var filePath = res.file.split(",")
+      res.starttime = res.starttime.split(" ");
+      res.endtime = res.endtime.split(" ");
+      commonFun.downloadFile(filePath[0]).then((downloadPath) => {
+        console.log(downloadPath);
         that.setData({
-          filePath: tp,
+          filePath: that.data.filePath.concat(downloadPath),
           pageFileLock: true,
         })
-      })*/
+      })
       console.log(res);
       that.setData({
         detail: res,
-        filePath: filePath,
         pageDataLock: true,
       })
       wx.hideLoading();
     });
   },
 
+  /**
+   * 提交
+   */
   //表单提交
   formSubmit: function (e) {
     this.setData({
       submitDisabled: true,
     })
+    var paramObj = this.fileParamConfig();
     var that = this;
     var post = this.setSubmitDate(e.detail.value);
-    var paramObjList = this.fileParamConfig();
     //实例化
-    var uploadObj = new fileHandleObjFile.upload(paramObjList);
+    var uploadObj = new fileHandleObjFile.upload();
     //表单验证
     if (!this.submitCheck(post)) {
       this.setData({
@@ -88,15 +110,12 @@ Page({
       })
       return false;
     }
-    //console.log(uploadObj.fileScreen()); return;
+    //console.log(paramObj); return;
     that.showLoading('正在上传文件...', true);
-    uploadObj.uploadFileNameList(paramObjList).then(res => {
-      let filePathArray = [];
-      for (let i = 0; i < res.length; i++) {
-        filePathArray.push(res[i].fileUrl);
-      }
-      post['file'] = filePathArray.join();
-      if (filePathArray.length > 0) {
+    uploadObj.fileUpload(paramObj).then(res => {
+      console.log(res);
+      post['file'] = res['fileUrl'];
+      if (res['fileUrl']) {
         var dataObj = {
           url: config.myUrl,
           data: {
@@ -120,61 +139,80 @@ Page({
     })
   },
 
+  //上传文件参数配置
+  fileParamConfig: function () {
+    var paramObj = {
+      url: config.uploadUrl,
+      filePath: this.data.filePath[0],
+      columnName: 'file',
+      name: 'file',
+      formData: {
+        action: 'upload',
+      }
+    };
+    return paramObj;
+  },
+
   //设置提交内容
-  setSubmitDate: function (post) {
+  setSubmitDate: function(post) {
+    post['starttime'] = commonFun.getTimeStep(post['sDate'] + " " + post['sTime']);
+    post['endtime'] = commonFun.getTimeStep(post['eDate'] + " " + post['eTime']);
     post['id'] = this.data.detail.id;
     post['openId'] = app.globalData.openId;
     return post;
   },
 
-  //上传文件参数配置
-  fileParamConfig: function () {
-    var fileObjList = [];
-    var filePath = this.data.filePath;
-    console.log(filePath);
-    console.log(this.data.detail.file);
-    for (let i = 0; i < filePath.length; i++) {
-      fileObjList.push({
-        filePath: filePath[i],
-        columnName: 'file',
-      });
-    }
-    return fileObjList;
-  },
-
   //验证表单
   submitCheck: function (submitVal) {
     if (submitVal.type < 1) {
-      this.showTip('请选择分类');
+      this.showTip('请选择分类！');
       return false;
     }
     if (submitVal.title == '') {
-      this.showTip('请填写标题');
+      this.showTip('请填写标题！');
       return false;
     }
     if (this.data.filePath.length < 1) {
-      this.showTip('至少传一个图');
+      this.showTip('至少传一个图！');
+      return false;
+    }
+    console.log(submitVal);
+    if (submitVal.starttime >= submitVal.endtime) {
+      this.showTip('结束时间必须大于开始时间！');
       return false;
     }
     return true;
   },
 
-  // 图片上传
+  //图片选择
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
-      count: 4,
+      count: 1,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          'detail.file': that.data.detail.file.concat(res.tempFilePaths),
-          filePath: that.data.filePath.concat(res.tempFilePaths),
+          filePath: [res.tempFilePaths[0]],
         });
-        console.log(res);
-        console.log(that.data.filePath);
       }
     });
+  },
+
+  //选择视频
+  chooseVideo: function () {
+    var that = this;
+    wx.chooseVideo({
+      maxDuration: 1000,
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          filePath: [res.tempFilePath],
+          videoThumb: [res.thumbTempFilePath],
+        })
+      }
+    })
   },
 
   /**
@@ -182,36 +220,57 @@ Page({
    */
   previewImage: function (e) {
     wx.previewImage({
-      current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.detail.file // 需要预览的图片http链接列表
+      current: 1, // 当前显示图片的http链接
+      urls: this.data.filePath// 需要预览的图片http链接列表
     })
   },
 
   /**
    * 删除图片
    */
-  deleteFile: function (e) {
-    var id = e.target.dataset.id;
-    var filePath = this.data.filePath;
-    var filePathNew = [];
-    for (let i = 0; i < filePath.length; i++) {
-      if (i != id) {
-        filePathNew.push(filePath[i]);
-      }
-    }
+  deleteFile: function(e) {
     this.setData({
-      'detail.file': filePathNew,
-      filePath: filePathNew,
+      filePath: [],
     })
-    console.log(filePathNew);
+  },
+
+  // 改变时间
+  bindDateChange: function(e) {
+    let edit = 'detail.starttime[0]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.starttime);
+  },
+
+  bindTimeChange: function (e) {
+    let edit = 'detail.starttime[1]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.starttime);
+  },
+
+  bindeDateChange: function(e) {
+    let edit = 'detail.endtime[0]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.endtime);
+  },
+
+  bindeTimeChange: function(e) {
+    let edit = 'detail.endtime[1]';
+    this.setData({
+      [edit]: e.detail.value
+    })
+    console.log(this.data.detail.endtime);
   },
 
   //图片错误时默认图片
-  imageError: function (e) {
-    var index = e.currentTarget.dataset.index;
-    var errorImg = 'detail.file[' + index + ']';
+  imageError: function () {
     this.setData({
-      [errorImg]: config.defaultImg,
+      [`filePath[0]`]: config.defaultImg,
     })
   },
 
@@ -234,13 +293,14 @@ Page({
   },
 
   //类型选择
-  bindAccountChange: function(e) {
+  bindAccountChange: function (e) {
     console.log(e);
     this.setData({
       'detail.type': e.detail.value,
     })
   },
 
+  //未知
   cateClick: function (e) {
     let clk = this;
     clk.setData({
@@ -251,14 +311,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     this.setData({
       isLogin: wx.getStorageSync('isLogin')
     })
@@ -267,35 +327,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

@@ -1,12 +1,87 @@
+//非直接使用请复制一份自行修改
+const config = require('../config/config.js');
 /**
- * 非直接使用
- * 请复制一份自行修改
+ * 上传文件构造函数
  */
-//实例化upload对象
-function upload() {
+function upload(fileObjList, objType) {
+  this.fileObjList = fileObjList;
+  this.fileUrlObjList = [];
+  this.objType = objType || "array";
+  
+  //筛选本地资源
+  this.fileScreen = function () {
+    var that = this;
+    var paramObjList = [];
+    var fileObjList = this.fileObjList;
+    var parttTmp = /^(http:\/\/tmp\/).+(\.jpg)$/;
+    for (let i = 0; i < fileObjList.length; i++) {
+      var fpath = fileObjList[i].filePath;
+      var cname = fileObjList[i].columnName;
+      if (parttTmp.test(fpath)) {
+        paramObjList.push({
+          url: config.uploadUrl,
+          filePath: fpath,
+          columnName: cname,
+          name: 'file',
+          formData: {
+            action: 'upload',
+          }
+        });
+      } else {
+        that.fileUrlObjList.push({
+          fileUrl: fileObjList[i].filePath,
+          columnName: fileObjList[i].columnName,
+        });
+      }
+    }
+    console.log(paramObjList);
+    console.log(that.fileUrlObjList);
+    return paramObjList;
+  },
+
+  /** 
+   * 多文件上传
+   * paramObjList: {paramObj1[, paramObj2 ,...]}
+   * fileNameList: [{columnName: '', fileUrl: ''}, {} ...] / {{columnName1: fileUrl1}, {}, ...}
+   * objType: array, json
+  */
+  this.uploadFileNameList = function () {
+    var that = this;
+    var objType = this.objType;
+    var paramObjList = this.fileScreen();
+    return new Promise(function (resolve, reject) {
+      var promiseArr = [];
+      for (let i = 0; i < paramObjList.length; i++) {
+        var promise = that.fileUpload(paramObjList[i]);
+        promiseArr.push(promise);
+      }
+      Promise.all(promiseArr).then(res => {
+        if (objType == "array") {
+          var fileNameList = [];
+          for (let i = 0; i < res.length; i++) {
+            var fileNameOne = {
+              columnName: res[i].columnName,
+              fileUrl: res[i].fileUrl
+            }
+            fileNameList.push(fileNameOne);
+          }
+          fileNameList = fileNameList.concat(that.fileUrlObjList);
+          console.log(fileNameList);
+          resolve(fileNameList);
+        } else if (objType == "json") {
+          var fileNameList = {};
+          for (let i = 0; i < res.length; i++) {
+            fileNameList[res[i].columnName] = res[i].fileUrl;
+          }
+          console.log(fileNameList);
+          resolve(fileNameList);
+        }
+      });
+    })
+  }
+
   /** 
    * 单文件上传
-   * paramObj: {url: '', filePath: '', formData: '', name: '', columnName: ''}
    * resol: {columnName: '', fileUrl: ''}
   */
   this.fileUpload = function (paramObj) {
@@ -26,7 +101,7 @@ function upload() {
                 columnName: paramObj.columnName,
                 fileUrl: data.file_url,
               }
-              console.log(resol);
+              //console.log(resol);
               resolve(resol);
             } else {
               resolve(0);
@@ -36,47 +111,7 @@ function upload() {
       } else {
         resolve(0);
       }
-      
     });
-  }
-
-  /** 
-   * 多文件上传
-   * paramObjList: {paramObj1[, paramObj2 ,...]}
-   * fileNameList: [{columnName: '', fileUrl: ''}, {} ...] / {{columnName1: fileUrl1}, {}, ...}
-   * objType: array, json
-  */
-  this.uploadFileNameList = function (paramObjList, objType) {
-    var that = this;
-    var objType = objType || "array";
-    return new Promise(function (resolve, reject) {
-      let promiseArr = [];
-      for (let i = 0; i < paramObjList.length; i++) {
-        let promise = that.fileUpload(paramObjList[i]);
-        promiseArr.push(promise);
-      }
-      Promise.all(promiseArr).then(res => {
-        if (objType == "array") {
-          let fileNameList = [];
-          for (let i = 0; i < res.length; i++) {
-            let fileNameOne = {
-              columnName: res[i].columnName,
-              fileUrl: res[i].fileUrl
-            }
-            fileNameList.push(fileNameOne);
-          }
-          console.log(fileNameList);
-          resolve(fileNameList);
-        } else if (objType == "json") {
-          let fileNameList = {};
-          for (let i = 0; i < res.length; i++) {
-            fileNameList[res[i].columnName] = res[i].fileUrl;
-          }
-          console.log(fileNameList);
-          resolve(fileNameList);
-        }
-      });
-    })
   }
 }
 

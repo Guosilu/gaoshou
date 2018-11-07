@@ -20,6 +20,7 @@ Page({
     itemType: "",
     detail: {},
     submitDisabled: false,
+    pageFileLock: false,
     pageDataLock: false,
   },
 
@@ -51,20 +52,18 @@ Page({
     }
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
-      var filePath = res.file ? res.file.split(",") : [];
-      res.file = res.file ? res.file.split(",") : [];
-      /*var downloadObj = new fileHandleObjFile.dowload(filePath);
+      var filePath = res.file.split(",");
+      var downloadObj = new fileHandleObjFile.dowload(filePath);
       downloadObj.downloadFileList().then((tp) => {
         console.log(tp);
         that.setData({
           filePath: tp,
           pageFileLock: true,
         })
-      })*/
+      })
       console.log(res);
       that.setData({
         detail: res,
-        filePath: filePath,
         pageDataLock: true,
       })
       wx.hideLoading();
@@ -80,7 +79,7 @@ Page({
     var post = this.setSubmitDate(e.detail.value);
     var paramObjList = this.fileParamConfig();
     //实例化
-    var uploadObj = new fileHandleObjFile.upload(paramObjList);
+    var uploadObj = new fileHandleObjFile.upload();
     //表单验证
     if (!this.submitCheck(post)) {
       this.setData({
@@ -88,7 +87,7 @@ Page({
       })
       return false;
     }
-    //console.log(uploadObj.fileScreen()); return;
+    //console.log(paramObjList); return;
     that.showLoading('正在上传文件...', true);
     uploadObj.uploadFileNameList(paramObjList).then(res => {
       let filePathArray = [];
@@ -129,17 +128,21 @@ Page({
 
   //上传文件参数配置
   fileParamConfig: function () {
-    var fileObjList = [];
+    var paramObjList = [];
     var filePath = this.data.filePath;
-    console.log(filePath);
-    console.log(this.data.detail.file);
     for (let i = 0; i < filePath.length; i++) {
-      fileObjList.push({
+      var paramObj = {
+        url: config.uploadUrl,
         filePath: filePath[i],
         columnName: 'file',
-      });
+        name: 'file',
+        formData: {
+          action: 'upload',
+        }
+      };
+      paramObjList.push(paramObj);
     }
-    return fileObjList;
+    return paramObjList;
   },
 
   //验证表单
@@ -167,12 +170,10 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          'detail.file': that.data.detail.file.concat(res.tempFilePaths),
           filePath: that.data.filePath.concat(res.tempFilePaths),
         });
-        console.log(res);
-        console.log(that.data.filePath);
       }
     });
   },
@@ -183,7 +184,7 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.detail.file // 需要预览的图片http链接列表
+      urls: this.data.filePath // 需要预览的图片http链接列表
     })
   },
 
@@ -200,16 +201,14 @@ Page({
       }
     }
     this.setData({
-      'detail.file': filePathNew,
-      filePath: filePathNew,
+      filePath: filePathNew
     })
-    console.log(filePathNew);
   },
 
   //图片错误时默认图片
   imageError: function (e) {
     var index = e.currentTarget.dataset.index;
-    var errorImg = 'detail.file[' + index + ']';
+    var errorImg = 'filePath[' + index + ']';
     this.setData({
       [errorImg]: config.defaultImg,
     })
