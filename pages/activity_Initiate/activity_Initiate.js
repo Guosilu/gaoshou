@@ -1,4 +1,5 @@
 const config = require('../../config/config.js');
+const util = require('../../config/util.js');
 const app = getApp();
 Page({
 
@@ -23,10 +24,10 @@ Page({
     activityType: ["类别", "比赛", "排名", "互助"],
     activityTypeIndex: 0,
     // 日期插件
-    bdate: "2018-09-01",
-    btime: "12:01",
-    edate: "2018-09-01",
-    etime: "12:01",
+    bdate: util.day(new Date),
+    btime: util.hour(new Date), 
+    edate: util.afterDay(new Date), 
+    etime: util.hour(new Date), 
     form_reset: '',
     //图片上传
     file: '',
@@ -395,6 +396,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(util.day(new Date));
+
     wx.showToast({
       title: '发起活动需付佣金' + (app.payData.release_money)/100+'元',
       icon: 'none',
