@@ -29,6 +29,7 @@ Page({
     files_url: []
   },
   formSubmit: function (e) {
+    console.log(e);
     let post = e.detail.value;
     if (post.introduce == '' || post.title == '' || post.type == '类别') {
       wx.showToast({
