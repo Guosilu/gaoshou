@@ -1,5 +1,5 @@
 <view wx:if="{{isLogin}}">
-  <block wx:if="{{pageFileLock && pageDataLock}}">
+  <block wx:if="{{1 && pageDataLock}}">
   <form bindsubmit="formSubmit">
     <view class='act-cate'>
       <view class='{{detail.mode == item.mode ? "on" : ""}}' wx:for="{{cateName}}" wx:key="{{index}}">{{item.name}}</view>
@@ -78,14 +78,14 @@
                   <view class="weui-uploader__title">上传视频</view>
                 </view>
                 <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vifile != ''}}">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{filePath.length > 0}}">
                     <view class="weui-uploader__file">
-                      <video class="weui-uploader__img" poster='{{vifile.thumbTempFilePath}}' src="{{vifile.tempFilePath}}"></video>
+                      <video class="weui-uploader__img" poster='{{videoThumb}}' src="{{filePath[0]}}"></video>
                       <!-- <image src='{{vifile.thumbTempFilePath}}'></image> -->
-                      <view bindtap="delVideo">删除</view>
+                      <view bindtap="deleteVideo">删除</view>
                     </view>
                   </view>
-                  <view class="" wx:if="{{vifile==''}}" bindtap="chooseVideo" class='voice-btn'>
+                  <view class="" wx:if="{{filePath.length < 1}}" bindtap="chooseVideo" class='voice-btn'>
                     <image src='/images/video_b.png' class='vobtn-img'/> 点击上传
                   </view>
                 </view>

@@ -31,6 +31,7 @@ Page({
     curttenTime: "",
     form_reset: '',
     //图片上传
+    videoThumb: [],
     filePath: [],
     itemType: '',
     detail: {},
@@ -175,7 +176,8 @@ Page({
       this.showTip('至少传一个图！');
       return false;
     }
-    if (submitVal.starttime <= submitVal.endtime) {
+    console.log(submitVal);
+    if (submitVal.starttime >= submitVal.endtime) {
       this.showTip('结束时间必须大于开始时间！');
       return false;
     }
@@ -206,7 +208,8 @@ Page({
       success: function (res) {
         console.log(res);
         that.setData({
-          filePath: res
+          filePath: [res.tempFilePath],
+          videoThumb: [res.thumbTempFilePath],
         })
       }
     })
