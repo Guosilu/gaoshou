@@ -31,9 +31,14 @@ Page({
       that.query("WeJob", config.activity_orderUrl)
     } else if (types == "all") {
       that.query("all", config.activityUrl)
-    } else {
+    } else if (types == "MyPublication") {
+      that.query("lists", config.publicationUrl)
       that.setData({
-        judge:false,
+        judge: "MyPublication",
+      })
+    }else {
+      that.setData({
+        judge: "WhoLaunchs",
       })
       that.query("WhoLaunch", config.activity_orderUrl)
     }
@@ -59,7 +64,13 @@ Page({
       },
       success: function (res) {
         let data = JSON.parse(res.data);
-        console.log(res);
+        for(let a = 0; a<data.length; a++){
+          if (data[a]['file'] && data[a]['mode'] == 'image') {
+            data[a]['file'] = data[a]['file'].split(',')
+          }
+        }
+        
+        console.log(data);
         that.setData({
           list: that.data.list.concat(data)
         })

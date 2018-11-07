@@ -10,7 +10,7 @@
   <view class='btnlist'>
     <navigator hover-class="none" url="/pages/profile/profile">
       <image src="{{img}}my_zl.png" mode="widthFix" />我的资料</navigator>
-    <navigator hover-class="none" url="/pages/profile/profile">
+    <navigator hover-class="none" url="/pages/record/record?type=MyPublication">
       <image src="{{img}}my_zp.png" mode="widthFix" />我的作品</navigator>
     <navigator url="/pages/notice/notice">
       <image src="{{img}}my_msg.png" mode="widthFix"/>通知公告

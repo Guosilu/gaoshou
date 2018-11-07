@@ -8,8 +8,8 @@
       <navigator class="btns" url='./apply'>
         <view>充值</view> 
       </navigator>
-
-      <navigator class="btns" url='./bringsuccess'>
+<!-- bringsuccess -->
+      <navigator class="btns" url='./recharge'>
         <view>提现</view> 
       </navigator>
 
