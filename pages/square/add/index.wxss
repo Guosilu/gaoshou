@@ -1,9 +1,9 @@
 .weui-select{
 background-size:36rpx 28rpx;background-position:right center;background-repeat:no-repeat;
 }
-#advert{
+/* #advert{
   height: 100px
-}
+} */
 .page__modules{
   padding: 20rpx 10rpx;
 }
@@ -41,4 +41,22 @@ textarea{
 .weui-btn-area .weui-btn {
   margin-top: 15px;
   padding: 0 30px;
+}
+/* 广告 */
+.ad-box{
+  padding: 0 20rpx;
+  width: 100%;
+}
+.ad-box .weui-uploader__title{
+  font-size: 16px;
+  border-bottom: 2rpx solid #f2f2f2;
+  padding-bottom: 10rpx;
+  margin-bottom: 20rpx;
+}
+.ad-box .weui-uploader__bd{
+  margin-bottom: 10rpx;
+}
+.ad-url{
+  display: inline-block;
+  vertical-align: middle;
 }

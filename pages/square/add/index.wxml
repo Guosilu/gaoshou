@@ -34,10 +34,12 @@
     </view>
 
     <view class="page__modules modules__shadow">
-      <view class="weui-uploader">
+      <view class="weui-uploader ad-box">
         <view class="weui-uploader__bd">
           <view class='weui-uploader__title'>广告位</view>
+          广告链接：<input class="ad-url" placeholder="请输入广告链接"></input>
         </view>
+        <view class="">添加广告图片</view>
         <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" wx:if="{{advertImage[0]}}" src="{{advertImage[0]}}" mode="aspectFill"></image>
         <view wx:if="{{advertImage.length<1}}" class="weui-uploader__input-box">
           <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
