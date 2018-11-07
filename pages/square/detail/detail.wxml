@@ -5,6 +5,7 @@
       <image src='{{data.avatarUrl}}' class='ex_icon u-avatar' mode='widthFix' /> {{data.nickName}}</view>
     <view class='ex_info'>
       <image src='/images/time.png' class='ex_icon' mode='widthFix' />
+      2018-05-02 15:22
     </view>
     <view class='ex_info'>
       <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{data.liulan}}</view>
