@@ -1,6 +1,6 @@
 <block wx:if="{{detail.id && like_status !== null && order_lists && exhibit_lists}}">
   <view catchtouchmove='{{payOpen||joinClick}}'>
-    <view class='user-list'>
+    <view class='user-list' wx:if="{{order_lists==null}}">
 
       <image wx:for="{{order_lists}}" wx:key="*this" class='user-avatar' mode='aspectFill' src='{{item.avatarUrl}}' />
 
@@ -21,7 +21,7 @@
           <image class='ex_icon' src='/images/{{like_status >= 1 ? "like_on.png"  :"like.png"}}' mode="widthFix" />{{detail.dianzan?detail.dianzan:0}}
         </view>
         <view class='ex_info'>
-          <image src='/images/contact_on.png' class='ex_icon' mode='widthFix' />{{detail.pinglun}}
+          <image src='/images/contact_on.png' class='ex_icon' mode='widthFix' />{{comNum}}
         </view>
         <view class='ex_info'>
           <image src='/images/time.png' class='ex_icon' mode='widthFix' />{{detail.addtime}}
@@ -36,7 +36,7 @@
       <view class='ex-cover'>
         <image src='{{detail.file}}' mode='widthFix'></image>
       </view>
-      <view bindtap='openPay' class='reward-btn'>
+      <view bindtap='openPay' class='reward-btn' style='display:none'>
         赏
       </view>
       <view wx:if="{{payOpen}}" class='paySelect' catchtouchmove="ture">
@@ -60,6 +60,13 @@
           <view bindtap='reward' class='payBtn true' wx:if="{{payInput}}">确定</view>
         </view>
       </view>
+    </view>
+
+    <view class='ad-item'>
+      <view class='ad-bar'>广告推广</view>
+      <navigator url=''>
+        <image class='ad-img' src='https://aa.zdcom.net.cn/gaoshou/upload/2018/11/07/15415546408558.png' mode='aspectFill'></image>
+      </navigator>
     </view>
     <view class='rule page__modules modules__shadow'>
 
