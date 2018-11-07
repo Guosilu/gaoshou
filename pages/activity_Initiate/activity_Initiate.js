@@ -129,6 +129,7 @@ Page({
    */
   formSubmit: function(e) {
     let post = e.detail.value;
+    console.log(e);
     post['starttime'] = post.bdate + ' ' + post.btime;
     post['endtime'] = post.edate + ' ' + post.etime;
     post['nickName'] = app.globalData.userInfo.nickName;

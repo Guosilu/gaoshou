@@ -146,8 +146,8 @@
       </navigator>
     </view>
     <view class="weui-btn-area">
-      <button class="weui-btn" type="warn" bindtap="openPay">提交</button>
-      <!-- <button class="weui-btn" type="warn" formType="submit">提交</button> -->
+      <!-- <button class="weui-btn" type="warn" bindtap="openPay">提交</button> -->
+      <button class="weui-btn" type="warn" formType="submit">提交</button>
     </view>
     <view class='payMask' wx:if="{{selectPay}}" catchtouchmove='{{true}}'></view>
     <view class='payBtn' wx:if="{{selectPay}}">
