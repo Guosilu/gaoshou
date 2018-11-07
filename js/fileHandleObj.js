@@ -2,11 +2,11 @@
 const config = require('../config/config.js');
 /**
  * 上传文件构造函数
+ * fileObjList: [{columnName: "", filePath: ""},{},...]
  */
-function upload(fileObjList, objType) {
+function upload(fileObjList) {
   this.fileObjList = fileObjList;
   this.fileUrlObjList = [];
-  this.objType = objType || "array";
   
   //筛选本地资源
   this.fileScreen = function () {
@@ -29,8 +29,8 @@ function upload(fileObjList, objType) {
         });
       } else {
         that.fileUrlObjList.push({
-          fileUrl: fileObjList[i].filePath,
           columnName: fileObjList[i].columnName,
+          fileUrl: fileObjList[i].filePath,
         });
       }
     }
@@ -41,13 +41,10 @@ function upload(fileObjList, objType) {
 
   /** 
    * 多文件上传
-   * paramObjList: {paramObj1[, paramObj2 ,...]}
-   * fileNameList: [{columnName: '', fileUrl: ''}, {} ...] / {{columnName1: fileUrl1}, {}, ...}
-   * objType: array, json
+   * 返回: 数组 fileNameList: [{columnName: '', fileUrl: ''}, {} ...]
   */
   this.uploadFileNameList = function () {
     var that = this;
-    var objType = this.objType;
     var paramObjList = this.fileScreen();
     return new Promise(function (resolve, reject) {
       var promiseArr = [];
@@ -56,32 +53,23 @@ function upload(fileObjList, objType) {
         promiseArr.push(promise);
       }
       Promise.all(promiseArr).then(res => {
-        if (objType == "array") {
-          var fileNameList = [];
-          for (let i = 0; i < res.length; i++) {
-            var fileNameOne = {
-              columnName: res[i].columnName,
-              fileUrl: res[i].fileUrl
-            }
-            fileNameList.push(fileNameOne);
+        var fileNameList = [];
+        for (let i = 0; i < res.length; i++) {
+          var fileNameOne = {
+            columnName: res[i].columnName,
+            fileUrl: res[i].fileUrl
           }
-          fileNameList = fileNameList.concat(that.fileUrlObjList);
-          console.log(fileNameList);
-          resolve(fileNameList);
-        } else if (objType == "json") {
-          var fileNameList = {};
-          for (let i = 0; i < res.length; i++) {
-            fileNameList[res[i].columnName] = res[i].fileUrl;
-          }
-          console.log(fileNameList);
-          resolve(fileNameList);
+          fileNameList.push(fileNameOne);
         }
+        fileNameList = that.fileUrlObjList.concat(fileNameList);
+        console.log(fileNameList);
+        resolve(fileNameList);
       });
     })
   }
 
   /** 
-   * 单文件上传
+   * 文件上传
    * resol: {columnName: '', fileUrl: ''}
   */
   this.fileUpload = function (paramObj) {
@@ -118,6 +106,7 @@ function upload(fileObjList, objType) {
 /**
  * 下载单网络文件对象
  * urls: []或""
+ * 弃用
  */
 function dowload(urls) {
   this.urls = urls;

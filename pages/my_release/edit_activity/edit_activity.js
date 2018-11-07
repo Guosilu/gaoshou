@@ -35,7 +35,6 @@ Page({
     filePath: [],
     itemType: '',
     detail: {},
-    pageFileLock: false,
     pageDataLock: false,
   },
 
@@ -56,7 +55,6 @@ Page({
 
   //获取详情
   getDeatil: function (id, itemType) {
-    console.log(id);
     var that = this;
     var dataObj = {
       url: config.myUrl,
@@ -69,21 +67,15 @@ Page({
         }
       }
     }
-    console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
-      var filePath = res.file.split(",")
-      res.starttime = res.starttime.split(" ");
-      res.endtime = res.endtime.split(" ");
-      commonFun.downloadFile(filePath[0]).then((downloadPath) => {
-        console.log(downloadPath);
-        that.setData({
-          filePath: that.data.filePath.concat(downloadPath),
-          pageFileLock: true,
-        })
-      })
+      var filePath = res.file ? res.file.split(",") : [];
+      res.file = res.file ? res.file.split(",") : [];
+      res.starttime = res.starttime ? res.starttime.split(" ") : [];
+      res.endtime = res.endtime ? res.endtime.split(" ") : [];
       console.log(res);
       that.setData({
         detail: res,
+        filePath: filePath,
         pageDataLock: true,
       })
       wx.hideLoading();
@@ -95,14 +87,11 @@ Page({
    */
   //表单提交
   formSubmit: function (e) {
+    var that = this;
+    var post = this.setSubmitDate(e.detail.value);
     this.setData({
       submitDisabled: true,
     })
-    var paramObj = this.fileParamConfig();
-    var that = this;
-    var post = this.setSubmitDate(e.detail.value);
-    //实例化
-    var uploadObj = new fileHandleObjFile.upload();
     //表单验证
     if (!this.submitCheck(post)) {
       this.setData({
@@ -110,12 +99,18 @@ Page({
       })
       return false;
     }
-    //console.log(paramObj); return;
+    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
+    //console.log(fileObjList); return;
     that.showLoading('正在上传文件...', true);
-    uploadObj.fileUpload(paramObj).then(res => {
+    uploadObj.uploadFileNameList().then(res => {
       console.log(res);
-      post['file'] = res['fileUrl'];
-      if (res['fileUrl']) {
+      let filePathArray = [];
+      let advertPathStr = [];
+      for (let i = 0; i < res.length; i++) {
+        if (res[i]['columnName'] == "file") filePathArray.push(res[i].fileUrl);
+      }
+      post['file'] = filePathArray.join();
+      if (filePathArray.length > 0) {
         var dataObj = {
           url: config.myUrl,
           data: {
@@ -141,16 +136,15 @@ Page({
 
   //上传文件参数配置
   fileParamConfig: function () {
-    var paramObj = {
-      url: config.uploadUrl,
-      filePath: this.data.filePath[0],
-      columnName: 'file',
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    };
-    return paramObj;
+    var fileObjList = [];
+    var filePath = this.data.filePath;
+    if (filePath.length > 0) {
+      fileObjList.push({
+        filePath: filePath[0],
+        columnName: 'file',
+      });
+    }
+    return fileObjList;
   },
 
   //设置提交内容
@@ -194,7 +188,8 @@ Page({
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          filePath: [res.tempFilePaths[0]],
+          filePath: that.data.filePath.concat(res.tempFilePaths),
+          'detail.file': that.data.detail.file.concat(res.tempFilePaths),
         });
       }
     });
@@ -209,7 +204,8 @@ Page({
         console.log(res);
         that.setData({
           filePath: [res.tempFilePath],
-          videoThumb: [res.thumbTempFilePath],
+          'detail.file': that.data.detail.file.concat(res.tempFilePath),
+          videoThumb: that.data.videoThumb.concat(res.thumbTempFilePath),
         })
       }
     })
@@ -221,20 +217,29 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: 1, // 当前显示图片的http链接
-      urls: this.data.filePath// 需要预览的图片http链接列表
+      urls: this.data.detail.file // 需要预览的图片http链接列表
     })
   },
 
   /**
    * 删除图片
    */
-  deleteFile: function(e) {
+  deleteFile: function() {
     this.setData({
       filePath: [],
+      'detail.file': [],
     })
   },
 
-  // 改变时间
+  //图片错误时默认图片
+  imageError: function () {
+    var errorImg = 'detail.file[0]';
+    this.setData({
+      [errorImg]: config.defaultImg,
+    })
+  },
+
+  //改变时间
   bindDateChange: function(e) {
     let edit = 'detail.starttime[0]';
     this.setData({
@@ -265,13 +270,6 @@ Page({
       [edit]: e.detail.value
     })
     console.log(this.data.detail.endtime);
-  },
-
-  //图片错误时默认图片
-  imageError: function () {
-    this.setData({
-      [`filePath[0]`]: config.defaultImg,
-    })
   },
 
   //提示方法

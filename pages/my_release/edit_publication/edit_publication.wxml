@@ -22,7 +22,7 @@
                   <view class="weui-uploader__info">{{detail.file.length}}/4</view>
                 </view>
                 <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{detail.file.length > 0}}">
+                  <view class="weui-uploader__files" id="uploaderFiles">
                     <block wx:for="{{detail.file}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-index="{{index}}" binderror='imageError' />

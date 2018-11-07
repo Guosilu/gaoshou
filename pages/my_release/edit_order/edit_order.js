@@ -12,6 +12,7 @@ Page({
     img: config.img,
     //广告
     advertPath: [],
+    advertShow: [],
     filePath: [],
     itemType: "",
     detail: {},
@@ -32,34 +33,6 @@ Page({
     this.getDeatil(options.id, options.itemType);
   },
 
-  //获取下载图片临时地址
-  getDownloadFile: function (res) {
-    var that = this;
-    console.log(res);
-    var filePath = res.file.split(",");
-    var advertPath = [];
-    if (res.advert){
-      advertPath = res.advert.split(",");
-      var downloadAdvertObj = new fileHandleObjFile.dowload(advertPath);
-      downloadAdvertObj.downloadFileList().then((tp) => {
-        console.log(tp);
-        that.setData({
-          advertPath: tp,
-          // pageAdvertLock: true,
-        })
-      })
-    }
-    var downloadObj = new fileHandleObjFile.dowload(filePath);
-    downloadObj.downloadFileList().then((tp) => {
-      console.log(tp);
-      that.setData({
-        filePath: tp,
-        pageFileLock: true,
-      })
-    })
-
-  },
-
   //获取详情
   getDeatil: function (id, itemType) {
     var that = this;
@@ -76,10 +49,15 @@ Page({
     }
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
-      that.getDownloadFile(res);
+      var filePath = res.file ? res.file.split(",") : [];
+      res.file = res.file ? res.file.split(",") : [];
+      var advertPath = res.advert ? res.advert.split(",") : [];
+      that.data.advertShow = res.advert ? res.advert.split(",") : [];
       console.log(res);
       that.setData({
         detail: res,
+        filePath: filePath,
+        advertPath: advertPath,
         pageDataLock: true,
       })
       wx.hideLoading();
@@ -93,9 +71,6 @@ Page({
     })
     var that = this;
     var post = this.setSubmitDate(e.detail.value);
-    var paramObjList = this.fileParamConfig();
-    //实例化
-    var uploadObj = new fileHandleObjFile.upload();
     //表单验证
     if (!this.submitCheck(post)) {
       this.setData({
@@ -103,9 +78,10 @@ Page({
       })
       return false;
     }
-    //console.log(paramObjList); return;
+    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
+    //console.log(fileObjList); return;
     that.showLoading('正在上传文件...', true);
-    uploadObj.uploadFileNameList(paramObjList).then(res => {
+    uploadObj.uploadFileNameList().then(res => {
       console.log(res);
       let filePathArray = [];
       let advertPathStr = [];
@@ -153,32 +129,22 @@ Page({
 
   //上传文件参数配置
   fileParamConfig: function () {
-    var paramObjList = [];
+    var fileObjList = [];
     var filePath = this.data.filePath;
     var advertPath = this.data.advertPath;
-    var advertOjb = {
-      url: config.uploadUrl,
-      filePath: advertPath[0],
-      columnName: 'advert',
-      name: 'file',
-      formData: {
-        action: 'upload',
-      }
-    }
-    paramObjList.push(advertOjb);
     for (let i = 0; i < filePath.length; i++) {
-      var paramObj = {
-        url: config.uploadUrl,
+      fileObjList.push({
         filePath: filePath[i],
         columnName: 'file',
-        name: 'file',
-        formData: {
-          action: 'upload',
-        }
-      };
-      paramObjList.push(paramObj);
+      });
     }
-    return paramObjList;
+    if (advertPath.length > 0) {
+      fileObjList.push({
+        filePath: advertPath[0],
+        columnName: 'advert',
+      });
+    }
+    return fileObjList;
   },
 
   //验证表单
@@ -208,6 +174,7 @@ Page({
       success: function (res) {
         that.setData({
           filePath: that.data.filePath.concat(res.tempFilePaths),
+          'detail.file': that.data.detail.file.concat(res.tempFilePaths),
         });
       }
     });
@@ -223,7 +190,8 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         that.setData({
-          advertPath: that.data.advertPath.concat(res.tempFilePaths)
+          advertPath: that.data.advertPath.concat(res.tempFilePaths),
+          advertShow: that.data.advertShow.concat(res.tempFilePaths),
         });
       }
     })
@@ -233,7 +201,7 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.filePath // 需要预览的图片http链接列表
+      urls: this.data.detail.file // 需要预览的图片http链接列表
     })
   },
 
@@ -241,7 +209,7 @@ Page({
   previewAdvertImage: function (e) {
     wx.previewImage({
       current: 1, // 当前显示图片的http链接
-      urls: this.data.advertPath // 需要预览的图片http链接列表
+      urls: this.data.advertShow // 需要预览的图片http链接列表
     })
   },
 
@@ -256,14 +224,16 @@ Page({
       }
     }
     this.setData({
-      filePath: filePathNew
+      filePath: filePathNew,
+      'detail.file': filePathNew,
     })
   },
 
   //删除广告
   deleteAdvert: function (e) {
     this.setData({
-      advertPath: []
+      advertPath: [],
+      advertShow: [],
     })
   },
 
@@ -272,9 +242,9 @@ Page({
     var fileType = e.currentTarget.dataset.type;
     if (fileType == "file") {
       var index = e.currentTarget.dataset.index;
-      var errorImg = 'filePath[' + index + ']';
+      var errorImg = 'detail.file[' + index + ']';
     } else if (fileType == "advert") {
-      var errorImg = 'advertPath[0]';
+      var errorImg = 'advertShow[0]';
     }
     this.setData({
       [errorImg]: config.defaultImg,

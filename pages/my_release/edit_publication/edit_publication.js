@@ -53,14 +53,6 @@ Page({
     commonFun.requestFun(dataObj).then((res) => {
       var filePath = res.file ? res.file.split(",") : [];
       res.file = res.file ? res.file.split(",") : [];
-      /*var downloadObj = new fileHandleObjFile.dowload(filePath);
-      downloadObj.downloadFileList().then((tp) => {
-        console.log(tp);
-        that.setData({
-          filePath: tp,
-          pageFileLock: true,
-        })
-      })*/
       console.log(res);
       that.setData({
         detail: res,
@@ -78,9 +70,6 @@ Page({
     })
     var that = this;
     var post = this.setSubmitDate(e.detail.value);
-    var paramObjList = this.fileParamConfig();
-    //实例化
-    var uploadObj = new fileHandleObjFile.upload(paramObjList);
     //表单验证
     if (!this.submitCheck(post)) {
       this.setData({
@@ -88,9 +77,10 @@ Page({
       })
       return false;
     }
+    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
     //console.log(uploadObj.fileScreen()); return;
     that.showLoading('正在上传文件...', true);
-    uploadObj.uploadFileNameList(paramObjList).then(res => {
+    uploadObj.uploadFileNameList().then(res => {
       let filePathArray = [];
       for (let i = 0; i < res.length; i++) {
         filePathArray.push(res[i].fileUrl);
