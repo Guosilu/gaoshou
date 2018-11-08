@@ -13,7 +13,7 @@ function upload(fileObjList) {
     var that = this;
     var paramObjList = [];
     var fileObjList = this.fileObjList;
-    var parttTmp = /^(http:\/\/tmp\/).+(\.jpg)$/;
+    var parttTmp = /^(http:\/\/tmp\/).+(\.[a-zA-Z]{3,4})$/;
     for (let i = 0; i < fileObjList.length; i++) {
       var fpath = fileObjList[i].filePath;
       var cname = fileObjList[i].columnName;
@@ -34,8 +34,8 @@ function upload(fileObjList) {
         });
       }
     }
-    console.log(paramObjList);
-    console.log(that.fileUrlObjList);
+    console.log("筛选上传对象:");console.log(paramObjList);
+    console.log("筛选略过对象:");console.log(that.fileUrlObjList);
     return paramObjList;
   },
 
