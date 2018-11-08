@@ -1,7 +1,7 @@
 // 定义常量
-const defaultImg = '/images/myDefault.png';
+//const defaultImg = '/images/myDefault.png';
 const baseUrl = 'https://aa.zdcom.net.cn/';
-//const defaultImg = baseUrl + '/gaoshou/upload/img/myDefault.png';
+const defaultImg = baseUrl + '/gaoshou/upload/img/myDefault.png';
 const loginUrl = baseUrl + 'gaoshou/api/loginApi.php'; 
 const uploadUrl = baseUrl + 'gaoshou/api/uploadApi.php';
 const publicationUrl = baseUrl + 'gaoshou/api/publicationApi.php'; 
