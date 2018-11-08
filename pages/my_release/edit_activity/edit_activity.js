@@ -30,9 +30,11 @@ Page({
     curttenDate: "",
     curttenTime: "",
     form_reset: '',
-    //图片上传
-    videoThumb: [],
+    //文件上传
     filePath: [],
+    voicePath: [],
+    videoPath: [],
+    advertPath: [],
     itemType: '',
     detail: {},
     pageDataLock: false,
@@ -74,7 +76,7 @@ Page({
       console.log(res);
       that.setData({
         detail: res,
-        filePath: filePath,
+        videoPath: filePath,
         pageDataLock: true,
       })
       wx.hideLoading();
@@ -103,12 +105,18 @@ Page({
     that.showLoading('正在上传文件...', true);
     uploadObj.uploadFileNameList().then(res => {
       console.log(res);
-      let filePathArray = [];
-      let advertPathStr = [];
+      var filePathArray = [];
+      var advertPathStr = [];
+      var videoPathArray = [];
       for (let i = 0; i < res.length; i++) {
         if (res[i]['columnName'] == "file") filePathArray.push(res[i].fileUrl);
+        if (res[i]['columnName'] == "adver") advertPathStr.push(res[i].fileUrl);
+        if (res[i]['columnName'] == "video") videoPathArray.push(res[i].fileUrl);
       }
       post['file'] = filePathArray.join();
+      post['adver'] = videoPathArray.join();
+      post['video'] = videoPathArray.join();
+      console.log(post);
       if (filePathArray.length > 0) {
         var dataObj = {
           url: config.myUrl,
@@ -140,7 +148,13 @@ Page({
     if (filePath.length > 0) {
       fileObjList.push({
         filePath: filePath[0],
-        columnName: 'file',
+        columnName: 'thumb',
+      });
+    }
+    if(this.data.detail.mode == "video") {
+      fileObjList.push({
+        filePath: videoPath[0],
+        columnName: 'video',
       });
     }
     return fileObjList;
@@ -201,8 +215,8 @@ Page({
       success: function (res) {
         console.log(res);
         that.setData({
-          filePath: that.data.filePath.concat(res.tempFilePath),
-          videoThumb: that.data.videoThumb.concat(res.thumbTempFilePath),
+          filePath: that.data.filePath.concat(res.thumbTempFilePath),
+          videoPath: that.data.videoThumb.concat(res.tempFilePath),
         })
       }
     })
