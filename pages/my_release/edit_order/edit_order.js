@@ -12,7 +12,6 @@ Page({
     img: config.img,
     //广告
     advertPath: [],
-    advertShow: [],
     filePath: [],
     itemType: "",
     detail: {},
@@ -50,9 +49,7 @@ Page({
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
       var filePath = res.file ? res.file.split(",") : [];
-      res.file = res.file ? res.file.split(",") : [];
       var advertPath = res.advert ? res.advert.split(",") : [];
-      res.advert = res.advert ? res.advert.split(",") : [];
       console.log(res);
       that.setData({
         detail: res,
@@ -175,7 +172,6 @@ Page({
       success: function (res) {
         that.setData({
           filePath: that.data.filePath.concat(res.tempFilePaths),
-          'detail.file': that.data.detail.file.concat(res.tempFilePaths),
         });
       }
     });
@@ -192,7 +188,6 @@ Page({
       success: function (res) {
         that.setData({
           advertPath: that.data.advertPath.concat(res.tempFilePaths),
-          'detail.advert': that.data.detail.advert.concat(res.tempFilePaths),
         });
       }
     })
@@ -202,7 +197,7 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.detail.file // 需要预览的图片http链接列表
+      urls: this.data.filePath // 需要预览的图片http链接列表
     })
   },
 
@@ -226,7 +221,6 @@ Page({
     }
     this.setData({
       filePath: filePathNew,
-      'detail.file': filePathNew,
     })
   },
 
@@ -243,9 +237,9 @@ Page({
     var fileType = e.currentTarget.dataset.type;
     if (fileType == "file") {
       var index = e.currentTarget.dataset.index;
-      var errorImg = 'detail.file[' + index + ']';
+      var errorImg = 'filePath[' + index + ']';
     } else if (fileType == "advert") {
-      var errorImg = 'advertShow[0]';
+      var errorImg = 'advertPath[0]';
     }
     this.setData({
       [errorImg]: config.defaultImg,
