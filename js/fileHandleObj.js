@@ -13,7 +13,7 @@ function upload(fileObjList) {
     var that = this;
     var paramObjList = [];
     var fileObjList = this.fileObjList;
-    var parttTmp = /^(http:\/\/tmp\/).+(\.[0-9a-zA-Z]{1,5})$/;
+    var parttTmp = /^([a-zA-Z]{1,10}:\/\/tmp(\/|_)).+(\.[0-9a-zA-Z]{1,5})$/;
     for (let i = 0; i < fileObjList.length; i++) {
       var fpath = fileObjList[i].filePath;
       var cname = fileObjList[i].columnName;
