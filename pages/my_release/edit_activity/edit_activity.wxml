@@ -13,11 +13,13 @@
       </view>
     </view>
     <!-- 图片 -->
-    <view class="page__modules modules__shadow" wx:if='{{detail.mode == "image"}}'>
+    <view class="page__modules modules__shadow">
       <view class="page__bd">
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">
+
+              <!-- 封面图片 -->
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
                   <view class="weui-uploader__title">活动封面</view>
@@ -26,7 +28,7 @@
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files" id="uploaderFiles">
                     <view class="weui-uploader__file">
-                      <image class="weui-uploader__img" bindtap="previewImage" src="{{filePath[0]}}" mode="aspectFill" binderror='imageError'/>
+                      <image class="weui-uploader__img" bindtap="previewImage" src="{{filePath[0]}}" mode="aspectFill" data-type="file" binderror='imageError'/>
                       <view class='delImg' bindtap="deleteFile">删除×</view>
                     </view>
                   </view>
@@ -35,18 +37,9 @@
                   </view>
                 </view>
               </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-<!-- 语音 -->
-    <view class="page__modules modules__shadow" wx:if='{{detail.mode == "voice"}}'>
-      <view class="page__bd">
-        <view class="weui-cells">
-          <view class="weui-cell">
-            <view class="weui-cell__bd">
-              <view class="weui-uploader">
+
+              <!-- 语音 -->
+              <view class="weui-uploader" wx:if='{{detail.mode == "voice"}}'>
                 <view class="weui-uploader__hd">
                   <view class="weui-uploader__title">上传语音</view>
                 </view>
@@ -62,18 +55,9 @@
                   </view>
                 </view>
               </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-<!-- 视频 -->
-    <view class="page__modules modules__shadow" wx:if='{{detail.mode == "video"}}'>
-      <view class="page__bd">
-        <view class="weui-cells">
-          <view class="weui-cell">
-            <view class="weui-cell__bd">
-              <view class="weui-uploader">
+
+              <!-- 视频 -->
+              <view class="weui-uploader" wx:if='{{detail.mode == "video"}}'>
                 <view class="weui-uploader__hd">
                   <view class="weui-uploader__title">上传视频</view>
                 </view>
@@ -90,6 +74,7 @@
                   </view>
                 </view>
               </view>
+
             </view>
           </view>
         </view>
@@ -134,8 +119,11 @@
           广告链接：<input class="ad-url" placeholder="请输入广告链接"></input>
         </view>
         <view class="">添加广告图片</view>
-        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" wx:if="{{advertImage[0]}}" src="{{advertImage[0]}}" mode="aspectFill"></image>
-        <view wx:if="{{advertImage.length<1}}" class="weui-uploader__input-box">
+        <block wx:if="{{advertPath.length > 0}}">
+        <image class="weui-uploader__img" id='advert' bindtap="previewAdvertImage" src="{{advertPath[0]}}" mode="aspectFill" data-type="advert" binderror='imageError'></image>
+         <view bindtap="deleteAdvert">删除×</view>
+        </block>
+        <view wx:if="{{advertPath.length<1}}" class="weui-uploader__input-box">
           <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
         </view>
       </view>

@@ -177,7 +177,6 @@ Page({
     });
   },
 
-
   //选择广告
   chooseAdvertImage: function (e) {
     var that = this;
@@ -205,7 +204,7 @@ Page({
   previewAdvertImage: function (e) {
     wx.previewImage({
       current: 1, // 当前显示图片的http链接
-      urls: this.data.advertShow // 需要预览的图片http链接列表
+      urls: this.data.advertPath // 需要预览的图片http链接列表
     })
   },
 
@@ -228,7 +227,6 @@ Page({
   deleteAdvert: function (e) {
     this.setData({
       advertPath: [],
-      'detail.advert': [],
     })
   },
 

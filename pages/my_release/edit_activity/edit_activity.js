@@ -51,7 +51,6 @@ Page({
       curttenDate: dataTime[0],
       curttenTime: dataTime[1],
     })
-    console.log(options);
     this.getDeatil(options.id, options.itemType);
   },
 
@@ -70,13 +69,20 @@ Page({
       }
     }
     commonFun.requestFun(dataObj).then((res) => {
+      console.log(res);
       var filePath = res.file ? res.file.split(",") : [];
+      var voicePath = res.voice ? res.voice.split(",") : [];
+      var videoPath = res.video ? res.video.split(",") : [];
+      var advertPath = res.advert ? res.advert.split(",") : [];
       res.starttime = res.starttime ? res.starttime.split(" ") : [];
       res.endtime = res.endtime ? res.endtime.split(" ") : [];
       console.log(res);
       that.setData({
         detail: res,
-        videoPath: filePath,
+        filePath: filePath,
+        voicePath: voicePath,
+        videoPath: videoPath,
+        advertPath: advertPath,
         pageDataLock: true,
       })
       wx.hideLoading();
@@ -106,16 +112,19 @@ Page({
     uploadObj.uploadFileNameList().then(res => {
       console.log(res);
       var filePathArray = [];
-      var advertPathStr = [];
+      var voicePathArray = [];
       var videoPathArray = [];
+      var advertPathArray = [];
       for (let i = 0; i < res.length; i++) {
         if (res[i]['columnName'] == "file") filePathArray.push(res[i].fileUrl);
-        if (res[i]['columnName'] == "adver") advertPathStr.push(res[i].fileUrl);
+        if (res[i]['columnName'] == "voice") voicePathArray.push(res[i].fileUrl);
         if (res[i]['columnName'] == "video") videoPathArray.push(res[i].fileUrl);
+        if (res[i]['columnName'] == "advert") advertPathArray.push(res[i].fileUrl);
       }
       post['file'] = filePathArray.join();
-      post['adver'] = videoPathArray.join();
+      post['voice'] = voicePathArray.join();
       post['video'] = videoPathArray.join();
+      post['advert'] = advertPathArray.join();
       console.log(post);
       if (filePathArray.length > 0) {
         var dataObj = {
@@ -145,16 +154,36 @@ Page({
   fileParamConfig: function () {
     var fileObjList = [];
     var filePath = this.data.filePath;
+    var voicePath = this.data.voicePath;
+    var videoPath = this.data.videoPath;
+    var advertPath = this.data.advertPath;
+    var mode = this.data.detail.mode;
+    console.log(filePath);
+    console.log(voicePath);
+    console.log(videoPath);
+    console.log(advertPath);
     if (filePath.length > 0) {
       fileObjList.push({
         filePath: filePath[0],
-        columnName: 'thumb',
+        columnName: 'file',
       });
     }
-    if(this.data.detail.mode == "video") {
+    if (mode == "voice" && voicePath.length > 0) {
+      fileObjList.push({
+        filePath: voicePath[0],
+        columnName: 'voice',
+      });
+    }
+    if (mode == "video" && videoPath.length > 0) {
       fileObjList.push({
         filePath: videoPath[0],
         columnName: 'video',
+      });
+    }
+    if (advertPath.length > 0) {
+      fileObjList.push({
+        filePath: advertPath[0],
+        columnName: 'advert',
       });
     }
     return fileObjList;
@@ -194,14 +223,14 @@ Page({
   //图片选择
   chooseImage: function (e) {
     var that = this;
+    var filePath = [];
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          filePath: that.data.filePath.concat(res.tempFilePaths),
+          filePath: filePath.concat(res.tempFilePaths),
         });
       }
     });
@@ -210,14 +239,34 @@ Page({
   //选择视频
   chooseVideo: function () {
     var that = this;
+    var filePath = [];
+    var videoPath = [];
     wx.chooseVideo({
       maxDuration: 1000,
       success: function (res) {
         console.log(res);
         that.setData({
-          filePath: that.data.filePath.concat(res.thumbTempFilePath),
-          videoPath: that.data.videoThumb.concat(res.tempFilePath),
+          filePath: [],
+          videoPath: [],
+          filePath: filePath.concat(res.thumbTempFilePath),
+          videoPath: videoPath.concat(res.tempFilePath),
         })
+      }
+    })
+  },
+
+  //选择广告
+  chooseAdvertImage: function (e) {
+    var that = this;
+    var advertPath = [];
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        that.setData({
+          advertPath: advertPath.concat(res.tempFilePaths),
+        });
       }
     })
   },
@@ -232,6 +281,14 @@ Page({
     })
   },
 
+  //浏览广告
+  previewAdvertImage: function (e) {
+    wx.previewImage({
+      current: 1, // 当前显示图片的http链接
+      urls: this.data.advertPath // 需要预览的图片http链接列表
+    })
+  },
+
   /**
    * 删除图片
    */
@@ -241,9 +298,27 @@ Page({
     })
   },
 
+  //删除广告
+  deleteVideo: function (e) {
+    this.setData({
+      filePath: [],
+      videoPath: [],
+    })
+  },
+
+  //删除广告
+  deleteAdvert: function (e) {
+    this.setData({
+      advertPath: [],
+    })
+  },
+
   //图片错误时默认图片
-  imageError: function () {
-    var errorImg = 'filePath[0]';
+  imageError: function (e) {
+    var errorImg = "";
+    var fileType = e.currentTarget.dataset.type;
+    if (fileType == "file")  errorImg = 'filePath[0]';
+    if (fileType == "advert") errorImg = 'advertPath[0]';
     this.setData({
       [errorImg]: config.defaultImg,
     })
