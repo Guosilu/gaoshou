@@ -41,7 +41,7 @@ Page({
   },
 
   /**
-   * 选择音频
+   * 录制音频 启动
    */
   start: function (e) {
     var that = this;
@@ -56,18 +56,47 @@ Page({
       chooseVoice: 'stop'
     })
   },
+
+  /**
+   * 停止录制音频
+   */
   stop: function() {
     var that = this;
     that.RecorderManager.stop();
     that.setData({
       chooseVoice: 'start'
-    })
+    }) 
     that.RecorderManager.onStop((res) => {
       console.log('recorder stop', res)
       const { tempFilePath } = res
+      that.setData({
+        filePath: tempFilePath
+      })
     })
-
   },
+
+  /**
+   * 播放已上传的音频
+   */
+  play: function(){
+    var that = this;
+    that.InnerAudioContext = wx.createInnerAudioContext()
+    that.InnerAudioContext.src = that.data.filePath;
+    that.InnerAudioContext.play();
+  },
+  /**
+   * 停止播放已上传的音频
+   */
+  stopPlay(){
+    this.InnerAudioContext.stop();
+  },
+  /**
+   * 暂停播放已上传的音频
+   */
+  pause(){
+    this.InnerAudioContext.pause();
+  },
+
 
   /**
    * 选择视频

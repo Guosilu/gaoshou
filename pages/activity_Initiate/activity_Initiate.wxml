@@ -73,6 +73,9 @@
                   <view class="" wx:if="{{vofile==''}}" bindtap="{{chooseVoice}}" class='voice-btn'>
                     <image src='/images/voice_b.png' class='vobtn-img' /> 点击上传
                   </view>
+                  <view bindtap='play'>播放</view>
+                  <view bindtap='stopPlay'>停止</view>
+                  <view bindtap='pause'>暂停</view>
                 </view>
               </view>
             </view>
