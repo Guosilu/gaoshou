@@ -69,7 +69,6 @@ Page({
     }
     commonFun.requestFun(dataObj).then((res) => {
       var filePath = res.file ? res.file.split(",") : [];
-      res.file = res.file ? res.file.split(",") : [];
       res.starttime = res.starttime ? res.starttime.split(" ") : [];
       res.endtime = res.endtime ? res.endtime.split(" ") : [];
       console.log(res);
@@ -189,7 +188,6 @@ Page({
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
           filePath: that.data.filePath.concat(res.tempFilePaths),
-          'detail.file': that.data.detail.file.concat(res.tempFilePaths),
         });
       }
     });
@@ -203,8 +201,7 @@ Page({
       success: function (res) {
         console.log(res);
         that.setData({
-          filePath: [res.tempFilePath],
-          'detail.file': that.data.detail.file.concat(res.tempFilePath),
+          filePath: that.data.filePath.concat(res.tempFilePath),
           videoThumb: that.data.videoThumb.concat(res.thumbTempFilePath),
         })
       }
@@ -217,7 +214,7 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: 1, // 当前显示图片的http链接
-      urls: this.data.detail.file // 需要预览的图片http链接列表
+      urls: this.data.filePath // 需要预览的图片http链接列表
     })
   },
 
@@ -227,13 +224,12 @@ Page({
   deleteFile: function() {
     this.setData({
       filePath: [],
-      'detail.file': [],
     })
   },
 
   //图片错误时默认图片
   imageError: function () {
-    var errorImg = 'detail.file[0]';
+    var errorImg = 'filePath[0]';
     this.setData({
       [errorImg]: config.defaultImg,
     })

@@ -52,7 +52,6 @@ Page({
     console.log(dataObj);
     commonFun.requestFun(dataObj).then((res) => {
       var filePath = res.file ? res.file.split(",") : [];
-      res.file = res.file ? res.file.split(",") : [];
       console.log(res);
       that.setData({
         detail: res,
@@ -158,7 +157,6 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         that.setData({
-          'detail.file': that.data.detail.file.concat(res.tempFilePaths),
           filePath: that.data.filePath.concat(res.tempFilePaths),
         });
         console.log(res);
@@ -173,7 +171,7 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.detail.file // 需要预览的图片http链接列表
+      urls: this.data.filePath // 需要预览的图片http链接列表
     })
   },
 
@@ -190,7 +188,6 @@ Page({
       }
     }
     this.setData({
-      'detail.file': filePathNew,
       filePath: filePathNew,
     })
     console.log(filePathNew);
@@ -199,7 +196,7 @@ Page({
   //图片错误时默认图片
   imageError: function (e) {
     var index = e.currentTarget.dataset.index;
-    var errorImg = 'detail.file[' + index + ']';
+    var errorImg = 'filePath[' + index + ']';
     this.setData({
       [errorImg]: config.defaultImg,
     })

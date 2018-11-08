@@ -143,7 +143,8 @@
         </view>
       </view>
     </view>
-    <view class="page__modules modules__shadow">
+
+    <!-- <view class="page__modules modules__shadow">
       <view class="weui-uploader ad-box">
         <view class="weui-uploader__bd">
           <view class='weui-uploader__title'>广告位</view>
@@ -155,7 +156,8 @@
           <view class="weui-uploader__input" bindtap="chooseAdvertImage"></view>
         </view>
       </view>
-    </view>
+    </view> -->
+
     <view style="overflow:hidden;">
       <navigator url="/pages/xieyi/index" class="uploadRuler">
         了解上传协议？

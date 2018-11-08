@@ -19,18 +19,18 @@
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
                   <view class="weui-uploader__title">上传图片</view>
-                  <view class="weui-uploader__info">{{detail.file.length}}/4</view>
+                  <view class="weui-uploader__info">{{filePath.length}}/4</view>
                 </view>
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files" id="uploaderFiles">
-                    <block wx:for="{{detail.file}}" wx:key="*this">
+                    <block wx:for="{{filePath}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-index="{{index}}" binderror='imageError' />
                         <view style='z-index: 999' data-id="{{index}}" class='delImg' bindtap="deleteFile">删除×</view>
                       </view>
                     </block>
                   </view>
-                  <view class="weui-uploader__input-box" wx:if="{{detail.file.length < 4}}">
+                  <view class="weui-uploader__input-box" wx:if="{{filePath.length < 4}}">
                     <view class="weui-uploader__input" bindtap="chooseImage"></view>
                   </view>
                 </view>
