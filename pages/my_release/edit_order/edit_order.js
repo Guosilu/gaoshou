@@ -63,11 +63,16 @@ Page({
 
   //表单提交
   formSubmit: function (e) {
+    var that = this;
+    var pages = getCurrentPages(); // 获取页面栈
+    var prevPage = pages[pages.length - 2]; // 上一个页面
+    var post = this.setSubmitDate(e.detail.value);//设置提交数据
+    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
+    var filePathArray = [];
+    var advertPathStr = [];
     this.setData({
       submitDisabled: true,
     })
-    var that = this;
-    var post = this.setSubmitDate(e.detail.value);
     //表单验证
     if (!this.submitCheck(post)) {
       this.setData({
@@ -75,13 +80,10 @@ Page({
       })
       return false;
     }
-    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
     //console.log(fileObjList); return;
     that.showLoading('正在上传文件...', true);
     uploadObj.uploadFileNameList().then(res => {
       console.log(res);
-      let filePathArray = [];
-      let advertPathStr = [];
       for (let i = 0; i < res.length; i++) {
         if (res[i]['columnName'] == "file") filePathArray.push(res[i].fileUrl);
         if (res[i]['columnName'] == "advert") advertPathStr.push(res[i].fileUrl);
@@ -101,6 +103,7 @@ Page({
         commonFun.requestFun(dataObj).then(res => {
           if (res > 0) {
             that.showLoading('提交完成...', true)
+            prevPage.returnReload();
             setTimeout(function () {
               wx.navigateBack({
                 delta: 1
@@ -155,10 +158,6 @@ Page({
       this.showTip('上传作品数量不正确！');
       return false;
     }
-    /*if (this.data.advertPath.length < 1) {
-      this.showTip('请上传广告！');
-      return false;
-    }*/
     return true;
   },
 
@@ -180,13 +179,14 @@ Page({
   //选择广告
   chooseAdvertImage: function (e) {
     var that = this;
+    var advertPath = [];
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         that.setData({
-          advertPath: that.data.advertPath.concat(res.tempFilePaths),
+          advertPath: advertPath.concat(res.tempFilePaths),
         });
       }
     })

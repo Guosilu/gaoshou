@@ -23,21 +23,19 @@ Page({
       { mode: "video", name: "视频" },
       { mode: "article", name: "文章" },
     ],
-    cateActive: '',
     //活动分类
     activityType: ["类别", "比赛", "排名", "互助"],
-    // 日期插件
+    //日期
     curttenDate: "",
     curttenTime: "",
-    form_reset: '',
-    //文件上传
-    filePath: [],
-    voicePath: [],
-    videoPath: [],
-    advertPath: [],
-    itemType: '',
-    detail: {},
-    pageDataLock: false,
+    //文件
+    filePath: [],//封面图片
+    voicePath: [],//语音
+    videoPath: [],//视频
+    advertPath: [],//广告
+    itemType: '',//项目类别
+    detail: {},//详情
+    pageDataLock: false,//页面加载锁
   },
 
   /**
@@ -95,7 +93,14 @@ Page({
   //表单提交
   formSubmit: function (e) {
     var that = this;
-    var post = this.setSubmitDate(e.detail.value);
+    var pages = getCurrentPages(); // 获取页面栈
+    var prevPage = pages[pages.length - 2]; // 上一个页面
+    var post = this.setSubmitDate(e.detail.value);//设置提交数据
+    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化upload
+    var filePathArray = [];
+    var voicePathArray = [];
+    var videoPathArray = [];
+    var advertPathArray = [];
     this.setData({
       submitDisabled: true,
     })
@@ -106,15 +111,9 @@ Page({
       })
       return false;
     }
-    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
-    //console.log(fileObjList); return;
     that.showLoading('正在上传文件...', true);
     uploadObj.uploadFileNameList().then(res => {
       console.log(res);
-      var filePathArray = [];
-      var voicePathArray = [];
-      var videoPathArray = [];
-      var advertPathArray = [];
       for (let i = 0; i < res.length; i++) {
         if (res[i]['columnName'] == "file") filePathArray.push(res[i].fileUrl);
         if (res[i]['columnName'] == "voice") voicePathArray.push(res[i].fileUrl);
@@ -138,7 +137,8 @@ Page({
         that.showLoading('正在提交数据...', true)
         commonFun.requestFun(dataObj).then(res => {
           if (res > 0) {
-            that.showLoading('提交完成...', true)
+            that.showLoading('提交完成...', true);
+            prevPage.returnReload();
             setTimeout(function () {
               wx.navigateBack({
                 delta: 1
@@ -158,10 +158,6 @@ Page({
     var videoPath = this.data.videoPath;
     var advertPath = this.data.advertPath;
     var mode = this.data.detail.mode;
-    console.log(filePath);
-    console.log(voicePath);
-    console.log(videoPath);
-    console.log(advertPath);
     if (filePath.length > 0) {
       fileObjList.push({
         filePath: filePath[0],

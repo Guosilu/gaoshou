@@ -64,11 +64,15 @@ Page({
 
   //表单提交
   formSubmit: function (e) {
+    var that = this;
+    var pages = getCurrentPages(); // 获取页面栈
+    var prevPage = pages[pages.length - 2]; // 上一个页面
+    var post = this.setSubmitDate(e.detail.value);
+    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
+    var filePathArray = [];
     this.setData({
       submitDisabled: true,
     })
-    var that = this;
-    var post = this.setSubmitDate(e.detail.value);
     //表单验证
     if (!this.submitCheck(post)) {
       this.setData({
@@ -76,13 +80,11 @@ Page({
       })
       return false;
     }
-    var uploadObj = new fileHandleObjFile.upload(this.fileParamConfig());  //实例化
     //console.log(uploadObj.fileScreen()); return;
     that.showLoading('正在上传文件...', true);
     uploadObj.uploadFileNameList().then(res => {
-      let filePathArray = [];
       for (let i = 0; i < res.length; i++) {
-        filePathArray.push(res[i].fileUrl);
+        if (res[i]['columnName'] == "file") filePathArray.push(res[i].fileUrl);
       }
       post['file'] = filePathArray.join();
       if (filePathArray.length > 0) {
@@ -94,10 +96,11 @@ Page({
             post: post,
           }
         }
-        that.showLoading('正在提交数据...', true)
+        that.showLoading('正在提交数据...', true);
         commonFun.requestFun(dataObj).then(res => {
           if (res > 0) {
-            that.showLoading('提交完成...', true)
+            that.showLoading('提交完成...', true);
+            prevPage.returnReload();
             setTimeout(function () {
               wx.navigateBack({
                 delta: 1

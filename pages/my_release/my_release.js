@@ -67,6 +67,21 @@ Page({
     this.listsFun(post, 'reget');
   },
 
+  //编辑成功返回刷新
+  returnReload: function () {
+    wx.showLoading({
+      mask: true,
+      title: '正在加载...',
+    })
+    var post = {
+      keyword: partt.test(this.data.keyword) ? this.data.keyword : "",
+      page_wx: 1,
+      pagesize_wx: this.data.page_wx * this.data.pagesize_wx,
+      openId: app.globalData.openId,
+    }
+    this.listsFun(post, "reget");
+  },
+
   //搜索方法共用 commonFun.js->requestFun(dataObj)
   listsFun: function (post, act) {
     var that = this;

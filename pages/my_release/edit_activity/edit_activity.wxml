@@ -28,7 +28,7 @@
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files" id="uploaderFiles">
                     <view class="weui-uploader__file">
-                      <image class="weui-uploader__img" bindtap="previewImage" src="{{filePath[0]}}" mode="aspectFill" data-type="file" binderror='imageError'/>
+                      <image class="weui-uploader__img" bindtap="previewImage" src="{{filePath[0]}}" mode="aspectFill" data-type="file" binderror='imageError'/>img
                       <view class='delImg' bindtap="deleteFile">删除×</view>
                     </view>
                   </view>
