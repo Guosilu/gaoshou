@@ -52,7 +52,7 @@ Page({
       var filePath = res.file ? res.file.split(",") : [];
       res.file = res.file ? res.file.split(",") : [];
       var advertPath = res.advert ? res.advert.split(",") : [];
-      that.data.advertShow = res.advert ? res.advert.split(",") : [];
+      res.advert = res.advert ? res.advert.split(",") : [];
       console.log(res);
       that.setData({
         detail: res,
@@ -144,6 +144,7 @@ Page({
         columnName: 'advert',
       });
     }
+    console.log(filePath);
     return fileObjList;
   },
 
@@ -191,7 +192,7 @@ Page({
       success: function (res) {
         that.setData({
           advertPath: that.data.advertPath.concat(res.tempFilePaths),
-          advertShow: that.data.advertShow.concat(res.tempFilePaths),
+          'detail.advert': that.data.detail.advert.concat(res.tempFilePaths),
         });
       }
     })
@@ -233,7 +234,7 @@ Page({
   deleteAdvert: function (e) {
     this.setData({
       advertPath: [],
-      advertShow: [],
+      'detail.advert': [],
     })
   },
 
