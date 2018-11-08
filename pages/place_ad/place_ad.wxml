@@ -1,9 +1,33 @@
 <!--pages/place_ad/place_ad.wxml-->
 <view class='page_container'>
-<view>广告图片
-<image ></image>
-</view>
-<view>广告描述</view>
-<view>广告链接</view>
-<view>支付费用</view>
+  <view class='page_module'>
+    <view class='ad-cate'>
+      <text class='ad-title'>广告图片</text>
+      <text class='ad-comment'>为保证展现效果，宽高比请保持在2:1</text>
+    </view>
+    <!-- 广告预览 -->
+    <view class='ad-preview'>
+      <image src='http://img2.imgtn.bdimg.com/it/u=3973517385,1606912707&fm=26&gp=0.jpg' mode='aspectFill'></image>
+      <view class='ad-preview-comment'>{{adTitle}}</view>
+    </view>
+    <view class='ad-preview ad-preview-text'>左侧为广告图预览</view>
+  </view>
+
+  <view class='page_module'>
+    <view class='ad-cate'>
+      <text class='ad-title'>广告描述</text>
+      <input placeholder='一句话介绍你的广告' bindinput="adInputChange" value=''></input>
+    </view>
+    <view class='ad-cate'>
+      <text class='ad-title'>广告链接</text>
+      <input placeholder='请输入广告指向的链接'></input>
+    </view>
+    <view class='ad-cate'>
+      <text class='ad-title'>支付费用</text>
+      <input placeholder='请输入金额'></input>
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="warn" formType="submit">提交</button>
+  </view>
 </view>
