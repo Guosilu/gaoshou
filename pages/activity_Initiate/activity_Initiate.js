@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    chooseVoice: 'start',
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
@@ -19,7 +20,7 @@ Page({
     duration: 1000,
     //选择活动类型
     cateName: ["图片", "语音", "视频", "文章"],
-    cateActive: 0,
+    cateActive: 1,
     //活动分类
     activityType: ["类别", "比赛", "排名", "互助"],
     activityTypeIndex: 0,
@@ -31,12 +32,41 @@ Page({
     form_reset: '',
     //图片上传
     file: '',
-    //音频
+    //音频 chooseVoice
     vofile: '',
-    //视频  chooseVoice
+    //视频  
     vifile: '',
     // 选择支付方式
     selectPay: false,
+  },
+
+  /**
+   * 选择音频
+   */
+  start: function (e) {
+    var that = this;
+    console.log(e);
+    that.RecorderManager = wx.getRecorderManager();
+    that.RecorderManager.start({
+      duration: 600000,       //录音时长 单位ms
+      sampleRate: 48000,      //采样率
+      encodeBitRate: 320000   //编码码率
+    })
+    that.setData({
+      chooseVoice: 'stop'
+    })
+  },
+  stop: function() {
+    var that = this;
+    that.RecorderManager.stop();
+    that.setData({
+      chooseVoice: 'start'
+    })
+    that.RecorderManager.onStop((res) => {
+      console.log('recorder stop', res)
+      const { tempFilePath } = res
+    })
+
   },
 
   /**

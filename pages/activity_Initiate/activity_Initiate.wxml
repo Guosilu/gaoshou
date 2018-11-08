@@ -70,7 +70,7 @@
                       <view bindtap="delVoice">删除</view>
                     </view>
                   </view>
-                  <view class="" wx:if="{{vofile==''}}" bindtap="chooseVoice" class='voice-btn'>
+                  <view class="" wx:if="{{vofile==''}}" bindtap="{{chooseVoice}}" class='voice-btn'>
                     <image src='/images/voice_b.png' class='vobtn-img' /> 点击上传
                   </view>
                 </view>
