@@ -1,0 +1,4 @@
+/* pages/place_ad/place_ad.wxss */
+.page_container{
+  padding: 20rpx;
+}

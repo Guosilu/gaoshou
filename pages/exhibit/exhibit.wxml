@@ -64,9 +64,21 @@
 
     <view class='ad-item'>
       <view class='ad-bar'>广告推广</view>
-      <navigator url=''>
-        <image class='ad-img' src='https://aa.zdcom.net.cn/gaoshou/upload/2018/11/07/15415546408558.png' mode='aspectFill'></image>
-      </navigator>
+      <view class='ad-inner'>
+        <navigator url=''>
+          <image class='ad-img' src='https://aa.zdcom.net.cn/gaoshou/upload/2018/11/07/15415546408558.png' mode='aspectFill'></image>
+        </navigator>
+        <navigator url=''>
+          <image class='ad-img' src='https://aa.zdcom.net.cn/gaoshou/upload/2018/11/07/15415546408558.png' mode='aspectFill'></image>
+        </navigator>
+        <navigator url=''>
+          <image class='ad-img' src='https://aa.zdcom.net.cn/gaoshou/upload/2018/11/07/15415546408558.png' mode='aspectFill'></image>
+        </navigator>
+
+        <navigator url='/pages/place_ad/place_ad' class='ad-add'>我也要发布广告
+          <image class='ad-icon' src='/images/hand.png'></image>
+        </navigator>
+      </view>
     </view>
     <view class='rule page__modules modules__shadow'>
 

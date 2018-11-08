@@ -1,0 +1,9 @@
+<!--pages/place_ad/place_ad.wxml-->
+<view class='page_container'>
+<view>广告图片
+<image ></image>
+</view>
+<view>广告描述</view>
+<view>广告链接</view>
+<view>支付费用</view>
+</view>
