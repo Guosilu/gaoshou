@@ -9,9 +9,9 @@
         <view>充值</view> 
       </navigator>
 <!-- bringsuccess -->
-      <navigator class="btns" url='./recharge'>
+      <!-- <navigator class="btns" url='./recharge'>
         <view>提现</view> 
-      </navigator>
+      </navigator> -->
 
     </view>
 </view>
