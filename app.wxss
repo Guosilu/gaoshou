@@ -342,7 +342,7 @@ swiper {
 /* 赏 */
 .reward-btn{
   margin: 20rpx auto;
-  width: 280rpx;
+  width: 250rpx;
   height: 66rpx;
   line-height: 66rpx;
   text-align: center;
