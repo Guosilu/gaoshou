@@ -7,6 +7,22 @@ Page({
   data: {
     adTitle: '广告描述',
   },
+
+  /**
+   * chosseImage
+   * 选择图片
+   */
+  chooseImage:function() {
+    wx.chooseImage({
+      success: function(res) {
+        console.log(res);
+      },
+    })
+  },
+
+  /**
+   * 文字绑定
+   */
   adInputChange: function(e) {
     let that = this;
     if (e.detail.value.length < 1) {

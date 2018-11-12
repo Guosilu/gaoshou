@@ -10,7 +10,7 @@
       <image src='http://img2.imgtn.bdimg.com/it/u=3973517385,1606912707&fm=26&gp=0.jpg' mode='aspectFill'></image>
       <view class='ad-preview-comment'>{{adTitle}}</view>
     </view>
-    <view class='ad-preview ad-preview-text'>左侧为广告图预览</view>
+    <view class='ad-preview ad-preview-text' bindtap='chooseImage'>左侧为广告图预览</view>
   </view>
 
   <view class='page_module'>
