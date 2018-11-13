@@ -15,6 +15,7 @@ const comment = baseUrl +'gaoshou/api/commentApi.php';
 const payApi = baseUrl +'gaoshou/pay/GetSth.php'
 const forum = baseUrl + 'gaoshou/api/forumApi.php';
 const myUrl = baseUrl + 'gaoshou/api/myApi.php';
+const integralUrl = baseUrl + 'gaoshou/api/integralApi.php';
 
 // 对外接口
 module.exports = {
@@ -32,4 +33,5 @@ module.exports = {
   payApi: payApi,
   forum: forum,
   myUrl: myUrl,
+  integralUrl: integralUrl,
 }
