@@ -26,12 +26,12 @@
     <view wx:if="{{payOpen}}" class='paySelect' catchtouchmove="ture">
       <view class='payTitle'>为您喜欢的作品献脉吧~</view>
       <view class='payInner' hidden='{{payInput}}'>
-        <view class='payPart' bindtap='money' data-money='500'>5脉</view>
-        <view class='payPart' bindtap='money' data-money='1500'>15脉</view>
-        <view class='payPart' bindtap='money' data-money='2500'>25脉</view>
-        <view class='payPart' bindtap='money' data-money='5000'>50脉</view>
-        <view class='payPart' bindtap='money' data-money='8000'>80脉</view>
-        <view class='payPart' bindtap='money' data-money='10000'>100脉</view>
+        <view class='payPart' bindtap='money' data-money='5'>5脉</view>
+        <view class='payPart' bindtap='money' data-money='15'>15脉</view>
+        <view class='payPart' bindtap='money' data-money='25'>25脉</view>
+        <view class='payPart' bindtap='money' data-money='50'>50脉</view>
+        <view class='payPart' bindtap='money' data-money='80'>80脉</view>
+        <view class='payPart' bindtap='money' data-money='100'>100脉</view>
       </view>
       <view wx:if="{{payInput}}" class='inputAmount'>
         <text>🌾</text>
@@ -41,7 +41,7 @@
       <view class='otherAmount' bindtap='fixAmount' wx:if='{{payInput}}'>固定数量</view>
       <view class='closePay'>
         <view bindtap='closePay' class='payBtn'>关闭</view>
-        <view bindtap='reward' class='payBtn true' wx:if="{{payInput}}">确定</view>
+        <view bindtap='integral' class='payBtn true' wx:if="{{payInput}}">确定</view>
       </view>
     </view>
 </view>

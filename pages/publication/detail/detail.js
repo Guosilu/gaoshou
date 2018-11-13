@@ -24,6 +24,46 @@ Page({
   },
 
 
+  /**
+    * 积分
+    */
+  integral: function () {
+    var that = this;
+    wx.request({
+      url: config.integralUrl,
+      data: {
+        action: 'do',
+        openId: app.globalData.openId,
+        type: 'publication',
+        mode: 'image',
+        forId: that.data.detail.id,
+        forOpenId: that.data.detail.openId,
+        integral: that.data.money
+      },
+      dataType: "json",
+      method: 'post',
+      success: function (res) {
+        var data = res.data;
+        console.log(data)
+        if (data.code == 500) {
+          wx.showToast({
+            title: data.msg,
+            icon: 'none'
+          })
+          return;
+        }
+        that.setData({
+          payOpen: false
+        })
+        wx.showToast({
+          title: '赞赏成功',
+        })
+      }
+
+    })
+
+
+  },
 
   // -----------------赏金开始----------------
   money: function (e) {
@@ -32,13 +72,13 @@ Page({
     that.setData({
       money: e.currentTarget.dataset.money
     })
-    that.reward();
+    that.integral();
   },
   money1: function (e) {
     console.log(e);
     var that = this;
     that.setData({
-      money: (e.detail.value) * 100,
+      money: (e.detail.value),
     })
   },
   openPay: function () {

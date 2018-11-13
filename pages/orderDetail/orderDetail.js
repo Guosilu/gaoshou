@@ -66,8 +66,6 @@ Page({
         wx.showToast({
           title: '赞赏成功',
         })
-
-        console.log(res.data);
       }
 
     })
