@@ -1,15 +1,15 @@
 <!--pages/activity_Initiate/activity_Initiate.wxml-->
 <view>
-    <!-- 轮播 -->
-    <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{imgUrls}}" wx:key="*this">
-        <swiper-item>
-          <navigator url="../orderDetail/orderDetail?id={{item.id}}">
-            <image mode='aspectFill' src="{{item.file[0]}}" class="slide-image" />
-          </navigator>
-        </swiper-item>
-      </block>
-    </swiper>
+  <!-- 轮播 -->
+  <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file[0]}}" class="slide-image" />
+        </navigator>
+      </swiper-item>
+    </block>
+  </swiper>
 </view>
 
 <view wx:if="{{isLogin}}">
@@ -64,18 +64,17 @@
                   <view class="weui-uploader__title">上传语音</view>
                 </view>
                 <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vofile != ''}}">
-                    <view class="weui-uploader__file">
-                      <image class="weui-uploader__img" bindtap="previewVoice" src="{{vofile}}" mode="aspectFill" />
-                      <view bindtap="delVoice">删除</view>
-                    </view>
-                  </view>
-                  <view class="" wx:if="{{vofile==''}}" bindtap="{{chooseVoice}}" class='voice-btn'>
+                  <image wx:if="{{isRecording}}" class='voice-ing' src='/images/voice-ing.gif' />
+                  <view class="" wx:if="{{vofile==''}}" bind:longtap="start" bind:touchend="stop" class='voice-btn'>
                     <image src='/images/voice_b.png' class='vobtn-img' /> 点击上传
                   </view>
-                  <view bindtap='play'>播放</view>
+                  <!-- <view bindtap='play'>播放</view>
                   <view bindtap='stopPlay'>停止</view>
-                  <view bindtap='pause'>暂停</view>
+                  <view bindtap='pause'>暂停</view> -->
+                  <view class='audio-box' wx:if='{{filePath}}'>
+                    <image src='{{chooseVoice=="play"?"/images/start.png":"/images/pause.png"}}' bindtap='{{chooseVoice}}' bind:longtap="stopPlay"/>
+                    <text class='audio-time'>19"</text>
+                  </view>
                 </view>
               </view>
             </view>
@@ -169,8 +168,10 @@
     </view>
     <view class='payMask' wx:if="{{selectPay}}" catchtouchmove='{{true}}'></view>
     <view class='payBtn' wx:if="{{selectPay}}">
-      <view><image src='/images/Balance.png' /> 余额：1010元</view>
-      <view><image src='/images/weChatPay.png' bindtap='formSubmitDo'/> 微信支付</view>
+      <view>
+        <image src='/images/Balance.png' /> 余额：1010元</view>
+      <view>
+        <image src='/images/weChatPay.png' bindtap='formSubmitDo' /> 微信支付</view>
       <view bindtap='closePay'>取消</view>
     </view>
   </form>

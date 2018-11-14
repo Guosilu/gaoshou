@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    chooseVoice: 'start',
+    isRecording: false,
+    chooseVoice: 'play',
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
     //swiper
@@ -48,12 +49,12 @@ Page({
     console.log(e);
     that.RecorderManager = wx.getRecorderManager();
     that.RecorderManager.start({
-      duration: 600000,       //录音时长 单位ms
+      duration: 60000,       //录音时长 单位ms
       sampleRate: 48000,      //采样率
       encodeBitRate: 320000   //编码码率
     })
     that.setData({
-      chooseVoice: 'stop'
+      isRecording: true,
     })
   },
 
@@ -63,14 +64,15 @@ Page({
   stop: function() {
     var that = this;
     that.RecorderManager.stop();
-    that.setData({
-      chooseVoice: 'start'
-    }) 
+    // that.setData({
+    //   chooseVoice: 'start'
+    // }) 
     that.RecorderManager.onStop((res) => {
       console.log('recorder stop', res)
       const { tempFilePath } = res
       that.setData({
-        filePath: tempFilePath
+        filePath: tempFilePath,
+        isRecording: false,
       })
     })
   },
@@ -83,18 +85,33 @@ Page({
     that.InnerAudioContext = wx.createInnerAudioContext()
     that.InnerAudioContext.src = that.data.filePath;
     that.InnerAudioContext.play();
+    that.setData({
+      chooseVoice: 'pause',
+    })
+    that.InnerAudioContext.onEnded(()=>{
+      that.setData({
+        chooseVoice: 'play',
+      })
+    })
   },
   /**
    * 停止播放已上传的音频
    */
   stopPlay(){
     this.InnerAudioContext.stop();
+    that.setData({
+      chooseVoice: 'play',
+    })
   },
   /**
    * 暂停播放已上传的音频
    */
   pause(){
     this.InnerAudioContext.pause();
+    let that = this;
+    that.setData({
+      chooseVoice: 'play',
+    })
   },
 
 
