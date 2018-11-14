@@ -61,7 +61,7 @@ Page({
                   method: "post",
                   data: {
                     "action": "AddUserData",
-                    "total_fee": that.data.money,
+                    "total_fee": that.data.money/100,
                     "type": 'user',
                     "id": app.globalData.openId
                   },

@@ -64,7 +64,6 @@ Page({
   //搜索方法共用 commonFun.js->requestFun(dataObj)
   inputTyping: function(e) {
     let that = this;
-    console.log(e);
     let dataObj = {
       url: config.searchUrl,
       data: {
@@ -74,14 +73,12 @@ Page({
         pagesize_wx: 10
       }
     }
-    console.log(partt.test(e.detail.value));
     if (partt.test(e.detail.value)) {
       this.setData({
         keyword: e.detail.value,
         downSearchList: true,
       });
       commonFun.requestFun(dataObj).then(res => {
-        console.log(res);
         that.setData({
           showList: res
         });
@@ -125,7 +122,6 @@ Page({
         action: 'lists'
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           taglist: res.data,
         });
@@ -145,7 +141,6 @@ Page({
             result[a]['file'] = result[a]['file'].split(',')
           }
         }
-        console.log(result);
         that.setData({
           square: result,
         });
@@ -159,7 +154,6 @@ Page({
         action: 'lists'
       },
       success: function (res) {
-        console.log(res.data);
         let result = res.data;
         for(let a=0;a<result.length;a++){
           result[a]['file'] = result[a]['file'].split(',')
@@ -209,7 +203,6 @@ Page({
             result[a]['file'] = result[a]['file'].split(',');
           }
         }
-        console.log(result);
         that.setData({
           imgUrls: result,
         });

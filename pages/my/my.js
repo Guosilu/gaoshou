@@ -5,8 +5,13 @@ Page({
   data: {
     img: config.img,
     motto: 'Hello World',
-    userInfo: {}
+    userInfo: {},
+    integral: 0
   },
+
+  /**
+   * 获取用户信息
+   */
   getUserInfo: function () {
     let that = this;
     if (app.globalData.userInfo) {
@@ -36,10 +41,33 @@ Page({
       })
     }
   },
+
+  /**
+   * 获取资产积分
+   */
+  getIntegral: function() {
+    var that = this;
+    wx.request({
+      url: config.myUrl,
+      data:{
+        action: 'myIntegral',
+        openId: app.globalData.openId,
+      },
+      method: 'post',
+      success: function(res) {
+        that.setData({
+          integral: res.data.integral
+        })
+      }
+    })
+  },
+
+
   onLoad: function () {
     
   },
   onShow: function () {
     this.getUserInfo();
+    this.getIntegral();
   },
 })

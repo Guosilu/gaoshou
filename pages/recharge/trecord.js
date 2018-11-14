@@ -1,12 +1,31 @@
-// pages/salesCommission/withdrawResult.js
+const config = require('../../config/config.js');
+const app = getApp()
 Page({
   data: {},
   onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
-    this.setData({
-      withdrawalAmount: 220
+    this.getIntegral();
+  },
+
+  /**
+   * 获取资产积分
+   */
+  getIntegral: function () {
+    var that = this;
+    wx.request({
+      url: config.myUrl,
+      data: {
+        action: 'myIntegral',
+        openId: app.globalData.openId,
+      },
+      method: 'post',
+      success: function (res) {
+        that.setData({
+          integral: res.data.integral
+        })
+      }
     })
   },
+
   onReady: function () {
     // 页面渲染完成
   },

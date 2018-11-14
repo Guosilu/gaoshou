@@ -4,7 +4,7 @@
     <view class='flex between itemBox'>
       <view class="{{activeIndex == index ? 'active':''}}"  wx:for="{{numArray}}" wx:key="*this"
         bindtap='activethis' data-money='{{item}}' data-thisindex='{{index}}'>
-        <view class='money'>{{item}}元</view>
+        <view class='money'>{{item}}脉</view>
       </view>
     </view>
   </view>
