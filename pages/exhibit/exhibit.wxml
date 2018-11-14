@@ -61,7 +61,7 @@
         </view>
       </view>
     </view>
-
+<!-- 
     <view class='ad-item'>
       <view class='ad-bar'>广告推广</view>
       <view class='ad-inner'>
@@ -79,7 +79,7 @@
           <image class='ad-icon' src='/images/hand.png'></image>
         </navigator>
       </view>
-    </view>
+    </view> -->
     <view class='rule page__modules modules__shadow'>
 
       <view class='rule-cont no-borderTop'>
