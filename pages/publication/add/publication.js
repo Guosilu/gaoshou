@@ -24,9 +24,20 @@ Page({
     //活动分类
     activityType: ["类别", "人物", "风景", "实物", "书画", "文化", "技艺", "其他"],
     activityTypeIndex: 0,
+    //选择活动类型
+    cateName: ["图片", "语音", "视频", "文章"],
+    cateActive: 1,
     //图片上传
     files: [],
-    files_url: []
+    files_url: [],
+    //音频 chooseVoice
+    vofile: '',
+    isRecording: false,
+    chooseVoice: 'play',
+    //视频  
+    vifile: '',
+    // 选择支付方式
+    selectPay: false,
   },
   formSubmit: function (e) {
     console.log(e);
@@ -59,7 +70,89 @@ Page({
       return;
     }
   },
+  /**
+     * 录制音频 启动
+     */
+  start: function (e) {
+    var that = this;
+    console.log(e);
+    that.RecorderManager = wx.getRecorderManager();
+    that.RecorderManager.start({
+      duration: 60000,       //录音时长 单位ms
+      sampleRate: 48000,      //采样率
+      encodeBitRate: 320000,   //编码码率
+      frameSize: 1,
+    })
+    that.setData({
+      isRecording: true,
+    })
+    that.RecorderManager.onFrameRecorded((res) => {
+      const { frameBuffer } = res
+      console.log('frameBuffer.byteLength', frameBuffer)
+    })
+  },
+  onFrameRecorded: function () {
 
+  },
+
+  /**
+   * 停止录制音频
+   */
+  stop: function () {
+    var that = this;
+    that.RecorderManager.stop();
+    // that.setData({
+    //   chooseVoice: 'start'
+    // }) 
+    that.RecorderManager.onStop((res) => {
+      console.log('recorder stop', res)
+      const { tempFilePath } = res
+      that.setData({
+        filePath: tempFilePath,
+        isRecording: false,
+      })
+    })
+  },
+
+  /**
+   * 播放已上传的音频
+   */
+  play: function () {
+    var that = this;
+    that.InnerAudioContext = wx.createInnerAudioContext()
+    that.InnerAudioContext.src = that.data.filePath;
+    that.InnerAudioContext.play();
+    that.InnerAudioContext.onPlay(() => {
+      console.log(that.InnerAudioContext)
+    })
+    that.setData({
+      chooseVoice: 'pause',
+    })
+    that.InnerAudioContext.onEnded(() => {
+      that.setData({
+        chooseVoice: 'play',
+      })
+    })
+  },
+  /**
+   * 停止播放已上传的音频
+   */
+  stopPlay() {
+    this.InnerAudioContext.stop();
+    that.setData({
+      chooseVoice: 'play',
+    })
+  },
+  /**
+   * 暂停播放已上传的音频
+   */
+  pause() {
+    this.InnerAudioContext.pause();
+    let that = this;
+    that.setData({
+      chooseVoice: 'play',
+    })
+  },
   formSubmitDo: function (post) {
     let that = this;
     post['openId'] = app.globalData.openId;

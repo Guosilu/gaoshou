@@ -1,17 +1,20 @@
 <!--pages/publication/Publication.wxml-->
-    <!-- 轮播 -->
-    <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{imgUrls}}" wx:key="*this">
-        <swiper-item>
-          <navigator url="../../orderDetail/orderDetail?id={{item.id}}">
-            <image mode='aspectFill' src="{{item.file[0]}}" class="slide-image" />
-          </navigator>
-        </swiper-item>
-      </block>
-    </swiper>
+<!-- 轮播 -->
+<swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}" wx:key="*this">
+    <swiper-item>
+      <navigator url="../../orderDetail/orderDetail?id={{item.id}}">
+        <image mode='aspectFill' src="{{item.file[0]}}" class="slide-image" />
+      </navigator>
+    </swiper-item>
+  </block>
+</swiper>
 
 <view wx:if="{{isLogin}}">
   <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='act-cate'>
+      <view bindtap='cateClick' class='{{cateActive==index?"on":""}}' wx:for="{{cateName}}" data-current="{{index}}" wx:key="{{index}}">{{item}}</view>
+    </view>
     <view class="page__modules modules__shadow">
       <input class="activityName" name="title" placeholder="请填写作品名称"></input>
       <view class="activityType">
@@ -21,7 +24,7 @@
       </view>
     </view>
 
-    <view class="page__modules modules__shadow">
+    <view class="page__modules modules__shadow" wx:if='{{cateActive==0}}'>
       <view class="page__bd">
         <view class="weui-cells">
           <view class="weui-cell">
@@ -50,6 +53,66 @@
         </view>
       </view>
     </view>
+    <!-- 语音 -->
+    <view class="page__modules modules__shadow" wx:if='{{cateActive==1}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传语音</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <image wx:if="{{isRecording}}" class='voice-ing' src='/images/voice-ing.gif' />
+                  <view class="" wx:if="{{vofile==''}}" bind:longtap="start" bind:touchend="stop" class='voice-btn'>
+                    <image src='/images/voice_b.png' class='vobtn-img' /> 点击上传
+                  </view>
+                  <!-- <view bindtap='play'>播放</view>
+                  <view bindtap='stopPlay'>停止</view>
+                  <view bindtap='pause'>暂停</view> -->
+                  <view class='audio-box' wx:if='{{filePath}}'>
+                    <image src='{{chooseVoice=="play"?"/images/start.png":"/images/pause.png"}}' bindtap='{{chooseVoice}}' bind:longtap="stopPlay" />
+                    <text class='audio-time'>19"</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 视频 -->
+    <view class="page__modules modules__shadow" wx:if='{{cateActive==2}}'>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传视频</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vifile != ''}}">
+                    <view class="weui-uploader__file">
+                      <video class="weui-uploader__img" poster='{{vifile.thumbTempFilePath}}' src="{{vifile.tempFilePath}}"></video>
+                      <!-- <image src='{{vifile.thumbTempFilePath}}'></image> -->
+                      <view bindtap="delVideo">删除</view>
+                    </view>
+                  </view>
+                  <view class="" wx:if="{{vifile==''}}" bindtap="chooseVideo" class='voice-btn'>
+                    <image src='/images/video_b.png' class='vobtn-img' /> 点击上传
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+
 
     <view class="page__modules modules__shadow">
       <textarea name="introduce" placeholder="作品说明">
