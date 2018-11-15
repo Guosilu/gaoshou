@@ -51,11 +51,19 @@ Page({
     that.RecorderManager.start({
       duration: 60000,       //录音时长 单位ms
       sampleRate: 48000,      //采样率
-      encodeBitRate: 320000   //编码码率
+      encodeBitRate: 320000,   //编码码率
+      frameSize: 1,
     })
     that.setData({
       isRecording: true,
     })
+    that.RecorderManager.onFrameRecorded((res) => {
+      const { frameBuffer } = res
+      console.log('frameBuffer.byteLength', frameBuffer)
+    })
+  },
+  onFrameRecorded:function(){
+
   },
 
   /**
@@ -85,6 +93,9 @@ Page({
     that.InnerAudioContext = wx.createInnerAudioContext()
     that.InnerAudioContext.src = that.data.filePath;
     that.InnerAudioContext.play();
+    that.InnerAudioContext.onPlay(() => {
+      console.log(that.InnerAudioContext)
+    })
     that.setData({
       chooseVoice: 'pause',
     })
