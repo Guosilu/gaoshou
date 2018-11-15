@@ -115,13 +115,17 @@ Page({
   getActivityList: function () {
     var that = this;
     //获取活动
+    var where = {};
+    where['mode'] = 'image'
     wx.request({
       url: config.activityUrl,
       method: 'POST',
       data: {
-        action: 'lists'
+        action: 'lists',
+        where: where
       },
       success: function (res) {
+        console.log(res);
         that.setData({
           taglist: res.data,
         });

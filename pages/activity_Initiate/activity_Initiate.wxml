@@ -65,15 +65,15 @@
                 </view>
                 <view class="weui-uploader__bd">
                   <image wx:if="{{isRecording}}" class='voice-ing' src='/images/voice-ing.gif' />
-                  <view class="" wx:if="{{vofile==''}}" bind:longtap="start" bind:touchend="stop" class='voice-btn'>
+                  <view class="" wx:if="{{file==''}}" bind:longtap="start" bind:touchend="stop" class='voice-btn'>
                     <image src='/images/voice_b.png' class='vobtn-img' /> 点击上传
                   </view>
                   <!-- <view bindtap='play'>播放</view>
                   <view bindtap='stopPlay'>停止</view>
                   <view bindtap='pause'>暂停</view> -->
-                  <view class='audio-box' wx:if='{{filePath}}'>
+                  <view class='audio-box' wx:if='{{file}}'>
                     <image src='{{chooseVoice=="play"?"/images/start.png":"/images/pause.png"}}' bindtap='{{chooseVoice}}' bind:longtap="stopPlay"/>
-                    <text class='audio-time'>19"</text>
+                    <text class='audio-time'>{{duration}}"</text>
                   </view>
                 </view>
               </view>
