@@ -93,14 +93,14 @@
                   <view class="weui-uploader__title">上传视频</view>
                 </view>
                 <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vifile != ''}}">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{file != ''}}">
                     <view class="weui-uploader__file">
-                      <video class="weui-uploader__img" poster='{{vifile.thumbTempFilePath}}' src="{{vifile.tempFilePath}}"></video>
-                      <!-- <image src='{{vifile.thumbTempFilePath}}'></image> -->
-                      <view bindtap="delVideo">删除</view>
+                      <video class="weui-uploader__img" poster='{{file}}' src="{{file}}"></video>
+                      <!-- <image src='{{thumbTempFilePath}}'></image> -->
+                      <view bindtap="delVideo">删除</view>                 
                     </view>
                   </view>
-                  <view class="" wx:if="{{vifile==''}}" bindtap="chooseVideo" class='voice-btn'>
+                  <view class="" wx:if="{{file==''}}" bindtap="chooseVideo" class='voice-btn'>
                     <image src='/images/video_b.png' class='vobtn-img' /> 点击上传
                   </view>
                 </view>

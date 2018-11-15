@@ -21,7 +21,7 @@ Page({
     duration: 1000,
     //选择活动类型
     cateName: ["图片", "语音", "视频", "文章"],
-    cateActive: 1,
+    cateActive: 2,
     //活动分类
     activityType: ["类别", "比赛", "排名", "互助"],
     activityTypeIndex: 0,
@@ -132,10 +132,12 @@ Page({
       success: function(res) {
         console.log(res);
         that.setData({
-          file: res
+          file: res.tempFilePath,
+          // thumbTempFilePath: res.thumbTempFilePath
         })
       }
     })
+
   },
 
   /**
@@ -190,7 +192,8 @@ Page({
     let clk = this;
     clk.setData({
       cateActive: e.currentTarget.dataset.current,
-      file: ""
+      file: "",
+      thumbTempFilePath:''
     })
   },
 
