@@ -6,7 +6,7 @@
       <view class='ex_info'>
         <image src='{{detail.avatarUrl}}' class='ex_icon wx-avatar' mode='widthFix' />{{detail.nickName}}</view>
       <view class='ex_info'>
-        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.zanshang}}
+        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.integral?detail.integral:0}}
       </view>
      <view class='ex_info'>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>

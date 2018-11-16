@@ -7,7 +7,7 @@
       </view>
         
       <view class='ex_info'>
-        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.zanshang}}
+        <image src='/images/money.png' class='ex_icon' mode='widthFix' />{{detail.integral}}
       </view>
       <view class='ex_info'>
         <image src='/images/looks.png' class='ex_icon' mode='widthFix' />{{detail.liulan}}</view>
