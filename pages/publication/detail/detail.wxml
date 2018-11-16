@@ -61,9 +61,9 @@
     <view class='ex-tit'>
       作品说明
     </view>
-    <view class='rule-cont'>
+    <text class='rule-cont'>
       {{detail.introduce}}
-    </view>
+    </text>
   </view>
   <!-- <import src='/pages/template/contact/contact.wxml' />
   <template is='contact'></template> -->
