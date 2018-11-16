@@ -18,6 +18,7 @@ Page({
     page: 1,
     pagesize: 5,
     publicationPage: 1,
+    cateActive: null,
   },
 
   /**
@@ -329,6 +330,10 @@ Page({
 
   //初次加载
   onLoad: function(options) {
+    
+    this.setData({
+      cateActive: options.cateActive,
+    })
     wx.showLoading({
       mask: true,
       title: '加载中...',
@@ -355,14 +360,12 @@ Page({
       compose_type: this.data.compose_type,
       pagesize: 5,
     }
-    this.get_detail(options.id);
-    this.getComment(dataObj, 2);
-    this.getOrderList(id);
-    this.getExhibitList(id);
-
+    that.get_detail(options.id);
+    that.getComment(dataObj, 2);
+    that.getOrderList(id);
+    that.getExhibitList(id);
 
   },
-
 
 
   /**

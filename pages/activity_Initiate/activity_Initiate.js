@@ -290,8 +290,9 @@ Page({
           });
           // that.form_reset();
           wx.redirectTo({
-            url: '../exhibit/exhibit?id=' + res.data,
+            url: '../exhibit/exhibit?id=' + res.data + '&cateActive=' + that.data.cateActive,
           })
+          console.log(that.data);
         } else {
           wx.showToast({
             title: '提交失败！',

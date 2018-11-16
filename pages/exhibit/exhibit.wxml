@@ -33,9 +33,27 @@
       </view>
     </view>
     <view class='informat'>
-      <view class='ex-cover'>
+      <view class='ex-cover' wx:if="{{cateActive==0}}">
         <image src='{{detail.file}}' mode='widthFix'></image>
       </view>
+      <!-- 录音展示区 -->
+      <view class='audio-item' wx:if="{{cateActive==1}}">
+        <view class='audio-btn-box' bindtap='clickPlay' bind:longpress="audioStop">
+          <image class='audio-img' style='transform:rotate({{rotateNum}}deg);' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='widthFix' />
+          <image class='audio-btn' src='{{aPlay?"/images/pause.png":"/images/start.png"}}' />
+        </view>
+        <image class='audio-bg' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
+        <view class='audio-text'>不做不可及的梦，这使我的睡眠安恬。避开无事时过分热络的友谊，这使我少些负担和承诺。不说无谓的闲言，这使我觉得清畅</view>
+        <view class='audio-progress'>
+          <slider bindchange="slider3change" selected-color="#44B549" bindchange="changeProgress" value="{{playProgress}}" block-size="12" disabled/>
+          <text>{{currentTime}}</text>
+        </view>
+        <view class='audio-progress' style='display:none;'>
+          <progress percent="{{playProgress}}" border-radius="3" stroke-width="3" />
+          <text>{{currentTime}}</text>
+        </view>
+      </view>
+      <!-- End -->
       <view bindtap='openPay' class='reward-btn' style='display:none'>
         赏
       </view>
@@ -61,7 +79,7 @@
         </view>
       </view>
     </view>
-<!-- 
+    <!-- 
     <view class='ad-item'>
       <view class='ad-bar'>广告推广</view>
       <view class='ad-inner'>
