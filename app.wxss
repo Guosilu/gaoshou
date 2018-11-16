@@ -478,3 +478,8 @@ swiper {
   margin-left: -20rpx;
   margin-top: 20rpx;
 }
+
+/* 视频 */
+.video-box{
+  width: 100%;
+}

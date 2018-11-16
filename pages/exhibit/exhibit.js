@@ -3,6 +3,7 @@ const configLike = require('../../config/like.js');
 const config = util.config;
 const comment = util.comment;
 const app = util.app;
+const innerAudioContext = wx.createInnerAudioContext();
 Page({
   data: {
     comment: [],
@@ -54,7 +55,7 @@ Page({
               activity_id: that.data.detail.id
             },
             success: function (res) {
-              console.log(res);
+              // console.log(res);
               if (res.data > 0) {
                 wx.showToast({
                   title: '添加成功',
@@ -92,7 +93,7 @@ Page({
 
   //赏金
   money: function(e) {
-    console.log(e);
+    // console.log(e);
     var that = this;
     that.setData({
       money: e.currentTarget.dataset.money
@@ -101,7 +102,7 @@ Page({
   },
 
   money1: function(e) {
-    console.log(e);
+    // console.log(e);
     var that = this;
     that.setData({
       money: (e.detail.value) * 100,
@@ -149,7 +150,7 @@ Page({
         openId: app.globalData.openId
       },
       success: function(res) {
-        console.log(res.data);
+        // console.log(res.data);
         var data = res.data;
 
         //生成签名
@@ -163,7 +164,7 @@ Page({
           },
           success: function(res) {
             var signData = res.data;
-            console.log(res.data);
+            // console.log(res.data);
             wx.requestPayment({
               'timeStamp': signData.timeStamp,
               'nonceStr': signData.nonceStr,
@@ -171,7 +172,7 @@ Page({
               'signType': "MD5",
               'paySign': signData.sign,
               success: function(res) {
-                console.log(res);
+                // console.log(res);
                 // 添加数据库信息
                 wx.request({
                   url: config.payApi,
@@ -220,7 +221,7 @@ Page({
       }
     }
     configLike.requestFun(config.activityUrl, param).then(function(data) {
-      console.log(data);
+      // console.log(data);
       if (data.success == 1) {
         that.setData({
           like_status: 1,
@@ -275,7 +276,7 @@ Page({
             result[a]['file'] = result[a]['file'].split(',')
           }
         }
-        console.log(result)
+        // console.log(result)
         that.setData({
           publication: result
         })
@@ -330,7 +331,7 @@ Page({
 
   //初次加载
   onLoad: function(options) {
-    
+    console.log(options)
     this.setData({
       cateActive: options.cateActive,
     })
@@ -398,10 +399,14 @@ Page({
     }
     configLike.requestFun(config.activityUrl, param).then(function(data) {
       if (data) {
-        // if(data['file'] && data['mode'] == 'image'){
-        //   data['file'] = data['file'].split(',');
-        // }
-        console.log(data)
+        if(data['file'] && data['mode'] == 'image'){
+          data['file'] = data['file'].split(',');
+        }
+        if (data['mode'] == 'voice'){
+          innerAudioContext.src = data.file;
+        }
+        // console.log(data)
+        // console.log(data.file);
         that.setData({
           detail: data,
           like_status: data.like_status,
@@ -410,7 +415,78 @@ Page({
       }
     });
   },
-
+  clickPlay: function () {
+    let that = this;
+    let play = that.data.aPlay;
+    if (play) {
+      // 暂停
+      innerAudioContext.pause()
+      // 监听暂停
+      innerAudioContext.onPause(() => {
+        that.setData({
+          aPlay: false,
+        })
+        console.log('暂停播放');
+        // 清空定时，取消旋转
+        clearInterval(that.setTimer);
+      })
+    } else {
+      innerAudioContext.play()
+      innerAudioContext.onPlay(() => {
+        that.setData({
+          aPlay: true,
+        })
+        console.log('开始播放');
+        // 清空定时
+        clearInterval(that.setTimer);
+        // 头像旋转
+        that.setTimer = setInterval(() => {
+          let rotate = that.data.rotateNum;
+          let aProgress = (innerAudioContext.currentTime / innerAudioContext.duration) * 100;
+          let playTime = innerAudioContext.duration - innerAudioContext.currentTime;
+          let min = parseInt(playTime / 60);
+          let sec = parseInt(playTime % 60);
+          if (sec <= 9) {
+            sec = "0" + sec;
+          }
+          if (min <= 9) {
+            min = "0" + min;
+          }
+          rotate++;
+          that.setData({
+            rotateNum: rotate,
+            playProgress: aProgress,
+            currentTime: min + ":" + sec,
+          })
+        }, 40)
+      })
+    }
+    // 监听正常播放结束
+    innerAudioContext.onEnded(() => {
+      var that = this;
+      clearInterval(that.setTimer);
+      that.setData({
+        rotateNum: 0,
+        aPlay: false,
+        playProgress: 0,
+      })
+      console.log("正常播放结束")
+    })
+  },
+  // 长按停止
+  audioStop: function () {
+    innerAudioContext.stop()
+    innerAudioContext.onStop(() => {
+      var that = this;
+      clearInterval(that.setTimer);
+      that.setData({
+        rotateNum: 0,
+        aPlay: false,
+        playProgress: 0,
+      })
+      console.log("停止成功")
+    })
+  },
   //获取参与者
   getOrderList: function(id) {
     let that = this;
@@ -434,7 +510,7 @@ Page({
         that.setData({
           order_lists: res.data
         });
-        console.log(res);
+        // console.log(res);
       }
     })
   },
@@ -477,7 +553,7 @@ Page({
       }
     }
     configLike.requestFun(config.activityUrl, param).then(function(data) {
-      console.log(data);
+      // console.log(data);
       if (data.success == 1) {
         that.setData({
           like_status: 1,
@@ -495,7 +571,7 @@ Page({
   likeFun: function(option, act) {
     var that = this,
       like_status, confirm, tipTitle;
-    console.log(option.target.dataset)
+    // console.log(option.target.dataset)
     var id = option.target.dataset.id || 0;
     var index = option.target.dataset.index >= 0 ? option.target.dataset.index : ''
     var dianzan = Number(option.target.dataset.dianzan) >= 0 ? Number(option.target.dataset.dianzan) : '';
@@ -550,7 +626,7 @@ Page({
     var act = act || 1;
     comment.query('list', dataObj).then(function(data) {
       if (data.lists.length > 0) {
-        console.log(data.lists);
+        // console.log(data.lists);
         let comment = (act == 'sendCom') ? data.lists : that.data.comment.concat(data.lists);
         let page = (act == 'sendCom') ? that.data.page : that.data.page + 1;
         that.setData({
@@ -594,7 +670,7 @@ Page({
 
     comment.query('add', param).then(
       function(data) {
-        console.log(data);
+        // console.log(data);
         if (data != '0') {
           wx.showToast({
             title: '添加成功',
