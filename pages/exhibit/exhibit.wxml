@@ -33,7 +33,7 @@
       </view>
     </view>
     <view class='informat'>
-      <view class='ex-cover' wx:if="{{cateActive==0}}">
+      <view class='ex-cover' wx:if="{{cateActive==0||cateActive==null}}">
         <image src='{{detail.file}}' mode='widthFix'></image>
       </view>
       <!-- 录音展示区 -->
