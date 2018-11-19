@@ -36,6 +36,29 @@ Page({
     // 选择支付方式
     selectPay: false,
   },
+
+
+
+  /**
+   * 选择视频
+   */
+  chooseVideo: function () {
+    var that = this;
+    var files = [];
+    wx.chooseVideo({
+      maxDuration: 1000,
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          files: files.concat(res.tempFilePath),
+          // thumbTempFilePath: res.thumbTempFilePath
+        })
+        //console.log(that.data.files);
+      }
+    })
+
+  },
+
   formSubmit: function (e) {
     console.log(e);
     let post = e.detail.value;
@@ -329,6 +352,16 @@ Page({
       cateActive: e.currentTarget.dataset.current,
       file: "",
       thumbTempFilePath: ''
+    })
+  },
+
+  /**
+   * 删除视频
+   */
+  delVideo: function () {
+    var that = this;
+    that.setData({
+      files: []
     })
   },
 

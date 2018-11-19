@@ -80,7 +80,7 @@
       </view>
     </view>
     <!-- 视频 -->
-    <view class="page__modules modules__shadow" wx:if='{{cateActive==2}}'>
+     <view class="page__modules modules__shadow" wx:if='{{cateActive==2}}'>
       <view class="page__bd">
         <view class="weui-cells">
           <view class="weui-cell">
@@ -90,14 +90,14 @@
                   <view class="weui-uploader__title">上传视频</view>
                 </view>
                 <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{vifile != ''}}">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{files.length>0}}">
                     <view class="weui-uploader__file">
-                      <video class="weui-uploader__img" poster='{{vifile.thumbTempFilePath}}' src="{{vifile.tempFilePath}}"></video>
-                      <!-- <image src='{{vifile.thumbTempFilePath}}'></image> -->
-                      <view bindtap="delVideo">删除</view>
+                      <video class="weui-uploader__img" poster='{{files[0]}}' src="{{files[0]}}"></video>
+                      <!-- <image src='{{thumbTempFilePath}}'></image> -->
+                      <view bindtap="delVideo">删除</view>                 
                     </view>
                   </view>
-                  <view class="" wx:if="{{vifile==''}}" bindtap="chooseVideo" class='voice-btn'>
+                  <view class="" wx:if="{{files.length<1}}" bindtap="chooseVideo" class='voice-btn'>
                     <image src='/images/video_b.png' class='vobtn-img' /> 点击上传
                   </view>
                 </view>

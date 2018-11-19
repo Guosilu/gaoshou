@@ -42,7 +42,7 @@
 					"id": 0,
 					"name": "活动页面",
 					"pathName": "pages/exhibit/exhibit",
-					"query": "id=74&cateActive=1"
+					"query": "id=4&cateActive=2"
 				},
 				{
 					"id": 1,
