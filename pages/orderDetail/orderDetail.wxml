@@ -26,9 +26,8 @@
     </view>
   </view>
   <view class='informat'>
-    <view class='ex-cover'>
+    <view class='ex-cover' wx:if="{{cateActive==0}}">
       <image wx:for="{{detail.file}}" wx:key="*this"  src="{{item}}" mode='widthFix'></image>
-
     </view>
     <view class='reward-btn' bindtap='openPay'>
       喜欢作品
