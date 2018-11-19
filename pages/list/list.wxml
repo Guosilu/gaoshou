@@ -1,96 +1,111 @@
 <!-- 语音 -->
-<view class='avlist-item'>
-  <!-- 用户头像区 -->
-    <view class='audio-user'>
-      <image class='avuser-avatar' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
-      <view class='avuser-info'>
-        <view class='avuser-name'>图兔兔吐突突</view>
-        <view class='avuser-time'>11/09</view>
-      </view>
-    </view>
-    <!-- 录音展示区 -->
-    <view class='audio-item'>
-      <image class='audio-bg' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
-      <view class='audio-text'>不做不可及的梦，这使我的睡眠安恬。避开无事时过分热络的友谊，这使我少些负担和承诺。不说无谓的闲言，这使我觉得清畅</view>
-      <view class='audio-btn-box' bindtap='clickPlay' bind:longpress="audioStop">
-        <image class='audio-img' style='transform:rotate({{rotateNum}}deg);' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='widthFix' />
-        <image class='audio-btn' src='{{aPlay?"/images/pause.png":"/images/start.png"}}' />
-      </view>
-      <!-- <audio src="{{current.src}}" poster="{{current.poster}}" name="{{current.name}}" author="{{current.author}}" action="{{audioAction}}" bindtimeupdate="audioTimeUpdated" controls="{{false}}"></audio> -->
-      <view class='audio-progress'>
-        <slider bindchange="slider3change" selected-color="#44B549" bindchange="changeProgress" value="{{playProgress}}" block-size="12" disabled/>
-        <text>{{currentTime}}</text>
-      </view>
-      <view class='audio-progress' style='display:none;'>
-        <progress percent="{{playProgress}}" border-radius="3" stroke-width="3" />
-        <text>{{currentTime}}</text>
-      </view>
-    </view>
-    <!-- 互动区 -->
-    <view class='av-inte-box'>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/share.png'></image> <text>5</text></view>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/contact.png'></image> <text>5</text></view>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/like.png'></image> <text>5</text></view>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/red-packet.png'></image></view>
-    </view>
-  </view>
-
-  <!-- 视频 -->
-<view class='avlist-item'>
-  <!-- 用户头像区 -->
-    <view class='video-user'>
-      <image class='avuser-avatar' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
-      <view class='avuser-info'>
-        <view class='avuser-name'>图兔兔吐突突</view>
-        <view class='avuser-time'>11/09</view>
-      </view>
-    </view>
-    <!-- 视频展示区 -->
-    <view class='video-item'>
-      <view class='video-text'>不做不可及的梦，这使我的睡眠安恬。避开无事时过分热络的友谊，这使我少些负担和承诺。不说无谓的闲言，这使我觉得清畅</view>
-      <video class='video-box' id="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
-    </view>
-    <!-- 互动区 -->
-    <view class='av-inte-box'>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/share.png'></image> <text>5</text></view>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/contact.png'></image> <text>5</text></view>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/like.png'></image> <text>5</text></view>
-      <view class='av-inte'><image class='av-inte-icon' src='/images/red-packet.png'></image></view>
-    </view>
-  </view>
-
 
 
 <block wx:if="{{types=='all'}}">
   <view class='list'>
+
+  <!-- 图片 -->
     <view class='list-item' wx:for='{{list}}' wx:key="*this">
-      <view class='portrait'>
-        <view class='exh_title'>活动名称
-          <view class='exh_num'>编号：<text selectable='true'>{{item.number?item.number:""}}</text></view>
+      <block wx:if='{{item.mode=="image"}}'>
+        <view class='portrait'>
+          <view class='exh_title'>{{item.title}}
+            <view class='exh_num'>编号：<text selectable='true'>{{item.number?item.number:""}}</text></view>
+          </view>
+          <view class="user_info">
+            <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
+            <text class="user_name">{{item.nickName}}</text>
+            <text class="user_date">截止日期：{{item.endtime}}</text>
+          </view>
         </view>
-        <view class="user_info">
-          <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
-          <text class="user_name">{{item.nickName}}</text>
-          <text class="user_date">截止日期：{{item.endtime}}</text>
+        <view class='del-text' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
+          {{item.rule}}
         </view>
-      </view>
-      <view class='del-text' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
-        {{item.rule}}
-      </view>
-      <view class='del-cont' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
-        <image src='{{item.file}}' mode='aspectFill'></image>
-        <!-- <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
-        <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image> -->
-      </view>
+        <view class='del-cont' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
+          <image src='{{item.file}}' mode='aspectFill'></image>
+          <!-- <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
+          <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image> -->
+        </view>
 
-      <view class='partic'>
-        <image src='/images/like.png' class='ex_icon' mode='widthFix' />
-        <text class='ex_text'>{{item.zanshang}}</text>
-        <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
-        <text class='ex_text'>{{item.liulan}}</text>
+        <view class='partic'>
+          <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+          <text class='ex_text'>{{item.zanshang}}</text>
+          <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+          <text class='ex_text'>{{item.liulan}}</text>
+          <navigator class='join' url='../participate/participate?id={{item.id}}'>参与活动</navigator>
+        </view>
+      </block>
 
-        <navigator class='join' url='../participate/participate?id={{item.id}}'>参与活动</navigator>
-      </view>
+      <!-- 语音 -->
+      <block wx:if='{{item.mode == "voice"}}'>
+        <view class='avlist-item'>
+            <view class='exh_title'>{{item.title}}
+            <view class='exh_num'>编号：<text selectable='true'>{{item.number?item.number:""}}</text></view>
+          </view>
+          <!-- 用户头像区 -->
+            <view class='audio-user'>
+              <image class='avuser-avatar' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
+              <view class='avuser-info'>
+                <view class='avuser-name'>{{item.nickName}}</view>
+                <view class='avuser-time'>{{item.addtime}}</view>
+              </view>
+            </view>
+            <!-- 录音展示区 -->
+            <view class='audio-item'>
+              <image class='audio-bg' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
+              <view class='audio-text'>{{item.rule}}</view>
+              <view class='audio-btn-box' bindtap='clickPlay' bind:longpress="audioStop">
+                <image class='audio-img' style='transform:rotate({{rotateNum}}deg);' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='widthFix' />
+                <image class='audio-btn' src='{{aPlay?"/images/pause.png":"/images/start.png"}}' />
+              </view>
+              <audio src="{{item.file}}" poster="{{current.poster}}" name="{{current.name}}" author="{{current.author}}" action="{{audioAction}}" bindtimeupdate="audioTimeUpdated" controls="{{false}}"></audio>
+              <view class='audio-progress'>
+                <slider bindchange="slider3change" selected-color="#44B549" bindchange="changeProgress" value="{{playProgress}}" block-size="12" disabled/>
+                <text>{{currentTime}}</text>
+              </view>
+              <view class='audio-progress' style='display:none;'>
+                <progress percent="{{playProgress}}" border-radius="3" stroke-width="3" />
+                <text>{{currentTime}}</text>
+              </view>
+            </view>
+            <!-- 互动区 -->
+            <!-- <view class='av-inte-box'>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/share.png'></image> <text>5</text></view>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/contact.png'></image> <text>5</text></view>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/like.png'></image> <text>5</text></view>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/red-packet.png'></image></view>
+            </view> -->
+        </view>
+      </block>
+      
+      <!-- 视频 -->
+      <block wx:if="{{item.mode == 'video'}}">
+        <view class='avlist-item'>
+          <view class='exh_title'>{{item.title}}
+              <view class='exh_num'>编号：<text selectable='true'>{{item.number?item.number:""}}</text></view>
+          </view>
+          <!-- 用户头像区 -->
+            <view class='video-user'>
+              <image class='avuser-avatar' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
+              <view class='avuser-info'>
+                <view class='avuser-name'>{{item.nickName}}</view>
+                <view class='avuser-time'>{{item.addtime}}</view>
+              </view>
+            </view>
+            <!-- 视频展示区 -->
+            <view class='video-item'>
+              <view class='video-text'>{{item.rule}}</view>
+              <video class='video-box' id="myVideo" src="{{item.file}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+            </view>
+            <!-- 互动区 -->
+            <!-- <view class='av-inte-box'>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/share.png'></image> <text>5</text></view>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/contact.png'></image> <text>5</text></view>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/like.png'></image> <text>5</text></view>
+              <view class='av-inte'><image class='av-inte-icon' src='/images/red-packet.png'></image></view>
+            </view> -->
+        </view>
+      </block>
+
     </view>
   </view>
 </block>

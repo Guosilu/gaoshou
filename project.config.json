@@ -1,128 +1,152 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
-	"appid": "wxe44bd41006bd0fca",
-	"projectname": "gaoshou",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 2,
-			"list": [
-				{
-					"id": 0,
-					"name": "活动页面",
-					"pathName": "pages/exhibit/exhibit",
-					"query": "id=63&cateActive=1"
-				},
-				{
-					"id": 1,
-					"name": "赛脉广场详情页面",
-					"pathName": "pages/square/add/index",
-					"query": "id=27"
-				},
-				{
-					"id": 2,
-					"name": "参与活动详情页面",
-					"pathName": "pages/orderDetail/orderDetail",
-					"query": "id=28&cateActive=1"
-				},
-				{
-					"id": 3,
-					"name": "添加广告",
-					"pathName": "pages/place_ad/place_ad",
-					"query": ""
-				},
-				{
-					"id": 4,
-					"name": "论坛问答首页",
-					"pathName": "pages/forum/question/question",
-					"query": "id=2"
-				},
-				{
-					"id": -1,
-					"name": "回答详情页",
-					"pathName": "pages/forum/article/article",
-					"query": "id=1"
-				},
-				{
-					"id": 6,
-					"name": "申请",
-					"pathName": "pages/recharge/recharge",
-					"query": ""
-				},
-				{
-					"id": 7,
-					"name": "申请成功",
-					"pathName": "pages/recharge/bringsuccess",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "充值",
-					"pathName": "pages/recharge/apply",
-					"query": ""
-				},
-				{
-					"id": 9,
-					"name": "余额",
-					"pathName": "pages/recharge/trecord",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "发起活动",
-					"pathName": "pages/activity_Initiate/activity_Initiate",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "添加作品",
-					"pathName": "pages/publication/add/publication",
-					"query": ""
-				},
-				{
-					"id": 12,
-					"name": "作品详情",
-					"pathName": "pages/publication/detail/detail",
-					"query": "id=62&cateActive=1"
-				},
-				{
-					"id": 13,
-					"name": "添加参与活动",
-					"pathName": "pages/participate/participate",
-					"query": "id=24"
-				}
-			]
-		}
-	}
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.3.0",
+  "appid": "wxe44bd41006bd0fca",
+  "projectname": "gaoshou",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 17,
+      "list": [
+        {
+          "id": 0,
+          "name": "活动页面",
+          "pathName": "pages/exhibit/exhibit",
+          "query": "id=73&cateActive=1"
+        },
+        {
+          "id": 1,
+          "name": "赛脉广场详情页面",
+          "pathName": "pages/square/detail/detail",
+          "query": "id=27"
+        },
+        {
+          "id": 2,
+          "name": "参与活动详情页面",
+          "pathName": "pages/orderDetail/orderDetail",
+          "query": "id=28"
+        },
+        {
+          "id": 3,
+          "name": "论坛首页",
+          "pathName": "pages/forum/forum",
+          "query": ""
+        },
+        {
+          "id": 4,
+          "name": "论坛问答首页",
+          "pathName": "pages/forum/question/question",
+          "query": "id=2"
+        },
+        {
+          "id": -1,
+          "name": "回答详情页",
+          "pathName": "pages/forum/article/article",
+          "query": "id=1"
+        },
+        {
+          "id": 6,
+          "name": "申请",
+          "pathName": "pages/recharge/recharge",
+          "query": ""
+        },
+        {
+          "id": 7,
+          "name": "申请成功",
+          "pathName": "pages/recharge/bringsuccess",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "充值",
+          "pathName": "pages/recharge/apply",
+          "query": ""
+        },
+        {
+          "id": 9,
+          "name": "余额",
+          "pathName": "pages/recharge/trecord",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "发起活动",
+          "pathName": "pages/activity_Initiate/activity_Initiate",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "添加作品",
+          "pathName": "pages/publication/add/publication",
+          "query": ""
+        },
+        {
+          "id": 12,
+          "name": "作品详情",
+          "pathName": "pages/publication/detail/detail",
+          "query": "id=27"
+        },
+        {
+          "id": 13,
+          "name": "添加参与活动",
+          "pathName": "pages/participate/participate",
+          "query": "id=24"
+        },
+        {
+          "id": -1,
+          "name": "我的作品",
+          "pathName": "pages/record/record",
+          "query": "type=MyPublication"
+        },
+        {
+          "id": -1,
+          "name": "添加广告",
+          "pathName": "pages/place_ad/place_ad",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "我的",
+          "pathName": "pages/my/my",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "活动列表",
+          "pathName": "pages/list/list",
+          "query": "type=all"
+        }
+      ]
+    }
+  }
 }
