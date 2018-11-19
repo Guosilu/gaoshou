@@ -51,7 +51,7 @@ Page({
               action: 'addByPublication',
               id: ids,
               openId: app.globalData.openId,
-              mode: 'image',
+              mode: that.data.detail.mode,
               activity_id: that.data.detail.id
             },
             success: function (res) {
@@ -266,17 +266,17 @@ Page({
         action: 'lists',
         page: that.data.publicationPage,
         post: {
-          openId: app.globalData.openId
+          openId: app.globalData.openId,
+          mode: that.data.detail.mode
         }
       },
       success: function(res) {
         var result = res.data;
         for (let a = 0; a < result.length; a++) {
-          if (result[a]['file'] && result[a]['mode'] == 'image') {
             result[a]['file'] = result[a]['file'].split(',')
-          }
         }
-        // console.log(result)
+        console.log(that.data.detail);
+        console.log(result);
         that.setData({
           publication: result
         })
