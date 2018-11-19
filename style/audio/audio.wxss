@@ -141,9 +141,6 @@
   width: 750rpx;
 }
 
-.audio-user {
-  padding: 20rpx 20rpx 10rpx;
-}
 
 .audio-item {
   text-align: center;
