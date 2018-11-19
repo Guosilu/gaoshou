@@ -210,6 +210,7 @@ Page({
         console.log(data);
         that.setData({
           detail: data,
+          
           like_status: data.like_status,
         })
         wx.hideLoading();
