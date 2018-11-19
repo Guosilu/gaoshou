@@ -8,13 +8,13 @@
         <view class="user_info">
           <image class="list_Avatar" src="{{item.avatarUrl}}"></image>
           <text class="user_name">{{item.nickName}}</text>
-          <text class="user_date">截止日期：10月31日（周三）</text>
+          <text class="user_date">截止日期：{{item.endtime}}</text>
         </view>
       </view>
-      <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
+      <view class='del-text' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
         {{item.rule}}
       </view>
-      <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
+      <view class='del-cont' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
         <image src='{{item.file}}' mode='aspectFill'></image>
         <!-- <image wx:if="{{item.thumb1}}" src='{{item.thumb1}}' mode='aspectFill'></image>
         <image wx:if="{{item.thumb2}}" src='{{item.thumb2}}' mode='aspectFill'></image> -->
@@ -44,10 +44,10 @@
           <text class="user_name">{{item.nickName}}</text>
         </view>
       </view>
-      <view class='del-text' bindtap='show' data-ids='{{item.id}}'>
+      <view class='del-text' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
         {{item.rule}}
       </view>
-      <view class='del-cont' bindtap='show' data-ids='{{item.id}}'>
+      <view class='del-cont' bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>
         <image wx:for='{{item.file}}' wx:key="*this" wx:for-item="items" src='{{items}}' mode='aspectFill'></image>
       </view>
 

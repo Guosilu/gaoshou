@@ -14,11 +14,13 @@ Page({
   },
 
   show:function(option){
+    console.log(option);
     let that = this;
-    let id = option.currentTarget.dataset.ids
+    let id = option.currentTarget.dataset.ids     
+    let cateActive = option.currentTarget.dataset.cateactive
     if(that.data.types=='all'){
       wx.navigateTo({
-        url: '../exhibit/exhibit?id=' + id,
+        url: '../exhibit/exhibit?id=' + id + '&cateActive=' + cateActive,
       })
     }else{
       wx.navigateTo({
@@ -73,7 +75,7 @@ Page({
     wx.request({
       url: url,
       method: "POST",
-      dataType: "JSON",
+      dataType: "json",
       data: {
         page: page,
         pagesize: pagesize,
@@ -81,7 +83,7 @@ Page({
         where: where
       },
       success: function (res) {
-        let data = JSON.parse(res.data);
+        let data = res.data;
         for(let a = 0; a< data.length; a++) {
           if (data[a].mode == 'image' && data[a]['file']) {
             data[a]['file']  = data[a]['file'].split(',')
@@ -89,7 +91,6 @@ Page({
         }
         console.log(data);
         if (res.data!='[]'){
-          console.log(res);
           if (onShow == 1) {
             that.setData({
               list: data,

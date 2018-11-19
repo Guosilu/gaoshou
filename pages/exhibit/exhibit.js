@@ -332,8 +332,19 @@ Page({
   //初次加载
   onLoad: function(options) {
     console.log(options)
+    var cateActive = options.cateActive ? options.cateActive: 0;
+    if (cateActive == 'image'){
+      cateActive = 0;
+    } else if (cateActive == 'voice'){
+      cateActive = 1;
+    } else if (cateActive == 'video') {
+      cateActive = 2;
+    } else if (cateActive == 'active') {
+      cateActive = 3;
+    }
+
     this.setData({
-      cateActive: options.cateActive,
+      cateActive: cateActive,
     })
     wx.showLoading({
       mask: true,
