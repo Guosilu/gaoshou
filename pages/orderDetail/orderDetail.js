@@ -3,7 +3,7 @@ const configLike = require('../../config/like.js');
 const config = util.config;
 const comment = util.comment;
 const app = util.app;
-
+const innerAudioContext = wx.createInnerAudioContext();
 Page({
   data: {
     like_status: null,
@@ -13,6 +13,7 @@ Page({
     pagesize: 5,
     comNum: 0,
     comment: [],
+    cateActive: null,
   },
   
   //赏金
@@ -196,8 +197,82 @@ Page({
     }
     this.get_detail(options.id);
     this.getComment(dataObj, 2);
+    that.setData({
+      cateActive: options.cateActive,
+    })
   },
-
+  clickPlay: function () {
+    let that = this;
+    let play = that.data.aPlay;
+    if (play) {
+      // 暂停
+      innerAudioContext.pause()
+      // 监听暂停
+      innerAudioContext.onPause(() => {
+        that.setData({
+          aPlay: false,
+        })
+        console.log('暂停播放');
+        // 清空定时，取消旋转
+        clearInterval(that.setTimer);
+      })
+    } else {
+      innerAudioContext.play()
+      innerAudioContext.onPlay(() => {
+        that.setData({
+          aPlay: true,
+        })
+        console.log('开始播放');
+        // 清空定时
+        clearInterval(that.setTimer);
+        // 头像旋转
+        that.setTimer = setInterval(() => {
+          let rotate = that.data.rotateNum;
+          let aProgress = (innerAudioContext.currentTime / innerAudioContext.duration) * 100;
+          let playTime = innerAudioContext.duration - innerAudioContext.currentTime;
+          let min = parseInt(playTime / 60);
+          let sec = parseInt(playTime % 60);
+          if (sec <= 9) {
+            sec = "0" + sec;
+          }
+          if (min <= 9) {
+            min = "0" + min;
+          }
+          rotate++;
+          that.setData({
+            rotateNum: rotate,
+            playProgress: aProgress,
+            currentTime: min + ":" + sec,
+          })
+        }, 40)
+      })
+    }
+    // 监听正常播放结束
+    innerAudioContext.onEnded(() => {
+      var that = this;
+      clearInterval(that.setTimer);
+      that.setData({
+        rotateNum: 0,
+        aPlay: false,
+        playProgress: 0,
+      })
+      console.log("正常播放结束")
+    })
+  },
+  // 长按停止
+  audioStop: function () {
+    innerAudioContext.stop()
+    innerAudioContext.onStop(() => {
+      var that = this;
+      clearInterval(that.setTimer);
+      that.setData({
+        rotateNum: 0,
+        aPlay: false,
+        playProgress: 0,
+      })
+      console.log("停止成功")
+    })
+  },
 
   /**
    * 页面上拉触底事件的处理函数
