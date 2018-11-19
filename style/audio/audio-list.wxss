@@ -1,12 +1,7 @@
 /* pages/audio-list/audio-list.wxss */
-.avlist-item {
-  padding: 20rpx;
-  background: #fff;
-  border-bottom: 15rpx solid #f2f2f2;
-}
 
 .audio-item {
-  height: 200rpx;
+  height: 160rpx;
   border-radius: 10rpx;
 }
 
@@ -15,12 +10,12 @@
 }
 
 .audio-bg {
-  width: 710rpx;
+  width: 614rpx;
 }
 
 .audio-text {
   float: left;
-  width: 450rpx;
+  width: 350rpx;
   height: 126rpx;
   text-overflow: ellipsis;
   display: -webkit-box;
