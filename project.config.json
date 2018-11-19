@@ -36,30 +36,30 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
 					"name": "活动页面",
 					"pathName": "pages/exhibit/exhibit",
-					"query": "id=26"
+					"query": "id=63&cateActive=1"
 				},
 				{
 					"id": 1,
 					"name": "赛脉广场详情页面",
-					"pathName": "pages/square/detail/detail",
+					"pathName": "pages/square/add/index",
 					"query": "id=27"
 				},
 				{
 					"id": 2,
 					"name": "参与活动详情页面",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "id=28"
+					"query": "id=28&cateActive=1"
 				},
 				{
 					"id": 3,
-					"name": "论坛首页",
-					"pathName": "pages/forum/forum",
+					"name": "添加广告",
+					"pathName": "pages/place_ad/place_ad",
 					"query": ""
 				},
 				{
@@ -111,22 +111,16 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 12,
 					"name": "作品详情",
 					"pathName": "pages/publication/detail/detail",
-					"query": "id=8"
+					"query": "id=62&cateActive=1"
 				},
 				{
 					"id": 13,
 					"name": "添加参与活动",
 					"pathName": "pages/participate/participate",
 					"query": "id=24"
-				},
-				{
-					"id": -1,
-					"name": "我的作品",
-					"pathName": "pages/record/record",
-					"query": "type=MyPublication"
 				}
 			]
 		}

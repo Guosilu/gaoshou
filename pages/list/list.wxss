@@ -1,5 +1,6 @@
 /* pages/list/list.wxss */
-
+@import "/style/audio/audio.wxss";
+@import "/style/audio/audio-list.wxss";
 .list {
   margin: 20rpx;
   padding: 20rpx;
