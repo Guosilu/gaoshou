@@ -82,7 +82,7 @@
 
 .audio-progress {
   position: absolute;
-  width: 400rpx;
+  width: 600rpx;
   bottom: 30rpx;
 }
 
@@ -152,7 +152,7 @@
 }
 
 .audio-text {
-  padding: 20rpx 30rpx 40rpx;
+  padding: 20rpx 30rpx 60rpx;
 }
 
 .av-inte-box {
