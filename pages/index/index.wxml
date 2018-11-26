@@ -8,7 +8,7 @@
       <view class="weui-search-bar__form">
         <view class="weui-search-bar__box">
           <icon class="weui-icon-search_in-box" type="search" size="16"></icon>
-          <input type="text" confirm-type="search" bindconfirm="navigatorSearch" class="weui-search-bar__input" placeholder="" value="{{keyword}}" focus="{{inputShowed}}" bindinput="inputTyping" bindfocus='inputTyping' bindblur='inputBlur'/>
+          <input type="text" confirm-type="search" bindconfirm="navigatorSearch" class="weui-search-bar__input" placeholder="" value="{{keyword}}" focus="{{inputShowed}}" bindinput="inputTyping" bindfocus='inputTyping' bindblur='inputBlur' />
           <view class="weui-icon-clear" wx:if="{{keyword.length > 0}}" bindtap="clearInput">
             <icon type="clear" size="16"></icon>
           </view>
@@ -24,7 +24,8 @@
       <navigator url="{{item.navUrl}}" class="weui-cell" hover-class="weui-cell_active" wx:for='{{showList}}' wx:key="*this">
         <view class="weui-cell__bd">
           <view class='search-res'>
-            <text class='search-tag'>{{item.typeName}}</text><text class='search-tit'>{{item.title}}</text>
+            <text class='search-tag'>{{item.typeName}}</text>
+            <text class='search-tit'>{{item.title}}</text>
           </view>
         </view>
       </navigator>
@@ -137,13 +138,19 @@
     <view class="page__modules eventsList">
       <view class="cate_tit">
         推荐活动
+        <view class='cate-bar'>
+          <view wx:for="{{cateBar}}" bindtap='cateBarChd' data-current="{{index}}" wx:key="{{index}}">{{item}}</view>
+        </view>
       </view>
+      <block wx:if="{{cateBarHd==0}}">
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
-            <view class='sys-number'>编号：<text selectable='true'>{{item.number?item.number:"暂无"}}</text></view>
+            <view class='sys-number'>编号：
+              <text selectable='true'>{{item.number?item.number:"暂无"}}</text>
+            </view>
             <view>
               <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
               <text class='item-icnum'>{{item.nickName}}</text>
@@ -159,13 +166,18 @@
           </view>
         </navigator>
       </view>
+      </block>
     </view>
 
 
     <view class="page__modules eventsList">
       <view class="cate_tit">
         最红冠军
+        <view class='cate-bar'>
+          <view wx:for="{{cateBar}}" bindtap='cateBarCgj' data-current="{{index}}" wx:key="{{index}}">{{item}}</view>
+        </view>
       </view>
+      <block wx:if="{{cateBarGj==0}}">
       <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
         <navigator url="../orderDetail/orderDetail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file[0]}}"></image>
@@ -187,13 +199,18 @@
           </view>
         </navigator>
       </view>
+      </block>
     </view>
 
 
     <view class="page__modules eventsList eventsListH">
       <view class="cate_tit">
         推荐作品
+        <view class='cate-bar'>
+          <view wx:for="{{cateBar}}" bindtap='cateBarCzp' data-current="{{index}}" wx:key="{{index}}">{{item}}</view>
+        </view>
       </view>
+      <block wx:if="{{cateBarZp==0}}">
       <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file[0]}}"></image>
@@ -215,6 +232,7 @@
           </view>
         </navigator>
       </view>
+      </block>
     </view>
 
     <view class="page__modules modules_icon5 isHidden">

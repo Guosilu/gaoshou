@@ -31,6 +31,11 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
+    // 分类
+    cateBar: ["图片", "语音", "视频", "文章"],
+    cateBarHd: 0,
+    cateBarGj: 0,
+    cateBarZp: 0,
     //作品
     worksList: [],
     square: []
@@ -215,6 +220,25 @@ Page({
   },
   onShow: function() {
     
+  },
+  // 点击切换
+  cateBarChd:function(e){
+    let cblk = this;
+    cblk.setData({
+      cateBarHd: e.currentTarget.dataset.current,
+    })
+  },
+  cateBarCgj: function (e) {
+    let cblk = this;
+    cblk.setData({
+      cateBarGj: e.currentTarget.dataset.current,
+    })
+  },
+  cateBarCzp: function (e) {
+    let cblk = this;
+    cblk.setData({
+      cateBarZp: e.currentTarget.dataset.current,
+    })
   },
   // 下拉刷新
   onPullDownRefresh: function () {

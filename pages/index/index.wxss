@@ -1,4 +1,19 @@
 /**index.wxss**/
+.cate-bar{
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+.cate-bar view{
+  float: left;
+  width: 100rpx;
+  padding: 2rpx;
+  text-align: center;
+  background: #dc4e40;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+  color: #FFF;
+}
 .weui-cells{
   margin-top: 5rpx;
 }
