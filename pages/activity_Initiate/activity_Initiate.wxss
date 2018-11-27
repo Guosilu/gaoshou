@@ -1,5 +1,7 @@
 /* pages/activity_Initiate/activity_Initiate.wxss */
-
+.page__bd{
+  width: 100%;
+}
 .act-cate {
   padding: 30rpx 20rpx 0;
   display: flex;

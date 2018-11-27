@@ -24,14 +24,14 @@
       </view>
     </view>
 
-    <view class="page__modules modules__shadow" wx:if='{{cateActive==0}}'>
+    <view class="page__modules modules__shadow">
       <view class="page__bd">
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
-                  <view class="weui-uploader__title">上传图片</view>
+                  <view class="weui-uploader__title">上传封面</view>
                   <view class="weui-uploader__info">{{files.length}}/4</view>
                 </view>
                 <view class="weui-uploader__bd">
@@ -52,10 +52,8 @@
           </view>
         </view>
       </view>
-    </view>
     <!-- 语音 -->
-    <view class="page__modules modules__shadow" wx:if='{{cateActive==1}}'>
-      <view class="page__bd">
+      <view class="page__bd" wx:if='{{cateActive==1}}'>
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">
@@ -78,10 +76,8 @@
           </view>
         </view>
       </view>
-    </view>
     <!-- 视频 -->
-     <view class="page__modules modules__shadow" wx:if='{{cateActive==2}}'>
-      <view class="page__bd">
+      <view class="page__bd" wx:if='{{cateActive==2}}'>
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">

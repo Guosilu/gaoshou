@@ -26,14 +26,14 @@
       </view>
     </view>
     <!-- 图片 -->
-    <view class="page__modules modules__shadow" wx:if='{{cateActive==0}}'>
+    <view class="page__modules modules__shadow">
       <view class="page__bd">
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
-                  <view class="weui-uploader__title">活动封面</view>
+                  <view class="weui-uploader__title">上传封面</view>
                   <view class="weui-uploader__info">{{image ? 1 : 0}}/1</view>
                 </view>
                 <view class="weui-uploader__bd">
@@ -52,10 +52,8 @@
           </view>
         </view>
       </view>
-    </view>
-    <!-- 语音 -->
-    <view class="page__modules modules__shadow" wx:if='{{cateActive==1}}'>
-      <view class="page__bd">
+      <!-- 语音 -->
+      <view class="page__bd" wx:if='{{cateActive==1}}'>
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">
@@ -72,7 +70,7 @@
                   <view bindtap='stopPlay'>停止</view>
                   <view bindtap='pause'>暂停</view> -->
                   <view class='audio-box' wx:if='{{file}}'>
-                    <image src='{{chooseVoice=="play"?"/images/start.png":"/images/pause.png"}}' bindtap='{{chooseVoice}}' bind:longtap="stopPlay"/>
+                    <image src='{{chooseVoice=="play"?"/images/start.png":"/images/pause.png"}}' bindtap='{{chooseVoice}}' bind:longtap="stopPlay" />
                     <text class='audio-time'>{{duration}}"</text>
                   </view>
                 </view>
@@ -81,10 +79,8 @@
           </view>
         </view>
       </view>
-    </view>
-    <!-- 视频 -->
-    <view class="page__modules modules__shadow" wx:if='{{cateActive==2}}'>
-      <view class="page__bd">
+      <!-- 视频 -->
+      <view class="page__bd" wx:if='{{cateActive==2}}'>
         <view class="weui-cells">
           <view class="weui-cell">
             <view class="weui-cell__bd">
@@ -97,7 +93,7 @@
                     <view class="weui-uploader__file">
                       <video class="weui-uploader__img" poster='{{file}}' src="{{file}}"></video>
                       <!-- <image src='{{thumbTempFilePath}}'></image> -->
-                      <view bindtap="delVideo">删除</view>                 
+                      <view bindtap="delVideo">删除</view>
                     </view>
                   </view>
                   <view class="" wx:if="{{file==''}}" bindtap="chooseVideo" class='voice-btn'>
