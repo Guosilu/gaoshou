@@ -32,7 +32,7 @@
     </view>
     <view class='informat'>
       <view class='ex-cover' wx:if="{{cateActive==0||cateActive==null}}">
-        <image src='{{detail.file}}' mode='widthFix'></image>
+        <image src='{{detail.image?detail.image: detail.file}}' mode='widthFix'></image>
       </view>
       <!-- 录音展示区 -->
       <view class='audio-item' wx:if="{{cateActive==1}}">
@@ -104,7 +104,7 @@
         <view class='cont-title'>
           活动规则
         </view>
-        {{detail.rule}}
+        <text>{{detail.rule}}</text>
       </view>
 
       <view class='rule-cont'>

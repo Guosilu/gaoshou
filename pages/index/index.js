@@ -119,15 +119,15 @@ Page({
 
   getActivityList: function () {
     var that = this;
-    //获取活动
-    var where = {};
-    where['mode'] = 'image'
+    //获取活动 图片类
+    //var where = {};
+    //where['mode'] = 'image'
     wx.request({
       url: config.activityUrl,
       method: 'POST',
       data: {
         action: 'lists',
-        where: where
+        where: {'mode':'image'}
       },
       success: function (res) {
         console.log(res);
@@ -136,6 +136,53 @@ Page({
         });
       }
     })
+    //获取活动 语音类
+    wx.request({
+      url: config.activityUrl,
+      method: 'POST',
+      data: {
+        action: 'lists',
+        where: { 'mode': 'voice' }
+      },
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          taglistVoice : res.data,
+        });
+      }
+    })   
+    //获取活动 视频类
+    wx.request({
+      url: config.activityUrl,
+      method: 'POST',
+      data: {
+        action: 'lists',
+        where: { 'mode': 'video' }
+      },
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          taglistVideo: res.data,
+        });
+      }
+    })
+    //获取活动 文章类
+    wx.request({
+      url: config.activityUrl,
+      method: 'POST',
+      data: {
+        action: 'lists',
+        where: { 'mode': 'active' }
+      },
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          taglistActive: res.data,
+        });
+      }
+    })
+
+
     //获取最红冠军
     wx.request({
       url: config.activity_orderUrl,

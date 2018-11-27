@@ -11,6 +11,7 @@ Page({
     chooseVoice: 'play',
     isLogin: wx.getStorageSync('isLogin'),
     img: config.img,
+    image: '',
     //swiper
     imgUrls: [],
     indicatorDots: true,
@@ -27,9 +28,9 @@ Page({
     activityTypeIndex: 0,
     // 日期插件
     bdate: util.day(new Date),
-    btime: util.hour(new Date), 
-    edate: util.afterDay(new Date), 
-    etime: util.hour(new Date), 
+    btime: util.hour(new Date),
+    edate: util.afterDay(new Date),
+    etime: util.hour(new Date),
     form_reset: '',
     //文件上传
     file: '',
@@ -40,21 +41,23 @@ Page({
   /**
    * 录制音频 启动
    */
-  start: function (e) {
+  start: function(e) {
     var that = this;
     console.log(e);
-    
+
     that.RecorderManager.start({
-      duration: 60000,       //录音时长 单位ms
-      sampleRate: 48000,      //采样率
-      encodeBitRate: 320000,   //编码码率
+      duration: 60000, //录音时长 单位ms
+      sampleRate: 48000, //采样率
+      encodeBitRate: 320000, //编码码率
       frameSize: 10,
     })
     that.setData({
       isRecording: true,
     })
     that.RecorderManager.onFrameRecorded((res) => {
-      const { frameBuffer } = res
+      const {
+        frameBuffer
+      } = res
       console.log('frameBuffer.byteLength', frameBuffer)
     })
   },
@@ -72,10 +75,13 @@ Page({
     // }) 
     that.RecorderManager.onStop((res) => {
       console.log('recorder stop', res)
-      const { tempFilePath, duration } = res
+      const {
+        tempFilePath,
+        duration
+      } = res
       that.setData({
         file: tempFilePath,
-        duration: (duration / 1000).toFixed(),  //四舍五入
+        duration: (duration / 1000).toFixed(), //四舍五入
         isRecording: false,
       })
     })
@@ -84,7 +90,7 @@ Page({
   /**
    * 播放已上传的音频
    */
-  play: function(){
+  play: function() {
     var that = this;
     that.InnerAudioContext = wx.createInnerAudioContext()
     that.InnerAudioContext.src = that.data.file;
@@ -95,7 +101,7 @@ Page({
     that.setData({
       chooseVoice: 'pause',
     })
-    that.InnerAudioContext.onEnded(()=>{
+    that.InnerAudioContext.onEnded(() => {
       that.setData({
         chooseVoice: 'play',
       })
@@ -104,7 +110,7 @@ Page({
   /**
    * 停止播放已上传的音频
    */
-  stopPlay(){
+  stopPlay() {
     this.InnerAudioContext.stop();
     that.setData({
       chooseVoice: 'play',
@@ -113,7 +119,7 @@ Page({
   /**
    * 暂停播放已上传的音频
    */
-  pause(){
+  pause() {
     this.InnerAudioContext.pause();
     let that = this;
     that.setData({
@@ -153,7 +159,7 @@ Page({
   /**
    * banner
    */
-  getBanner: function () {
+  getBanner: function() {
     var that = this;
     wx.request({
       url: config.activity_orderUrl,
@@ -161,7 +167,7 @@ Page({
       data: {
         action: 'getBanner'
       },
-      success: function (res) {
+      success: function(res) {
         var result = res.data;
         for (let a = 0; a < result.length; a++) {
           if (result[a]['file'] && result[a]['mode'] == 'image') {
@@ -176,13 +182,13 @@ Page({
     })
   },
   //选择支付方式
-  openPay: function () {
+  openPay: function() {
     let that = this;
     that.setData({
-      selectPay:true,
+      selectPay: true,
     })
   },
-  closePay: function () {
+  closePay: function() {
     let that = this;
     that.setData({
       selectPay: false,
@@ -193,7 +199,7 @@ Page({
     clk.setData({
       cateActive: e.currentTarget.dataset.current,
       file: "",
-      thumbTempFilePath:''
+      thumbTempFilePath: ''
     })
   },
 
@@ -220,7 +226,7 @@ Page({
     console.log(e);
     post['starttime'] = post.bdate + ' ' + post.btime;
     post['endtime'] = post.edate + ' ' + post.etime;
-    post['nickName'] = app.globalData.userInfo.nickName;
+    //post['nickName'] = app.globalData.userInfo.nickName;
     if (post.type == '0' || post.rule.trim() == '' || post.title.trim() == '') {
       wx.showToast({
         title: '填写不完整！',
@@ -228,23 +234,23 @@ Page({
       })
       return false;
     }
-    let file = this.data.file;
-    if (file == '') {
+    let image = this.data.image;
+    if (image == '') {
       wx.showToast({
         title: '请上传活动封面！',
         icon: 'none'
       });
       return false;
     } else {
-      console.log(file);
-      this.fileUpload(file, post);
+      console.log(image);
+      this.fileUpload(image, post);
     }
   },
 
   /**
-   * 图片上传
+   * 文件上传
    */
-  fileUpload: function(path, post) {
+  fileUpload: function(path, post, flag) {
     let that = this;
     wx.uploadFile({
       url: config.uploadUrl,
@@ -255,8 +261,20 @@ Page({
       },
       success: function(res) {
         console.log(res.data);
-        post['file'] = res.data;
-        that.formSubmitDo(post);
+        if (flag) {
+          post['file'] = res.data;
+          that.setData({
+            file: ''
+          })
+        } else {
+          post['image'] = res.data;
+        }
+        if (that.data.file != '') {
+          that.fileUpload(that.data.file, post, true);
+        } else {
+          that.formSubmitDo(post);
+        }
+
       }
     });
   },
@@ -268,9 +286,9 @@ Page({
     let that = this;
     post['openId'] = app.globalData.openId;
     post['mode'] = 'image'
-    if (that.data.cateActive == '1'){
+    if (that.data.cateActive == '1') {
       post['mode'] = 'voice'
-    }else if(that.data.cateActive == '2') {
+    } else if (that.data.cateActive == '2') {
       post['mode'] = 'video'
     } else if (that.data.cateActive == '3') {
       post['mode'] = 'article'
@@ -283,7 +301,7 @@ Page({
         action: 'add',
         post: post
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data > 0) {
           wx.showToast({
             title: '提交成功！',
@@ -302,7 +320,7 @@ Page({
       }
     })
   },
- 
+
 
   /**
    * 删除图片
@@ -340,7 +358,7 @@ Page({
       success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          file: res.tempFilePaths[0],
+          image: res.tempFilePaths[0],
         });
       }
     });
@@ -445,142 +463,142 @@ Page({
 
   }
 })
- // formSubmitDo: function(post) {
-  //   let that = this;
-  //   console.log(post.type);
-  //   post['openId'] = app.globalData.openId;
+// formSubmitDo: function(post) {
+//   let that = this;
+//   console.log(post.type);
+//   post['openId'] = app.globalData.openId;
 
-  //   //支付
-  //   wx.showModal({
-  //     title: '发布活动支付',
-  //     content: '确定要支付' + (app.payData.release_money)/100 +'元吗？',
-  //     success: function(sm) {
-  //       if (sm.confirm) {
-  //         //支付 
-  //         var randa = new Date().getTime().toString();
-  //         var randb = Math.round(Math.random() * 10000).toString();
-  //         var that = this;
-  //         wx.request({
-  //           url: config.payApi,
-  //           dataType: "json",
-  //           method: "post",
-  //           data: {
-  //             action: "unifiedOrder",
-  //             out_trade_no: randa + randb, //商户订单号
-  //             body: "赛脉平台活动发布", //商品描述
-  //             total_fee: app.payData.release_money, //金额 单位:分
-  //             trade_type: "JSAPI", //交易类型
-  //             openId: app.globalData.openId
-  //           },
-  //           success: function(res) {
-  //             // console.log(res.data);
-  //             var data = res.data;
-  //             //生成签名
-  //             wx.request({
-  //               url: config.payApi,
-  //               dataType: "json",
-  //               method: "post",
-  //               data: {
-  //                 "action": "getSign",
-  //                 'package': "prepay_id=" + data.prepay_id
-  //               },
-  //               success: function(res) {
-  //                 var signData = res.data;
-  //                 wx.requestPayment({
-  //                   'timeStamp': signData.timeStamp,
-  //                   'nonceStr': signData.nonceStr,
-  //                   'package': signData.package,
-  //                   'signType': "MD5",
-  //                   'paySign': signData.sign,
-  //                   success: function(res) {
-  //                     // 添加数据库信息
-  //                     wx.request({
-  //                       url: config.activityUrl,
-  //                       dataType: "json",
-  //                       method: "post",
-  //                       data: {
-  //                         "action": "add_release",
-  //                         "total_fee": app.payData.release_money,
-  //                         "user": app.globalData.userInfo.nickName,
-  //                         "openid": app.globalData.openId,
-  //                         "type": post.type,
-  //                       },
-  //                       success: function(res1) {
-  //                         console.log(res);
-  //                         // console.log(res);
-  //                         //支付成功
-  //                         //sta
-  //                         wx.showLoading({
-  //                           mask: true,
-  //                           title: '提交中...',
-  //                         });
-  //                         wx.request({
-  //                           url: config.activityUrl,
-  //                           method: "POST",
-  //                           data: {
-  //                             action: 'add',
-  //                             post: post,
-  //                             release_id : res1.data //发布的id
-  //                           },
-  //                           success: function(res) {
-  //                             if (res.data > 0) {
-  //                               wx.showToast({
-  //                                 title: '提交成功！',
-  //                               });
-  //                               // that.form_reset();
-  //                               wx.redirectTo({
-  //                                 url: '../exhibit/exhibit?id=' + res.data,
-  //                               })
-  //                             } else {
-  //                               wx.showToast({
-  //                                 title: '提交失败！',
-  //                                 icon: 'none'
-  //                               });
-  //                             }
-  //                           }
-  //                         })
-  //                         // over
-  //                       }
-  //                     })
-  //                   },
-  //                   fail: function(res) {
-  //                     //添加成功
-  //                     // wx.request({
-  //                     //   url: config.activityUrl,
-  //                     //   dataType: "json",
-  //                     //   method: "post",
-  //                     //   data: {
-  //                     //     "action": "add_release",
-  //                     //     "total_fee": app.payData.release_money,
-  //                     //     "user": app.globalData.userInfo.nickName,
-  //                     //     "openid": app.globalData.openId,
-  //                     //     "type": post.type,
-  //                     //   },
-  //                     //   success: function(res) {
-  //                     //     console.log(res);
+//   //支付
+//   wx.showModal({
+//     title: '发布活动支付',
+//     content: '确定要支付' + (app.payData.release_money)/100 +'元吗？',
+//     success: function(sm) {
+//       if (sm.confirm) {
+//         //支付 
+//         var randa = new Date().getTime().toString();
+//         var randb = Math.round(Math.random() * 10000).toString();
+//         var that = this;
+//         wx.request({
+//           url: config.payApi,
+//           dataType: "json",
+//           method: "post",
+//           data: {
+//             action: "unifiedOrder",
+//             out_trade_no: randa + randb, //商户订单号
+//             body: "赛脉平台活动发布", //商品描述
+//             total_fee: app.payData.release_money, //金额 单位:分
+//             trade_type: "JSAPI", //交易类型
+//             openId: app.globalData.openId
+//           },
+//           success: function(res) {
+//             // console.log(res.data);
+//             var data = res.data;
+//             //生成签名
+//             wx.request({
+//               url: config.payApi,
+//               dataType: "json",
+//               method: "post",
+//               data: {
+//                 "action": "getSign",
+//                 'package': "prepay_id=" + data.prepay_id
+//               },
+//               success: function(res) {
+//                 var signData = res.data;
+//                 wx.requestPayment({
+//                   'timeStamp': signData.timeStamp,
+//                   'nonceStr': signData.nonceStr,
+//                   'package': signData.package,
+//                   'signType': "MD5",
+//                   'paySign': signData.sign,
+//                   success: function(res) {
+//                     // 添加数据库信息
+//                     wx.request({
+//                       url: config.activityUrl,
+//                       dataType: "json",
+//                       method: "post",
+//                       data: {
+//                         "action": "add_release",
+//                         "total_fee": app.payData.release_money,
+//                         "user": app.globalData.userInfo.nickName,
+//                         "openid": app.globalData.openId,
+//                         "type": post.type,
+//                       },
+//                       success: function(res1) {
+//                         console.log(res);
+//                         // console.log(res);
+//                         //支付成功
+//                         //sta
+//                         wx.showLoading({
+//                           mask: true,
+//                           title: '提交中...',
+//                         });
+//                         wx.request({
+//                           url: config.activityUrl,
+//                           method: "POST",
+//                           data: {
+//                             action: 'add',
+//                             post: post,
+//                             release_id : res1.data //发布的id
+//                           },
+//                           success: function(res) {
+//                             if (res.data > 0) {
+//                               wx.showToast({
+//                                 title: '提交成功！',
+//                               });
+//                               // that.form_reset();
+//                               wx.redirectTo({
+//                                 url: '../exhibit/exhibit?id=' + res.data,
+//                               })
+//                             } else {
+//                               wx.showToast({
+//                                 title: '提交失败！',
+//                                 icon: 'none'
+//                               });
+//                             }
+//                           }
+//                         })
+//                         // over
+//                       }
+//                     })
+//                   },
+//                   fail: function(res) {
+//                     //添加成功
+//                     // wx.request({
+//                     //   url: config.activityUrl,
+//                     //   dataType: "json",
+//                     //   method: "post",
+//                     //   data: {
+//                     //     "action": "add_release",
+//                     //     "total_fee": app.payData.release_money,
+//                     //     "user": app.globalData.userInfo.nickName,
+//                     //     "openid": app.globalData.openId,
+//                     //     "type": post.type,
+//                     //   },
+//                     //   success: function(res) {
+//                     //     console.log(res);
 
-  //                     //   }
-  //                     // })
-  //                     //end
-  //                     wx.showToast({
-  //                       title: '支付已取消',
-  //                       icon: 'none'
-  //                     });
-  //                   }
-  //                 })
-  //               }
-  //             })
-  //           }
-  //         })
-  //       } else if (sm.cancel) {
-  //         console.log('用户点击取消');
-  //         wx.showToast({
-  //           title: '您已取消活动发布',
-  //           icon: 'none'
-  //         });
-  //         return false;
-  //       }
-  //     }
-  //   });
+//                     //   }
+//                     // })
+//                     //end
+//                     wx.showToast({
+//                       title: '支付已取消',
+//                       icon: 'none'
+//                     });
+//                   }
+//                 })
+//               }
+//             })
+//           }
+//         })
+//       } else if (sm.cancel) {
+//         console.log('用户点击取消');
+//         wx.showToast({
+//           title: '您已取消活动发布',
+//           icon: 'none'
+//         });
+//         return false;
+//       }
+//     }
+//   });
 
-  // },
+// },

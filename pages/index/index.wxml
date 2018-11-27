@@ -142,10 +142,11 @@
           <view wx:for="{{cateBar}}" bindtap='cateBarChd' data-current="{{index}}" wx:key="{{index}}">{{item}}</view>
         </view>
       </view>
+      <!-- 图片 -->
       <block wx:if="{{cateBarHd==0}}">
       <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
-          <image mode='aspectFill' src="{{item.file}}"></image>
+          <image mode='aspectFill' src="{{item.image?item.image:item.file}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
             <view class='sys-number'>编号：
@@ -167,9 +168,10 @@
         </navigator>
       </view>
       </block>
+
       <!-- 语音 -->
       <block wx:if="{{cateBarHd==1}}">
-      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
+      <view class="eventsItem" wx:for="{{taglistVoice}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file}}"></image>
           <view class="listInfo">
@@ -193,9 +195,10 @@
         </navigator>
       </view>
       </block>
+
       <!-- 视频 -->
       <block wx:if="{{cateBarHd==2}}">
-      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
+      <view class="eventsItem" wx:for="{{taglistVideo}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file}}"></image>
           <view class="listInfo">
@@ -219,9 +222,10 @@
         </navigator>
       </view>
       </block>
+
       <!-- 文章 -->
       <block wx:if="{{cateBarHd==3}}">
-      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
+      <view class="eventsItem" wx:for="{{taglistActive}}" wx:key="*this">
         <navigator url="../exhibit/exhibit?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file}}"></image>
           <view class="listInfo">

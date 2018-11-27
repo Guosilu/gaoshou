@@ -416,7 +416,7 @@ Page({
         if (data['mode'] == 'voice'){
           innerAudioContext.src = data.file;
         }
-        // console.log(data)
+        console.log(data)
         // console.log(data.file);
         that.setData({
           detail: data,

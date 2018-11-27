@@ -34,16 +34,16 @@
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
                   <view class="weui-uploader__title">活动封面</view>
-                  <view class="weui-uploader__info">{{file ? 1 : 0}}/1</view>
+                  <view class="weui-uploader__info">{{image ? 1 : 0}}/1</view>
                 </view>
                 <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{file != ''}}">
+                  <view class="weui-uploader__files" id="uploaderFiles" wx:if="{{image != ''}}">
                     <view class="weui-uploader__file">
-                      <image class="weui-uploader__img" bindtap="previewImage" src="{{file}}" mode="aspectFill" />
+                      <image class="weui-uploader__img" bindtap="previewImage" src="{{image}}" mode="aspectFill" />
                       <view class='delImg' bindtap="delImg">删除×</view>
                     </view>
                   </view>
-                  <view wx:if="{{file==''}}" class="weui-uploader__input-box">
+                  <view wx:if="{{image==''}}" class="weui-uploader__input-box">
                     <view class="weui-uploader__input" bindtap="chooseImage"></view>
                   </view>
                 </view>
