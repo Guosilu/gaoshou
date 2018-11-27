@@ -167,6 +167,84 @@
         </navigator>
       </view>
       </block>
+      <!-- 语音 -->
+      <block wx:if="{{cateBarHd==1}}">
+      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
+        <navigator url="../exhibit/exhibit?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title}}</view>
+            <view class='sys-number'>编号：
+              <text selectable='true'>{{item.number?item.number:"暂无"}}</text>
+            </view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
+      <!-- 视频 -->
+      <block wx:if="{{cateBarHd==2}}">
+      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
+        <navigator url="../exhibit/exhibit?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title}}</view>
+            <view class='sys-number'>编号：
+              <text selectable='true'>{{item.number?item.number:"暂无"}}</text>
+            </view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
+      <!-- 文章 -->
+      <block wx:if="{{cateBarHd==3}}">
+      <view class="eventsItem" wx:for="{{taglist}}" wx:key="*this">
+        <navigator url="../exhibit/exhibit?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title}}</view>
+            <view class='sys-number'>编号：
+              <text selectable='true'>{{item.number?item.number:"暂无"}}</text>
+            </view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
     </view>
 
 
@@ -178,6 +256,77 @@
         </view>
       </view>
       <block wx:if="{{cateBarGj==0}}">
+      <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
+        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title?item.title:"标题"}}</view>
+            <view class='sys-number'>编号：{{item.number?item.number:'暂无'}}</view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <!-- 语音 -->
+      </block><block wx:if="{{cateBarGj==1}}">
+      <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
+        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title?item.title:"标题"}}</view>
+            <view class='sys-number'>编号：{{item.number?item.number:'暂无'}}</view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
+      <!-- 视频 -->
+      <block wx:if="{{cateBarGj==2}}">
+      <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
+        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title?item.title:"标题"}}</view>
+            <view class='sys-number'>编号：{{item.number?item.number:'暂无'}}</view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan?item.dianzan:0}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
+      <!-- wz -->
+      <block wx:if="{{cateBarGj==3}}">
       <view class="eventsItem" wx:for="{{square}}" wx:key="*this">
         <navigator url="../orderDetail/orderDetail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file[0]}}"></image>
@@ -211,6 +360,78 @@
         </view>
       </view>
       <block wx:if="{{cateBarZp==0}}">
+      <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
+        <navigator url="../publication/detail/detail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title}}</view>
+            <view class='sys-number' style='display:none;'>编号：123456789</view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
+      <!-- yy -->
+      <block wx:if="{{cateBarZp==1}}">
+      <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
+        <navigator url="../publication/detail/detail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title}}</view>
+            <view class='sys-number' style='display:none;'>编号：123456789</view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
+      <!-- sp -->
+      <block wx:if="{{cateBarZp==2}}">
+      <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
+        <navigator url="../publication/detail/detail?id={{item.id}}">
+          <image mode='aspectFill' src="{{item.file[0]}}"></image>
+          <view class="listInfo">
+            <view class="listInfoTit">{{item.title}}</view>
+            <view class='sys-number' style='display:none;'>编号：123456789</view>
+            <view>
+              <image class="item-icon item-icon1" src='/images/Avatar.png' mode='widthFix' />
+              <text class='item-icnum'>{{item.nickName}}</text>
+              <view class='fr'>
+                <image class="item-icon" src='/images/like_on.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.dianzan}}</text>
+                <!-- <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan}}</text> -->
+                <image class="item-icon" src='/images/looks.png' mode='widthFix' />
+                <text class='item-icnum'>{{item.liulan?item.liulan:0}}</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      </block>
+      <!-- wz -->
+      <block wx:if="{{cateBarZp==3}}">
       <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}">
           <image mode='aspectFill' src="{{item.file[0]}}"></image>
