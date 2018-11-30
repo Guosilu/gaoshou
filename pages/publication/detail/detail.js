@@ -166,6 +166,23 @@ Page({
   **/
   onLoad: function (options) {
     var that = this;
+    
+    var cateActive = options.cateActive ? options.cateActive : 0;
+    if (cateActive == 'image') {
+      cateActive = 0;
+    } else if (cateActive == 'voice') {
+      cateActive = 1;
+    } else if (cateActive == 'video') {
+      cateActive = 2;
+    } else if (cateActive == 'active') {
+      cateActive = 3;
+    }
+
+    this.setData({
+      cateActive: cateActive,
+    })
+
+
     var dataObj = {
       compose_id: options.id,
       openId: app.globalData.openId,

@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -99,7 +99,7 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 10,
 					"name": "发起活动",
 					"pathName": "pages/activity_Initiate/activity_Initiate",
 					"query": ""

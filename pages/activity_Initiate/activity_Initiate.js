@@ -327,7 +327,7 @@ Page({
    */
   delImg: function(e) {
     this.setData({
-      file: ''
+      image: ''
     })
   },
 

@@ -127,7 +127,7 @@ Page({
       method: 'POST',
       data: {
         action: 'lists',
-        where: {'mode':'image'}
+        //where: {'mode':'image'}
       },
       success: function (res) {
         console.log(res);
@@ -136,52 +136,6 @@ Page({
         });
       }
     })
-    //获取活动 语音类
-    wx.request({
-      url: config.activityUrl,
-      method: 'POST',
-      data: {
-        action: 'lists',
-        where: { 'mode': 'voice' }
-      },
-      success: function (res) {
-        console.log(res);
-        that.setData({
-          taglistVoice : res.data,
-        });
-      }
-    })   
-    //获取活动 视频类
-    wx.request({
-      url: config.activityUrl,
-      method: 'POST',
-      data: {
-        action: 'lists',
-        where: { 'mode': 'video' }
-      },
-      success: function (res) {
-        console.log(res);
-        that.setData({
-          taglistVideo: res.data,
-        });
-      }
-    })
-    //获取活动 文章类
-    wx.request({
-      url: config.activityUrl,
-      method: 'POST',
-      data: {
-        action: 'lists',
-        where: { 'mode': 'active' }
-      },
-      success: function (res) {
-        console.log(res);
-        that.setData({
-          taglistActive: res.data,
-        });
-      }
-    })
-
 
     //获取最红冠军
     wx.request({
@@ -211,6 +165,7 @@ Page({
       },
       success: function (res) {
         let result = res.data;
+        console.log(result);
         for(let a=0;a<result.length;a++){
           result[a]['file'] = result[a]['file'].split(',')
         }
