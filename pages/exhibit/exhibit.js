@@ -43,8 +43,7 @@ Page({
 
       success: function (res) {
         console.log(res);
-        //if (res.data == 1) {
-        if (res.data == 4) {
+        if (res.data == 1) {
           wx.request({
             url: config.activityUrl,
             method: "POST",
@@ -63,7 +62,7 @@ Page({
                   success: function () {
                     setTimeout(function () {
                       wx.redirectTo({
-                        url: '../orderDetail/orderDetail?id=' + res.data
+                        url: '../orderDetail/orderDetail?id=' + res.data + "&cateActive=" + that.data.detail.mode
                       })
                     }, 1500)
                   }
@@ -83,12 +82,12 @@ Page({
             title: '您已经参加！'
           });
         } 
-        // else if (res.data == 4) {
-        //   wx.showToast({
-        //     icon: 'none',
-        //     title: '活动已经开始！'
-        //   });
-        // }
+        else if (res.data == 4) {
+          wx.showToast({
+            icon: 'none',
+            title: '活动已经开始！'
+          });
+        }
       }
     });
   },
@@ -288,6 +287,7 @@ Page({
 
   joinActivity: function() {
     let id = this.data.detail.id;
+    var that = this;
     wx.request({
       url: config.activityUrl,
       method: "POST",
@@ -299,26 +299,26 @@ Page({
         }
       },
       success: function(res) {
-        if (res.data == 1) {
+        // if (res.data == 1) {
           wx.navigateTo({
-            url: '../participate/participate?id=' + id
+            url: '../publication/add/publication?id=' + id + "&cateActive=" + that.data.detail.mode 
           })
-        } else if (res.data == 2) {
-          wx.showToast({
-            icon: 'none',
-            title: '您不能参加自己发布的活动！'
-          });
-        } else if (res.data == 3) {
-          wx.showToast({
-            icon: 'none',
-            title: '您已经参加！'
-          });
-        } else if (res.data == 4) {
-          wx.showToast({
-            icon: 'none',
-            title: '活动已经开始！'
-          });
-        }
+        // } else if (res.data == 2) {
+        //   wx.showToast({
+        //     icon: 'none',
+        //     title: '您不能参加自己发布的活动！'
+        //   });
+        // } else if (res.data == 3) {
+        //   wx.showToast({
+        //     icon: 'none',
+        //     title: '您已经参加！'
+        //   });
+        // } else if (res.data == 4) {
+        //   wx.showToast({
+        //     icon: 'none',
+        //     title: '活动已经开始！'
+        //   });
+        // }
       }
     });
 
@@ -718,4 +718,8 @@ Page({
       value: e.detail.value
     })
   },
+
+  onShow: function(option) {
+    this.queryPublication();
+  }
 })

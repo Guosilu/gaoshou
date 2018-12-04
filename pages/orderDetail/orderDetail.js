@@ -316,6 +316,7 @@ Page({
         if(data.mode=='image' && data['file']){
           data['file'] = data['file'].split(',')
         }
+        console.log(data);
         that.setData({
           detail: data,
           like_status: data.like_status,

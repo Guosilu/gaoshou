@@ -48,7 +48,7 @@
       </view>
       <!-- End -->
       <!-- 视频 -->
-      <video wx:if="{{cateActive==2}}" class='video-box' id="myVideo" src="{{detail.file}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls poster=""></video>
+      <video wx:if="{{cateActive==2}}" class='video-box' id="myVideo" src="{{detail.file}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls poster></video>
     <view class='reward-btn' bindtap='openPay'>
       喜欢作品
     </view>

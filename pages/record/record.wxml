@@ -1,8 +1,8 @@
 <!-- 我的参赛作品 -->
 <block wx:if="{{judge=='MyPublication'}}"> 
   <view wx:for="{{list}}" wx:key="*this" class="page__modules modules__shadow"> 
-    <navigator url="../orderDetail/orderDetail?id={{item.id}}"> 
-      <image class="recordListImg" src="{{item.file[0]}}"></image> 
+    <navigator url="../orderDetail/orderDetail?id={{item.id}}&cateActive={{item.mode}}"> 
+      <image class="recordListImg" src="{{item.image[0]}}"></image> 
       <view class="recordListInfo"> 
         <view class="recordListTitle">{{item.title}}</view> 
         <view class="recordListOther"> 
@@ -17,7 +17,7 @@
 <block wx:elif="{{judge=='WhoLaunchs'}}"> 
   <block wx:for="{{list}}" wx:key="*this"> 
     <view class="page__modules canyu modules__shadow"> 
-      <navigator url="../orderDetail/orderDetail?id={{item.id}}"> 
+      <navigator url="../orderDetail/orderDetail?id={{item.id}}&cateActive={{item.mode}}"> 
         <image style='width:15px;height:15px' src='{{item.avatarUrl}}'></image> 
         <text class="my_canyu">{{item.nickName}}</text>参与了你发表的活动 
       </navigator> 
@@ -28,8 +28,8 @@
 
 <block wx:else>
   <view wx:for="{{list}}" wx:key="*this" class="page__modules modules__shadow"> 
-    <navigator url="../exhibit/exhibit?id={{item.id}}">
-      <image class="recordListImg" src="{{item.file[0]}}"></image> 
+    <navigator url="../exhibit/exhibit?id={{item.id}}&cateActive={{item.mode}}">
+      <image class="recordListImg" src="{{item.image[0]}}"></image> 
       <view class="recordListInfo"> 
         <view class="recordListTitle">{{item.title}}</view> 
         <view class="recordListOther"> 

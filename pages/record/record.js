@@ -38,7 +38,7 @@ Page({
       })
     }else {
       that.setData({
-        judge: "WhoLaunchs",
+        judge: "WhoLaunch",
       })
       that.query("WhoLaunch", config.activity_orderUrl)
     }
@@ -65,8 +65,8 @@ Page({
       success: function (res) {
         let data = JSON.parse(res.data);
         for(let a = 0; a<data.length; a++){
-          if (data[a]['file'] && data[a]['mode'] == 'image') {
-            data[a]['file'] = data[a]['file'].split(',')
+          if (data[a]['image']) {
+            data[a]['image'] = data[a]['image'].split(',')
           }
         }
         

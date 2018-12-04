@@ -72,10 +72,10 @@ Page({
     }
     let that = this;
     let files = this.data.files;
-    // wx.showLoading({
-    //   mask: true,
-    //   title: '提交中...'
-    // });
+    wx.showLoading({
+      mask: true,
+      title: '提交中...'
+    });
 
     if (files.length > 0) {
       that.setData({
@@ -209,9 +209,16 @@ Page({
             title: '提交成功！正在跳转',
             success: function() {
               setTimeout(function() {
-                wx.redirectTo({
-                  url: '../detail/detail?id=' + res.data + "&cateActive="+post['mode'],
-                })
+                //如果是参与活动那边跳过来的, 添加成功后再返回
+                if (that.data.flag){
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }else{
+                  wx.redirectTo({
+                    url: '../detail/detail?id=' + res.data + "&cateActive=" + post['mode'],
+                  })
+                }
               }, 1500)
             }
           });
@@ -402,6 +409,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options);
+    if (options.cateActive){
+      this.setData({
+        flag: options.cateActive
+      })
+      let msg = "图片";
+      if (options.cateActive == 'video'){
+        msg = '视频';
+      } else if (options.cateActive == 'voice') {
+        msg = '语音';
+      } else if (options.cateActive == 'active') {
+        msg = '文章';
+      }
+      wx.showToast({
+        title: '请选择' + msg + '类',
+        icon: 'none'
+      })
+    }
     this.getBanner();
     this.RecorderManager = wx.getRecorderManager();
 

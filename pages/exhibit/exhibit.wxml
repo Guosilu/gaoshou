@@ -142,11 +142,11 @@
       </view>
       <view class='ex-list'>
         <view class='ex-cipate' wx:for="{{order_lists}}" wx:key="*this">
-          <navigator url="../orderDetail/orderDetail?id={{item.id}}">
-            <image src='{{item.file[0]}}' mode='aspectFill'></image>
+          <navigator url="../orderDetail/orderDetail?id={{item.id}}&cateActive={{item.mode}}">
+            <image src='{{item.image}}' mode='aspectFill'></image>
             <view class='listInfo'>
               <view>
-                {{item.truename}}，
+                {{item.title}}
               </view>
               <view class='sys-number'>编号：
                 <text selectable='true'>123456789</text>
