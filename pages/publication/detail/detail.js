@@ -161,6 +161,13 @@ Page({
   },
   // -----------------赏金结束----------------
 
+  clickPlay: function (res) {
+    this.innerAudioContext =  wx.createInnerAudioContext();
+    console.log(res);
+    this.innerAudioContext.play()
+  },
+
+
   /**
   * 生命周期函数--监听页面加载
   **/

@@ -31,19 +31,19 @@
             <view class="weui-cell__bd">
               <view class="weui-uploader">
                 <view class="weui-uploader__hd">
-                  <view class="weui-uploader__title">上传封面</view>
-                  <view class="weui-uploader__info">{{files.length}}/4</view>
+                  <view class="weui-uploader__title">{{cateActive==0?"上传图片": "上传封面"}}</view>
+                  <view class="weui-uploader__info">{{image.length?image.length:0}}/{{imageNum}}</view>
                 </view>
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files" id="uploaderFiles">
-                    <block wx:for="{{files}}" wx:key="*this">
+                    <block wx:for="{{image}}" wx:key="*this">
                       <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                         <view data-id="{{index}}" class='delImg' bindtap="delImg">删除×</view>
                       </view>
                     </block>
                   </view>
-                  <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input-box" wx:if="{{image.length != imageNum}}">
                     <view class="weui-uploader__input" bindtap="chooseImage"></view>
                   </view>
                 </view>

@@ -348,7 +348,7 @@
       <block wx:if="{{cateBarZp==0}}">
       <view class="eventsItem" wx:for="{{worksList}}" wx:key="*this">
         <navigator url="../publication/detail/detail?id={{item.id}}&cateActive={{item.mode}}">
-          <image mode='aspectFill' src="{{item.file[0]}}"></image>
+          <image mode='aspectFill' src="{{item.image[0]}}"></image>
           <view class="listInfo">
             <view class="listInfoTit">{{item.title}}</view>
             <view class='sys-number' style='display:none;'>编号：123456789</view>

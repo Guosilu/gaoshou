@@ -16,7 +16,7 @@ Page({
   show:function(option){
     console.log(option);
     let that = this;
-    let id = option.currentTarget.dataset.ids     
+    let id = option.currentTarget.dataset.ids;
     let cateActive = option.currentTarget.dataset.cateactive
     if(that.data.types=='all'){
       wx.navigateTo({
@@ -24,7 +24,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '../publication/detail/detail?id=' + id,
+        url: '../publication/detail/detail?id=' + id + '&cateActive=' + cateActive,
       })
     }
   },
@@ -85,8 +85,8 @@ Page({
       success: function (res) {
         let data = res.data;
         for(let a = 0; a< data.length; a++) {
-          if (data[a].mode == 'image' && data[a]['file']) {
-            data[a]['file']  = data[a]['file'].split(',')
+          if (data[a]['mode'] == 'image' && data[a]['image']) {
+            data[a]['image'] = data[a]['image'].split(',')
           }
         }
         console.log(data);

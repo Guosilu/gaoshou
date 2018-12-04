@@ -167,7 +167,7 @@ Page({
         let result = res.data;
         console.log(result);
         for(let a=0;a<result.length;a++){
-          result[a]['file'] = result[a]['file'].split(',')
+          result[a]['image'] = result[a]['image'].split(',')
         }
         that.setData({
           worksList: res.data,
