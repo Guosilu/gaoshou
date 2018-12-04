@@ -91,6 +91,7 @@
   width: 120rpx;margin-left: 20rpx;
   background: #dc4e40;
   color: #fff;
+  font-size: 12px;
   text-align: center;
   border-radius: 10rpx;
 }

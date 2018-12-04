@@ -38,7 +38,6 @@
             <view class='exh_num'>编号：
               <text selectable='true'>{{item.number?item.number:""}}</text>
             </view>
-            <view bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>参与活动</view>
           </view>
           <!-- 用户头像区 -->
           <view class='audio-user'>
@@ -73,6 +72,14 @@
               <view class='av-inte'><image class='av-inte-icon' src='/images/like.png'></image> <text>5</text></view>
               <view class='av-inte'><image class='av-inte-icon' src='/images/red-packet.png'></image></view>
             </view> -->
+
+          <view class='partic'>
+            <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+            <text class='ex_text'>{{item.zanshang}}</text>
+            <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+            <text class='ex_text'>{{item.liulan}}</text>
+            <view bindtap='show' class='join' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>参与活动</view>
+          </view>
         </view>
       </block>
 
@@ -83,7 +90,6 @@
             <view class='exh_num'>编号：
               <text selectable='true'>{{item.number?item.number:""}}</text>
             </view>
-            <view bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>参与活动</view>
           </view>
           <!-- 用户头像区 -->
           <view class='video-user'>
@@ -105,6 +111,15 @@
               <view class='av-inte'><image class='av-inte-icon' src='/images/like.png'></image> <text>5</text></view>
               <view class='av-inte'><image class='av-inte-icon' src='/images/red-packet.png'></image></view>
             </view> -->
+
+          <view class='partic'>
+            <image src='/images/like.png' class='ex_icon' mode='widthFix' />
+            <text class='ex_text'>{{item.zanshang}}</text>
+            <image src='/images/looks.png' class='ex_icon' mode='widthFix' />
+            <text class='ex_text'>{{item.liulan}}</text>
+            <view bindtap='show' class='join' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>参与活动</view>
+          </view>
+
         </view>
       </block>
 
