@@ -123,7 +123,7 @@
             <view class='my-ext-item' wx:for='{{publication}}' wx:key="*this">
               <view class='my-ext-title' data-id='{{item.id}}' bindtap='clickPublication'>{{item.title}}</view>
               <view class='my-ext-img' data-id='{{item.id}}' bindtap='clickPublication'>
-                <image wx:for='{{item.file}}' wx:key="*this" wx:for-item="img" src='{{img}}' mode='widthFix' />
+                <image wx:for='{{item.image}}' wx:key="*this" wx:for-item="img" src='{{img}}' mode='widthFix' />
               </view>
             </view>
           </scroll-view>

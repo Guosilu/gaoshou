@@ -42,8 +42,9 @@ Page({
       },
 
       success: function (res) {
-        if (res.data == 1) {
-
+        console.log(res);
+        //if (res.data == 1) {
+        if (res.data == 4) {
           wx.request({
             url: config.activityUrl,
             method: "POST",
@@ -55,7 +56,7 @@ Page({
               activity_id: that.data.detail.id
             },
             success: function (res) {
-              // console.log(res);
+              console.log(res);
               if (res.data > 0) {
                 wx.showToast({
                   title: '添加成功',
@@ -81,12 +82,13 @@ Page({
             icon: 'none',
             title: '您已经参加！'
           });
-        } else if (res.data == 4) {
-          wx.showToast({
-            icon: 'none',
-            title: '活动已经开始！'
-          });
-        }
+        } 
+        // else if (res.data == 4) {
+        //   wx.showToast({
+        //     icon: 'none',
+        //     title: '活动已经开始！'
+        //   });
+        // }
       }
     });
   },
@@ -273,9 +275,8 @@ Page({
       success: function(res) {
         var result = res.data;
         for (let a = 0; a < result.length; a++) {
-            result[a]['file'] = result[a]['file'].split(',')
+          result[a]['image'] = result[a]['image'].split(',')
         }
-        console.log(that.data.detail);
         console.log(result);
         that.setData({
           publication: result
@@ -331,7 +332,6 @@ Page({
 
   //初次加载
   onLoad: function(options) {
-    console.log(options)
     var cateActive = options.cateActive ? options.cateActive: 0;
     if (cateActive == 'image'){
       cateActive = 0;

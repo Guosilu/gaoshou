@@ -38,11 +38,11 @@
             <view class='exh_num'>编号：
               <text selectable='true'>{{item.number?item.number:""}}</text>
             </view>
-            <view bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>点击查看</view>
+            <view bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>参与活动</view>
           </view>
           <!-- 用户头像区 -->
           <view class='audio-user'>
-            <image class='avuser-avatar' src='http://img.name2012.com/uploads/allimg/180315/21264V405-9.jpg' mode='aspectFill' />
+            <image class='avuser-avatar' src='{{item.avatarUrl}}' mode='aspectFill' />
             <view class='avuser-info'>
               <view class='avuser-name'>{{item.nickName}}</view>
             </view>
@@ -83,7 +83,7 @@
             <view class='exh_num'>编号：
               <text selectable='true'>{{item.number?item.number:""}}</text>
             </view>
-            <view bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>点击查看</view>
+            <view bindtap='show' data-ids='{{item.id}}' data-cateActive='{{item.mode}}'>参与活动</view>
           </view>
           <!-- 用户头像区 -->
           <view class='video-user'>

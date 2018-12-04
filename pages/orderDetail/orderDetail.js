@@ -185,6 +185,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options);
+    var cateActive = options.cateActive ? options.cateActive : 0;
+    if (cateActive == 'image') {
+      cateActive = 0;
+    } else if (cateActive == 'voice') {
+      cateActive = 1;
+    } else if (cateActive == 'video') {
+      cateActive = 2;
+    } else if (cateActive == 'active') {
+      cateActive = 3;
+    }
     wx.showLoading({
       mask: true,
       title: '加载中...',
@@ -198,7 +209,7 @@ Page({
     this.get_detail(options.id);
     this.getComment(dataObj, 2);
     that.setData({
-      cateActive: options.cateActive,
+      cateActive: cateActive,
     })
   },
   clickPlay: function () {

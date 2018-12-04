@@ -262,18 +262,20 @@ Page({
           if (flag) {
             post['file'] = that.data.filePath;
             that.setData({
-              files: []
+              files: [],
+              filePath: ""
             })
           }else {
             post['image'] = that.data.filePath;
-          }
-
-          if (that.data.files.length > 0) {
             that.setData({
               filePath: ""
             })
+          }
+
+          if (that.data.files.length > 0) {
             that.fileUpload(0, that.data.files, true)
           }else{
+            //console.log(post)
             that.formSubmitDo(post);
           }
 
